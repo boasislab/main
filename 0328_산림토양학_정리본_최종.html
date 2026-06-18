@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0328 산림토양학 강의 정리본</title>
+<style>
+  :root {
+    --brown1: #5d3a1a;
+    --brown2: #8b5e3c;
+    --brown3: #c49a6c;
+    --soil: #a0522d;
+    --leaf: #4a7c59;
+    --sky: #2e7ead;
+    --warn: #c0392b;
+    --exam: #d35400;
+    --bg: #fdfaf5;
+    --card: #fff9f0;
+    --border: #ddd0bb;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: var(--bg); color: #2c2416; line-height: 1.8; max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  h1 { background: linear-gradient(135deg, var(--brown1), var(--soil)); color: #fff; padding: 20px 24px; border-radius: 10px; font-size: 1.5em; margin-bottom: 8px; }
+  h1 small { display: block; font-size: 0.65em; font-weight: 400; margin-top: 6px; opacity: 0.85; }
+
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 16px 0 24px; }
+  .toc h3 { margin: 0 0 10px; color: var(--brown1); font-size: 0.95em; }
+  .toc ol { margin: 0; padding-left: 20px; font-size: 0.88em; line-height: 2; color: var(--soil); }
+
+  h2 { color: #fff; background: var(--brown2); padding: 10px 16px; border-radius: 6px; font-size: 1.1em; margin-top: 36px; }
+  h3 { color: var(--soil); border-left: 4px solid var(--soil); padding-left: 10px; font-size: 1.02em; margin-top: 20px; }
+  h4 { color: var(--brown2); font-size: 0.96em; margin-top: 14px; }
+
+  /* 시험 포인트 박스 */
+  .exam-box {
+    background: #fff3e0;
+    border: 2px solid var(--exam);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    position: relative;
+  }
+  .exam-box::before {
+    content: "★ 시험 포인트";
+    display: block;
+    font-weight: 700;
+    color: var(--exam);
+    font-size: 0.85em;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  /* 핵심 포인트 박스 */
+  .key-box {
+    background: #f0f9ec;
+    border-left: 5px solid var(--leaf);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* 경고/주의 박스 */
+  .warn-box {
+    background: #fdecea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .warn-box strong { color: var(--warn); }
+
+  /* 비유 설명 박스 */
+  .analogy-box {
+    background: #f8f4ff;
+    border: 1px dashed #9b59b6;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-style: italic;
+  }
+
+  /* 테이블 */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  thead { background: var(--brown2); color: #fff; }
+  th, td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; }
+  tbody tr:nth-child(even) { background: #fdf6ee; }
+
+  /* 단계/목록 */
+  ol, ul { padding-left: 22px; margin: 8px 0; }
+  li { margin-bottom: 6px; }
+
+  /* 강조 */
+  .hl-red { color: var(--warn); font-weight: 700; }
+  .hl-orange { color: var(--exam); font-weight: 700; }
+  .hl-green { color: var(--leaf); font-weight: 700; }
+  .hl-blue { color: var(--sky); font-weight: 700; }
+  .hl-brown { color: var(--brown1); font-weight: 700; }
+
+  /* 토양 단면 시각화 */
+  .horizon-diagram { border: 2px solid var(--border); border-radius: 8px; overflow: hidden; margin: 14px 0; font-size: 0.88em; }
+  .horizon-row { display: flex; align-items: stretch; min-height: 52px; }
+  .horizon-label { width: 70px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.1em; flex-shrink: 0; }
+  .horizon-content { padding: 10px 14px; border-left: 3px solid rgba(0,0,0,0.12); flex: 1; display: flex; align-items: center; }
+  .hz-O { background: #4a3728; }
+  .hz-A { background: #7a5230; }
+  .hz-E { background: #a07850; }
+  .hz-B { background: #c8a070; }
+  .hz-C { background: #d8b898; }
+  .hz-R { background: #888; }
+  .hz-O-bg { background: #f5f0ea; }
+  .hz-A-bg { background: #fdf5ed; }
+  .hz-E-bg { background: #fffff5; }
+  .hz-B-bg { background: #fffaed; }
+  .hz-C-bg { background: #f8f8f8; }
+  .hz-R-bg { background: #ebebeb; }
+
+  /* 토성 삼각도 설명 */
+  .texture-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
+  .texture-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px; text-align: center; font-size: 0.85em; }
+  .texture-card strong { display: block; font-size: 1em; color: var(--brown1); }
+
+  /* 단계 흐름 */
+  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .flow-item { background: var(--brown2); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.88em; font-weight: 600; }
+  .flow-arrow { color: var(--soil); font-size: 1.3em; font-weight: 700; }
+
+  /* 영양소 테이블 색상 */
+  .macro { background: #fff8e1; }
+  .micro { background: #f1f8e9; }
+
+  /* 구분선 */
+  hr { border: none; border-top: 2px dashed var(--border); margin: 30px 0; }
+
+  /* 소제목 태그 */
+  .tag { display: inline-block; background: var(--brown3); color: #fff; font-size: 0.75em; padding: 2px 8px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+
+  /* 인용 */
+  blockquote { margin: 10px 0; padding: 10px 16px; background: #f7f4ee; border-left: 4px solid var(--brown3); font-size: 0.95em; }
+
+  footer { margin-top: 40px; border-top: 2px dashed var(--border); padding-top: 16px; font-size: 0.85em; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>🌱 0328 산림토양학 강의 정리본
+  <small>강의일: 2026-03-28 | 강사: 한국농수산대학교 성정원 | 작성: 보아시스랩</small>
+</h1>
+
+<div class="toc">
+  <h3>📋 목차</h3>
+  <ol>
+    <li>식물과 사람의 유사성 — 핵심 비유 개념</li>
+    <li>우리나라 산림 토양의 주요 특성 ★</li>
+    <li>공극(空隙) / 토심(土深)</li>
+    <li>토양 pH와 산성화 ★</li>
+    <li>토양 미생물 — 지렁이·땅강아지 3대 역할 ★</li>
+    <li>토양 유기물 함량 통계</li>
+    <li>산불 피해와 메토 종자은행(Seed Bank) ★</li>
+    <li>토양 단면(토층) 구조 — 5개 층</li>
+    <li>토양 3상(三相) 구성</li>
+    <li>토양수 3단계 원리 ★</li>
+    <li>고도에 따른 식물 변화</li>
+    <li>토양 구성 입자 4종류와 토성 삼각도</li>
+    <li>입단(粒團) 구조 ★</li>
+    <li>식물 필수 영양소 (다량·미량 원소)</li>
+    <li>퇴비화(Composting) 3단계</li>
+    <li>토양 관리 4원칙</li>
+    <li>나무 심기 3대 핵심 원칙</li>
+    <li>토양 오염 (점오염·비점오염)</li>
+    <li>현장 체험 프로그램 제안</li>
+    <li>해설 시 주의식물 3종</li>
+    <li>오늘 강의 핵심 3가지 ★★★</li>
+  </ol>
+</div>
+
+<!-- ===== 1 ===== -->
+<h2>1. 식물과 사람의 유사성 — 핵심 비유 개념</h2>
+
+<div class="exam-box">
+  <strong>"식물은 사람이랑 똑같다"</strong> — 모든 해설의 출발점!<br>
+  <table style="margin-top:10px;">
+    <thead><tr><th>식물 기관</th><th>사람 기관</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><strong>잎</strong></td><td>피부</td><td>광합성, 호흡, 수분 조절</td></tr>
+      <tr><td><strong>뿌리</strong></td><td>심장 + 코</td><td>물·영양분 흡수 + 호흡(산소)</td></tr>
+      <tr><td><strong>줄기</strong></td><td>혈관</td><td>영양분·물 이동 통로</td></tr>
+      <tr><td><strong>토양</strong></td><td>갈비뼈</td><td>심장(뿌리)을 지지·보호</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>수피 해충과 영양분 차단</h3>
+<p>청해충·흑집석 해충이 수피를 파고 들어가 나무의 영양분을 빼앗습니다. 밑에서 100 올려줬는데 위 잎에서는 50밖에 못 받으면 잎이 달리지 않고 생장을 못합니다.</p>
+
+<h3>지역에 따른 잎의 변화</h3>
+<p>서울에서 남쪽으로 내려갈수록 잎이 넓어지고, 색깔이 진해지고, 잎이 두꺼워집니다 — 빛을 많이 받기 때문. 온도 변화에 따라 모든 생물은 환경에 적응하기 위해 처절하게 진화합니다.</p>
+
+<div class="analogy-box">
+  비유: 러시아 사람 코는 뾰족하고, 아프리카 사람 피부는 탄성이 뛰어납니다. 식물도 마찬가지입니다.
+</div>
+
+<!-- ===== 2 ===== -->
+<h2>2. 우리나라 산림 토양의 주요 특성 ★</h2>
+
+<div class="exam-box">
+  <strong>우리나라 산림 토양 4대 특성 — 꼭 암기!</strong>
+  <ol>
+    <li><span class="hl-red">무기 성분의 불균형</span> — SiO₂(규소)는 풍부, Ca·Mg·Mn·K 등은 부족</li>
+    <li><span class="hl-green">양호한 배수·통기성</span></li>
+    <li><span class="hl-orange">산성 토양화</span> — 평균 pH 5.5~6 (약산성)</li>
+    <li><span class="hl-brown">낮은 양분과 수분</span></li>
+  </ol>
+</div>
+
+<h3>복잡한 지형·지세</h3>
+<p>좁은 땅덩어리, 삼면이 바다, 동고서저 지형, 습지 발달 → 지역마다, 사면마다 토양 성질이 다릅니다.</p>
+
+<h3>통화토(바람에 날린 토양)</h3>
+<p>우리나라 대부분의 토양은 <strong>통화토</strong>(바람에 깎여 날려 쌓인 토양)입니다. 이 토양에는 양분이 거의 없습니다.</p>
+
+<!-- ===== 3 ===== -->
+<h2>3. 공극(空隙) / 토심(土深)</h2>
+
+<h3>공극(空隙)이란?</h3>
+<div class="key-box">
+  입자와 입자 사이에 만들어지는 작은 공간.<br>
+  <strong>입자가 클수록 공극이 커짐 → 배수성·통기성 향상 → 뿌리 호흡 가능</strong>
+</div>
+
+<h3>토심(土深)</h3>
+<p>흙의 깊이. 자연 산림에서 뿌리는 최소 <strong>6m</strong>까지 내려갑니다.</p>
+<table>
+  <thead><tr><th>구분</th><th>토심 기준</th><th>특징</th></tr></thead>
+  <tbody>
+    <tr><td>LH 도시계획</td><td>최소 1.5m</td><td>도심에서는 배관·전기·건물 우선, 나무는 맨 마지막</td></tr>
+    <tr><td>가로수</td><td>제한적</td><td>살고 싶어 뿌리가 위로 올라옴 → 도로 울퉁불퉁</td></tr>
+    <tr><td>산림 나무</td><td>최소 6m</td><td>뿌리를 편안하고 깊이 내릴 수 있는 구조</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== 4 ===== -->
+<h2>4. 토양 pH와 산성화 ★</h2>
+
+<div class="exam-box">
+  <strong>우리나라 산림 토양 평균 pH: 5.5~6 (약산성)</strong><br>
+  → 산성이 강해지면 대부분의 식물이 적응하지 못함<br>
+  → 산성 토양 선호 식물: <span class="hl-green">블루베리, 만병초</span> (피트모스 사용)
+</div>
+
+<h3>토층별 pH 특성 (PDF 슬라이드 기준)</h3>
+<table>
+  <thead><tr><th>토층 깊이</th><th>특성</th></tr></thead>
+  <tbody>
+    <tr><td>0~5cm (표층)</td><td>유기물 풍부, pH 다소 낮음</td></tr>
+    <tr><td>5~15cm</td><td>pH 변이 큼</td></tr>
+    <tr><td>15~30cm</td><td>pH 4.5~6.0 범위</td></tr>
+    <tr><td>30~60cm (심토층)</td><td>유기물 거의 없음, pH 측정기 검사 시 거의 없는 경우 많음</td></tr>
+  </tbody>
+</table>
+
+<h3>산성 토양의 개선</h3>
+<div class="key-box">
+  산성화 개선 가장 효과적인 방법: <strong>석회 투입</strong><br>
+  → 석회 투입 시 입단화 구조를 이루면서 알칼리화 진행<br>
+  → 지면에서 종 다양성 낮고 바닥에 식물 없으면 <span class="hl-warn">강산성화 징후</span>
+</div>
+<p>산성 토양 pH는 <strong>미생물 활동</strong>에 결정적 영향을 미칩니다.</p>
+
+<h3>피트모스 vs 코코피트</h3>
+<table>
+  <thead><tr><th>구분</th><th>pH</th><th>특징</th></tr></thead>
+  <tbody>
+    <tr><td><strong>피트모스(Peat Moss)</strong></td><td>3.5~4.5</td><td>산성 식물(블루베리·만병초) 전용, 보습 탁월</td></tr>
+    <tr><td><strong>코코피트(Coco Peat)</strong></td><td>5.5~6.5</td><td>일반 재배, 가격 저렴, 친환경</td></tr>
+  </tbody>
+</table>
+
+<!-- ===== 5 ===== -->
+<h2>5. 토양 미생물 — 지렁이·땅강아지 3대 역할 ★</h2>
+
+<div class="exam-box">
+  <strong>지렁이·땅강아지의 3대 역할 — 꼭 암기!</strong>
+  <ol>
+    <li><span class="hl-red">토양 내 유해균 제거</span> (잡아먹음)</li>
+    <li><span class="hl-green">배설물로 유익균·유기물 공급</span></li>
+    <li><span class="hl-blue">땅속을 헤집어 뿌리 호흡 공간(공극) 확보</span> → 탄소 저감에도 기여</li>
+  </ol>
+</div>
+
+<div class="key-box">
+  볏집 안에 땅강아지 알·지렁이 알이 많이 묻어 있습니다.<br>
+  동선 주변에 <strong>볏집</strong>을 깔고 <strong>바크 멀칭</strong>을 덮어주면 → 성충이 돼서 땅속으로 들어갑니다.<br>
+  <span class="hl-red">산림에서는 화학비료 과다 투입 금지!</span>
+</div>
+
+<!-- ===== 6 ===== -->
+<h2>6. 토양 유기물 함량 통계</h2>
+
+<table>
+  <thead><tr><th>유기물 함량</th><th>평가</th><th>비율</th></tr></thead>
+  <tbody>
+    <tr><td>2.0 이하</td><td>거의 없음</td><td>1.8%</td></tr>
+    <tr><td>2.0 ~ 4.0</td><td>보통 (우리나라 대부분)</td><td><strong>59.4%</strong></td></tr>
+    <tr><td>4.1 ~ 6.0</td><td>양호</td><td>34.6%</td></tr>
+    <tr><td>6.0 이상</td><td>유기물 많음</td><td>4.2%</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.85em; color:#888;">※ 출처: 국립산림과학원·농촌진흥청 조사 (2015)</p>
+
+<div class="key-box">
+  우리나라는 대부분 <strong>2.0~4.0 구간</strong>에 넓게 분포 → <strong>보통 수준</strong><br>
+  무기물과 유기물이 함께 식물에 공급되어야 하는데 그렇지 못한 상황
+</div>
+
+<!-- ===== 7 ===== -->
+<h2>7. 산불 피해와 메토 종자은행(Seed Bank) ★</h2>
+
+<h3>산불의 종류</h3>
+<table>
+  <thead><tr><th>종류</th><th>설명</th></tr></thead>
+  <tbody>
+    <tr><td><strong>수화(樹火)</strong></td><td>가지·잎이 타는 피해</td></tr>
+    <tr><td><strong>지표화(地表火)</strong></td><td>바닥이 타는 피해</td></tr>
+  </tbody>
+</table>
+
+<div class="exam-box">
+  <strong>메토 종자은행(Seed Bank) — 꼭 암기!</strong>
+  <ul>
+    <li>토양 <span class="hl-red">60cm 아래</span>에는 수십 년간 씨앗을 저장하는 종자은행 존재</li>
+    <li>산불 열기는 <span class="hl-orange">표면 30cm까지</span>만 영향 (유해균·유익균 소멸)</li>
+    <li><span class="hl-green">30cm 이하</span>: 종자 보존 → 시간이 지나면 자연 회복 가능</li>
+    <li>열은 오히려 <strong>종피를 벗겨 발아 촉진</strong> (수분만 공급되면 발아)</li>
+  </ul>
+</div>
+
+<div class="analogy-box">
+  도시 포장도로는 열을 모아두지만, 산림 토양은 열을 빨리 식힙니다. 메토 종자들이 열이 식은 뒤 수분만 들어오면 발아가 잘 됩니다. 자연 회복에는 시간이 오래 걸리지만 종 다양성이 뛰어난 생태계를 구성할 수 있습니다.
+</div>
+
+<!-- ===== 8 ===== -->
+<h2>8. 토양 단면(토층) 구조 — 5개 층</h2>
+
+<div class="horizon-diagram">
+  <div class="horizon-row">
+    <div class="horizon-label hz-O">O</div>
+    <div class="horizon-content hz-O-bg"><strong>유기층 (Organic horizon)</strong> — 낙엽 퇴화 + 동물 배설물로 구성. Oi(낙엽층), Oe(부식층), Oa(완숙층). 호층(Humus층). 최상층, 유기물질 풍부.</div>
+  </div>
+  <div class="horizon-row">
+    <div class="horizon-label hz-A">A</div>
+    <div class="horizon-content hz-A-bg"><strong>표토층 (Topsoil)</strong> — 유기물 + 무기물 혼합. 생물 활성 최고. 가장 비옥한 층.</div>
+  </div>
+  <div class="horizon-row">
+    <div class="horizon-label hz-E">E</div>
+    <div class="horizon-content hz-E-bg"><strong>용탈층 (Eluviation)</strong> — Fe·Al·점토 용탈. 밝은 색깔. (우리나라 일부 토양)</div>
+  </div>
+  <div class="horizon-row">
+    <div class="horizon-label hz-B">B</div>
+    <div class="horizon-content hz-B-bg"><strong>심토층 (Subsoil)</strong> — Fe·Al 집적. 위에서 내려온 물질 축적. O·A·E에서 내려온 유기물 일부 집적.</div>
+  </div>
+  <div class="horizon-row">
+    <div class="horizon-label hz-C">C</div>
+    <div class="horizon-content hz-C-bg"><strong>모재층 (Parent material)</strong> — A·B 특성 없음. 풍화된 암석 물질. 뿌리 거의 없음.</div>
+  </div>
+  <div class="horizon-row">
+    <div class="horizon-label hz-R" style="background:#777;">R</div>
+    <div class="horizon-content hz-R-bg"><strong>암층 (Bedrock)</strong> — 암덩어리. 설악산·치악산처럼 "악(嶽)"자 산은 암층 크고 많음.</div>
+  </div>
+</div>
+
+<div class="key-box">
+  등산로 입구(저지대) → 정상(고지대) 올라갈수록:<br>
+  <strong>암층 비율 증가 → 토심 얇아짐 → 식물 키 작아짐 → 낙엽·유기물 적음</strong>
+</div>
+
+<!-- ===== 9 ===== -->
+<h2>9. 토양 3상(三相) 구성</h2>
+
+<div class="exam-box">
+  <strong>토양 = 고상 + 액상 + 기상 3가지로 구성</strong>
+  <table style="margin-top:10px;">
+    <thead><tr><th>상(相)</th><th>구성</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><span class="hl-brown">고상(固相)</span></td><td>무기물 + 유기물</td><td>구조적 지지, 양분 공급</td></tr>
+      <tr><td><span class="hl-blue">액상(液相)</span></td><td>토양수 (물)</td><td>영양분 용해·운반, 식물 흡수</td></tr>
+      <tr><td><span class="hl-green">기상(氣相)</span></td><td>토양 공기 (O₂·CO₂ 등)</td><td>뿌리 호흡, 미생물 활동</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>기상에서 O₂는 뿌리·미생물에 공급, CO₂는 배출. 고상·액상·기상의 균형이 이상적인 토양 조건.</p>
+
+<!-- ===== 10 ===== -->
+<h2>10. 토양수 3단계 원리 ★</h2>
+
+<div class="exam-box">
+  <strong>토양수의 3단계 원리 — 꼭 외우세요!</strong>
+  <div class="flow" style="margin-top:12px;">
+    <div class="flow-item">① 침투수(浸透水)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">② 중력수(重力水)</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">③ 표면수(表面水)</div>
+  </div>
+  <ul style="margin-top:10px;">
+    <li><strong>침투수</strong>: 빗물이 토양 입자 사이에 침투</li>
+    <li><strong>중력수</strong>: 중력에 의해 아래로 내려가는 물</li>
+    <li><strong>표면수</strong>: 토양이 포화되면 표면으로 넘쳐 흐르는 물</li>
+  </ul>
+</div>
+
+<div class="analogy-box">
+  <strong>커피 드립 비유:</strong> 커피 가루(= 토양)에 물을 부으면 → 가루 사이 침투(침투수) → 중력에 의해 뚝뚝 떨어짐(중력수) → 너무 빨리 계속 부으면 표면으로 넘침(표면수). 산림 나무가 잘 자라는 이유가 바로 이 원리!
+</div>
+
+<h3>경사면의 역할</h3>
+<p>산은 경사가 있어 아무리 폭우가 내려도 뿌리가 먹을 수 있는 물의 양이 정해져 있고, 나머지는 흘러내립니다. 도심 가로수는 평평해서 물이 빠지는 데 시간이 걸려 뿌리가 숨을 못 쉬어 죽습니다.</p>
+
+<!-- ===== 11 ===== -->
+<h2>11. 고도에 따른 식물 변화</h2>
+
+<table>
+  <thead><tr><th>등산로 입구(저지대)</th><th>→ 정상(고지대)</th></tr></thead>
+  <tbody>
+    <tr><td>토심 깊음, 암층 적음</td><td>토심 얇음, 암층 많음</td></tr>
+    <tr><td>식물 키 큼</td><td>식물 키 작아짐 (분재 원리)</td></tr>
+    <tr><td>낙엽 많음, 유기물 풍부</td><td>낙엽 적음, 유기물 부족</td></tr>
+    <tr><td>꽃 색깔 연함, 향기 약함</td><td>꽃 <span class="hl-red">색깔 진함, 향기 강함</span></td></tr>
+  </tbody>
+</table>
+
+<div class="exam-box">
+  <strong>고산지대 꽃의 특성 (중요)</strong><br>
+  → 색깔이 진하고 향기가 강함<br>
+  → <span class="hl-orange">이유: 곤충이 적은 고산에서 수분(受粉) 기회가 적으므로, 한 번의 기회에 곤충을 강하게 유인해야 하기 때문</span><br>
+  → 샤넬 등 세계 유명 향수 회사들이 몽골 등 고산지대 식물 원료 사용하는 이유!
+</div>
+
+<!-- ===== 12 ===== -->
+<h2>12. 토양 구성 입자 4종류와 토성 삼각도</h2>
+
+<div class="exam-box">
+  <strong>토양 구성 입자 4종류 (크기 순)</strong><br>
+  자갈(Gravel) &gt; <span class="hl-brown">모래(Sand)</span> &gt; <span class="hl-green">미사(Silt)</span> &gt; <span class="hl-blue">점토(Clay)</span>
+  <table style="margin-top:10px;">
+    <thead><tr><th>입자</th><th>촉감</th><th>특징</th></tr></thead>
+    <tbody>
+      <tr><td>모래(Sand)</td><td>까슬까슬</td><td>배수·통기성 좋음, 유기물 없음</td></tr>
+      <tr><td>미사(Silt)</td><td>밀가루처럼 부들부들</td><td>중간</td></tr>
+      <tr><td>점토(Clay)</td><td>끈적끈적</td><td>배수 불량, 뿌리 호흡 어려움</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>우리나라 토양 구성 비율 (국립산림과학원 2015)</h3>
+<table>
+  <thead><tr><th>입자</th><th>비율</th></tr></thead>
+  <tbody>
+    <tr><td>모래(Sand)</td><td>41.5%</td></tr>
+    <tr><td>미사(Silt)</td><td>41.7%</td></tr>
+    <tr><td>점토(Clay)</td><td>16.8%</td></tr>
+  </tbody>
+</table>
+<p>→ 모래·미사 합계 83.2% → 양토(壤土) 계열 우세 (44.5%), 사양토(34.1%) 순</p>
+
+<h3>토성 삼각도 (Soil Texture Triangle)</h3>
+<p>모래·미사·점토의 <strong>세 가지 비율 합계 100%</strong>가 되도록 삼각도에서 선을 그어 만나는 점으로 토성 결정. 총 12가지 토성으로 구분.</p>
+
+<div class="exam-box">
+  <strong>토성 삼각도 계산 예시</strong>
+  <table style="margin-top:8px;">
+    <thead><tr><th>Sand</th><th>Silt</th><th>Clay</th><th>→ 토성</th></tr></thead>
+    <tbody>
+      <tr><td>50%</td><td>40%</td><td>10%</td><td><strong>양토(壤土, Loam)</strong></td></tr>
+      <tr><td>33%</td><td>33%</td><td>33%</td><td><strong>양토(壤土, Loam)</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:8px;"><span class="hl-green">산림에서 가장 이상적인 토성: <strong>양토(壤土)</strong></span><br>
+  → 배수·통기성 + 수분 보유 능력을 동시에 가짐</p>
+</div>
+
+<h3>손으로 토성 확인 — 띠본법(Ribbon Test)</h3>
+<table>
+  <thead><tr><th>단계</th><th>결과</th><th>토성 판단</th></tr></thead>
+  <tbody>
+    <tr><td>1단계: 손으로 쥐기</td><td>뭉쳐지면 → 점토/미사 함량 높음</td><td>점토질</td></tr>
+    <tr><td>2단계: 손가락으로 밀기</td><td>&lt; 2.5cm</td><td>사토 계열</td></tr>
+    <tr><td></td><td>2.5~5cm</td><td>양토 계열</td></tr>
+    <tr><td></td><td>&gt; 5cm</td><td>점토 함량 높음</td></tr>
+  </tbody>
+</table>
+<p><em>현장 체험 프로그램으로 활용 가능!</em></p>
+
+<!-- ===== 13 ===== -->
+<h2>13. 입단(粒團) 구조 ★</h2>
+
+<div class="exam-box">
+  <strong>입단 구조란? — 가장 중요한 개념!</strong><br>
+  알갱이들이 뭉쳐져 더 큰 덩어리를 형성한 구조.<br>
+  <strong>대공극 + 소공극이 함께 존재 → 배수·통기·수분 보유 모두 가능</strong>
+  <table style="margin-top:10px;">
+    <thead><tr><th>구분</th><th>특징</th><th>비유</th></tr></thead>
+    <tbody>
+      <tr><td><span class="hl-red">깨알(낱알) 구조</span></td><td>배수만 됨, 수분 보유 약함</td><td>새우깡을 부숴 꾹꾹 눌러 담은 것</td></tr>
+      <tr><td><span class="hl-green">입단 구조</span></td><td>배수 + 통기 + 보습 모두 우수 → 뿌리에 최적!</td><td>그냥 담은 새우깡 — 물이 잘 빠짐</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="key-box">
+  도시 토양은 대형 장비가 눌러버려 깨알 구조가 될 수밖에 없습니다.<br>
+  → 석회 투입 시 <strong>입단화 구조</strong>를 이루면서 알칼리화 진행
+</div>
+
+<blockquote>
+  <strong>결론: 토양은 우리 몸의 갈비뼈와 같다</strong><br>
+  심장과 장기를 보호하듯 식물 뿌리를 보호. 갈비뼈가 어그러지면 살 수는 있지만 어려움이 생기는 것처럼, 토양 구조가 망가지면 식물은 서 있기도 힘들어집니다.<br>
+  <span class="hl-orange"><strong>토양 1달러 투자 = 식물 1센트 투자 (전문가 격언)</strong></span><br>
+  → 눈에 보이는 나무보다 눈에 보이지 않는 토양이 더 중요하다!
+</blockquote>
+
+<!-- ===== 14 ===== -->
+<h2>14. 식물 필수 영양소 (다량·미량 원소)</h2>
+
+<h3>필수 영양소 17종</h3>
+<table>
+  <thead><tr><th>분류</th><th>원소</th><th>식물 내 비율</th><th>역할</th></tr></thead>
+  <tbody>
+    <tr class="macro"><td rowspan="3"><strong>비료 3요소 (다량)</strong></td><td>질소(N)</td><td>1.5%</td><td>엽록소·단백질 구성, 생장 촉진. 결핍 시 황화 현상</td></tr>
+    <tr class="macro"><td>인산(P)</td><td>0.2%</td><td>뿌리 발달, 개화·결실 촉진</td></tr>
+    <tr class="macro"><td>칼륨(K)</td><td>1.0%</td><td>수분 조절, 병해충 저항력</td></tr>
+    <tr><td rowspan="3"><strong>2차 다량 원소</strong></td><td>칼슘(Ca)</td><td>0.5%</td><td>세포벽 강화, 뿌리 발달</td></tr>
+    <tr><td>마그네슘(Mg)</td><td>0.2%</td><td>엽록소 핵심 원소 (엽록소 중심 Mg²⁺)</td></tr>
+    <tr><td>황(S)</td><td>0.1%</td><td>단백질 구성</td></tr>
+    <tr><td><strong>탄수화물 원소</strong></td><td>C·H·O</td><td>각 45/6/45%</td><td>광합성 기본 원소 — 비료로 공급 불필요</td></tr>
+    <tr class="micro"><td rowspan="3"><strong>미량 원소</strong></td><td>Fe, Mn, B, Zn, Cu, Mo, Cl, Ni</td><td>0.01% 이하</td><td>효소 활성화, 뿌리 호흡, 개화 유도</td></tr>
+    <tr class="micro"><td>Fe</td><td>—</td><td>엽록소 합성. pH 7 이상 시 불용화 → 황화 현상</td></tr>
+    <tr class="micro"><td>Mo</td><td>—</td><td>질소 고정 효소 관여</td></tr>
+  </tbody>
+</table>
+
+<div class="exam-box">
+  <strong>pH와 영양소 가용성</strong><br>
+  → 최적 pH: <strong>6.0~6.5</strong> (대부분 영양소 최대 가용)<br>
+  → pH 낮을수록(산성): Ca·Mg 가용성 감소, Al·Mn 독성 증가<br>
+  → pH 높을수록(알칼리): Fe·Mn·B 불용화
+</div>
+
+<h3>질소 결핍(Nitrogen Starvation)과 C/N 비율</h3>
+<p>C/N 비가 높으면 분해 시 질소 고갈 → 식물 질소 결핍 발생. 미생물이 C를 분해하면서 N를 소비하기 때문.</p>
+
+<!-- ===== 15 ===== -->
+<h2>15. 퇴비화(Composting) 3단계</h2>
+
+<div class="key-box">
+  <strong>퇴비화 3단계 프로세스</strong>
+  <table style="margin-top:10px;">
+    <thead><tr><th>단계</th><th>내용</th><th>핵심</th></tr></thead>
+    <tbody>
+      <tr><td>1단계: 투입</td><td>유기물 원료 투입</td><td>C/N 비율 약 30:1 최적</td></tr>
+      <tr><td>2단계: 발열</td><td>온도 <strong>50~70°C</strong> 유지</td><td>병원균·잡초 씨앗 사멸</td></tr>
+      <tr><td>3단계: 숙성</td><td>약 <strong>7개월</strong> 완숙</td><td>안정적 부식토 완성</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="analogy-box">
+  좋은 퇴비는 CO₂를 방출하면서 탄소 저감에 기여합니다. 단, 미숙 퇴비 투입 시 Priming Effect로 토양 탄소 손실 주의!
+</div>
+
+<!-- ===== 16 ===== -->
+<h2>16. 토양 관리 4원칙</h2>
+
+<div class="exam-box">
+  <strong>4가지 토양 관리 원칙</strong>
+  <ol>
+    <li><span class="hl-brown">석회물질과 유기물 사용</span> — 토양이 무기물이므로 유기물을 보충해야 미생물 활동, 영양분 흡수 가능</li>
+    <li><span class="hl-green">토양 피복 (멀칭)</span> — 소나무 바크 멀칭보다 <strong>바이오차(Biochar)</strong>가 훨씬 효과적. 수분 보호·보습·탄소 저감</li>
+    <li><span class="hl-blue">한건풍(寒乾風) 주의</span> — 겨울 건조·차가운 바람이 기공을 닫히게 하고 토양 수분을 날려버림. 동백나무·모서 냉해 원인</li>
+    <li><span class="hl-orange">적절한 시기 조절</span> — 윤작·토양 관리를 지나치게 하면 오히려 토양 손상. <strong>조절이 중요!</strong></li>
+  </ol>
+</div>
+
+<!-- ===== 17 ===== -->
+<h2>17. 나무 심기 3대 핵심 원칙</h2>
+
+<div class="exam-box">
+  <strong>나무 심기 3대 핵심 원칙 — 꼭 암기!</strong>
+  <ol>
+    <li><span class="hl-brown">구덩이는 뿌리 분(盆)의 3~4배 넓게 파기</span></li>
+    <li><span class="hl-green">구덩이 바닥을 분 모양(오목)으로 만들어 잔뿌리가 퍼지도록</span></li>
+    <li><span class="hl-red">흙은 근원부(根元部) 위치에 맞춰 덮기 → 절대 과도하게 덮지 않기!</span></li>
+  </ol>
+</div>
+
+<h3>잔뿌리(세근)의 중요성</h3>
+<p>뿌리 중 가장 중요한 것은 <strong>잔뿌리(세근)</strong>입니다. 잔뿌리에서 물과 양분을 가장 많이 흡수합니다. 흙을 근원부보다 너무 많이 덮으면 잔뿌리가 숨을 못 쉬어 면역력이 약해지고 수세가 약해집니다.</p>
+
+<h3>식재 후 물주기와 기포 제거</h3>
+<p>나무를 심은 후 <strong>물집(물웅덩이)</strong>을 만들고 물을 넣으며 죽수기를 합니다. <span class="hl-green">기포가 올라와야 정상</span>입니다. 기포는 뿌리 주머니와 흙 사이의 공기층을 빼주는 역할. 기포가 안 나오면 다시 죽수기를 반복하세요.</p>
+
+<h3>비료 주는 위치</h3>
+<div class="key-box">
+  잔뿌리는 수관(가지) 끝 아래쪽 토양에 분포 → 비료는 줄기 옆이 아닌 <strong>수관 끝 바깥쪽</strong>에 주어야 효과적!<br>
+  (토양 천공 시비: 50cm 깊이, 1.2m 간격)
+</div>
+
+<h3>우리나라 조림 성공 사례</h3>
+<p>우리나라는 <strong>전 세계 산림 녹화사업 1등 국가</strong>입니다. 한국전쟁 직후 민둥산이었던 우리나라가 1988 올림픽 때 미군 참전 용사들이 방문해 "이 나라가 맞느냐"고 놀랄 정도로 빠르게 회복했습니다.</p>
+
+<!-- ===== 18 ===== -->
+<h2>18. 토양 오염 (점오염·비점오염)</h2>
+
+<table>
+  <thead><tr><th>구분</th><th>점오염원 (Point Source)</th><th>비점오염원 (Non-Point Source)</th></tr></thead>
+  <tbody>
+    <tr><td>특징</td><td>오염원이 특정 지점에서 발생</td><td>광역적, 확산 발생</td></tr>
+    <tr><td>예시</td><td>공장 폐수, 하수관 방류</td><td>농경지 비료 유출, 도심 빗물 유거수</td></tr>
+    <tr><td>주요 오염물질</td><td>BOD, COD, 중금속</td><td>N, P (부영양화)</td></tr>
+  </tbody>
+</table>
+
+<h3>중금속 오염</h3>
+<table>
+  <thead><tr><th>중금속</th><th>영향</th></tr></thead>
+  <tbody>
+    <tr><td>Cu, Zn, Pb, Hg, Ni, Cd, Cr</td><td>식물 흡수 → 인체 축적, 생태계 파괴</td></tr>
+    <tr><td>황화제이철(FeS₂)</td><td>산화 시 강산성 생성 → 토양 산성화 촉진</td></tr>
+  </tbody>
+</table>
+<p>pH 감소 시 중금속 가용성 증가 → 식물 흡수 위험 증가.</p>
+
+<!-- ===== 19 ===== -->
+<h2>19. 현장 체험 프로그램 제안</h2>
+
+<ul>
+  <li><strong>① 흙 뭉치기 체험</strong>: 흙을 3cm 파서 쥐어보고 뭉쳐지는지 흐트러지는지 확인</li>
+  <li><strong>② 토양 측정기로 pH 측정</strong> 후 토성 삼각도에서 토성 확인</li>
+  <li><strong>③ 띠본법 체험</strong>: 흙을 손으로 밀어 길이로 점토 함량 판단</li>
+  <li><strong>④ 낙엽·독성 주의식물 안내</strong>: 천남성·대극과·쐐기풀 설명</li>
+</ul>
+
+<!-- ===== 20 ===== -->
+<h2>20. 해설 시 반드시 안내할 주의식물 3종</h2>
+
+<div class="warn-box">
+  <table>
+    <thead><tr><th>식물</th><th>주의 사항</th></tr></thead>
+    <tbody>
+      <tr><td><strong>천남성</strong></td><td>독성 강함. 접촉·섭취 금지</td></tr>
+      <tr><td><strong>대극과 식물</strong></td><td>줄기 꺾으면 흰 액체 → 눈에 닿으면 시력 손상</td></tr>
+      <tr><td><strong>쐐기풀</strong></td><td>접촉 시 강한 알레르기 반응</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== 21 ===== -->
+<h2>21. ★★★ 오늘 강의 핵심 3가지 — 반드시 암기</h2>
+
+<div class="exam-box" style="border-color:#2e7ead; background:#e8f4fd;">
+  <div style="font-size:1.1em; font-weight:700; color:#2e7ead; margin-bottom:12px;">오늘 꼭 기억할 3가지</div>
+  <ol style="font-size:1.05em; line-height:2.2;">
+    <li><span class="hl-brown">식물은 사람이랑 똑같다</span> → 모든 해설의 출발점</li>
+    <li><span class="hl-blue">토양수 3원리</span>: 침투수 → 중력수 → 표면수</li>
+    <li><span class="hl-orange">토양 1달러 : 나무 1센트</span> → 눈에 보이지 않는 토양이 핵심</li>
+  </ol>
+</div>
+
+<hr>
+
+<h2>📝 핵심 암기 요약 카드</h2>
+
+<table>
+  <thead><tr><th>항목</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>산림토양 4대 특성 ★</td><td>① 무기성분 불균형 ② 양호한 배수·통기 ③ 산성토양화 ④ 낮은 양분·수분</td></tr>
+    <tr><td>평균 pH ★</td><td>5.5~6 (약산성)</td></tr>
+    <tr><td>지렁이·땅강아지 3역할 ★</td><td>① 유해균 제거 ② 유익균·유기물 공급 ③ 공극 확보</td></tr>
+    <tr><td>메토 종자은행 ★</td><td>60cm 아래 씨앗 보존 / 산불 열기 30cm까지 / 30cm 이하 종자 보존</td></tr>
+    <tr><td>토층 5개 ★</td><td>O(유기) → A(표토) → E(용탈) → B(심토) → C(모재) → R(암반)</td></tr>
+    <tr><td>토양수 3단계 ★</td><td>침투수 → 중력수 → 표면수</td></tr>
+    <tr><td>이상적 토성 ★</td><td>양토(壤土): 배수+통기+보습 균형</td></tr>
+    <tr><td>입단 구조 ★</td><td>대공극+소공극 → 배수·통기·보습 모두 가능</td></tr>
+    <tr><td>나무 심기 3원칙 ★</td><td>① 분의 3~4배 넓게 ② 오목 바닥 ③ 근원부에 맞춰 흙 덮기</td></tr>
+    <tr><td>토양 관리 4원칙</td><td>① 석회+유기물 ② 멀칭(바이오차) ③ 한건풍 주의 ④ 시기 조절</td></tr>
+    <tr><td>고산지대 꽃 ★</td><td>색 진함 + 향기 강함 → 곤충 유인 전략 (샤넬 원료)</td></tr>
+    <tr><td>우리나라 조림</td><td>세계 산림 녹화 1등 국가</td></tr>
+  </tbody>
+</table>
+
+<footer>
+  <p>0328 산림토양학 | 강사: 한국농수산대학교 성정원 교수</p>
+  <p>소스: 음성 1차 정리(DOCX) + 강의자료(PDF) 통합본</p>
+  <p>작성: 보아시스랩 | 2026-06-19</p>
+</footer>
+
+</body>
+</html>

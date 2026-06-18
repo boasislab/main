@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0328 산림토양학 기출문제집</title>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f5f0e8; color: #333; }
+  h1 { background: linear-gradient(135deg, #5d3a1a, #a0522d); color: white; padding: 20px 24px; border-radius: 10px; text-align: center; margin-bottom: 10px; }
+  .subtitle { text-align: center; color: #666; font-size: 0.95em; margin-bottom: 16px; }
+  .progress-bar { background: #ddd; border-radius: 10px; height: 14px; margin: 10px 0; }
+  .progress-fill { background: #a0522d; height: 14px; border-radius: 10px; transition: width 0.4s ease; }
+  .stats { text-align: center; margin: 10px 0 20px; font-size: 1.1em; color: #555; }
+  .question-card { background: white; border-radius: 12px; padding: 22px 24px; margin: 14px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .question-num { font-size: 0.82em; color: #888; margin-bottom: 6px; }
+  .question-text { font-size: 1.05em; font-weight: bold; margin-bottom: 16px; line-height: 1.6; }
+  .options { list-style: none; padding: 0; margin: 0; }
+  .options li { padding: 10px 14px; margin: 6px 0; border-radius: 8px; border: 1.5px solid #ddd; cursor: pointer; transition: all 0.2s; line-height: 1.5; }
+  .options li:hover { background: #fdf6ee; border-color: #a0522d; }
+  .options li.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+  .options li.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+  .explanation { display: none; margin-top: 14px; padding: 12px 16px; background: #fff3cd; border-radius: 8px; font-size: 0.92em; border-left: 4px solid #ffc107; line-height: 1.6; }
+  .explanation.show { display: block; }
+  .section-header { background: linear-gradient(135deg, #5d3a1a, #8b5e3c); color: white; padding: 11px 18px; border-radius: 10px; margin: 28px 0 10px; font-weight: bold; font-size: 1.05em; }
+  .exam-tip-badge { display: inline-block; background: #dc143c; color: white; font-size: 0.72em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .final-score { display: none; background: linear-gradient(135deg, #5d3a1a, #a0522d); color: white; text-align: center; padding: 24px; border-radius: 14px; margin: 30px 0; font-size: 1.2em; }
+  .final-score.show { display: block; }
+  .back-link { display: block; text-align: center; margin-top: 20px; color: #a0522d; font-size: 0.9em; }
+</style>
+<script>
+  let answered = 0, correctCount = 0;
+  const TOTAL = 50;
+
+  function choose(el, isCorrect, expId) {
+    const parent = el.parentElement;
+    if (parent.querySelector('.correct, .wrong')) return;
+    answered++;
+    if (isCorrect) {
+      el.classList.add('correct');
+      correctCount++;
+    } else {
+      el.classList.add('wrong');
+      parent.querySelector('[data-correct]').classList.add('correct');
+    }
+    const exp = document.getElementById(expId);
+    exp.classList.add('show');
+    exp.style.display = 'block';
+    document.getElementById('answered').textContent = answered;
+    document.getElementById('correct-count').textContent = correctCount;
+    document.getElementById('score').textContent = Math.round(correctCount / answered * 100);
+    document.getElementById('progress').style.width = (answered / TOTAL * 100) + '%';
+    if (answered === TOTAL) {
+      document.getElementById('final').className = 'final-score show';
+      document.getElementById('final-text').textContent =
+        TOTAL + '문항 완료! 최종 정답률: ' + Math.round(correctCount / TOTAL * 100) + '% (' + correctCount + '/' + TOTAL + ')';
+    }
+  }
+</script>
+</head>
+<body>
+
+<h1>🌱 0328 산림토양학 기출문제집</h1>
+<p class="subtitle">강의일: 2026년 3월 28일 | 강사: 한국농수산대학교 성정원 | 총 50문항</p>
+<div class="stats">진행: <span id="answered">0</span> / 50 &nbsp;|&nbsp; 정답: <span id="correct-count">0</span> &nbsp;|&nbsp; 정답률: <span id="score">0</span>%</div>
+<div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+<!-- ===== 섹션 1: 식물과 사람의 유사성 ===== -->
+<div class="section-header">🌿 섹션 1. 식물과 사람의 유사성 비유 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 1 / 50 · 섹션 1 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">산림토양학 첫 강의에서 제시된 핵심 비유 개념으로, 식물을 이해하는 출발점에 해당하는 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e1')">① 토양은 식물의 집이다</li>
+    <li onclick="choose(this,true,'e1')" data-correct>② 식물은 사람이랑 똑같다</li>
+    <li onclick="choose(this,false,'e1')">③ 나무는 스스로 자란다</li>
+    <li onclick="choose(this,false,'e1')">④ 뿌리는 나무의 기초다</li>
+  </ul>
+  <div class="explanation" id="e1">✅ <strong>"식물은 사람이랑 똑같다"</strong> — 모든 해설의 출발점이자 토양의 중요성을 이해하는 첫 번째 실마리입니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 2 / 50 · 섹션 1 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">식물과 사람의 기관을 올바르게 대응시킨 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e2')">① 잎=심장, 뿌리=피부, 줄기=혈관, 토양=갈비뼈</li>
+    <li onclick="choose(this,false,'e2')">② 잎=혈관, 뿌리=심장, 줄기=피부, 토양=갈비뼈</li>
+    <li onclick="choose(this,true,'e2')" data-correct>③ 잎=피부, 뿌리=심장+코, 줄기=혈관, 토양=갈비뼈</li>
+    <li onclick="choose(this,false,'e2')">④ 잎=피부, 뿌리=혈관, 줄기=심장, 토양=근육</li>
+  </ul>
+  <div class="explanation" id="e2">✅ <strong>잎=피부, 뿌리=심장+코(물·영양분 흡수+호흡), 줄기=혈관, 토양=갈비뼈</strong>. 토양은 갈비뼈처럼 식물 뿌리(심장)를 지지·보호합니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 3 / 50 · 섹션 1</div>
+  <div class="question-text">토양이 우리 몸의 갈비뼈에 비유되는 가장 핵심적인 이유는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e3')">① 토양이 딱딱하고 구조가 복잡하기 때문</li>
+    <li onclick="choose(this,false,'e3')">② 토양이 식물 줄기를 바로 잡아주기 때문</li>
+    <li onclick="choose(this,true,'e3')" data-correct>③ 갈비뼈가 심장과 장기를 보호하듯 토양이 뿌리(심장)를 지지·보호하기 때문</li>
+    <li onclick="choose(this,false,'e3')">④ 토양이 식물에 영양분을 직접 공급하기 때문</li>
+  </ul>
+  <div class="explanation" id="e3">✅ 갈비뼈가 어그러지면 살 수 있지만 어려움이 생기듯, <strong>토양 구조가 망가지면 식물은 서 있기도 힘들어집니다.</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 4 / 50 · 섹션 1</div>
+  <div class="question-text">서울에서 남쪽으로 내려갈수록 나타나는 잎의 변화로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e4')">① 잎이 좁아지고, 색깔이 연해지고, 얇아진다</li>
+    <li onclick="choose(this,false,'e4')">② 잎이 넓어지고, 색깔이 연해지고, 두꺼워진다</li>
+    <li onclick="choose(this,true,'e4')" data-correct>③ 잎이 넓어지고, 색깔이 진해지고, 두꺼워진다</li>
+    <li onclick="choose(this,false,'e4')">④ 잎이 좁아지고, 색깔이 진해지고, 얇아진다</li>
+  </ul>
+  <div class="explanation" id="e4">✅ 남쪽으로 내려갈수록 빛을 많이 받기 때문에 <strong>잎이 넓어지고, 색깔이 진해지고, 잎이 두꺼워집니다.</strong></div>
+</div>
+
+<!-- ===== 섹션 2: 우리나라 산림토양 특성 ===== -->
+<div class="section-header">🏔️ 섹션 2. 우리나라 산림토양의 주요 특성 (5문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 5 / 50 · 섹션 2 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">우리나라 산림 토양의 4대 특성으로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e5')">① 무기 성분 균형·불량한 배수·알칼리 토양·높은 양분</li>
+    <li onclick="choose(this,false,'e5')">② 유기물 과다·불량한 통기성·중성 토양·낮은 수분</li>
+    <li onclick="choose(this,true,'e5')" data-correct>③ 무기 성분 불균형·양호한 배수통기성·산성 토양화·낮은 양분과 수분</li>
+    <li onclick="choose(this,false,'e5')">④ 무기 성분 균형·높은 유기물·산성 토양화·높은 수분</li>
+  </ul>
+  <div class="explanation" id="e5">✅ 우리나라 산림토양 4대 특성: <strong>① 무기성분 불균형 ② 양호한 배수·통기성 ③ 산성토양화 ④ 낮은 양분과 수분</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 6 / 50 · 섹션 2</div>
+  <div class="question-text">우리나라 토양에서 규소(SiO₂)에 비해 상대적으로 부족한 성분으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e6')">① 탄소(C), 수소(H)</li>
+    <li onclick="choose(this,true,'e6')" data-correct>② 칼슘(Ca), 마그네슘(Mg), 망간(Mn), 칼륨(K)</li>
+    <li onclick="choose(this,false,'e6')">③ 산소(O), 질소(N)</li>
+    <li onclick="choose(this,false,'e6')">④ 나트륨(Na), 염소(Cl)</li>
+  </ul>
+  <div class="explanation" id="e6">✅ 우리나라 토양은 SiO₂(규소)는 풍부하지만 <strong>Ca·Mg·Mn·K 등 식물 필수 원소가 부족</strong>한 무기성분 불균형 상태입니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 7 / 50 · 섹션 2</div>
+  <div class="question-text">공극(空隙)에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e7')">① 토양 입자 자체의 밀도를 의미한다</li>
+    <li onclick="choose(this,false,'e7')">② 입자가 클수록 공극이 작아져 배수성이 낮아진다</li>
+    <li onclick="choose(this,true,'e7')" data-correct>③ 입자와 입자 사이에 만들어지는 작은 공간으로, 입자가 클수록 공극이 커져 배수·통기성이 향상된다</li>
+    <li onclick="choose(this,false,'e7')">④ 점토 함량이 높을수록 공극이 커진다</li>
+  </ul>
+  <div class="explanation" id="e7">✅ 공극은 <strong>입자 사이 공간</strong>. 입자가 클수록 공극 커짐 → <strong>배수성·통기성 향상 → 뿌리 호흡 가능</strong>.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 8 / 50 · 섹션 2</div>
+  <div class="question-text">자연 산림에서 나무 뿌리가 내려갈 수 있는 최소 깊이(토심)는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e8')">① 1.5m</li>
+    <li onclick="choose(this,false,'e8')">② 3m</li>
+    <li onclick="choose(this,true,'e8')" data-correct>③ 6m</li>
+    <li onclick="choose(this,false,'e8')">④ 10m</li>
+  </ul>
+  <div class="explanation" id="e8">✅ 자연 산림에서 뿌리는 최소 <strong>6m</strong>까지 내려갑니다. LH 도시계획 기준은 1.5m (자주 지켜지지 않음).</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 9 / 50 · 섹션 2</div>
+  <div class="question-text">통화토(通化土)에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e9')">① 물이 잘 통하는 점토 토양</li>
+    <li onclick="choose(this,false,'e9')">② 화산 활동으로 형성된 토양</li>
+    <li onclick="choose(this,true,'e9')" data-correct>③ 바람에 깎여 날려 쌓인 토양으로 양분이 거의 없음</li>
+    <li onclick="choose(this,false,'e9')">④ 강물 퇴적으로 형성된 비옥한 토양</li>
+  </ul>
+  <div class="explanation" id="e9">✅ 통화토는 <strong>바람에 깎여 날려 쌓인 토양</strong>. 우리나라 대부분의 토양. 양분 거의 없음. 입자 사이 공극으로 배수·통기성은 있음.</div>
+</div>
+
+<!-- ===== 섹션 3: 토양 pH ===== -->
+<div class="section-header">🔬 섹션 3. 토양 pH와 산성화 (5문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 10 / 50 · 섹션 3 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">우리나라 산림 토양의 평균 pH는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e10')">① pH 4.0~4.5 (강산성)</li>
+    <li onclick="choose(this,false,'e10')">② pH 7.0~7.5 (중성~약알칼리)</li>
+    <li onclick="choose(this,true,'e10')" data-correct>③ pH 5.5~6 (약산성)</li>
+    <li onclick="choose(this,false,'e10')">④ pH 8.0 이상 (알칼리성)</li>
+  </ul>
+  <div class="explanation" id="e10">✅ 우리나라 산림 토양 평균 pH: <strong>5.5~6 (약산성)</strong>. 산성이 강해지면 대부분 식물이 적응 못함.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 11 / 50 · 섹션 3</div>
+  <div class="question-text">산성 토양을 효과적으로 알칼리화하는 방법은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e11')">① 화학비료를 대량 투입한다</li>
+    <li onclick="choose(this,true,'e11')" data-correct>② 석회를 투입한다</li>
+    <li onclick="choose(this,false,'e11')">③ 많은 양의 물을 공급한다</li>
+    <li onclick="choose(this,false,'e11')">④ 황산염 비료를 사용한다</li>
+  </ul>
+  <div class="explanation" id="e11">✅ 산성 토양 알칼리화의 가장 효과적인 방법: <strong>석회 투입</strong>. 석회 투입 시 입단화 구조를 이루면서 알칼리화 진행.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 12 / 50 · 섹션 3</div>
+  <div class="question-text">산성 토양을 선호하는 식물 예시로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e12')">① 수국, 민들레</li>
+    <li onclick="choose(this,true,'e12')" data-correct>② 블루베리, 만병초</li>
+    <li onclick="choose(this,false,'e12')">③ 해바라기, 장미</li>
+    <li onclick="choose(this,false,'e12')">④ 감나무, 사과나무</li>
+  </ul>
+  <div class="explanation" id="e12">✅ 산성 토양 선호 식물: <strong>블루베리, 만병초</strong>. 이 식물들의 재배에 피트모스(pH 3.5~4.5)를 사용합니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 13 / 50 · 섹션 3</div>
+  <div class="question-text">지면에서 종 다양성이 낮고 바닥에 식물이 거의 없을 때 의심할 수 있는 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e13')">① 고온 피해</li>
+    <li onclick="choose(this,false,'e13')">② 과도한 알칼리화</li>
+    <li onclick="choose(this,true,'e13')" data-correct>③ 강산성화 징후</li>
+    <li onclick="choose(this,false,'e13')">④ 과습 피해</li>
+  </ul>
+  <div class="explanation" id="e13">✅ <strong>강산성화 징후</strong>: 지면 종 다양성 낮음 + 바닥 식물 없음. 알칼리성 후품(석회) 투입이 필요합니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 14 / 50 · 섹션 3</div>
+  <div class="question-text">피트모스(Peat Moss)와 코코피트(Coco Peat)의 pH 범위를 올바르게 연결한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e14')">① 피트모스: pH 6.5~7.5 / 코코피트: pH 3.5~4.5</li>
+    <li onclick="choose(this,false,'e14')">② 피트모스: pH 5.5~6.5 / 코코피트: pH 7.0~8.0</li>
+    <li onclick="choose(this,true,'e14')" data-correct>③ 피트모스: pH 3.5~4.5 / 코코피트: pH 5.5~6.5</li>
+    <li onclick="choose(this,false,'e14')">④ 피트모스: pH 7.0~8.0 / 코코피트: pH 5.5~6.5</li>
+  </ul>
+  <div class="explanation" id="e14">✅ 피트모스: <strong>pH 3.5~4.5 (강산성)</strong> → 블루베리·만병초 전용. 코코피트: <strong>pH 5.5~6.5 (약산성)</strong> → 일반 재배용.</div>
+</div>
+
+<!-- ===== 섹션 4: 지렁이·땅강아지 ===== -->
+<div class="section-header">🐛 섹션 4. 토양 미생물 — 지렁이·땅강아지 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 15 / 50 · 섹션 4 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">지렁이·땅강아지의 3대 역할로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e15')">① 광합성 보조·수분 공급·뿌리 보호</li>
+    <li onclick="choose(this,false,'e15')">② 병해충 방제·질소 고정·토양 산성화</li>
+    <li onclick="choose(this,true,'e15')" data-correct>③ 토양 유해균 제거·배설물로 유익균·유기물 공급·땅속 헤집어 공극 확보</li>
+    <li onclick="choose(this,false,'e15')">④ 토양 수분 흡수·영양분 분해·표면 멀칭</li>
+  </ul>
+  <div class="explanation" id="e15">✅ 3대 역할: <strong>① 유해균 제거(잡아먹음) ② 배설물로 유익균·유기물 공급 ③ 땅속 헤집어 공극 확보(탄소 저감 기여)</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 16 / 50 · 섹션 4</div>
+  <div class="question-text">산림 해설 프로그램에서 지렁이·땅강아지가 잘 살 수 있도록 환경을 만드는 방법은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e16')">① 화학비료를 충분히 투입한다</li>
+    <li onclick="choose(this,true,'e16')" data-correct>② 동선 주변에 볏집을 깔고 바크 멀칭을 덮어준다</li>
+    <li onclick="choose(this,false,'e16')">③ 토양을 자주 뒤집어 통기성을 높인다</li>
+    <li onclick="choose(this,false,'e16')">④ 물을 자주 주어 습윤 상태를 유지한다</li>
+  </ul>
+  <div class="explanation" id="e16">✅ 볏집 안에 땅강아지·지렁이 알이 많이 묻어 있습니다. <strong>볏집 깔기 + 바크 멀칭</strong> → 성충이 땅속으로 들어갑니다. 화학비료 과다 투입은 금지!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 17 / 50 · 섹션 4</div>
+  <div class="question-text">우리나라 산림 토양의 유기물 함량이 가장 넓게 분포하는 범위는? (국립산림과학원, 2015)</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e17')">① 유기물 2.0 이하 (거의 없음)</li>
+    <li onclick="choose(this,true,'e17')" data-correct>② 유기물 2.0~4.0 (보통) — 59.4%</li>
+    <li onclick="choose(this,false,'e17')">③ 유기물 4.1~6.0 (양호)</li>
+    <li onclick="choose(this,false,'e17')">④ 유기물 6.0 이상 (많음)</li>
+  </ul>
+  <div class="explanation" id="e17">✅ 우리나라 대부분 <strong>2.0~4.0 구간(보통 수준, 59.4%)</strong>. 2.0 이하 1.8%, 4.1~6.0 34.6%, 6.0+ 4.2%.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 18 / 50 · 섹션 4</div>
+  <div class="question-text">지렁이·땅강아지의 활동이 탄소 저감에 기여하는 이유는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e18')">① CO₂를 직접 흡수하기 때문</li>
+    <li onclick="choose(this,true,'e18')" data-correct>② 땅속을 헤집어 공극을 확보함으로써 뿌리 호흡과 탄소 격리를 도와주기 때문</li>
+    <li onclick="choose(this,false,'e18')">③ 광합성을 촉진하는 물질을 분비하기 때문</li>
+    <li onclick="choose(this,false,'e18')">④ 유기물을 소화해 탄소를 토양에 고정하기 때문</li>
+  </ul>
+  <div class="explanation" id="e18">✅ 땅속을 헤집어 <strong>공극 확보 → 뿌리 호흡 및 토양 탄소 격리 지원 → 탄소 저감에 기여</strong>합니다.</div>
+</div>
+
+<!-- ===== 섹션 5: 메토 종자은행 ===== -->
+<div class="section-header">🔥 섹션 5. 산불과 메토 종자은행 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 19 / 50 · 섹션 5 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">메토 종자은행(Seed Bank)에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e19')">① 토양 표면에 씨앗이 쌓여 있는 자연 저장소</li>
+    <li onclick="choose(this,true,'e19')" data-correct>② 토양 60cm 아래에 수십 년간 씨앗을 저장하는 자연 종자은행</li>
+    <li onclick="choose(this,false,'e19')">③ 산림청이 운영하는 국가 종자 보관 시설</li>
+    <li onclick="choose(this,false,'e19')">④ 뿌리에서 씨앗을 생산하는 식물 기관</li>
+  </ul>
+  <div class="explanation" id="e19">✅ 메토 종자은행: <strong>토양 60cm 아래에 수십 년간 씨앗이 저장되는 자연 저장소</strong>. 산불이 와도 30cm 이하 종자는 보존됩니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 20 / 50 · 섹션 5 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">산불 열기가 토양에 영향을 미치는 깊이는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e20')">① 표면 5cm까지</li>
+    <li onclick="choose(this,false,'e20')">② 표면 15cm까지</li>
+    <li onclick="choose(this,true,'e20')" data-correct>③ 표면 30cm까지</li>
+    <li onclick="choose(this,false,'e20')">④ 표면 60cm까지</li>
+  </ul>
+  <div class="explanation" id="e20">✅ 산불 열기는 <strong>표면 30cm까지</strong>만 영향(유해균·유익균 소멸). 30cm 이하는 종자 보존 → 자연 회복 가능.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 21 / 50 · 섹션 5</div>
+  <div class="question-text">산불의 열기가 오히려 식물 발아에 유리한 이유는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e21')">① 열이 토양 내 미생물을 활성화하기 때문</li>
+    <li onclick="choose(this,true,'e21')" data-correct>② 열이 종피를 벗겨 발아를 촉진하고, 이후 수분만 공급되면 발아되기 때문</li>
+    <li onclick="choose(this,false,'e21')">③ 열이 토양 pH를 중성으로 맞춰주기 때문</li>
+    <li onclick="choose(this,false,'e21')">④ 열이 경쟁 잡초를 제거해 발아 공간을 만들기 때문</li>
+  </ul>
+  <div class="explanation" id="e21">✅ 열은 <strong>종피(씨앗 껍질)를 벗겨 발아 촉진</strong>. 열이 식은 뒤 수분만 들어오면 발아가 잘 됩니다. 자연 회복의 원리!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 22 / 50 · 섹션 5</div>
+  <div class="question-text">산불의 종류를 올바르게 설명한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e22')">① 수화(樹火): 바닥이 타는 피해 / 지표화(地表火): 가지·잎이 타는 피해</li>
+    <li onclick="choose(this,true,'e22')" data-correct>② 수화(樹火): 가지·잎이 타는 피해 / 지표화(地表火): 바닥이 타는 피해</li>
+    <li onclick="choose(this,false,'e22')">③ 수화: 뿌리 피해 / 지표화: 줄기 피해</li>
+    <li onclick="choose(this,false,'e22')">④ 수화: 수관 전체 피해 / 지표화: 표토층 소실</li>
+  </ul>
+  <div class="explanation" id="e22">✅ <strong>수화(樹火): 가지·잎 피해 / 지표화(地表火): 바닥(표면) 피해</strong>. 지표화가 메토 종자은행에 영향을 줍니다.</div>
+</div>
+
+<!-- ===== 섹션 6: 토양 단면 ===== -->
+<div class="section-header">📊 섹션 6. 토양 단면(토층) 구조 (5문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 23 / 50 · 섹션 6 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">토양 단면의 층위를 위에서 아래 순서로 올바르게 나열한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e23')">① A → O → E → B → C → R</li>
+    <li onclick="choose(this,false,'e23')">② O → B → A → E → C → R</li>
+    <li onclick="choose(this,true,'e23')" data-correct>③ O → A → E → B → C → R</li>
+    <li onclick="choose(this,false,'e23')">④ R → C → B → E → A → O</li>
+  </ul>
+  <div class="explanation" id="e23">✅ 토층 순서(위→아래): <strong>O(유기층) → A(표토) → E(용탈층) → B(심토) → C(모재층) → R(암반)</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 24 / 50 · 섹션 6</div>
+  <div class="question-text">O층(유기층)에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e24')">① Fe·Al이 집적된 층</li>
+    <li onclick="choose(this,false,'e24')">② 풍화된 암석 물질로 구성된 모재층</li>
+    <li onclick="choose(this,true,'e24')" data-correct>③ 낙엽이 퇴화되고 동물 배설물이 섞여 만들어진 유기물 최상층(호층)</li>
+    <li onclick="choose(this,false,'e24')">④ 점토·미사가 이동·집적된 층</li>
+  </ul>
+  <div class="explanation" id="e24">✅ O층은 <strong>유기물(낙엽+배설물) 구성의 최상층(호층, Humus층)</strong>. Oi(낙엽층)·Oe(부식층)·Oa(완숙층)으로 세분.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 25 / 50 · 섹션 6</div>
+  <div class="question-text">"악(嶽)"자가 들어간 산(설악산, 치악산 등)의 토양 특성으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e25')">① 유기물이 매우 풍부하고 토심이 깊다</li>
+    <li onclick="choose(this,true,'e25')" data-correct>② 암층(R층)이 크고 많아 토심이 얕다</li>
+    <li onclick="choose(this,false,'e25')">③ 모래 함량이 높고 배수성이 매우 좋다</li>
+    <li onclick="choose(this,false,'e25')">④ 점토 함량이 높고 수분 보유력이 강하다</li>
+  </ul>
+  <div class="explanation" id="e25">✅ "악(嶽)산" = <strong>암층(R층)이 크고 많음 → 토심 얕음</strong>. 등산 중 정상 가까울수록 식물이 작아지는 이유!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 26 / 50 · 섹션 6</div>
+  <div class="question-text">토양 3상(三相)의 구성으로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e26')">① 고상·액상·유기상</li>
+    <li onclick="choose(this,false,'e26')">② 무기상·유기상·기상</li>
+    <li onclick="choose(this,true,'e26')" data-correct>③ 고상(무기물+유기물)·액상(물)·기상(공기)</li>
+    <li onclick="choose(this,false,'e26')">④ 사상·점토상·기상</li>
+  </ul>
+  <div class="explanation" id="e26">✅ 토양 3상: <strong>고상(무기물+유기물) + 액상(물) + 기상(공기)</strong>. 세 가지의 균형이 이상적인 토양 조건.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 27 / 50 · 섹션 6</div>
+  <div class="question-text">등산로 입구에서 정상으로 올라갈수록 나타나는 변화로 틀린 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e27')">① 토심이 얕아진다</li>
+    <li onclick="choose(this,false,'e27')">② 식물 키가 작아진다</li>
+    <li onclick="choose(this,false,'e27')">③ 꽃 색깔이 진해지고 향기가 강해진다</li>
+    <li onclick="choose(this,true,'e27')" data-correct>④ 낙엽이 많아지고 유기물이 풍부해진다</li>
+  </ul>
+  <div class="explanation" id="e27">✅ 고지대로 갈수록 <strong>낙엽 적음 → 유기물 부족</strong>. ④가 틀린 설명입니다. 유기물은 저지대가 더 풍부합니다.</div>
+</div>
+
+<!-- ===== 섹션 7: 토양수 ===== -->
+<div class="section-header">💧 섹션 7. 토양수 3단계 원리 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 28 / 50 · 섹션 7 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">토양수의 3단계를 순서대로 올바르게 나열한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e28')">① 중력수 → 침투수 → 표면수</li>
+    <li onclick="choose(this,false,'e28')">② 표면수 → 중력수 → 침투수</li>
+    <li onclick="choose(this,true,'e28')" data-correct>③ 침투수 → 중력수 → 표면수</li>
+    <li onclick="choose(this,false,'e28')">④ 침투수 → 표면수 → 중력수</li>
+  </ul>
+  <div class="explanation" id="e28">✅ 토양수 3단계: <strong>① 침투수(빗물 침투) → ② 중력수(중력으로 아래로) → ③ 표면수(토양 포화 시 표면 범람)</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 29 / 50 · 섹션 7</div>
+  <div class="question-text">커피 드립과 토양수의 관계를 올바르게 설명한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,true,'e29')" data-correct>① 커피 가루 사이 물 침투=침투수 / 뚝뚝 떨어짐=중력수 / 빨리 부으면 표면 넘침=표면수</li>
+    <li onclick="choose(this,false,'e29')">② 커피 가루=점토 / 물=미사 / 필터=모래</li>
+    <li onclick="choose(this,false,'e29')">③ 커피 드립은 산림과 관계없고 단순 비유일 뿐이다</li>
+    <li onclick="choose(this,false,'e29')">④ 커피 가루 물 침투=중력수 / 뚝뚝 떨어짐=침투수</li>
+  </ul>
+  <div class="explanation" id="e29">✅ 커피 드립 비유: <strong>가루 침투=침투수, 뚝뚝 떨어짐=중력수, 표면 넘침=표면수</strong>. 산림 나무가 잘 자라는 원리!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 30 / 50 · 섹션 7</div>
+  <div class="question-text">도심 가로수가 산림 나무보다 약한 이유를 토양수 관점에서 설명한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e30')">① 도심 공기 오염으로 광합성이 어렵기 때문</li>
+    <li onclick="choose(this,true,'e30')" data-correct>② 도심은 지대가 평평해 물이 빠지는 데 시간이 걸려 뿌리가 숨을 못 쉬기 때문</li>
+    <li onclick="choose(this,false,'e30')">③ 도심 토양에 영양분이 너무 많아 뿌리가 과영양 상태가 되기 때문</li>
+    <li onclick="choose(this,false,'e30')">④ 도심 토양 pH가 너무 높아 영양분 흡수가 안 되기 때문</li>
+  </ul>
+  <div class="explanation" id="e30">✅ 도심 가로수는 <strong>평평한 지면 → 물 배수 느림 → 뿌리가 물에 잠겨 호흡 못함 → 약해짐</strong>. 반면 산은 경사로 자연 배수.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 31 / 50 · 섹션 7</div>
+  <div class="question-text">고산지대 꽃이 색깔이 진하고 향기가 강한 이유는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e31')">① 고산의 자외선이 색소 생성을 촉진하기 때문</li>
+    <li onclick="choose(this,false,'e31')">② 고산의 낮은 기온이 꽃에 영양분을 농축시키기 때문</li>
+    <li onclick="choose(this,true,'e31')" data-correct>③ 곤충이 적은 고산에서 수분 기회가 적으므로, 한 번의 기회에 곤충을 강하게 유인해야 하기 때문</li>
+    <li onclick="choose(this,false,'e31')">④ 고산의 강풍에 향기가 날아가는 것을 보완하기 위해서</li>
+  </ul>
+  <div class="explanation" id="e31">✅ 고산 = 곤충 적음 → 수분 기회 희귀 → <strong>한 번에 곤충 강하게 유인</strong>. 샤넬 등 유명 향수 회사가 몽골 고산지대 식물 원료 사용하는 이유!</div>
+</div>
+
+<!-- ===== 섹션 8: 토성 삼각도 ===== -->
+<div class="section-header">🔺 섹션 8. 토양 구성 입자와 토성 삼각도 (5문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 32 / 50 · 섹션 8 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">토양 구성 입자를 크기가 큰 것부터 순서대로 나열한 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e32')">① 점토 &gt; 미사 &gt; 모래 &gt; 자갈</li>
+    <li onclick="choose(this,false,'e32')">② 모래 &gt; 점토 &gt; 미사 &gt; 자갈</li>
+    <li onclick="choose(this,true,'e32')" data-correct>③ 자갈 &gt; 모래 &gt; 미사 &gt; 점토</li>
+    <li onclick="choose(this,false,'e32')">④ 자갈 &gt; 점토 &gt; 미사 &gt; 모래</li>
+  </ul>
+  <div class="explanation" id="e32">✅ 크기 순: <strong>자갈(Gravel) &gt; 모래(Sand) &gt; 미사(Silt) &gt; 점토(Clay)</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 33 / 50 · 섹션 8</div>
+  <div class="question-text">손으로 흙을 만질 때 촉감과 입자의 연결이 틀린 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e33')">① 모래 — 까슬까슬</li>
+    <li onclick="choose(this,false,'e33')">② 미사 — 밀가루처럼 부들부들</li>
+    <li onclick="choose(this,false,'e33')">③ 점토 — 끈적끈적</li>
+    <li onclick="choose(this,true,'e33')" data-correct>④ 자갈 — 부드럽고 매끄러움</li>
+  </ul>
+  <div class="explanation" id="e33">✅ 자갈은 <strong>거칠고 단단한</strong> 느낌. 부드럽고 매끄러운 것은 미사(밀가루 촉감). ④가 틀린 연결입니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 34 / 50 · 섹션 8 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">산림에서 가장 이상적인 토성은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e34')">① 모래토(사토) — 배수 최고</li>
+    <li onclick="choose(this,false,'e34')">② 점토 — 수분 보유 최고</li>
+    <li onclick="choose(this,true,'e34')" data-correct>③ 양토(壤土) — 배수·통기성 + 수분 보유 균형</li>
+    <li onclick="choose(this,false,'e34')">④ 미사토 — 밀가루 성질로 부착력 최고</li>
+  </ul>
+  <div class="explanation" id="e34">✅ 산림 이상적 토성: <strong>양토(壤土, Loam)</strong>. 배수·통기성 + 수분 보유 능력 균형. Sand 50% + Silt 40% + Clay 10% = 양토.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 35 / 50 · 섹션 8</div>
+  <div class="question-text">띠본법(Ribbon Test)에서 흙을 손가락으로 밀었을 때 5cm 이상 늘어난다면?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e35')">① 모래 함량이 높다</li>
+    <li onclick="choose(this,false,'e35')">② 미사 함량이 높다</li>
+    <li onclick="choose(this,true,'e35')" data-correct>③ 점토 함량이 높다</li>
+    <li onclick="choose(this,false,'e35')">④ 유기물 함량이 높다</li>
+  </ul>
+  <div class="explanation" id="e35">✅ 띠본법: 손가락으로 쭉 밀었을 때 <strong>2.5cm 이상 늘어나면 점토 함량 높음</strong>. 끈적한 점토의 특성. 현장 체험 활용 가능!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 36 / 50 · 섹션 8</div>
+  <div class="question-text">우리나라 산림 토양의 토성 구성 비율 중 가장 높은 두 가지는? (국립산림과학원 2015)</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e36')">① 자갈(50%) + 모래(30%)</li>
+    <li onclick="choose(this,true,'e36')" data-correct>② 모래(41.5%) + 미사(41.7%)</li>
+    <li onclick="choose(this,false,'e36')">③ 점토(60%) + 미사(30%)</li>
+    <li onclick="choose(this,false,'e36')">④ 모래(70%) + 점토(20%)</li>
+  </ul>
+  <div class="explanation" id="e36">✅ 우리나라 토양: <strong>미사 41.7% + 모래 41.5% (거의 동등)</strong>, 점토 16.8%. 양토 계열 우세.</div>
+</div>
+
+<!-- ===== 섹션 9: 입단 구조 ===== -->
+<div class="section-header">🔮 섹션 9. 입단(粒團) 구조 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 37 / 50 · 섹션 9 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">입단 구조에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e37')">① 알갱이가 낱낱이 분리된 구조로 배수만 가능</li>
+    <li onclick="choose(this,false,'e37')">② 모래만으로 이루어진 통기성 최고의 구조</li>
+    <li onclick="choose(this,true,'e37')" data-correct>③ 알갱이들이 뭉쳐져 더 큰 덩어리를 형성한 구조로, 대공극+소공극 공존 → 배수·통기·보습 모두 가능</li>
+    <li onclick="choose(this,false,'e37')">④ 점토가 과다해 물 빠짐이 없는 구조</li>
+  </ul>
+  <div class="explanation" id="e37">✅ 입단 구조: <strong>알갱이 뭉침 → 대공극+소공극 공존 → 배수+통기+보습 모두 우수</strong>. 뿌리에 최적인 이상적 토양 구조!</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 38 / 50 · 섹션 9</div>
+  <div class="question-text">입단 구조를 설명하는 '새우깡 비유'로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,true,'e38')" data-correct>① 부숴 꾹꾹 눌러 담은 새우깡=깨알 구조 / 그냥 담은 새우깡=입단 구조 → 후자에 물 부으면 훨씬 잘 빠짐</li>
+    <li onclick="choose(this,false,'e38')">② 부숴 담은 새우깡=입단 구조 / 그냥 담은 새우깡=깨알 구조</li>
+    <li onclick="choose(this,false,'e38')">③ 새우깡=모래 입자 / 봉지=토양 구조</li>
+    <li onclick="choose(this,false,'e38')">④ 새우깡 가루=점토 / 원형 새우깡=양토</li>
+  </ul>
+  <div class="explanation" id="e38">✅ <strong>부숴 꾹꾹 눌러=깨알(낱알) 구조</strong>(배수만), <strong>그냥 담은=입단 구조</strong>(배수·통기·보습 모두). 그냥 담은 새우깡이 물을 훨씬 빨리 통과시킵니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 39 / 50 · 섹션 9</div>
+  <div class="question-text">도시 토양이 깨알 구조가 될 수밖에 없는 이유는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e39')">① 도시 대기 오염이 토양 구조를 변형하기 때문</li>
+    <li onclick="choose(this,false,'e39')">② 도시 빗물이 산성이어서 입단 구조가 파괴되기 때문</li>
+    <li onclick="choose(this,true,'e39')" data-correct>③ 대형 장비가 왔다 갔다 하며 토양을 눌러버리기 때문</li>
+    <li onclick="choose(this,false,'e39')">④ 도시 토양에 점토 함량이 너무 높기 때문</li>
+  </ul>
+  <div class="explanation" id="e39">✅ 도시 토양은 <strong>대형 장비(포클레인, 트럭 등)가 지속적으로 눌러</strong> 알갱이가 서로 맞닿는 깨알 구조가 됩니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 40 / 50 · 섹션 9</div>
+  <div class="question-text">전문가 격언 "토양 1달러 투자 = 식물 1센트 투자"가 의미하는 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e40')">① 토양 관리 비용이 식물 관리보다 100배 저렴하다</li>
+    <li onclick="choose(this,true,'e40')" data-correct>② 눈에 보이지 않는 토양이 눈에 보이는 나무보다 훨씬 중요하다</li>
+    <li onclick="choose(this,false,'e40')">③ 토양 개량제에 많이 투자해야 식물이 잘 자란다</li>
+    <li onclick="choose(this,false,'e40')">④ 식물보다 토양 비료 예산이 많아야 한다</li>
+  </ul>
+  <div class="explanation" id="e40">✅ <strong>눈에 보이지 않는 토양이 핵심</strong>. 토양(1달러)을 잘 관리하면 식물(1센트)은 자연스럽게 따라옵니다 — 보이지 않는 것의 중요성!</div>
+</div>
+
+<!-- ===== 섹션 10: 영양소·퇴비 ===== -->
+<div class="section-header">🧪 섹션 10. 식물 영양소와 퇴비화 (4문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 41 / 50 · 섹션 10</div>
+  <div class="question-text">식물 비료의 3요소(다량 원소)로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e41')">① Ca, Mg, S</li>
+    <li onclick="choose(this,false,'e41')">② C, H, O</li>
+    <li onclick="choose(this,true,'e41')" data-correct>③ N(질소), P(인산), K(칼륨)</li>
+    <li onclick="choose(this,false,'e41')">④ Fe, Mn, B</li>
+  </ul>
+  <div class="explanation" id="e41">✅ 비료 3요소: <strong>N(질소)·P(인산)·K(칼륨)</strong>. C·H·O는 광합성 원소로 비료 불필요. Ca·Mg·S는 2차 다량 원소.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 42 / 50 · 섹션 10</div>
+  <div class="question-text">엽록소의 핵심 구성 원소로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e42')">① 칼륨(K)</li>
+    <li onclick="choose(this,true,'e42')" data-correct>② 마그네슘(Mg)</li>
+    <li onclick="choose(this,false,'e42')">③ 인산(P)</li>
+    <li onclick="choose(this,false,'e42')">④ 황(S)</li>
+  </ul>
+  <div class="explanation" id="e42">✅ 엽록소 핵심 원소: <strong>마그네슘(Mg²⁺)</strong>. 엽록소 분자 중심에 Mg가 위치합니다. Mg 결핍 시 황화 현상 발생.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 43 / 50 · 섹션 10</div>
+  <div class="question-text">퇴비화(Composting) 2단계 발열 시 유지되는 적정 온도는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e43')">① 20~30°C</li>
+    <li onclick="choose(this,false,'e43')">② 30~40°C</li>
+    <li onclick="choose(this,true,'e43')" data-correct>③ 50~70°C</li>
+    <li onclick="choose(this,false,'e43')">④ 80~100°C</li>
+  </ul>
+  <div class="explanation" id="e43">✅ 퇴비화 발열 단계: <strong>50~70°C</strong> 유지. 이 온도에서 병원균·잡초 씨앗이 사멸합니다. 완숙까지 약 7개월.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 44 / 50 · 섹션 10</div>
+  <div class="question-text">퇴비 원료의 최적 C/N(탄소/질소) 비율은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e44')">① 5:1</li>
+    <li onclick="choose(this,false,'e44')">② 15:1</li>
+    <li onclick="choose(this,true,'e44')" data-correct>③ 30:1</li>
+    <li onclick="choose(this,false,'e44')">④ 100:1</li>
+  </ul>
+  <div class="explanation" id="e44">✅ 퇴비화 최적 C/N 비율: <strong>약 30:1</strong>. C/N이 너무 높으면 분해 느림, 너무 낮으면 질소 손실.</div>
+</div>
+
+<!-- ===== 섹션 11: 토양 관리와 나무 심기 ===== -->
+<div class="section-header">🌳 섹션 11. 토양 관리·나무 심기·현장 안내 (6문항)</div>
+
+<div class="question-card">
+  <div class="question-num">문제 45 / 50 · 섹션 11 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">나무 심기 3대 핵심 원칙으로 올바른 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e45')">① 구덩이=분 크기, 바닥=볼록, 흙=근원부 이상 충분히</li>
+    <li onclick="choose(this,false,'e45')">② 구덩이=분의 1~2배, 바닥=평평, 흙=근원부 위 10cm</li>
+    <li onclick="choose(this,true,'e45')" data-correct>③ 구덩이=분의 3~4배 넓게, 바닥=오목(분 모양), 흙=근원부 위치에 맞춰 덮기</li>
+    <li onclick="choose(this,false,'e45')">④ 구덩이=분의 5배 이상, 바닥=평평, 흙=최대한 많이 덮기</li>
+  </ul>
+  <div class="explanation" id="e45">✅ 나무 심기 3원칙: <strong>① 분의 3~4배 넓게 파기 ② 바닥 오목하게(잔뿌리 퍼짐) ③ 근원부에 맞춰 흙 덮기(절대 과도하게 덮지 않기!)</strong></div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 46 / 50 · 섹션 11</div>
+  <div class="question-text">나무 식재 후 비료를 주는 올바른 위치는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e46')">① 나무 줄기 바로 옆</li>
+    <li onclick="choose(this,false,'e46')">② 나무 뿌리 분(盆) 위치</li>
+    <li onclick="choose(this,true,'e46')" data-correct>③ 수관(가지) 끝 아래쪽 토양의 바깥 지점</li>
+    <li onclick="choose(this,false,'e46')">④ 나무에서 5m 이상 떨어진 곳</li>
+  </ul>
+  <div class="explanation" id="e46">✅ 잔뿌리는 <strong>수관(가지) 끝 아래쪽 토양에 분포</strong>. 비료는 그 바깥 지점(=수관 끝 아래)에 주어야 효과적입니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 47 / 50 · 섹션 11</div>
+  <div class="question-text">바이오차(Biochar)에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e47')">① 화학적으로 합성된 토양 개량제</li>
+    <li onclick="choose(this,true,'e47')" data-correct>② 소나무 바크 멀칭보다 효과적이며 토양 수분 보호·보습과 탄소 저감에 기여하는 멀칭 소재</li>
+    <li onclick="choose(this,false,'e47')">③ 지렁이 배설물로 만들어진 천연 비료</li>
+    <li onclick="choose(this,false,'e47')">④ 석회와 유기물을 혼합한 토양 개량제</li>
+  </ul>
+  <div class="explanation" id="e47">✅ 바이오차: <strong>소나무 바크 멀칭보다 효과적</strong>. 토양 수분 보호·보습 + 탄소 저감. 토양 피복(멀칭)의 최선 선택.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 48 / 50 · 섹션 11</div>
+  <div class="question-text">한건풍(寒乾風)이 식물에 미치는 피해로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,true,'e48')" data-correct>① 식물 기공을 닫히게 하고 토양 수분을 급격히 날려버림 → 동백나무·모서 냉해 원인</li>
+    <li onclick="choose(this,false,'e48')">② 식물 잎을 물리적으로 찢어 수분 손실 유발</li>
+    <li onclick="choose(this,false,'e48')">③ 식물 뿌리를 직접 얼려 세포 파괴</li>
+    <li onclick="choose(this,false,'e48')">④ 토양 내 유해균을 증식시켜 뿌리 감염</li>
+  </ul>
+  <div class="explanation" id="e48">✅ 한건풍: <strong>겨울 건조·차가운 바람 → 기공 닫힘 + 토양 수분 급감 → 동백나무·모서 냉해 피해</strong>의 주요 원인.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 49 / 50 · 섹션 11</div>
+  <div class="question-text">나무 식재 후 죽수기(물주기) 시 기포가 올라오는 것의 의미는?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e49')">① 토양이 너무 산성화되어 있다는 신호</li>
+    <li onclick="choose(this,true,'e49')" data-correct>② 뿌리 주머니와 흙 사이의 공기층이 제대로 빠지고 있다는 정상 신호</li>
+    <li onclick="choose(this,false,'e49')">③ 물을 너무 많이 주어 뿌리가 과습 상태라는 경고</li>
+    <li onclick="choose(this,false,'e49')">④ 토양 내 분해가 활발히 일어나는 신호</li>
+  </ul>
+  <div class="explanation" id="e49">✅ 기포 = <strong>정상 신호</strong>. 뿌리 주머니와 흙 사이 공기층이 제대로 빠지는 것. 기포 안 나오면 죽수기 반복해야 합니다.</div>
+</div>
+
+<div class="question-card">
+  <div class="question-num">문제 50 / 50 · 섹션 11 <span class="exam-tip-badge">★★ 시험</span></div>
+  <div class="question-text">해설 시 반드시 주의를 안내해야 할 식물과 주의 이유가 올바르게 연결된 것은?</div>
+  <ul class="options">
+    <li onclick="choose(this,false,'e50')">① 천남성=알레르기 / 대극과=독성 강함 / 쐐기풀=시력 손상</li>
+    <li onclick="choose(this,false,'e50')">② 천남성=피부 발진 / 대극과=알레르기 / 쐐기풀=독성 강함</li>
+    <li onclick="choose(this,true,'e50')" data-correct>③ 천남성=독성 강함 / 대극과=흰 액체 → 시력 손상 / 쐐기풀=접촉 시 알레르기</li>
+    <li onclick="choose(this,false,'e50')">④ 천남성=시력 손상 / 대극과=독성 강함 / 쐐기풀=섭취 시 치명적</li>
+  </ul>
+  <div class="explanation" id="e50">✅ <strong>천남성=독성 강함(접촉·섭취 금지) / 대극과=줄기 꺾으면 흰 액체 → 눈 닿으면 시력 손상 / 쐐기풀=접촉 시 강한 알레르기</strong></div>
+</div>
+
+<div id="final" class="final-score">
+  <div id="final-text">전체 완료!</div>
+  <div style="font-size:0.85em; margin-top:12px; opacity:0.8;">0328 산림토양학 | 강사: 한국농수산대학교 성정원</div>
+</div>
+
+<a class="back-link" href="study.html">← 강의자료 목록으로</a>
+
+</body>
+</html>
