@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도시숲 가꾸기의 이해 — 기출문제집</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; line-height: 1.8; color: #222; background: #f0f7f2; }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+  header { background: linear-gradient(135deg, #2d6a4f, #40916c); color: white; padding: 28px 24px; border-radius: 12px; margin-bottom: 24px; }
+  header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  header .meta { font-size: 13px; opacity: 0.85; }
+  .score-board { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .score-item { text-align: center; }
+  .score-item .label { font-size: 12px; color: #666; }
+  .score-item .value { font-size: 22px; font-weight: 700; color: #2d6a4f; }
+  .section-header { background: #2d6a4f; color: white; padding: 10px 18px; border-radius: 8px; margin: 20px 0 12px; font-weight: 700; font-size: 15px; }
+  .question-card { background: white; border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .question-num { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .question-text { font-weight: 700; font-size: 15px; margin-bottom: 12px; color: #1b4332; }
+  .options { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .options li { padding: 8px 14px; border: 1.5px solid #b7e4c7; border-radius: 7px; cursor: pointer; font-size: 14px; transition: background 0.15s, border-color 0.15s; }
+  .options li:hover { background: #f0fdf4; border-color: #40916c; }
+  .options li.correct { background: #d1fae5; border-color: #059669; color: #065f46; font-weight: 700; }
+  .options li.wrong { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+  .options li.disabled { cursor: default; pointer-events: none; }
+  .answer-box { display: none; background: #f0fdf4; border-left: 4px solid #40916c; border-radius: 6px; padding: 10px 14px; margin-top: 10px; font-size: 13px; color: #1b4332; }
+  .answer-box .ans-label { font-weight: 700; margin-bottom: 4px; }
+  .star-hint { color: #b45309; font-size: 12px; margin-left: 6px; }
+  .btn-reset { background: #2d6a4f; color: white; border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; cursor: pointer; margin-top: 20px; }
+  .btn-reset:hover { background: #1b4332; }
+  @media (max-width: 600px) { .score-board { gap: 10px; } .score-item .value { font-size: 18px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🌳 도시숲 가꾸기의 이해 — 기출문제집</h1>
+  <div class="meta">총 25문항 | 클릭하면 정답 확인 | 출처: 음성정리 + Gnote OCR</div>
+</header>
+
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626;">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+
+<!-- 섹션 1: 산림 기본 용어 -->
+<div class="section-header">📚 Part 1. 산림 기본 용어 (1~6번)</div>
+
+<!-- Q1 -->
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">우리나라에서 공식적으로 사용하는 산림 용어로 올바른 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">① 삼림(森林) — 나무가 우거진 숲을 의미하는 일본식 표현</li>
+    <li onclick="answer(this,'q1','2')">② 산림(山林) — 한국과 중국에서 사용하는 공식 표현</li>
+    <li onclick="answer(this,'q1','3')">③ 임수(林藪) — 조선시대부터 현대까지 사용하는 표현</li>
+    <li onclick="answer(this,'q1','4')">④ 삼림과 산림 모두 공식 표현으로 혼용 가능</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>산림(山林)이 우리나라 공식 표현. 삼림(森林)은 일본식 한자어로 구한말 1908년 '삼림법' 제정 당시 사용됐으며 현재는 거의 사용하지 않음. 임수(林藪)는 과거 표현.</div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">우리나라 산림이 국토 면적에서 차지하는 비율은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">① 약 45%</li>
+    <li onclick="answer(this,'q2','2')">② 약 53%</li>
+    <li onclick="answer(this,'q2','3')">③ 약 63%</li>
+    <li onclick="answer(this,'q2','4')">④ 약 73%</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>우리나라 산림 면적은 약 630만 ha로 국토 면적의 약 63%를 차지. OECD 국가 중 산림 비율 네 번째 수준.</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">우리나라 산림 소유 구분에서 개인이 소유한 사유림의 비율로 옳은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">① 약 30%</li>
+    <li onclick="answer(this,'q3','2')">② 약 47%</li>
+    <li onclick="answer(this,'q3','3')">③ 약 55%</li>
+    <li onclick="answer(this,'q3','4')">④ 약 67%</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">✅ 정답: ④</div>
+    <div>사유림 약 67%(압도적으로 많음), 공유림 약 25~26%(지방자치단체 소유), 국유림 약 30% 이상 목표.</div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">우리나라 목재 자급률은 약 몇 %인가?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">① 약 10%</li>
+    <li onclick="answer(this,'q4','2')">② 약 20%</li>
+    <li onclick="answer(this,'q4','3')">③ 약 40%</li>
+    <li onclick="answer(this,'q4','4')">④ 약 60%</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>목재 자급률은 약 20%, 나머지 80%는 수입. 기후·토양 특성상 인도네시아 같은 나라에 비해 나무가 크게 자라지 못함.</div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">산림 면적이 가장 넓은 시·도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">① 경기도</li>
+    <li onclick="answer(this,'q5','2')">② 강원도</li>
+    <li onclick="answer(this,'q5','3')">③ 경상북도</li>
+    <li onclick="answer(this,'q5','4')">④ 충청남도</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>산림 면적 1위는 강원도, 2위는 경상북도. 강원도가 압도적으로 많을 줄 알았지만 경북과 큰 차이가 없다고 함.</div>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">공유림이란 무엇인가?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">① 국가가 소유한 산림</li>
+    <li onclick="answer(this,'q6','2')">② 여러 개인이 공동으로 소유한 산림</li>
+    <li onclick="answer(this,'q6','3')">③ 지방자치단체(시·군·구)가 소유한 산림</li>
+    <li onclick="answer(this,'q6','4')">④ 산림청이 관리하는 국가 보호 산림</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>공유림 = 지방자치단체(시·군·구) 소유. 예: 전주시가 갖고 있는 산림. 약 25~26% 비율.</div>
+  </div>
+</div>
+
+<!-- 섹션 2: 임상·수종·숲 구조 -->
+<div class="section-header">🌲 Part 2. 임상·수종·숲 구조 (7~13번)</div>
+
+<!-- Q7 -->
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">임상(林相) 구분에서 침엽수림(침엽순림)으로 분류되는 기준은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">① 침엽수가 50% 이상</li>
+    <li onclick="answer(this,'q7','2')">② 침엽수가 60% 이상</li>
+    <li onclick="answer(this,'q7','3')">③ 침엽수가 75% 이상</li>
+    <li onclick="answer(this,'q7','4')">④ 침엽수가 90% 이상</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>임상 구분: 침엽수(또는 활엽수)가 <strong>75% 이상</strong>이면 순림, <strong>25% 이상 75% 미만</strong>이면 혼효림.</div>
+  </div>
+</div>
+
+<!-- Q8 -->
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">혼효림(混淆林)의 기준으로 옳은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">① 침엽수와 활엽수가 정확히 50:50인 숲</li>
+    <li onclick="answer(this,'q8','2')">② 어느 한 수종이 25% 이상 75% 미만인 숲</li>
+    <li onclick="answer(this,'q8','3')">③ 3종류 이상의 나무가 섞인 숲</li>
+    <li onclick="answer(this,'q8','4')">④ 침엽수가 30% 이상인 숲</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>혼효림: 어느 한 수종이 25% 이상 75% 미만인 숲. 75% 이상이면 순림(침엽순림 또는 활엽순림)으로 분류.</div>
+  </div>
+</div>
+
+<!-- Q9 -->
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">사유림에서 나무를 벌채할 수 있는 벌기령(伐期齡)은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">① 20년 이상</li>
+    <li onclick="answer(this,'q9','2')">② 30년 이상</li>
+    <li onclick="answer(this,'q9','3')">③ 40년 이상</li>
+    <li onclick="answer(this,'q9','4')">④ 60년 이상</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>사유림 벌기령 40년(예전에는 50년, 현재 완화). 국유림은 60년 이상이어야 벌채 가능. 자기 땅의 나무라도 법적으로 정해진 벌기령 이전에는 벌채 불가.</div>
+  </div>
+</div>
+
+<!-- Q10 -->
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">대표적인 양수(陽樹)로 햇빛을 극단적으로 좋아하는 나무는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">① 편백</li>
+    <li onclick="answer(this,'q10','2')">② 삼나무</li>
+    <li onclick="answer(this,'q10','3')">③ 소나무</li>
+    <li onclick="answer(this,'q10','4')">④ 은행나무</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>소나무는 대표적인 양수(陽樹). 그늘에 소나무를 심으면 제대로 자라지 못함. 삼나무는 중용수(양지·음지 모두 잘 자람).</div>
+  </div>
+</div>
+
+<!-- Q11 -->
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">숲의 구조 중 교목과 왜목이 의도적으로 섞인 숲은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">① 교림(喬林)</li>
+    <li onclick="answer(this,'q11','2')">② 중림(中林)</li>
+    <li onclick="answer(this,'q11','3')">③ 왜림(矮林)</li>
+    <li onclick="answer(this,'q11','4')">④ 혼효림(混淆林)</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>중림(中林): 교목과 왜목이 섞인 숲. 교림: 키 큰 나무 위주. 왜림: 키 작은 나무 위주.</div>
+  </div>
+</div>
+
+<!-- Q12 -->
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">우리나라에 천연림과 인공림 외에 존재하지 않는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">① 원시림</li>
+    <li onclick="answer(this,'q12','2')">③ 천연림</li>
+    <li onclick="answer(this,'q12','3')">③ 인공림</li>
+    <li onclick="answer(this,'q12','4')">④ 혼효림</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">✅ 정답: ①</div>
+    <div>원시림과 자연림은 우리나라에 거의 없음. 우리나라에는 천연림과 인공림, 이 두 가지만 있다고 보면 됨.</div>
+  </div>
+</div>
+
+<!-- Q13 -->
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">은행나무에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">① 전형적인 침엽수로 분류가 명확하다</li>
+    <li onclick="answer(this,'q13','2')">② 전형적인 활엽수로 분류된다</li>
+    <li onclick="answer(this,'q13','3')">③ 잎이 부채 모양이며 일부 학자는 활엽수로 분류해야 한다고 주장하지만 일반적으로는 침엽수로 분류한다</li>
+    <li onclick="answer(this,'q13','4')">④ 침엽수도 활엽수도 아닌 제3의 분류에 해당한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>은행나무는 잎이 부채 모양으로 독특. 일반적으로 침엽수로 분류하나, 일부 학자들은 활엽수로 분류해야 한다고 주장하기도 함.</div>
+  </div>
+</div>
+
+<!-- 섹션 3: 도시숲 법·기능 -->
+<div class="section-header">🏙️ Part 3. 도시숲 법률·기능·마을숲 (14~17번)</div>
+
+<!-- Q14 -->
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">도시숲 관련 법률이 제정·시행된 연도는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">① 2010년</li>
+    <li onclick="answer(this,'q14','2')">② 2015년</li>
+    <li onclick="answer(this,'q14','3')">③ 2018년</li>
+    <li onclick="answer(this,'q14','4')">④ 2020년</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">✅ 정답: ④</div>
+    <div>2020년에 「도시숲 등의 조성 및 관리에 관한 법률」 제정·시행. 도시숲 법적 정의: 도시에서 국민의 보건·휴양 및 정서 함양을 위해 조성·관리하는 산림 및 수목.</div>
+  </div>
+</div>
+
+<!-- Q15 -->
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">산림(도시숲)의 6가지 기능 중 해당하지 않는 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">① 목재생산 기능</li>
+    <li onclick="answer(this,'q15','2')">② 수원함양 기능</li>
+    <li onclick="answer(this,'q15','3')">③ 관광수익 창출 기능</li>
+    <li onclick="answer(this,'q15','4')">④ 생태계 보전 기능</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>산림의 6가지 기능: ①목재생산 ②수원함양 ③재해방지 ④산림휴양 ⑤생활환경보전 ⑥생태계보전. 관광수익 창출은 포함되지 않음.</div>
+  </div>
+</div>
+
+<!-- Q16 -->
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">가로수 플라타너스에 대한 설명으로 틀린 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">① 공기정화 능력이 뛰어난 나무다</li>
+    <li onclick="answer(this,'q16','2')">② 봄에 솜털 같은 것이 날려 기관지·안구 질환을 악화시킬 수 있다</li>
+    <li onclick="answer(this,'q16','3')">③ 좁은 공간에 심으면 밑에 동공(공동)이 생길 수 있다</li>
+    <li onclick="answer(this,'q16','4')">④ 영국에서는 플라타너스 가로수를 전면 퇴출하고 있다</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">✅ 정답: ④</div>
+    <div>오히려 영국에서는 거리 가로수가 거의 플라타너스. 생육 공간을 넓게 확보하고 상가에서 직접 관리. 강사가 부러워했음.</div>
+  </div>
+</div>
+
+<!-- Q17 -->
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">마을숲의 역할로 옳지 않은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">① 마을 공동체의 문화와 경계를 지키는 역할</li>
+    <li onclick="answer(this,'q17','2')">② 농작물을 짐승이나 바람으로부터 보호</li>
+    <li onclick="answer(this,'q17','3')">③ 해풍 피해를 막기 위한 방풍림 역할</li>
+    <li onclick="answer(this,'q17','4')">④ 국가 목재 생산량의 대부분을 담당</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">✅ 정답: ④</div>
+    <div>마을숲은 문화·경계·방풍·방조 역할. 목재 생산은 마을숲의 주 기능이 아님. 진도 중리마을 해풍 방지 사례 등이 대표적.</div>
+  </div>
+</div>
+
+<!-- 섹션 4: 숲가꾸기·나무측정 -->
+<div class="section-header">🪓 Part 4. 숲가꾸기·나무 측정 용어 (18~22번)</div>
+
+<!-- Q18 -->
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">숲가꾸기 단계 중 '풀베기' 작업이 적용되는 나무 연령은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">① 1년~5년생</li>
+    <li onclick="answer(this,'q18','2')">② 5년~10년생</li>
+    <li onclick="answer(this,'q18','3')">③ 10년~20년생</li>
+    <li onclick="answer(this,'q18','4')">④ 20년 이상</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">✅ 정답: ①</div>
+    <div>숲가꾸기 단계: 풀베기(1~5년) → 어린나무가꾸기(5~10년) → 가지치기·솎아베기(10년 이상).</div>
+  </div>
+</div>
+
+<!-- Q19 -->
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">가지치기를 해서는 안 되는 금지 시기는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">① 1월~2월 (한겨울)</li>
+    <li onclick="answer(this,'q19','2')">② 3월~4월 (이른 봄)</li>
+    <li onclick="answer(this,'q19','3')">③ 5월~8월 (여름)</li>
+    <li onclick="answer(this,'q19','4')">④ 9월~10월 (초가을)</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>가지치기 적기: 11월~다음 해 2~3월(겨울~초봄). 금지 시기: 5월~8월(여름). 여름에는 나무 생장이 활발해 상처 회복이 어려움.</div>
+  </div>
+</div>
+
+<!-- Q20 -->
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">가지치기 시 지륭부(가지턱)에 대한 설명으로 올바른 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">① 지륭부를 건드려야 상처가 깨끗이 아문다</li>
+    <li onclick="answer(this,'q20','2')">② 지륭부를 건드리지 말고 그 바깥쪽에서 잘라야 한다</li>
+    <li onclick="answer(this,'q20','3')">③ 지륭부 안쪽에서 바짝 붙여 잘라야 한다</li>
+    <li onclick="answer(this,'q20','4')">④ 지륭부 위치는 가지치기와 무관하다</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>지륭부에는 상처를 보호하는 물질이 있음. 지륭부를 건드리면 썩어 들어감. 반드시 지륭부 바깥쪽에서 절단해야 함.</div>
+  </div>
+</div>
+
+<!-- Q21 -->
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">나무의 지하고(枝下高)란?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">① 나무 전체 높이(땅에서 꼭대기까지)</li>
+    <li onclick="answer(this,'q21','2')">② 가슴 높이(1.2m)에서 측정한 나무 직경</li>
+    <li onclick="answer(this,'q21','3')">③ 첫 번째 가지부터 지면까지의 높이 (목재로 쓸 수 있는 부분)</li>
+    <li onclick="answer(this,'q21','4')">④ 땅 바로 위에서 측정한 나무 직경</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>지하고(枝下高) = 첫 번째 가지부터 지면까지의 높이. 목재로 쓸 수 있는 가장 유용한 부분. 지하고가 클수록 좋은 목재를 많이 얻을 수 있음.</div>
+  </div>
+</div>
+
+<!-- Q22 -->
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">흉고직경(胸高直徑) 측정에 대한 설명으로 옳은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">① 땅에서 0.5m 높이에서 측정하며 홀수 값도 그대로 기록한다</li>
+    <li onclick="answer(this,'q22','2')">② 가슴 높이(1.2m)에서 측정하며 홀수가 나오면 올림해서 짝수로 기록한다</li>
+    <li onclick="answer(this,'q22','3')">③ 나무 꼭대기에서 측정하며 소수점 단위로 정밀 기록한다</li>
+    <li onclick="answer(this,'q22','4')">④ 수관의 가장 넓은 부분에서 측정한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>흉고직경: 가슴 높이(1.2m)에서 윤척(직경자)으로 측정. 무조건 짝수로만 기록. 홀수 나오면 올림 → 짝수. 예: 23cm → 24cm.</div>
+  </div>
+</div>
+
+<!-- 섹션 5: 그린짐 -->
+<div class="section-header">💚 Part 5. 그린짐(Green Gym) (23~25번)</div>
+
+<!-- Q23 -->
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">그린짐(Green Gym)의 정의로 가장 옳은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">① 숲속에 설치한 운동 기구 시설</li>
+    <li onclick="answer(this,'q23','2')">② 숲에서 약간의 땀을 흘리며 몸을 움직여 몸과 마음을 건강하게 하는 숲 활동</li>
+    <li onclick="answer(this,'q23','3')">③ 친환경 소재로 만든 실내 헬스장</li>
+    <li onclick="answer(this,'q23','4')">④ 산림청이 운영하는 산림 치유 프로그램</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>그린짐: 숲에서 약간의 땀을 흘리며 몸과 마음을 건강하게 하는 숲 활동. 숲가꾸기 + 건강 신체활동 + 커뮤니티 형성의 일석삼조 프로그램.</div>
+  </div>
+</div>
+
+<!-- Q24 -->
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">그린짐이 가장 먼저 도입된 나라는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">① 미국</li>
+    <li onclick="answer(this,'q24','2')">② 독일</li>
+    <li onclick="answer(this,'q24','3')">③ 영국</li>
+    <li onclick="answer(this,'q24','4')">④ 일본</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>그린짐은 영국에서 가장 먼저 도입. 영국 보건의료 전문가들이 효과에 주목하고 의사들이 직접 시민에게 추천. 우리나라는 2018년 10월 대전에서 전국 최초 시작.</div>
+  </div>
+</div>
+
+<!-- Q25 -->
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">그린짐 운영 시 활동 장소로 권장하는 곳은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">① 사유림 (개인 소유 산림)</li>
+    <li onclick="answer(this,'q25','2')">② 국유림·공유림 (사유림은 분쟁 가능성)</li>
+    <li onclick="answer(this,'q25','3')">③ 도시 공원만 허용</li>
+    <li onclick="answer(this,'q25','4')">④ 산림청이 지정한 특별 보호림만 가능</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>그린짐 활동 장소: 국유림·공유림 권장. 사유림은 분쟁 가능성이 있어 지양. 참여자 5명당 리더 1명 배치, 보험 가입, 응급처치 수료증 필수.</div>
+  </div>
+</div>
+
+<div style="text-align:center; padding: 20px 0 30px;">
+  <button class="btn-reset" onclick="resetAll()">🔄 처음부터 다시</button>
+</div>
+
+<p style="text-align:center; font-size:12px; color:#888; padding-bottom: 20px;">소스: 도시숲가꾸기_음성정리.txt + 도시숲가꾸기_Gnote_OCR.txt | 생성: 2026-06-20</p>
+
+</div>
+
+<script>
+let correctCount = 0;
+let wrongCount = 0;
+const answers = {
+  q1:'2', q2:'3', q3:'4', q4:'2', q5:'2', q6:'3',
+  q7:'3', q8:'2', q9:'3', q10:'3', q11:'2', q12:'1', q13:'3',
+  q14:'4', q15:'3', q16:'4', q17:'4',
+  q18:'1', q19:'3', q20:'2', q21:'3', q22:'2',
+  q23:'2', q24:'3', q25:'2'
+};
+const answered = {};
+
+function answer(el, qid, chosen) {
+  if (answered[qid]) return;
+  answered[qid] = true;
+  const correct = answers[qid];
+  const opts = el.parentElement.querySelectorAll('li');
+  opts.forEach(o => o.classList.add('disabled'));
+  if (chosen === correct) {
+    el.classList.add('correct');
+    correctCount++;
+    document.getElementById('correct-count').textContent = correctCount;
+  } else {
+    el.classList.add('wrong');
+    opts[parseInt(correct)-1].classList.add('correct');
+    wrongCount++;
+    document.getElementById('wrong-count').textContent = wrongCount;
+  }
+  document.getElementById('ans-'+qid).style.display = 'block';
+  const total = correctCount + wrongCount;
+  document.getElementById('score-pct').textContent = Math.round(correctCount/total*100) + '%';
+}
+
+function resetAll() {
+  correctCount = 0; wrongCount = 0;
+  Object.keys(answered).forEach(k => delete answered[k]);
+  document.getElementById('correct-count').textContent = '0';
+  document.getElementById('wrong-count').textContent = '0';
+  document.getElementById('score-pct').textContent = '0%';
+  document.querySelectorAll('.options li').forEach(li => {
+    li.className = '';
+    li.setAttribute('onclick', li.getAttribute('onclick'));
+  });
+  document.querySelectorAll('.answer-box').forEach(b => b.style.display = 'none');
+}
+</script>
+</body>
+</html>
