@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>양서파충류 — 숲해설가 교육 정리본</title>
+<style>
+  :root {
+    --blue1: #0d47a1;
+    --blue2: #1565c0;
+    --blue3: #42a5f5;
+    --blue4: #bbdefb;
+    --blue6: #f3f7ff;
+    --green1: #1b5e20;
+    --green2: #2e7d4f;
+    --green3: #4caf7d;
+    --green4: #a8dabb;
+    --green6: #f0faf4;
+    --red: #c62828;
+    --amber: #e65100;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a2e1f;
+    background: #f2faf5;
+  }
+  header {
+    background: linear-gradient(135deg, var(--blue1) 0%, var(--blue2) 60%, var(--blue3) 100%);
+    color: #fff;
+    padding: 2.2rem 2rem 1.8rem;
+    text-align: center;
+  }
+  header h1 { font-size: 1.9rem; font-weight: 800; }
+  header p { margin-top: .5rem; font-size: .93rem; opacity: .88; }
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 20px;
+    padding: .25rem .85rem;
+    font-size: .8rem;
+    margin: .3rem .2rem 0;
+  }
+  .toc {
+    background: #fff;
+    border-left: 5px solid var(--blue3);
+    margin: 1.5rem 1.5rem 0;
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  }
+  .toc h2 { font-size: 1rem; color: var(--blue1); margin-bottom: .7rem; }
+  .toc ol { padding-left: 1.3rem; }
+  .toc li { font-size: .88rem; margin: .2rem 0; }
+  .toc a { color: var(--blue2); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  section {
+    background: #fff;
+    border-radius: 10px;
+    margin: 1.4rem 1.5rem;
+    padding: 1.5rem 1.8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  section h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--blue1);
+    border-bottom: 2.5px solid var(--blue4);
+    padding-bottom: .5rem;
+    margin-bottom: 1.1rem;
+  }
+  section h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue2);
+    margin: 1.1rem 0 .5rem;
+    border-left: 4px solid var(--blue3);
+    padding-left: .7rem;
+  }
+  section h4 { font-size: .93rem; font-weight: 700; color: var(--blue1); margin: .9rem 0 .3rem; }
+  p { margin: .4rem 0; }
+  ul, ol { padding-left: 1.4rem; margin: .4rem 0; }
+  li { margin: .25rem 0; }
+  .exam-box {
+    background: #fff8e1;
+    border: 1.5px solid #ffd54f;
+    border-left: 5px solid #ff8f00;
+    border-radius: 7px;
+    padding: .85rem 1.1rem;
+    margin: .8rem 0;
+  }
+  .exam-box::before {
+    content: '★ 시험 포인트';
+    display: block;
+    font-weight: 800;
+    font-size: .8rem;
+    color: #e65100;
+    margin-bottom: .35rem;
+  }
+  .tip-box {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-left: 5px solid var(--blue2);
+    border-radius: 7px;
+    padding: .75rem 1rem;
+    margin: .7rem 0;
+    font-size: .9rem;
+  }
+  .tip-box::before {
+    content: '💡 해설';
+    display: block;
+    font-weight: 700;
+    color: var(--blue1);
+    margin-bottom: .3rem;
+  }
+  .compare-box {
+    background: #f3e5f5;
+    border: 1px solid #ce93d8;
+    border-left: 5px solid #7b1fa2;
+    border-radius: 7px;
+    padding: .75rem 1rem;
+    margin: .7rem 0;
+  }
+  .compare-box::before {
+    content: '🔍 비교·구분';
+    display: block;
+    font-weight: 700;
+    color: #6a1b9a;
+    margin-bottom: .3rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .8rem 0;
+    font-size: .88rem;
+  }
+  th {
+    background: var(--blue2);
+    color: #fff;
+    padding: .55rem .75rem;
+    text-align: left;
+    font-weight: 700;
+  }
+  td {
+    padding: .5rem .75rem;
+    border-bottom: 1px solid #e3f2fd;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: var(--blue6); }
+  .hl-red { color: var(--red); font-weight: 700; }
+  .hl-blue { color: var(--blue1); font-weight: 700; }
+  .hl-green { color: var(--green1); font-weight: 700; }
+  .hl-amber { color: var(--amber); font-weight: 700; }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: .9rem;
+    margin: .8rem 0;
+  }
+  .card {
+    background: var(--blue6);
+    border: 1px solid var(--blue4);
+    border-radius: 8px;
+    padding: .85rem 1rem;
+  }
+  .card strong { color: var(--blue1); display: block; margin-bottom: .3rem; }
+  .summary-section { background: linear-gradient(135deg, #e3f2fd 0%, #f3f7ff 100%); }
+  footer { text-align: center; font-size: .8rem; color: #888; padding: 1.5rem; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐸 양서파충류 — 숲해설가 교육</h1>
+  <p>양서류와 파충류의 진화·분류·생태 · 현장 식별 가이드</p>
+  <span class="badge">📅 강의: 2026. 04. 16 (백두생태연구소 김현)</span>
+  <span class="badge">📂 소스: 교육 교재 PDF + 음성 1차 정리 DOCX</span>
+</header>
+
+<div class="toc">
+  <h2>📋 목차</h2>
+  <ol>
+    <li><a href="#s1">생명의 역사와 분류 체계</a></li>
+    <li><a href="#s2">양서파충류 진화적 관점</a></li>
+    <li><a href="#s3">형태적 특징: 양서류 vs 파충류</a></li>
+    <li><a href="#s4">분류학적 관점: 두개골 구조</a></li>
+    <li><a href="#s5">양서류와 파충류의 생태학</a></li>
+    <li><a href="#s6">한국의 양서류 현황 (2목 7과 24종)</a></li>
+    <li><a href="#s7">양서류 현장 식별 키(Key)</a></li>
+    <li><a href="#s8">도롱뇽목(유미목)의 생태와 특징</a></li>
+    <li><a href="#s9">개구리목(무미목) 과별 특성</a></li>
+    <li><a href="#s10">오개념 바로잡기 &amp; 현장 교육 팁</a></li>
+    <li><a href="#s11">핵심 암기 카드</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+  <h2>1. 생명의 역사와 분류 체계</h2>
+
+  <h3>지구 생명의 역사 개요</h3>
+  <ul>
+    <li><strong>약 38억 년 전</strong>: 단세포 박테리아 출현</li>
+    <li><strong>약 35억 년 전</strong>: 산소를 만들어내는 생물 등장</li>
+    <li><strong>약 5억 4천만 년 전</strong>: 산소와 육지가 만들어지면서 다양한 생명 본격 등장</li>
+    <li><strong>약 3억 9천만 년 전</strong>: 어류 중 일부가 육지로 올라와 <span class="hl-blue">양서류</span> 진화 시작</li>
+    <li><strong>이후</strong>: 완전히 육상에 적응한 <span class="hl-blue">파충류</span> 진화</li>
+    <li><strong>5대 대멸종과 여러 번의 빙하기</strong>를 거치면서 현재의 생물다양성 형성</li>
+  </ul>
+
+  <h3>현재는 빙하기? 간빙기?</h3>
+  <div class="exam-box">
+    <span class="hl-blue">현재는 '빙하기 안의 간빙기(따뜻한 시기)'</span><br>
+    • <strong>빙하기</strong>: 수백만 년~수억 년 지속되는 긴 주기<br>
+    • <strong>빙하기 안</strong>에도 따뜻한 간빙기와 차가운 빙기가 반복(파동처럼)<br>
+    • <span class="hl-red">현재는 빙하기 중 간빙기</span> — 기후 온난화로 더 따뜻해지고 있는 중
+  </div>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+  <h2>2. 양서파충류 진화적 관점</h2>
+
+  <h3>진화적 분류: 파충류·조류 없다?</h3>
+  <div class="tip-box">
+    <strong>머리뼈의 측두창(관자놀이 구멍) 수</strong>에 따라 크게 구분합니다.
+  </div>
+
+  <h3>두개골 측두창 수에 따른 분류 (시험 출제 항목)</h3>
+  <table>
+    <thead>
+      <tr><th>분류</th><th>측두창 수</th><th>특징</th><th>포함 동물</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>무측두류(無側頭類)</strong></td><td>0개</td><td>측두창 없음</td><td>조류·포유류</td></tr>
+      <tr><td><strong>단측두류(單側頭類)</strong></td><td>1개</td><td>한쪽에만 구멍</td><td>포유류 조상</td></tr>
+      <tr><td><strong>양측두류(兩側頭類)</strong></td><td>2개</td><td>양쪽에 구멍</td><td>파충류·조류·양서류</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-box">
+    <strong>핵심</strong>: 현대 분류학에서 "파충류"와 "조류"는 분리된 강(class)이 아님.<br>
+    파충류는 계통학적으로 조류를 포함하는 개념 → 양서류도 양측두류에 속함
+  </div>
+
+  <h3>양서류 진화의 의미</h3>
+  <ul>
+    <li>물고기에서 육상 척추동물로의 <strong>전환점</strong></li>
+    <li>지느러미 → 다리 진화</li>
+    <li>아가미 → 폐(허파) 진화</li>
+    <li>그러나 <strong>물과 육지를 오갈 수 없는 완전 적응 불가</strong></li>
+  </ul>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+  <h2>3. 형태적 특징: 양서류 vs 파충류</h2>
+
+  <table>
+    <thead>
+      <tr><th>항목</th><th>양서류</th><th>파충류</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>피부</strong></td><td>습윤, 호흡 기능(피부호흡)</td><td>건조, 비늘 또는 판상 덮개</td></tr>
+      <tr><td><strong>번식</strong></td><td>물 필요 (알은 젤리질, 양막 없음)</td><td>육상 완전 적응 (경질란, 양막 있음)</td></tr>
+      <tr><td><strong>발생</strong></td><td>변태 과정 (올챙이 → 성체)</td><td>변태 없음 (직접 발달)</td></tr>
+      <tr><td><strong>호흡</strong></td><td>폐 + 피부호흡 + 점막호흡</td><td>폐 호흡만</td></tr>
+      <tr><td><strong>심장</strong></td><td>3실(심방 2 + 심실 1)</td><td>3실 또는 4실</td></tr>
+      <tr><td><strong>사지</strong></td><td>대부분 4개(강화된 근육)</td><td>4개 또는 없음(진화)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="compare-box">
+    <strong>결정적 차이</strong>: 양서류는 물에 돌아가야 하는 반수생 동물(암필비안), 파충류는 땅의 동물(렙틸)
+  </div>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+  <h2>4. 분류학적 관점: 두개골 구조</h2>
+
+  <h3>양서류·파충류의 분류 단위</h3>
+  <ul>
+    <li><strong>계(Kingdom)</strong>: 동물</li>
+    <li><strong>문(Phylum)</strong>: 척색동물(척추동물)</li>
+    <li><strong>강(Class)</strong>: 양서강(Amphibia) vs 파충강(Reptilia)</li>
+    <li><strong>목(Order)</strong>: 양서류 2목(도롱뇽목 + 개구리목) / 파충류 여러 목</li>
+    <li><strong>과(Family)</strong>, <strong>속(Genus)</strong>, <strong>종(Species)</strong></li>
+  </ul>
+
+  <h3>한국의 양서류 현황</h3>
+  <div class="exam-box">
+    <strong>2목 7과 24종</strong><br>
+    • <strong>도롱뇽목(유미목/Caudata)</strong>: 3과<br>
+    • <strong>개구리목(무미목/Anura)</strong>: 4과
+  </div>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+  <h2>5. 양서류와 파충류의 생태학</h2>
+
+  <h3>서식지와 미세서식지</h3>
+  <ul>
+    <li><strong>양서류</strong>: 물 + 육지 양쪽 필요 (주기적 회귀)</li>
+    <li><strong>파충류</strong>: 육상 완전 적응 (일부 수생)</li>
+    <li><strong>미세서식지</strong>: 낙엽층, 돌 밑, 나무 구멍, 물 웅덩이 등</li>
+  </ul>
+
+  <h3>먹이망에서의 역할</h3>
+  <ul>
+    <li><strong>먹이(피식자)</strong>: 곤충, 작은 무척추동물, 어류, 올챙이(같은 종 포함)</li>
+    <li><strong>포식자(천적)</strong>: 조류, 포유류, 큰 뱀, 인간</li>
+    <li><strong>중요성</strong>: 곤충 개체군 조절, 에너지 흐름 중개</li>
+  </ul>
+
+  <h3>생식 전략</h3>
+  <ul>
+    <li><strong>양서류</strong>: 많은 수의 알 (외부 수정)</li>
+    <li><strong>파충류</strong>: 적은 수의 알 (내부 수정) + 보호 행동</li>
+    <li><strong>양서류 변태</strong>: 올챙이(수생 유생) → 완전변태 또는 불완전변태 → 성체</li>
+  </ul>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+  <h2>6. 한국의 양서류 현황 (2목 7과 24종)</h2>
+
+  <h3>도롱뇽목(유미목, Caudata) — 3과</h3>
+  <table>
+    <thead>
+      <tr><th>과</th><th>주요 종</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>도롱뇽과(Hynobiidae)</strong></td><td>도롱뇽, 쌍꼬리도롱뇽</td><td>작은 체형, 꼬리 있음</td></tr>
+      <tr><td><strong>산삼룡과(Proteidae)</strong></td><td>산삼룡 (중국산)</td><td>수생, 외부아가미</td></tr>
+      <tr><td><strong>도롱뇽과(Cryptobranchidae)</strong></td><td>무당개구리</td><td>큰 체형, 육상 사육</td></tr>
+    </tbody>
+  </table>
+
+  <h3>개구리목(무미목, Anura) — 4과</h3>
+  <table>
+    <thead>
+      <tr><th>과</th><th>주요 종</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>개구리과(Ranidae)</strong></td><td>계곡개구리, 참개구리, 다리무늬개구리</td><td>물서식, 울음 크다</td></tr>
+      <tr><td><strong>청개구리과(Hylidae)</strong></td><td>청개구리</td><td>나무 서식, 흡반 있음</td></tr>
+      <tr><td><strong>두꺼비과(Bufonidae)</strong></td><td>두꺼비</td><td>땅서식, 유독 피부, 짝짓기 힘</td></tr>
+      <tr><td><strong>황소개구리(Ranidae 일부 또는 Megophryidae)</strong></td><td>황소개구리, 옴개구리</td><td>중국 원산 침입종, 울음 크다</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-box">
+    총 24종 정도이나, 지역과 계절에 따라 서식 현황 변동 중 (기후변화, 서식지 파괴)
+  </div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+  <h2>7. 양서류 현장 식별 키(Key)</h2>
+
+  <h3>1단계: 꼬리 유무</h3>
+  <ul>
+    <li><strong>꼬리 있음</strong> → 도롱뇽목(유미목) 이동</li>
+    <li><strong>꼬리 없음</strong> → 개구리목(무미목) 이동</li>
+  </ul>
+
+  <h3>2단계-1: 도롱뇽 확인</h3>
+  <ul>
+    <li>도롱뇽: 작은 체형, 둥근 코, 네 다리</li>
+    <li>주로 시냇가 돌 밑, 이끼 속에서 서식</li>
+    <li>번식: 수중 또는 반수생</li>
+  </ul>
+
+  <h3>2단계-2: 개구리 확인</h3>
+  <ul>
+    <li><strong>개구리과(물개구리)</strong>: 물 가까이, 울음 "개구리" 또는 "청룽청룽"</li>
+    <li><strong>청개구리</strong>: 나무 위, 초록색, 울음 "애애애"</li>
+    <li><strong>두꺼비</strong>: 땅 위 뚜벅뚜벅 걷기, 울음 "뚱떠렁"</li>
+    <li><strong>황소개구리</strong>: 큼, 울음 "우엑우엑" (동남아 원산 외래종)</li>
+  </ul>
+
+  <div class="tip-box">
+    <strong>울음소리가 가장 빠른 식별법</strong><br>
+    각 종이 고유한 울음으로 짝짓기 신호를 보냄 → 음성 녹음 가이드 앱 활용 추천
+  </div>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+  <h2>8. 도롱뇽목(유미목)의 생태와 특징</h2>
+
+  <h3>도롱뇽목 주요 특징</h3>
+  <ul>
+    <li><strong>형태</strong>: 몸길이 8~35cm, 긴 꼬리, 네 다리</li>
+    <li><strong>서식지</strong>: 맑은 시냇가, 습지, 숲 내 이끼 지역</li>
+    <li><strong>먹이</strong>: 곤충 애벌레, 거미, 작은 무척추동물</li>
+    <li><strong>번식</strong>: 대부분 물 또는 수생식물 주변에서 알 산란</li>
+    <li><strong>천적</strong>: 새, 뱀, 큰 물고기</li>
+  </ul>
+
+  <h3>한국의 주요 도롱뇽 종</h3>
+  <ul>
+    <li><strong>도롱뇽(Korean Salamander)</strong>: 가장 흔함, 검은색 몸에 노란 줄무늬</li>
+    <li><strong>쌍꼬리도롱뇽</strong>: 작은 크기, 특이한 번식 방식(꼬리 분리)</li>
+    <li><strong>산삼룡</strong>: 중국 일부 수입종, 수생 특화</li>
+  </ul>
+
+  <div class="compare-box">
+    <strong>도롱뇽 vs 뱀</strong><br>
+    도롱뇽: 부드러운 피부, 네 다리, 꼬리 자절 가능<br>
+    뱀: 비늘 피부, 다리 없음, 움직임 구부러짐
+  </div>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+  <h2>9. 개구리목(무미목) 과별 특성</h2>
+
+  <h3>개구리과(Ranidae) — 물개구리군</h3>
+  <ul>
+    <li><strong>특징</strong>: 물 가까이 서식, 울음 크고 선명</li>
+    <li><strong>번식기</strong>: 봄(3~4월), 물 위에 젤리질 알 덩어리로 산란</li>
+    <li><strong>올챙이 특징</strong>: 검은색, 물풀 사이에서 집단 생활</li>
+    <li><strong>주요 종</strong>: 계곡개구리, 참개구리, 다리무늬개구리</li>
+  </ul>
+
+  <h3>청개구리과(Hylidae) — 나무개구리</h3>
+  <ul>
+    <li><strong>특징</strong>: 손가락·발가락 끝에 흡반, 나무 위 서식</li>
+    <li><strong>울음</strong>: "애애애" 반복 (개구리과와 다름)</li>
+    <li><strong>번식기</strong>: 여름(6~8월)</li>
+    <li><strong>올챙이</strong>: 나뭇잎 중앙 물 포켓에서 발생 (고층 서식)</li>
+    <li><strong>색깔 변화</strong>: 환경에 맞춰 초록색 ↔ 갈색 변화</li>
+  </ul>
+
+  <h3>두꺼비과(Bufonidae) — 땅개구리</h3>
+  <ul>
+    <li><strong>특징</strong>: 눈 뒤 독샘(parotoid gland), 울퉁불퉁한 피부</li>
+    <li><strong>생활</strong>: 땅 위를 걷는다, 점프 능력 낮음</li>
+    <li><strong>번식기</strong>: 봄(3~4월), 물에서 긴 줄 모양 알 산란</li>
+    <li><strong>독성</strong>: 피부 분비물에 독(bufotenin) 함유 → 약용 시도 금지</li>
+    <li><strong>주요 종</strong>: 두꺼비 (가장 흔함)</li>
+  </ul>
+
+  <h3>황소개구리(Ranidae일부 또는 별도 분류)</h3>
+  <ul>
+    <li><strong>원산지</strong>: 북미 원산, 1970년대 도입</li>
+    <li><strong>울음</strong>: "우엑우엑" (소의 울음과 유사) — 한국 사람들이 낯설게 느낌</li>
+    <li><strong>크기</strong>: 15~20cm (한국 개구리 중 최대)</li>
+    <li><strong>문제</strong>: 토착 개구리·물고기 포식으로 생태계 교란</li>
+    <li><strong>현황</strong>: 일부 지역 양식용으로 번식, 야생 확산 우려</li>
+  </ul>
+
+  <div class="exam-box">
+    <span class="hl-red">시험 주의</span>: 황소개구리는 "외래종 침입 사례" 및 "생태계 교란"의 대표 예시로 자주 출제됨
+  </div>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+  <h2>10. 오개념 바로잡기 &amp; 현장 교육 팁</h2>
+
+  <h3>자주하는 오류들</h3>
+  <ul>
+    <li><strong>❌ "개구리는 물고기다"</strong> → ✅ 양서류 (물에서 번식하지만 육상 척추동물)</li>
+    <li><strong>❌ "올챙이는 물고기"</strong> → ✅ 개구리의 유생 단계</li>
+    <li><strong>❌ "두꺼비는 독이 많아서 못 먹는다"</strong> → ✅ 옛날엔 약으로 사용했으나, 현재는 복용 금지</li>
+    <li><strong>❌ "황소개구리는 우리나라 토종이다"</strong> → ✅ 1970년대 북미에서 도입된 외래종</li>
+    <li><strong>❌ "개구리는 변온동물이라 겨울에 죽는다"</strong> → ✅ 변온동물이지만, 겨울잠(동면)으로 생존</li>
+  </ul>
+
+  <h3>현장 교육 팁</h3>
+  <ul>
+    <li><strong>봄(3~4월)</strong>: 산개구리·두꺼비 울음, 알 덩어리 관찰 → 짝짓기 시기</li>
+    <li><strong>여름(6~8월)</strong>: 청개구리 나타남, 올챙이 변태 관찰</li>
+    <li><strong>습지 탐방</strong>: 아침 또는 저녁에 울음이 가장 활발 (오후 햇빛 피함)</li>
+    <li><strong>안전</strong>: 두꺼비 독은 눈이나 입을 통해 침투 가능 → 접촉 후 얼굴 만지기 금지</li>
+    <li><strong>보호</strong>: 양서류는 피부호흡 → 손이 마르면 피부 손상. 물에 적신 손으로만 만지기</li>
+    <li><strong>음성 자료</strong>: 스마트폰 앱(BirdNET 등)으로 울음 식별하고 설명하면 생생함</li>
+  </ul>
+
+  <div class="tip-box">
+    <strong>가장 효과적인 교육 방식</strong>: 직접 울음을 들으면서 종 확인 → 큰 자극 없이 자연 관찰로 진행
+  </div>
+</section>
+
+<!-- S11 -->
+<section id="s11" class="summary-section">
+  <h2>11. 핵심 암기 카드</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <strong>양서류 정의</strong>
+      육지와 물을 오갈 수 없는 반수생 동물<br>
+      피부호흡 + 폐호흡<br>
+      번식은 반드시 물 필요 (젤리질 알, 양막 없음)
+    </div>
+    <div class="card">
+      <strong>파충류 정의</strong>
+      육상 완전 적응<br>
+      폐호흡만<br>
+      경질란 또는 수정란 (양막 있음)
+    </div>
+    <div class="card">
+      <strong>한국 양서류 2목</strong>
+      도롱뇽목(꼬리있음) — 3과<br>
+      개구리목(꼬리없음) — 4과<br>
+      총 24종
+    </div>
+    <div class="card">
+      <strong>두개골 측두창</strong>
+      무측두류: 0개 (조류·포유류)<br>
+      단측두류: 1개<br>
+      양측두류: 2개 (양서류·파충류 포함)
+    </div>
+    <div class="card">
+      <strong>개구리과 vs 청개구리</strong>
+      개구리과: 물개구리, 울음 "개구리" 또는 "청룽청룽"<br>
+      청개구리: 나무개구리, 흡반 있음, 울음 "애애애"
+    </div>
+    <div class="card">
+      <strong>황소개구리 주의!</strong>
+      북미 원산 외래종 (1970년대 도입)<br>
+      울음 "우엑우엑"<br>
+      토착 생물 포식 → 생태계 교란
+    </div>
+    <div class="card">
+      <strong>도롱뇽 식별</strong>
+      검은색 몸 + 노란 줄무늬<br>
+      시냇가 돌 밑, 이끼 속<br>
+      꼬리 자절 가능
+    </div>
+    <div class="card">
+      <strong>두꺼비 독성</strong>
+      눈 뒤 독샘(parotoid gland)<br>
+      피부 분비물 = bufotenin 함유<br>
+      접촉 후 얼굴 만지기 금지!
+    </div>
+    <div class="card">
+      <strong>올챙이 변태</strong>
+      알 → 올챙이(수생) → 손가락·발가락 나옴<br>
+      → 뒷다리 완성 → 앞다리 나옴 → 꼬리 흡수<br>
+      → 성체 개구리/도롱뇽
+    </div>
+    <div class="card">
+      <strong>현장 교육 적기</strong>
+      봄(3~4월): 산개구리·두꺼비 울음<br>
+      여름(6~8월): 청개구리·올챙이 변태<br>
+      아침/저녁이 울음 가장 활발
+    </div>
+    <div class="card">
+      <strong>양서류 보호 팁</strong>
+      피부호흡 → 손이 마르면 손상<br>
+      물에 적신 손으로만 만지기<br>
+      자연 서식지 보전이 최우선
+    </div>
+    <div class="card">
+      <strong>위험한 외래종</strong>
+      황소개구리 (북미산)<br>
+      무당개구리 (중국산, 독성)<br>
+      → 방생·음식점 소비 금지, 보고 의무화
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>📂 소스: TalkFile_양서파충류_숲해설가_교육_교재.pdf + 양서파충류_음성1차정리.docx</p>
+  <p>🐸 숲해설가 양성과정 — 양서파충류(양서류 & 파충류) 정리본 | 정리: 보아시스랩</p>
+</footer>
+
+</body>
+</html>
