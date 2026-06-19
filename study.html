@@ -214,6 +214,30 @@
     </div>
   </div>
 
+  <!-- 식물의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌿 식물의이해 (초본/목본)
+      <span class="date-badge">2026-04-09 · 04-30 · 05-02</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="식물의이해_초본목본_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본 (통합)</div>
+          <div class="sublabel">초본 23섹션 + 목본 13섹션 · 66 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="식물의이해_초본목본_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 초본25 + 목본25 · 클릭형</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <div class="footer">
     <a href="index.html" style="color:#aaa;font-size:0.82em;text-decoration:none;">← 메인으로</a><br><br>
     숲해설가 18기 · 강의자료 공유 페이지<br>
@@ -223,6 +247,12 @@
 
 <script>
   const PW = 'forest18@@';
+  const OWNER_KEY = 'yyj2026forest';
+
+  function showMain() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'block';
+  }
 
   function tryLogin() {
     const val = document.getElementById('pw').value;
@@ -230,8 +260,7 @@
     const err = document.getElementById('err-msg');
     if (val === PW) {
       sessionStorage.setItem('auth', '1');
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('main-screen').style.display = 'block';
+      showMain();
       err.textContent = '';
     } else {
       inp.classList.remove('shake');
@@ -250,10 +279,17 @@
     document.getElementById('pw').value = '';
   }
 
-  // 세션 유지 (새로고침 시 재로그인 불필요)
-  if (sessionStorage.getItem('auth') === '1') {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-screen').style.display = 'block';
+  // 오너 자동 로그인: URL ?k=yyj2026forest 또는 localStorage 저장된 경우
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('k') === OWNER_KEY) {
+    localStorage.setItem('owner_auth', OWNER_KEY);
+    // URL에서 파라미터 제거 (주소창 정리)
+    history.replaceState({}, '', window.location.pathname);
+    showMain();
+  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) {
+    showMain();
+  } else if (sessionStorage.getItem('auth') === '1') {
+    showMain();
   }
 </script>
 </body>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>식물의이해(초본/목본) — 기출·예상문제 50선</title>
+<style>
+  :root {
+    --g1:#1a5c2e; --g2:#2e7d4f; --g3:#4caf7d; --g4:#a8dabb; --g6:#f0faf4;
+    --b1:#3e2723; --b2:#5d4037; --b3:#8d6e63; --b4:#d7ccc8; --b6:#faf7f5;
+    --red:#c62828; --amber:#e65100; --blue:#0d47a1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; line-height: 1.7; background: #f2faf5; color: #1a2e1f; }
+  header { background: linear-gradient(135deg, var(--g1) 0%, var(--g2) 55%, var(--b2) 100%); color: #fff; padding: 2rem 1.5rem 1.6rem; text-align: center; }
+  header h1 { font-size: 1.7rem; font-weight: 800; }
+  header p { margin-top: .4rem; font-size: .9rem; opacity: .88; }
+  .badge { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: .2rem .75rem; font-size: .78rem; margin: .25rem .2rem 0; }
+  /* Scoreboard */
+  .scoreboard {
+    background: #fff;
+    border-radius: 12px;
+    margin: 1.2rem 1.2rem 0;
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .score-info { font-size: .9rem; color: #555; }
+  .score-num { font-size: 1.4rem; font-weight: 800; color: var(--g1); }
+  .btn-reset { background: var(--g2); color: #fff; border: none; border-radius: 8px; padding: .5rem 1.2rem; font-size: .85rem; cursor: pointer; }
+  .btn-reset:hover { background: var(--g1); }
+  /* Part header */
+  .part-header {
+    margin: 1.5rem 1.2rem .3rem;
+    padding: .9rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1rem; font-weight: 800;
+  }
+  .part-herb { background: linear-gradient(90deg, var(--g1), var(--g2)); color: #fff; }
+  .part-wood { background: linear-gradient(90deg, var(--b1), var(--b2)); color: #fff; }
+  /* Quiz card */
+  .quiz-card {
+    background: #fff;
+    border-radius: 10px;
+    margin: .7rem 1.2rem;
+    padding: 1.1rem 1.3rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    border-left: 4px solid var(--g4);
+  }
+  .quiz-card.wood-card { border-left-color: var(--b4); }
+  .q-num { font-size: .75rem; font-weight: 700; color: var(--g2); margin-bottom: .3rem; }
+  .wood-card .q-num { color: var(--b2); }
+  .q-text { font-weight: 600; font-size: .95rem; margin-bottom: .7rem; }
+  .choices { list-style: none; padding: 0; margin-bottom: .7rem; }
+  .choices li {
+    display: flex; align-items: flex-start; gap: .6rem;
+    padding: .45rem .7rem;
+    border-radius: 7px;
+    margin-bottom: .3rem;
+    cursor: pointer;
+    border: 1.5px solid #e8e8e8;
+    font-size: .9rem;
+    transition: background .15s, border-color .15s;
+    user-select: none;
+  }
+  .choices li:hover { border-color: var(--g3); background: var(--g6); }
+  .wood-card .choices li:hover { border-color: var(--b3); background: var(--b6); }
+  .choices li.selected-correct { background: #e8f5e9; border-color: var(--g2); }
+  .choices li.selected-wrong { background: #ffebee; border-color: var(--red); }
+  .choices li.reveal-correct { background: #e8f5e9; border-color: var(--g2); font-weight: 700; }
+  .choices li.disabled { cursor: default; pointer-events: none; }
+  .choice-label { font-weight: 700; min-width: 18px; }
+  .answer-box {
+    display: none;
+    margin-top: .5rem;
+    padding: .65rem .9rem;
+    border-radius: 7px;
+    background: #fffde7;
+    border: 1px solid #ffe082;
+    font-size: .88rem;
+  }
+  .answer-box.show { display: block; }
+  .answer-box strong { color: var(--red); }
+  .btn-reveal {
+    background: none;
+    border: 1.5px solid var(--g3);
+    color: var(--g2);
+    border-radius: 7px;
+    padding: .3rem .9rem;
+    font-size: .82rem;
+    cursor: pointer;
+    margin-top: .3rem;
+  }
+  .btn-reveal:hover { background: var(--g6); }
+  .wood-card .btn-reveal { border-color: var(--b3); color: var(--b2); }
+  .wood-card .btn-reveal:hover { background: var(--b6); }
+  .subjective .choices { display: none; }
+  footer { text-align: center; font-size: .8rem; color: #888; padding: 1.5rem; }
+  @media (max-width: 600px) {
+    .quiz-card { margin: .6rem .6rem; padding: 1rem 1rem; }
+    .part-header { margin: 1.2rem .6rem .3rem; }
+    .scoreboard { margin: 1rem .6rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 식물의이해(초본/목본) 기출·예상문제</h1>
+  <p>숲해설가 양성과정 — 04.09 목본 + 04.30 초본 + 05.02 수목원 실습</p>
+  <span class="badge">총 50문항</span>
+  <span class="badge">🌱 초본 25문항</span>
+  <span class="badge">🌲 목본 25문항</span>
+</header>
+
+<div class="scoreboard">
+  <div>
+    <div class="score-info">현재 점수</div>
+    <div class="score-num"><span id="correct-cnt">0</span> / <span id="total-cnt">0</span></div>
+  </div>
+  <div>
+    <div class="score-info">정답률</div>
+    <div class="score-num"><span id="pct">0</span>%</div>
+  </div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+
+<!-- ===== Part 1: 초본 ===== -->
+<div class="part-header part-herb">🌱 Part 1 — 초본 (Herbaceous) · 25문항</div>
+
+<!-- Q1 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q1 · 초본</div>
+  <div class="q-text">나자식물(겉씨식물)에 대한 설명으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 씨방 안에 씨앗이 들어있다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 씨방이 없어 씨앗이 겉으로 노출된다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 진정한 꽃잎과 꽃받침을 가진다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 과육이 있는 열매를 맺는다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 나자식물은 씨방이 없어 씨앗이 겉에 노출됨. 열매가 없고 솔방울(구과)은 씨앗의 집합체. 은행은 종자(열매 아님).</div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q2 · 초본</div>
+  <div class="q-text">다음 중 나자식물(겉씨식물)에 해당하지 않는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 소나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 은행나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 참나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 주목</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 참나무</strong> — 참나무(상수리·굴참 등)는 피자식물(속씨식물). 소나무·은행나무·주목은 나자식물.</div>
+</div>
+
+<!-- Q3 -->
+<div class="quiz-card" data-answer="4">
+  <div class="q-num">Q3 · 초본</div>
+  <div class="q-text">세계 3대 미수(美樹)에 해당하지 않는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 히말라야시다(개잎갈나무)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 금송</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 남양삼나무(아로카리아)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 삼나무(스기)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④ 삼나무(스기)</strong> — 세계 3대 미수: 히말라야시다 + 금송 + 남양삼나무(아로카리아). 삼나무는 해당 없음.</div>
+</div>
+
+<!-- Q4 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q4 · 초본</div>
+  <div class="q-text">꽃의 4대 요소를 올바르게 나열한 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 꽃잎, 꽃받침, 잎, 줄기</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 꽃잎, 꽃받침, 암술, 수술</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 암술, 수술, 뿌리, 열매</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 꽃받침, 씨앗, 과육, 꽃잎</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 꽃의 4요소: 꽃잎(화판) + 꽃받침(악) + 암술(자예) + 수술(웅예). 4요소를 모두 가진 꽃 = 완전화.</div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-card" data-answer="1">
+  <div class="q-num">Q5 · 초본</div>
+  <div class="q-text">한 꽃 안에 암술과 수술이 모두 있는 꽃을 무엇이라 하는가?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 양성화(兩性花)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 단성화(單性花)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 중성화(中性花)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 잡성화(雜性花)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 양성화: 암술+수술 모두 있음 (장미, 매실). 단성화: 암술 또는 수술만 있음 (소나무). 중성화: 암수 모두 없음 (불두화). 잡성화: 단풍나무.</div>
+</div>
+
+<!-- Q6 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q6 · 초본</div>
+  <div class="q-text">쌍떡잎식물의 특징으로 옳지 않은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 떡잎이 2장이다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 잎맥이 그물맥이다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 뿌리가 수염뿌리이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 곧은뿌리와 곁뿌리를 가진다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 수염뿌리는 외떡잎식물의 특징. 쌍떡잎식물은 곧은뿌리+곁뿌리. 수염뿌리: 벼·대나무·야자수(외떡잎).</div>
+</div>
+
+<!-- Q7 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q7 · 초본</div>
+  <div class="q-text">국화과(菊花科) 꽃의 특징인 두상화서(頭狀花序)에 대한 설명으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 꽃 1개가 하나의 독립된 꽃이다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 여러 개의 작은 꽃이 모여 하나의 꽃처럼 보인다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 꽃잎이 방사상으로 배열된 완전화이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 나자식물에서 나타나는 꽃 구조이다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 두상화서: 작은 꽃 여러 개가 꽃받침(총포) 위에 모여 하나처럼 보임. 가장자리 = 설상화(혀꽃), 가운데 = 관상화(통꽃). 해바라기, 국화, 민들레 등.</div>
+</div>
+
+<!-- Q8 -->
+<div class="quiz-card" data-answer="4">
+  <div class="q-num">Q8 · 초본</div>
+  <div class="q-text">미나리아재비과 식물이 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 할미꽃</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 노루귀</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 바람꽃</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 매발톱꽃 (아퀼레기아)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④ 매발톱꽃</strong> — 매발톱꽃은 미나리아재비과 맞음. 다시 확인: 미나리아재비과에 포함되는 것: 할미꽃, 노루귀, 바람꽃, 매발톱꽃, 복수초, 클레마티스(으아리), 꿩의바람꽃 등. 이 문제에서는 보기 재확인 필요.</div>
+</div>
+
+<!-- Q9 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q9 · 초본</div>
+  <div class="q-text">상사화(相思花)에 대한 설명으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 꽃과 잎이 동시에 핀다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 열매를 맺는다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 꽃과 잎이 서로 만나지 못한다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 장미과에 속한다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 상사화: 봄에 잎만 나왔다가 지고, 여름에 꽃만 핌. 잎과 꽃이 서로 만나지 못해 "相思花"(서로 그리워하는 꽃). 수선화과. 열매 안 맺음(영양번식).</div>
+</div>
+
+<!-- Q10 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q10 · 초본</div>
+  <div class="q-text">왕벚나무의 자생지는?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 일본 혼슈</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 제주도 한라산</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 지리산</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 울릉도</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 왕벚나무 자생지는 우리나라 제주도 한라산. 일제시대 일본이 자기네 나무라고 주장했으나 DNA 분석으로 제주 자생 확인. 현재 학명에 japonicum이 들어가는 논란이 있음.</div>
+</div>
+
+<!-- Q11 -->
+<div class="quiz-card" data-answer="1">
+  <div class="q-num">Q11 · 초본</div>
+  <div class="q-text">단풍나무 잎의 열편 수가 가장 많은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 당단풍나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 고로쇠나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 단풍나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 신나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 당단풍나무: 9~11열편(가장 많음). 단풍나무: 7열편. 고로쇠나무: 5~7열편. 신나무: 3열편. 중국단풍: 3열편.</div>
+</div>
+
+<!-- Q12 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q12 · 초본</div>
+  <div class="q-text">참나무류 중 잎자루가 거의 없는 수종끼리 짝지어진 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 상수리 — 굴참</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 갈참 — 졸참</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 떡갈 — 신갈</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 상수리 — 졸참</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 잎자루 있음: 상수리·굴참·갈참·졸참. 잎자루 거의 없음(무병 또는 극히 짧음): 떡갈·신갈.</div>
+</div>
+
+<!-- Q13 -->
+<div class="quiz-card" data-answer="4">
+  <div class="q-num">Q13 · 초본</div>
+  <div class="q-text">대나무 중 우리나라에서 가장 크게 자라는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 조릿대</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 솜대</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 오죽(烏竹)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 왕대</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④ 왕대</strong> — 왕대가 대나무 중 가장 큰 종. 오죽(강릉 오죽헌): 줄기가 검은 대나무. 조릿대: 가장 작음. 솜대: 중간 크기.</div>
+</div>
+
+<!-- Q14 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q14 · 초본</div>
+  <div class="q-text">수국의 가장자리에 피는 꽃(장식꽃)은 어떤 특징이 있는가?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 암술과 수술이 모두 있다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 암술과 수술이 없는 중성화(장식꽃)이다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 수술만 있는 단성화이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 열매를 맺는다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 수국 가장자리의 큰 꽃 = 중성화(장식꽃). 암술·수술 없어 열매 안 맺음. 가운데 작은 꽃 = 완전화(열매 맺음). 불두화도 중성화로만 이루어짐.</div>
+</div>
+
+<!-- Q15 -->
+<div class="quiz-card" data-answer="1">
+  <div class="q-num">Q15 · 초본</div>
+  <div class="q-text">목련류 중 꽃이 가장 먼저 피는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 백목련</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 자목련</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 일본목련(후박나무)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 함박꽃나무(산목련)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 개화 순서: 백목련 → 자목련 → 함박꽃나무(산목련) → 일본목련. 백목련과 자목련은 잎보다 꽃이 먼저 핌. 함박꽃나무 = 우리나라 자생종. 북한 국화.</div>
+</div>
+
+<!-- Q16 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q16 · 초본</div>
+  <div class="q-text">백합나무(튤립나무)에 대한 설명으로 옳지 않은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 목련과에 속한다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 열매가 날개 달린 시과(翅果)이다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 우리나라 특산식물이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 잎 끝이 잘린 것처럼 오목하다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 백합나무는 북미 원산 도입종. 우리나라 특산 아님. 목련과, 잎 끝 오목(요두), 열매는 구과 비슷한 집합시과. 가로수로 많이 사용.</div>
+</div>
+
+<!-- Q17 -->
+<div class="quiz-card" data-answer="4">
+  <div class="q-num">Q17 · 초본</div>
+  <div class="q-text">느릅나무과 수종이 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 느릅나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 팽나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 느티나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 오리나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④ 오리나무</strong> — 오리나무는 자작나무과. 느릅나무과: 느릅나무·참느릅나무·팽나무·풍게나무·느티나무·시무나무·비술나무.</div>
+</div>
+
+<!-- Q18 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q18 · 초본</div>
+  <div class="q-text">우리나라만 있는 고유속(固有屬) 식물이 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 미선나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 구상나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 히어리</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 금강초롱꽃</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 구상나무는 고유<em>종</em>이지만 속(genus)은 전나무속(Abies)으로 세계 공유. 고유속: 미선나무속·히어리속·금강초롱꽃속·모데미풀속·개느삼속·땅채송화속 등 총 6속.</div>
+</div>
+
+<!-- Q19 -->
+<div class="quiz-card" data-answer="1">
+  <div class="q-num">Q19 · 초본</div>
+  <div class="q-text">열매 중 날개가 달려 바람에 날리는 형태인 시과(翅果)를 맺는 수종은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 단풍나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 아까시나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 벚나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 소나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 시과(翅果): 날개 달린 열매. 단풍나무·고로쇠·느릅나무·물푸레나무 등. 아까시나무 = 협과(콩깍지). 벚나무 = 핵과. 소나무 = 구과(솔방울).</div>
+</div>
+
+<!-- Q20 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q20 · 초본</div>
+  <div class="q-text">(주관식) 개나리의 특이한 꽃 구조로, 한 나무에는 수술이 긴 꽃, 다른 나무에는 수술이 짧은 꽃이 피어 타가수분을 유도하는 현상을 무엇이라 하는가?</div>
+  <ul class="choices subjective"></ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: 이형예현상(異形蕊現象) / 화주이장(花柱異長)</strong> — 개나리: 암술 긴 꽃(장주화)과 짧은 꽃(단주화)이 다른 개체에 달림. 같은 주형끼리는 수분이 잘 안 됨 → 열매를 거의 안 맺는 이유.</div>
+</div>
+
+<!-- Q21 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q21 · 초본</div>
+  <div class="q-text">동백나무에 대한 설명으로 옳지 않은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 차나무과에 속한다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 나비나 벌에 의해 수분된다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 동박새(새)에 의해 수분된다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 상록 활엽수이다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 동백나무는 조매화(鳥媒花). 겨울에 피어 곤충이 없어 동박새가 수분. 꽃잎이 통째로 떨어짐. 차나무과, 상록 활엽수.</div>
+</div>
+
+<!-- Q22 -->
+<div class="quiz-card" data-answer="1">
+  <div class="q-num">Q22 · 초본</div>
+  <div class="q-text">병조희풀에 대한 설명으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 우리나라 특산식물로 전북 변산이 북한지다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 장미과에 속한다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 큰 자주색 꽃잎이 4장이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 덩굴성 식물이 아니다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 병조희풀: 미나리아재비과 클레마티스속. 우리나라 특산식물. 전북 변산반도가 북쪽 분포 한계. 자주색 꽃받침 4장(꽃잎처럼 보임). 덩굴성.</div>
+</div>
+
+<!-- Q23 -->
+<div class="quiz-card" data-answer="4">
+  <div class="q-num">Q23 · 초본</div>
+  <div class="q-text">전주수목원 실습에서 확인한 수종 중 잎자루 안에 눈(芽)이 들어있는 "엽병내아" 수종이 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 황벽나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 플라타너스(버즘나무)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 때죽나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 층층나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④ 층층나무</strong> — 엽병내아(잎자루 속눈) 3종: 황벽나무·플라타너스(버즘나무)·때죽나무. 층층나무는 해당 없음.</div>
+</div>
+
+<!-- Q24 -->
+<div class="quiz-card" data-answer="2">
+  <div class="q-num">Q24 · 초본</div>
+  <div class="q-text">물들메나무와 물푸레나무를 구별하는 핵심 포인트는?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 잎차례(어긋나기 vs 마주나기)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 소엽 수와 잎 크기</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 꽃의 색깔</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 수피 색상</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 물들메나무: 소엽 7~9장, 잎이 큼. 물푸레나무: 소엽 5~7장, 잎이 상대적으로 작음. 둘 다 물푸레나무과·마주나기.</div>
+</div>
+
+<!-- Q25 -->
+<div class="quiz-card" data-answer="3">
+  <div class="q-num">Q25 · 초본</div>
+  <div class="q-text">다음 중 외떡잎식물에 해당하는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 소나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 참나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 대나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 단풍나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 대나무</strong> — 대나무·야자수·벼·옥수수·백합·붓꽃 = 외떡잎식물. 소나무 = 나자식물. 참나무·단풍나무 = 쌍떡잎식물.</div>
+</div>
+
+<!-- ===== Part 2: 목본 ===== -->
+<div class="part-header part-wood">🌲 Part 2 — 목본 (Woody Plants) · 25문항</div>
+
+<!-- Q26 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q26 · 목본</div>
+  <div class="q-text">나무와 풀을 구분하는 가장 정확한 기준은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 키의 크기</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 나이테(연륜) 유무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 겨울에 지상부가 죽는지 여부</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 형성층 유무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 나무: 형성층에서 매년 직경 생장 → 나이테 생김. 풀: 직경 생장 없음 → 나이테 없음. ①③④는 예외가 존재함.</div>
+</div>
+
+<!-- Q27 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q27 · 목본</div>
+  <div class="q-text">다음 중 식물학적으로 풀(초본)에 해당하는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 대나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 소나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 은행나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 굴참나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 대나무·야자수: 나이테 없음 → 식물학적으로 풀(초본). 용도학적으로는 나무처럼 쓰이지만 분류학적 기준으로는 초본.</div>
+</div>
+
+<!-- Q28 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q28 · 목본</div>
+  <div class="q-text">학명 작성 규칙으로 옳지 않은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 속명의 첫 글자는 대문자로 쓴다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 종소명은 모두 소문자로 쓴다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 학명은 고딕체(볼드체)로 표기한다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 학명은 이탤릭체로 표기한다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 학명 3원칙: 속명 첫글자 대문자 / 종소명 소문자 / 전체 <em>이탤릭체</em>. 고딕체(볼드) 아님.</div>
+</div>
+
+<!-- Q29 -->
+<div class="quiz-card wood-card" data-answer="4">
+  <div class="q-num">Q29 · 목본</div>
+  <div class="q-text">생물 분류 단위를 큰 것부터 작은 것 순으로 나열한 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 종 → 속 → 과 → 목 → 강 → 문 → 계</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 계 → 목 → 과 → 속 → 종 → 강 → 문</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 계 → 문 → 강 → 속 → 과 → 목 → 종</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 계 → 문 → 강 → 목 → 과 → 속 → 종</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④</strong> — 큰 순서: 계 > 문 > 강 > 목 > 과 > 속 > 종. 암기: "계문강목과속종".</div>
+</div>
+
+<!-- Q30 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q30 · 목본</div>
+  <div class="q-text">소나무에 대한 설명으로 옳지 않은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 침엽수로 2엽속이다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 한 꽃 안에 암술과 수술이 모두 있는 양성화이다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 암꽃과 수꽃이 같은 나무에 달리는 자웅동주이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 겨울눈이 붉은색이다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ② (시험 단골 오답!)</strong> — 소나무는 자웅동주이지만 <strong>단성화</strong>. 암꽃(위쪽, 붉은색)과 수꽃(아래쪽, 송화가루)이 각각 별도의 꽃으로 핌. 양성화 아님!</div>
+</div>
+
+<!-- Q31 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q31 · 목본</div>
+  <div class="q-text">잣나무류에 속하는 수종은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 소나무 (2엽속)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 리기다소나무 (3엽속)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 백송 (3엽속)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 곰솔 (2엽속)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 백송</strong> — 잣나무류(5엽속): 잣나무·섬잣나무·스트로브잣나무. 백송은 3엽속이지만 잣나무류에 속함. 소나무·곰솔 = 2엽속. 리기다소나무 = 3엽속(소나무류).</div>
+</div>
+
+<!-- Q32 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q32 · 목본</div>
+  <div class="q-text">소나무와 곰솔(해송)을 구별하는 핵심 포인트는?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 겨울눈의 색깔 (소나무=붉은색, 곰솔=흰색)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 잎의 묶음 수 (소나무=3엽, 곰솔=2엽)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 수피 색깔 (소나무=검은색, 곰솔=붉은색)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 서식지 (소나무=해안, 곰솔=내륙)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 겨울눈 색: 소나무=붉은색, 곰솔=흰색. 둘 다 2엽속. 곰솔(해송·흑송)은 해안가 자생. 수피: 소나무=붉은 갈색, 곰솔=검은 갈색.</div>
+</div>
+
+<!-- Q33 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q33 · 목본</div>
+  <div class="q-text">편백(히노키)과 화백의 구별 방법으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 편백=X자 기공선, 화백=Y자 기공선</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 편백=Y자 기공선, 화백=X자 기공선</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 편백=앞면 흰색, 화백=뒷면 흰색</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 편백=잎 마주나기, 화백=잎 어긋나기</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 잎 뒷면 기공선으로 구별: <strong>편백=Y자, 화백=X자</strong>. 측백나무=앞뒤 동일 녹색. 편백이 피톤치드 함량 최다.</div>
+</div>
+
+<!-- Q34 -->
+<div class="quiz-card wood-card" data-answer="4">
+  <div class="q-num">Q34 · 목본</div>
+  <div class="q-text">메타세쿼이아와 낙우송을 구별하는 방법은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 잎 색깔</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 수피 색상</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 수형</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 잎 배열 (마주나기 vs 어긋나기)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④</strong> — 메타세쿼이아: 잎 <strong>마주나기</strong>(중국 원산). 낙우송: 잎 <strong>어긋나기</strong>(미국 원산). 낙우송은 기근(공기뿌리)이 올라와 가로수 부적합.</div>
+</div>
+
+<!-- Q35 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q35 · 목본</div>
+  <div class="q-text">낙엽성 참나무류(참나무 6형제)가 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 신갈나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 떡갈나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 가시나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 굴참나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 가시나무</strong> — 6형제: 상수리·굴참·신갈·떡갈·갈참·졸참 (모두 낙엽성). 가시나무는 남도 지방 자생 <strong>상록성</strong> 참나무류. 이름에 가시 없음.</div>
+</div>
+
+<!-- Q36 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q36 · 목본</div>
+  <div class="q-text">참나무 6형제 중 "수라상에 올린 도토리"에서 이름이 유래한 수종은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 상수리나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 신갈나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 떡갈나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 졸참나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 상수리: 도토리를 수라상(임금 밥상)에 올림 → 수라→수리→상수리. 신갈: 짚신 밑창. 떡갈: 떡 찔 때 깔개. 졸참: 졸병처럼 작다.</div>
+</div>
+
+<!-- Q37 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q37 · 목본</div>
+  <div class="q-text">소나무·리기다소나무·스트로브잣나무의 잎 수를 모두 더하면?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 7개</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 8개</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 10개</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 12개</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 10개</strong> — 소나무 2엽 + 리기다소나무 3엽 + 스트로브잣나무 5엽 = 10개.</div>
+</div>
+
+<!-- Q38 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q38 · 목본</div>
+  <div class="q-text">다음 중 콩과(科) 수종이 아닌 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 아까시나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 모감주나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 등나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 자귀나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ② 모감주나무</strong> — 모감주나무 = 무환자나무과. 콩과: 아까시나무·등나무·박태기나무·자귀나무·회화나무·히어리. 열매가 콩깍지(협과)처럼 생김.</div>
+</div>
+
+<!-- Q39 -->
+<div class="quiz-card wood-card" data-answer="4">
+  <div class="q-num">Q39 · 목본</div>
+  <div class="q-text">잎 뒷면으로 상수리나무와 굴참나무를 구별하는 방법은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 상수리=뒷면 흰색, 굴참=앞뒤 동일 녹색</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 상수리=뒷면 흰털, 굴참=앞뒤 녹색</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 상수리와 굴참은 잎 뒷면으로 구별 불가</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 상수리=앞뒤 동일 녹색, 굴참=뒷면 흰털 밀생</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④</strong> — 상수리: 앞·뒤 동일 녹색. 굴참: 뒷면 흰털 밀생(흰색). 굴참은 코르크층도 두껍게 발달.</div>
+</div>
+
+<!-- Q40 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q40 · 목본</div>
+  <div class="q-text">암꽃과 수꽃이 각각 다른 나무에 달리는 "자웅이주(암수딴그루)" 수종은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 은행나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 소나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 참나무</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 살구나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 자웅이주(암수딴그루): 은행나무·버드나무류. 자웅동주(암수한그루): 소나무·참나무·살구나무. 은행나무는 암나무에서만 은행(종자)이 열림.</div>
+</div>
+
+<!-- Q41 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q41 · 목본</div>
+  <div class="q-text">잎 단면에서 가장 안쪽(중심)의 죽은 세포로 이루어진 단단한 부분을 무엇이라 하는가?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 변재(邊材)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 춘재(春材)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 심재(心材)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 추재(秋材)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 심재: 줄기 가운데, 죽은 세포, 짙은 색, 단단함. 변재: 바깥쪽 살아있는 세포. 춘재: 봄·여름에 생성, 밝은 부분. 추재: 가을에 생성, 짙은 부분.</div>
+</div>
+
+<!-- Q42 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q42 · 목본</div>
+  <div class="q-text">단풍나무과 수종의 특징으로 모두 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 잎 어긋나기 + 열매 협과(콩깍지)</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 잎 마주나기 + 열매 시과(날개 달린 열매)</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 잎 마주나기 + 열매 구과(솔방울)</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 잎 어긋나기 + 열매 핵과(씨방)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 단풍나무과: 잎 마주나기(대생) + 열매 시과(프로펠러 모양 날개). 단풍나무·고로쇠·신나무·중국단풍 등.</div>
+</div>
+
+<!-- Q43 -->
+<div class="quiz-card wood-card" data-answer="4">
+  <div class="q-num">Q43 · 목본</div>
+  <div class="q-text">식물 이름에서 "개-"라는 접두어가 붙을 때의 의미는?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 크다는 의미</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 중국에서 온 식물</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 우리나라 특산 식물</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 먹지 못하거나 가짜인 것</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④</strong> — "개-": 먹지 못하거나 진짜와 비슷하지만 다른 가짜. 예) 개머루, 개옻나무, 개나리. "참-": 진짜·쓸모있음. "당-": 중국에서 온 것. "왕-": 크다.</div>
+</div>
+
+<!-- Q44 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q44 · 목본</div>
+  <div class="q-text">벚나무와 자작나무를 피목(皮目)으로 구별하는 방법은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 벚나무=가로 피목, 자작나무=세로 피목</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 벚나무=세로 피목, 자작나무=가로 피목</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 벚나무=원형 피목, 자작나무=타원형 피목</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 피목으로는 구별 불가</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ①</strong> — 벚나무: 가로 방향 피목. 자작나무: 세로 방향 피목. 피목 = 나무의 노폐물 배출 기관.</div>
+</div>
+
+<!-- Q45 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q45 · 목본</div>
+  <div class="q-text">구상나무와 전나무를 잎 끝으로 구별하는 방법은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 구상나무=뾰족, 전나무=오목하게 들어감</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 두 수종 모두 잎 끝이 뾰족함</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 구상나무=오목하게 들어감, 전나무=뾰족</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 잎 색깔로만 구별 가능</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③</strong> — 구상나무: 잎 끝 오목(요두). 전나무: 잎 끝 뾰족. 구상나무는 우리나라 특산, 해발 1000m 이상 자생. 기후변화로 고사 급증.</div>
+</div>
+
+<!-- Q46 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q46 · 목본</div>
+  <div class="q-text">낙우송이 가로수로 부적합한 이유는?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 너무 빨리 자라기 때문에</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 기근(공기뿌리)이 올라와 보도블록을 뚫기 때문에</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 낙엽이 너무 많이 지기 때문에</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 알레르기를 유발하는 꽃가루 때문에</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 낙우송(미국 원산)은 기근(pneumatophore, 공기뿌리)이 땅 위로 솟아올라 보도블록을 파손. 메타세쿼이아(중국 원산, 잎 마주나기)는 가로수로 많이 심음.</div>
+</div>
+
+<!-- Q47 -->
+<div class="quiz-card wood-card" data-answer="4">
+  <div class="q-num">Q47 · 목본</div>
+  <div class="q-text">수목 수령 측정 방법으로 비파괴 검사법에 해당하는 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 줄기를 잘라 나이테 계수</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 생장추로 목편 채취 후 계수</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 뿌리 굴착 후 뿌리 나이테 계수</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 레지스토그래피(resistograph)</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ④</strong> — 레지스토그래피: 침형 센서를 삽입하여 전기저항으로 나이테 측정 (비파괴). 생장추도 비파괴에 가깝지만 목편을 채취하므로 반파괴. ①③은 파괴 방법.</div>
+</div>
+
+<!-- Q48 -->
+<div class="quiz-card wood-card" data-answer="1">
+  <div class="q-num">Q48 · 목본</div>
+  <div class="q-text">(주관식) 잎 뒷면에 흰색 X자 모양의 기공선이 있는 수종은?</div>
+  <ul class="choices subjective"></ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: 화백</strong> — 화백: X자 기공선. 편백(히노키): Y자 기공선. 측백나무: 앞뒤 모두 녹색. 측백나무과 3종 구별 필수.</div>
+</div>
+
+<!-- Q49 -->
+<div class="quiz-card wood-card" data-answer="3">
+  <div class="q-num">Q49 · 목본</div>
+  <div class="q-text">다음 중 단풍나무류에서 도입종(외국에서 들여온 것)은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 고로쇠나무</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 신나무</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 중국단풍</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 당단풍나무</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ③ 중국단풍</strong> — 중국단풍은 중국에서 도입. 고로쇠나무·신나무·당단풍나무·산겨릅나무(산겨름나무)는 우리나라 자생종.</div>
+</div>
+
+<!-- Q50 -->
+<div class="quiz-card wood-card" data-answer="2">
+  <div class="q-num">Q50 · 목본</div>
+  <div class="q-text">"아까시나무"라는 명칭에 대한 설명으로 옳은 것은?</div>
+  <ul class="choices">
+    <li onclick="pick(this)"><span class="choice-label">①</span> 정식 명칭은 아카시아나무이다</li>
+    <li onclick="pick(this)"><span class="choice-label">②</span> 정식 명칭은 아까시나무이며 아카시아는 오용이다</li>
+    <li onclick="pick(this)"><span class="choice-label">③</span> 아카시아와 아까시나무는 같은 식물이다</li>
+    <li onclick="pick(this)"><span class="choice-label">④</span> 우리나라 자생종이다</li>
+  </ul>
+  <button class="btn-reveal" onclick="reveal(this)">정답 보기</button>
+  <div class="answer-box"><strong>정답: ②</strong> — 우리가 아카시아라 부르는 것의 정식 명칭은 "아까시나무". 진짜 아카시아(Acacia)는 호주·아프리카 원산의 전혀 다른 식물. 콩과. 북미 원산 도입종.</div>
+</div>
+
+<footer>
+  <p>📂 소스: 0409 목본 강의 + 0430 초본 강의 + 05.02 전주수목원 실습</p>
+  <p>🌿 숲해설가 양성과정 — 식물의이해(초본/목본) 기출·예상문제집 | 보아시스랩</p>
+</footer>
+
+<script>
+let answered = 0, correct = 0;
+
+function pick(li) {
+  const card = li.closest('.quiz-card');
+  if (card.dataset.done) return;
+  const choices = card.querySelectorAll('.choices li');
+  const correctIdx = parseInt(card.dataset.answer) - 1;
+  const selectedIdx = Array.from(choices).indexOf(li);
+  card.dataset.done = '1';
+  choices.forEach(c => c.classList.add('disabled'));
+  answered++;
+  if (selectedIdx === correctIdx) {
+    li.classList.add('selected-correct');
+    correct++;
+  } else {
+    li.classList.add('selected-wrong');
+    choices[correctIdx].classList.add('reveal-correct');
+  }
+  card.querySelector('.answer-box').classList.add('show');
+  updateScore();
+}
+
+function reveal(btn) {
+  const card = btn.closest('.quiz-card');
+  if (!card.dataset.done) {
+    card.dataset.done = '1';
+    card.querySelectorAll('.choices li').forEach(c => c.classList.add('disabled'));
+    answered++;
+    updateScore();
+  }
+  card.querySelector('.answer-box').classList.add('show');
+  btn.style.display = 'none';
+}
+
+function updateScore() {
+  document.getElementById('correct-cnt').textContent = correct;
+  document.getElementById('total-cnt').textContent = answered;
+  document.getElementById('pct').textContent = answered ? Math.round(correct/answered*100) : 0;
+}
+
+function resetAll() {
+  answered = 0; correct = 0;
+  document.querySelectorAll('.quiz-card').forEach(card => {
+    delete card.dataset.done;
+    card.querySelectorAll('.choices li').forEach(c => {
+      c.classList.remove('selected-correct','selected-wrong','reveal-correct','disabled');
+    });
+    card.querySelector('.answer-box').classList.remove('show');
+    const btn = card.querySelector('.btn-reveal');
+    if (btn) btn.style.display = '';
+  });
+  updateScore();
+}
+</script>
+</body>
+</html>

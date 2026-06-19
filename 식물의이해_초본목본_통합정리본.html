@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>식물의이해 (초본/목본) — 통합 정리본</title>
+<style>
+  :root {
+    --green1: #1a5c2e; --green2: #2e7d4f; --green3: #4caf7d;
+    --green4: #a8dabb; --green5: #e8f5ed; --green6: #f0faf4;
+    --brown1: #3e2723; --brown2: #5d4037; --brown3: #8d6e63;
+    --brown4: #d7ccc8; --brown5: #efebe9; --brown6: #faf7f5;
+    --red: #c62828; --amber: #e65100; --blue: #1565c0; --purple: #6a1b9a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; line-height: 1.7; color: #1a2e1f; background: #f2faf5; }
+  header { background: linear-gradient(135deg, var(--green1) 0%, var(--green2) 60%, var(--green3) 100%); color: #fff; padding: 2.2rem 2rem 1.8rem; text-align: center; }
+  header h1 { font-size: 1.9rem; font-weight: 800; }
+  header p { margin-top: .5rem; font-size: .93rem; opacity: .88; }
+  .badge { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: .25rem .85rem; font-size: .8rem; margin: .3rem .2rem 0; }
+  .toc { background: #fff; border-left: 5px solid var(--green3); margin: 1.5rem 1.5rem 0; padding: 1.2rem 1.5rem; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+  .toc h2 { font-size: 1rem; color: var(--green1); margin-bottom: .7rem; }
+  .toc ol { padding-left: 1.3rem; }
+  .toc li { font-size: .88rem; margin: .2rem 0; }
+  .toc a { color: var(--green2); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  section { background: #fff; border-radius: 10px; margin: 1.4rem 1.5rem; padding: 1.5rem 1.8rem; box-shadow: 0 1px 8px rgba(0,0,0,.07); }
+  section h2 { font-size: 1.2rem; font-weight: 800; color: var(--green1); border-bottom: 2.5px solid var(--green4); padding-bottom: .5rem; margin-bottom: 1.1rem; }
+  section h3 { font-size: 1rem; font-weight: 700; color: var(--green2); margin: 1.1rem 0 .5rem; border-left: 4px solid var(--green3); padding-left: .7rem; }
+  section h4 { font-size: .93rem; font-weight: 700; color: var(--green1); margin: .9rem 0 .3rem; }
+  p { margin: .4rem 0; }
+  ul, ol { padding-left: 1.4rem; margin: .4rem 0; }
+  li { margin: .25rem 0; }
+  .exam-box { background: #fff8e1; border: 1.5px solid #ffd54f; border-left: 5px solid #ff8f00; border-radius: 7px; padding: .85rem 1.1rem; margin: .8rem 0; }
+  .exam-box::before { content: "★ 시험 포인트"; display: block; font-weight: 800; font-size: .8rem; color: #e65100; margin-bottom: .35rem; }
+  .tip-box { background: #e3f2fd; border: 1px solid #90caf9; border-left: 5px solid #1565c0; border-radius: 7px; padding: .75rem 1rem; margin: .7rem 0; font-size: .9rem; }
+  .tip-box::before { content: "💡 해설"; display: block; font-weight: 700; color: #1565c0; margin-bottom: .3rem; }
+  .field-box { background: var(--green6); border: 1px solid var(--green4); border-left: 5px solid var(--green2); border-radius: 7px; padding: .85rem 1.1rem; margin: .8rem 0; font-size: .88rem; }
+  .field-box::before { content: "🌿 수목원 실습 (오현경 선생님, 2026.5.2)"; display: block; font-weight: 700; color: var(--green1); margin-bottom: .35rem; }
+  .compare-box { background: #f3e5f5; border: 1px solid #ce93d8; border-left: 5px solid #7b1fa2; border-radius: 7px; padding: .75rem 1rem; margin: .7rem 0; }
+  .compare-box::before { content: "🔍 비교·구분"; display: block; font-weight: 700; color: #6a1b9a; margin-bottom: .3rem; }
+  .quiz-box { background: #e3f2fd; border: 1.5px solid #90caf9; border-left: 5px solid #1565c0; border-radius: 8px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .quiz-q { font-weight: 700; color: #0d47a1; margin-bottom: .4rem; }
+  .quiz-a { color: #b71c1c; font-weight: 700; }
+  .quiz-ex { font-size: .88rem; color: #555; margin-top: .3rem; }
+  table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .88rem; }
+  th { background: var(--green2); color: #fff; padding: .55rem .75rem; text-align: left; font-weight: 700; }
+  td { padding: .5rem .75rem; border-bottom: 1px solid #dcedc8; vertical-align: top; }
+  tr:nth-child(even) td { background: var(--green6); }
+  .hl-red { color: var(--red); font-weight: 700; }
+  .hl-blue { color: var(--blue); font-weight: 700; }
+  .hl-green { color: var(--green1); font-weight: 700; }
+  .hl-amber { color: var(--amber); font-weight: 700; }
+  .hl-purple { color: var(--purple); font-weight: 700; }
+  .hl-brown { color: var(--brown1); font-weight: 700; }
+  .src { display: inline-block; background: #eee; color: #555; font-size: .72rem; padding: .1rem .45rem; border-radius: 10px; margin-left: .3rem; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .9rem; margin: .8rem 0; }
+  .card { background: var(--green6); border: 1px solid var(--green4); border-radius: 8px; padding: .85rem 1rem; }
+  .card strong { color: var(--green1); display: block; margin-bottom: .3rem; }
+  .summary-section { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); }
+  /* Part 2 목본 테마 */
+  .part-divider { background: linear-gradient(135deg, var(--brown1) 0%, var(--brown2) 60%, var(--brown3) 100%); color: #fff; padding: 2rem 2rem 1.6rem; text-align: center; margin: 2.5rem 0 0; }
+  .part-divider h2 { font-size: 1.7rem; font-weight: 800; }
+  .part-divider p { margin-top: .5rem; font-size: .9rem; opacity: .88; }
+  .mokbon-section h2 { color: var(--brown1); border-bottom-color: var(--brown4); }
+  .mokbon-section h3 { color: var(--brown2); border-left-color: var(--brown3); }
+  .mokbon-section.summary-section { background: linear-gradient(135deg, #efebe9 0%, #faf7f5 100%); }
+  footer { text-align: center; font-size: .8rem; color: #888; padding: 1.5rem; margin-top: 1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 식물의이해 (초본/목본)</h1>
+  <p>숲해설가 양성과정 강의 통합 정리본 — Part 1 초본(23섹션) + Part 2 목본(13섹션)</p>
+  <div style="margin-top:.9rem; display:flex; flex-wrap:wrap; justify-content:center; gap:.4rem .3rem;">
+    <span style="display:block; width:100%; font-size:.78rem; opacity:.75; margin-bottom:.2rem;">🌱 초본 소스 (2026.04.30 강의 + 05.02 전주수목원 실습)</span>
+    <span class="badge">📄 0430_음성정리.docx</span>
+    <span class="badge">📋 0430_Gnote.pdf (12p OCR)</span>
+    <span class="badge">📝 전주수목원실습.hwp</span>
+  </div>
+  <div style="margin-top:.6rem; display:flex; flex-wrap:wrap; justify-content:center; gap:.4rem .3rem;">
+    <span style="display:block; width:100%; font-size:.78rem; opacity:.75; margin-bottom:.2rem;">🌲 목본 소스 (2026.04.09 강의)</span>
+    <span class="badge">📄 0409_식물의이해_목본_음성정리.docx</span>
+    <span class="badge">📋 0409_Gnote.pdf (25p OCR)</span>
+    <span class="badge">📝 0409_김창섭_기출문제정리.hwp</span>
+  </div>
+</header>
+
+<div class="toc">
+  <h2>📋 전체 목차</h2>
+  <p style="font-size:.85rem;color:#666;margin-bottom:.8rem;">총 36섹션 — Part 1 초본(23) + Part 2 목본(13)</p>
+  <strong style="color:var(--green1);font-size:.85rem;">🌱 Part 1 — 초본 (Herbaceous)</strong>
+  <ol style="margin-top:.4rem;">
+    <li><a href="#s1">나자식물 vs 피자식물</a></li>
+    <li><a href="#s2">소나무과</a></li>
+    <li><a href="#s3">세계 3대 미수 · 식물 분류 체계</a></li>
+    <li><a href="#s4">식물의 기관</a></li>
+    <li><a href="#s5">꽃의 구조</a></li>
+    <li><a href="#s6">꽃의 성(性) 분류</a></li>
+    <li><a href="#s7">성(性) 상세 분류표</a></li>
+    <li><a href="#s8">쌍떡잎 vs 외떡잎</a></li>
+    <li><a href="#s9">두상화서</a></li>
+    <li><a href="#s10">미나리아재비과</a></li>
+    <li><a href="#s11">상사화류 · 특산종</a></li>
+    <li><a href="#s12">왕벚나무 · 개나리 · 병조희풀 · 동백</a></li>
+    <li><a href="#s13">단풍나무 열편</a></li>
+    <li><a href="#s14">참나무류 6종</a></li>
+    <li><a href="#s15">대나무 3종</a></li>
+    <li><a href="#s16">수국 4종류</a></li>
+    <li><a href="#s17">목련 종류</a></li>
+    <li><a href="#s18">백합나무</a></li>
+    <li><a href="#s19">느릅나무과</a></li>
+    <li><a href="#s20">우리나라 고유속 6개</a></li>
+    <li><a href="#s21">수목원 실습</a></li>
+    <li><a href="#s22">열매 종류</a></li>
+    <li><a href="#s23">핵심 암기 카드 (초본)</a></li>
+  </ol>
+  <hr style="margin:.8rem 0;border-color:var(--brown4);">
+  <strong style="color:var(--brown1);font-size:.85rem;">🌲 Part 2 — 목본 (Woody Plants)</strong>
+  <ol style="margin-top:.4rem;">
+    <li><a href="#mb-s1">나무와 풀의 구분 — 나이테</a></li>
+    <li><a href="#mb-s2">수목 식별 · 분류 · 명명</a></li>
+    <li><a href="#mb-s3">잎의 구조와 기능</a></li>
+    <li><a href="#mb-s4">잎으로 수종 구별하는 법</a></li>
+    <li><a href="#mb-s5">꽃과 번식</a></li>
+    <li><a href="#mb-s6">겉씨식물 vs 속씨식물</a></li>
+    <li><a href="#mb-s7">침엽수 주요 수종</a></li>
+    <li><a href="#mb-s8">참나무 6형제</a></li>
+    <li><a href="#mb-s9">식물 이름 유래 · 접두어</a></li>
+    <li><a href="#mb-s10">열매 종류</a></li>
+    <li><a href="#mb-s11">전북 희귀·특산식물</a></li>
+    <li><a href="#mb-s12">기출·예상 문제 (12문항)</a></li>
+    <li><a href="#mb-s13">핵심 암기 카드 (목본)</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+  <h2>1. 나자식물 vs 피자식물 — 기본 분류</h2>
+
+  <div class="exam-box">
+    핵심 구분: <span class="hl-red">나자식물 = 씨앗이 겉(노출)에 있다 → 열매가 없다.</span><br>
+    <span class="hl-blue">피자식물 = 씨앗이 씨방 안에 있다 → 열매가 있다.</span>
+  </div>
+
+  <h3>나자식물</h3>
+  <ul>
+    <li>꽃잎·꽃받침이 없고, <strong>씨방(자방)도 없음</strong> → 열매를 맺지 않음</li>
+    <li>"열매처럼 보이는 것"은 사실 <strong>구과(솔방울)</strong> — 솔방울 안에 씨앗이 날개를 달고 있음</li>
+    <li>우리나라 나자식물: 소나무, 잣나무, 전나무, 주목, 향나무, 은행나무 등</li>
+    <li><span class="hl-red">솔방울(구과)은 열매가 아니라 씨앗의 집합체</span></li>
+    <li>우리나라 나자식물 <strong>약 50종</strong></li>
+  </ul>
+
+  <div class="tip-box">
+    소나무의 생식기관 명칭:<br>
+    수생식기관 = <strong>소포자낭수</strong> (송화가루, 수꽃)<br>
+    암생식기관 = <strong>종구</strong> (붉은색 = 암꽃 = 둥근종자 = 둥근씨앗 = 과거 구과)<br>
+    꽃가루(화분) 안에: <strong>관핵 1개 + 정자 2개 = 총 3개</strong><br>
+    수술머리 = 약(葯). 약에는 주머니 4개.<br>
+    나자식물 → 암생식기관 = <strong>대포자</strong> / 피자식물 → 암생식기관 = <strong>밑씨(배주)</strong>
+  </div>
+
+  <div class="field-box">
+    소나무: 나자식물. 꽃×, 열매× / 솔방울 = 씨앗 = 종구<br>
+    솔방울 안에 여러 개의 교각이 있고, 교각 위에 씨앗이 2개가 날개를 달고 놓여있음.<br>
+    수술머리는 약이라고 함. 약에는 주머니 4개. 꽃가루 안에 관핵 1개, 정자 2개 총 3개 있음.
+  </div>
+
+  <h3>은행나무 — 나자식물 특이사항</h3>
+  <ul>
+    <li><strong>자웅이주</strong>(암수딴그루) — 암나무에서만 은행(종자)이 열림</li>
+    <li>나자식물이므로 꽃잎·꽃받침 없고, 씨방도 없음 → 열매가 아니라 <strong>종자 자체</strong>가 열림</li>
+    <li>은행 종자: 말랑말랑한 <strong>외종피</strong> → 딱딱한 <strong>내종피</strong> → 씨앗 순서</li>
+    <li>은행나무 암꽃은 밑씨 = 배주</li>
+    <li>은행나무 수그루: 소포자낭수(피자식물의 꽃가루주머니)</li>
+  </ul>
+
+  <div class="field-box">
+    넓은잎삼나무(중국): 암수한그루. 암술×, 수술×, 꽃잎× → 꽃×, 종자○<br>
+    종구: 암생식기관 / 소포자낭수: 수생식기관
+  </div>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+  <h2>2. 소나무과 (나자식물 대표)</h2>
+
+  <h3>소나무속(Pinus) 대표 수종</h3>
+  <ul>
+    <li><strong>소나무</strong> (Pinus densiflora) — 적송</li>
+    <li><strong>잣나무</strong> (Pinus koraiensis) — 홍송. "koraiensis" = 우리나라(Korea) 소나무라는 학명</li>
+    <li><strong>금강소나무</strong> — 강선(剛鮮)이라고도 함. 태백·삼척 일대. 줄기가 <strong>통직(通直)</strong>. <strong>황장목(黃腸木)</strong>이라 불림</li>
+    <li>전나무(Abies): 소나무과이지만 <strong>전나무속(Abies)에 속함 — 소나무속 아님</strong></li>
+  </ul>
+
+  <div class="field-box">
+    수목원 기억법 — <span class="hl-green">메대낙호</span>: 메타세쿼이아 대생(마주나기), 낙우송 호생(어긋나기) → 잎, 잔가지 구분<br>
+    <span class="hl-green">산호초대</span>: 산초나무 호생(어긋나기), 초피나무 대생(마주나기) → 잎, 줄기에 달린 가시 구분<br>
+    초피나무 = 젠피 = 계피 = 전피. 추어탕에 넣음. 실제 약 효용 좋음. 열매 안의 씨 빼고 껍질 갈아 먹음.
+  </div>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+  <h2>3. 세계 3대 미수 · 식물 분류 체계</h2>
+
+  <h3>세계 3대 미수(美樹)</h3>
+  <div class="exam-box">
+    <ol>
+      <li><strong>히말라야시다</strong> (개잎갈나무, 소나무과)</li>
+      <li><strong>아라우카리아</strong> — 우리말: 남양삼나무. 적도 인근 남쪽 지역 자생. 우리나라에 자생하지 않아 삼나무와 구별 필요</li>
+      <li><strong>금송(金松)</strong> — <span class="hl-red">소나무과가 아니라 낙우송과(Taxodiaceae)</span>. 시험 자주 출제!</li>
+    </ol>
+  </div>
+
+  <h3>식물 분류 체계</h3>
+  <div class="exam-box">
+    분류 단계 (작은 것 → 큰 것): <strong>종 &lt; 속 &lt; 과 &lt; 목 &lt; 강 &lt; 문 &lt; 계 &lt; 역</strong> (p.238)
+  </div>
+  <ul>
+    <li>과(科) 안에는 나무와 풀이 함께 있는 경우가 많음</li>
+    <li>나무만 있는 과: 소나무과 등 / 풀만 있는 과: 벼과 등</li>
+    <li>우리나라 식물 종수: <strong>약 5,000종</strong> (나자식물 약 50종, 피자식물 대부분)</li>
+    <li>전 세계 식물 종수: 약 30만~35만 종 (나무는 약 8만 종)</li>
+  </ul>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+  <h2>4. 식물의 기관 — 영양기관 · 생식기관</h2>
+
+  <div class="exam-box">
+    영양기관 3가지 = <span class="hl-green">잎 · 줄기 · 뿌리</span><br>
+    생식기관 3가지 = <span class="hl-red">꽃 · 열매 · 씨앗(종자)</span><br>
+    생식기관 중 식물에서 가장 중요한 것은 <strong>꽃</strong>. 꽃에서 열매와 씨앗이 만들어짐.
+  </div>
+
+  <h3>줄기의 변형 — 인경(鱗莖)</h3>
+  <ul>
+    <li>양파·상사화 등의 뿌리처럼 보이는 구조는 사실 뿌리가 아님</li>
+    <li><strong>인경(鱗莖)</strong> = "비늘 줄기". 줄기가 변형된 것</li>
+    <li>양파를 껍질째 벗기면 — 바깥 껍질 = <strong>잎(엽)</strong>이 변형된 것, 안쪽 흰 덩어리 = <strong>줄기(경)</strong>가 변형된 것</li>
+    <li>석산(꽃무릇): 인경(비늘줄기). 귀화식물</li>
+  </ul>
+
+  <h3>잎의 구조</h3>
+  <ul>
+    <li>잎 = <strong>잎자루(엽병)</strong> + <strong>잎몸(엽신)</strong></li>
+    <li>잎살(엽육): 잎맥과 잎맥 사이</li>
+    <li>잎몸 = <strong>잎맥(엽맥)</strong> + <strong>잎살(엽육)</strong></li>
+    <li>잎맥: 관다발의 통로 역할</li>
+    <li>엽저: 잎의 아래쪽, 잎자루와 만나는 부분</li>
+    <li>엽두 = 엽정 = 엽선: 잎의 머리, 끝부분(꼭대기)</li>
+  </ul>
+
+  <h3>잎눈 (엽아)</h3>
+  <ul>
+    <li>눈에서 잎이 나옴. 눈이 분열해서 잎이 나옴</li>
+    <li>잎이 나오면 눈은 항상 잎 위에 있는 것임</li>
+  </ul>
+
+  <h3>엽병내아(잎자루 안에 눈 있음) — 잎자루 속눈 3가지</h3>
+  <div class="exam-box">
+    <ol>
+      <li><strong>황벽나무</strong></li>
+      <li><strong>플라타너스</strong> (= 버즘나무)</li>
+      <li><strong>때죽나무</strong> = 쪽동백나무 (단, 쪽동백나무는 때죽나무과 때죽나무속 / 동백나무는 차나무과 차나무속)</li>
+    </ol>
+  </div>
+
+  <h3>깃꼴겹잎 · 잎 배열</h3>
+  <ul>
+    <li><strong>깃꼴겹잎</strong>: 하나의 잎이 여러 개의 작은 잎(소엽)으로 나뉘고, 그 배열이 깃털처럼 생긴 잎</li>
+    <li>말오줌때: 잎이 깃꼴 겹잎. 잎이 더 펴지면 광택 있음</li>
+    <li>메타세쿼이아·낙우송: 복엽× 겹잎× 하나의 잎임</li>
+  </ul>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+  <h2>5. 꽃의 구조</h2>
+
+  <div class="exam-box">
+    꽃의 4요소 = <span class="hl-red">암술 + 수술 + 꽃잎 + 꽃받침</span><br>
+    4가지를 모두 갖춘 꽃 = <strong>갖춘꽃(완전화)</strong><br>
+    꽃잎과 꽃받침이 없고 암술·수술만 있는 경우도 있음 (예: 소나무 꽃 = 안갖춘 꽃)
+  </div>
+
+  <h3>씨방(子房)과 열매·씨앗</h3>
+  <div class="exam-box">
+    <span class="hl-blue">씨방 → 열매 / 밑씨(배주) → 씨앗(종자)</span><br>
+    암술 아래에 씨방(자방) 있음. 씨방이 성숙하면 → 열매가 됨.<br>
+    씨방 안에 밑씨(배주) 있음. 밑씨가 성숙하면 → 씨앗(종자)이 됨.
+  </div>
+
+  <h3>수술의 구조</h3>
+  <ul>
+    <li>수술 = <strong>꽃밥(약, 葯)</strong> + 수술대(화사)</li>
+    <li>꽃밥(약) 안에 <strong>꽃가루주머니 4개</strong>, 주머니 안에 꽃가루(화분)</li>
+    <li>꽃가루(화분) 안에는 <strong>정자 2개</strong> 들어 있음</li>
+  </ul>
+
+  <h3>암술의 구조</h3>
+  <ul>
+    <li>암술 = <strong>암술머리(주두)</strong> + 암술대(화주) + 씨방(자방)</li>
+    <li>개나리처럼 암술이 긴 꽃 = <strong>장주화(長柱花)</strong></li>
+    <li>암술이 짧은 꽃 = <strong>단주화(短柱花)</strong></li>
+    <li>한 개체에 장주화·단주화가 모두 있어 섞이지 않고 수분되는 것 = <strong>이형예현상</strong></li>
+  </ul>
+
+  <h3>꽃의 구조 도해</h3>
+  <div class="field-box">
+    피자식물 꽃 구조도 (Gnote p.274):<br>
+    암술머리 → 암술대 → 씨방(밑씨/배주) — 이것이 암술<br>
+    꽃밥(꽃가루주머니 4개) + 수술대/화사 — 이것이 수술<br>
+    꽃잎 · 꽃받침 · 화탁(꽃턱)
+  </div>
+
+  <h3>화피(花被)</h3>
+  <ul>
+    <li>꽃잎과 꽃받침이 구분 안 될 때 = <strong>화피</strong></li>
+    <li>대표: 목련류. "목련: 공룡이전 나옴. 향 없음(나비, 벌 없었을 때). 매개체–딱정벌레. 벼과식물=원시적."</li>
+  </ul>
+
+  <h3>총포 · 총포편</h3>
+  <ul>
+    <li>"꽃"이 하나라면 그냥 "포"임</li>
+    <li>꽃이 여러 개 = <strong>총포</strong> (모일총을 써서 "총"이 붙음)</li>
+    <li>각각의 조각 = <strong>총포편</strong> (포엽)</li>
+    <li>"포" = 꽃턱의 잎</li>
+    <li>꽃잎과 꽃받침을 지탱해주는 것 = <strong>꽃턱(화탁)</strong></li>
+  </ul>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+  <h2>6. 꽃의 성(性) 분류</h2>
+
+  <div class="exam-box">
+    <strong>양성화(兩性花)</strong>: 한 꽃에 암술+수술 모두 있음 — 전체 식물의 약 <span class="hl-red">2/3 (70%)</span><br>
+    <strong>단성화(單性花)</strong>: 암꽃 또는 수꽃만 (암술만 or 수술만)<br>
+    &nbsp;&nbsp;ㄴ <strong>자웅동주(雌雄同株, 암수한그루)</strong>: 암꽃·수꽃이 한 나무에 → 소나무, 옥수수<br>
+    &nbsp;&nbsp;ㄴ <strong>자웅이주(雌雄異株, 암수딴그루)</strong>: 암나무·수나무 따로 → 은행나무, 생강나무, 뽕나무 일부
+  </div>
+
+  <h3>소나무의 성</h3>
+  <ul>
+    <li><span class="hl-green">소나무는 암수한그루(자웅동주)</span>. 한 나무에 암꽃(윗부분)과 수꽃(아랫부분)이 따로 있음</li>
+    <li>꽃잎·꽃받침 없음 → 갖추지 못한 꽃(불완전화)</li>
+  </ul>
+
+  <h3>은행나무의 성</h3>
+  <ul>
+    <li><span class="hl-red">은행나무는 자웅이주(암수딴그루)</span>. 암나무에서만 은행(종자)이 열림</li>
+  </ul>
+
+  <h3>무화과의 성</h3>
+  <ul>
+    <li>무화과(Ficus carica): 꽃이 안에 숨어 있어 겉으로 안 보임</li>
+    <li>안쪽에 암꽃과 수꽃이 따로 있음</li>
+    <li>무화과좀벌이 작은 구멍으로 들어가 수분. 벌은 안에서 나오지 못하고 죽음</li>
+    <li><span class="hl-purple">자성양성이주</span> — 암꽃+양성화가 다른 그루</li>
+  </ul>
+
+  <h3>옥수수의 성</h3>
+  <ul>
+    <li>옥수수는 <span class="hl-green">자웅동주(암수한그루)</span></li>
+    <li>수꽃은 위(이삭대)에, 암꽃은 옆(수염=암술머리)에 있음</li>
+    <li>율무도 암수한그루</li>
+  </ul>
+
+  <h3>이팝나무의 성</h3>
+  <div class="field-box">
+    이팝나무: <strong>수꽃양성화딴그루</strong>
+  </div>
+
+  <h3>왕벚나무 꽃 구조</h3>
+  <ul>
+    <li>꽃잎 5개, 꽃받침 5개 (5의 배수) / 수술 10개 (5배수 × 2)</li>
+    <li><strong>암수한꽃</strong> (양성화)</li>
+    <li>피자식물 쌍떡잎: 5배수·4배수</li>
+    <li>단자엽: 3배수 (외떡잎식물)</li>
+  </ul>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+  <h2>7. 식물의 성(性) 상세 분류표</h2>
+
+  <table>
+    <thead>
+      <tr><th>분류</th><th>설명</th><th>대표 수종</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>자웅동주</strong><br>(암수한그루)</td>
+        <td>암꽃과 수꽃이 같은 그루에 핌</td>
+        <td>소나무, 흑백나무, 으름덩굴, 느티나무, 신갈나무, 박달나무 등</td>
+      </tr>
+      <tr>
+        <td><strong>자웅이주</strong><br>(암수딴그루)</td>
+        <td>암꽃과 수꽃이 각각 다른 그루에 핌</td>
+        <td>은행나무, 비자나무, 주목, 생강나무, 산뽕나무, 감나무, 옻나무, 초피나무 등</td>
+      </tr>
+      <tr>
+        <td><strong>웅성양성동주</strong></td>
+        <td>수꽃+양성화가 같은 그루</td>
+        <td>모과나무, 자귀나무, 단풍나무, 호박, 수박, 파파야 등</td>
+      </tr>
+      <tr>
+        <td><strong>자성양성동주</strong></td>
+        <td>암꽃+양성화가 같은 그루</td>
+        <td>음나무, 팽나무, 조독나무 등 / <span class="hl-green">민들레 (암꽃양성화한그루)</span></td>
+      </tr>
+      <tr>
+        <td><strong>잡성동주</strong></td>
+        <td>양성화·수꽃·암꽃이 같은 그루</td>
+        <td>은란공, 자리나무, 병조희풀</td>
+      </tr>
+      <tr>
+        <td><strong>웅성양성이주</strong></td>
+        <td>수꽃+양성화가 다른 그루</td>
+        <td>다래나무, 왕머루, 후피향나무, 부게꽃나무, 들메나무 등</td>
+      </tr>
+      <tr>
+        <td><strong>자성양성이주</strong></td>
+        <td>암꽃+양성화가 다른 그루</td>
+        <td>무화과나무, 천선과나무, 모란, 애기모탑 등</td>
+      </tr>
+      <tr>
+        <td><strong>잡성이주</strong></td>
+        <td>양성화·수·암이 다른 그루</td>
+        <td>은단중, 장구밤나무, 땃두릅나무 등</td>
+      </tr>
+      <tr>
+        <td><strong>다접자웅이주</strong></td>
+        <td>양성화+암꽃이 같이 피는 그루와 양성화+수꽃이 같이 피는 그루가 각각 있음</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>수꽃양성화딴그루</strong></td>
+        <td>수꽃양성화가 딴그루에 핌</td>
+        <td>이팝나무 / 시무나무</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>병조희풀</h3>
+  <div class="exam-box">
+    우리나라에서 <span class="hl-red">유일하게 암꽃·수꽃·양성화가 한 그루에 모두 있는 식물</span> = <strong>잡성동주</strong><br>
+    목본보다 키가 작아 풀처럼 보이지만 목본임. 꽃이 항아리 모양이며 보라색.
+  </div>
+
+  <h3>으름덩굴</h3>
+  <ul>
+    <li>단성화 (으름덩굴, 양버름나무): 암꽃 따로 수꽃 따로 → 자웅동주(암수한그루)</li>
+  </ul>
+</section>
+
+<!-- S8 -->
+<section id="s8">
+  <h2>8. 쌍떡잎식물 vs 외떡잎식물</h2>
+
+  <div class="exam-box">
+    꽃잎 수로 구분:<br>
+    <span class="hl-blue">쌍떡잎식물(쌍자엽식물)</span>: 꽃잎 <strong>4~5개(4배수·5배수)</strong> — 장미, 버드나무, 무궁화 등<br>
+    <span class="hl-green">외떡잎식물(단자엽식물)</span>: 꽃잎 <strong>3~6개(3배수·6배수)</strong> — 백합, 난초, 벼, 옥수수 등<br>
+    외떡잎식물의 뿌리: <strong>수염뿌리</strong> / 쌍떡잎식물의 뿌리: <strong>곧은뿌리(주근)</strong><br>
+    비고식물: 양성화(다수) / 대나무: 양성화 / 산벚나무: 지리산 고산대 / 상수리나무: 암수한그루
+  </div>
+
+  <h3>목련 — 쌍자엽이지만 3배수 예외</h3>
+  <ul>
+    <li>목련: 쌍자엽으로 4배수~5배수이어야 하나, <strong>3배수로 단자엽에 유사</strong></li>
+    <li>일본목련: 화피 12개 = 3의 배수 (단자엽 특성)</li>
+  </ul>
+
+  <h3>쿠페아</h3>
+  <ul>
+    <li>꽃잎 6개. 3자엽. 단자엽</li>
+  </ul>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+  <h2>9. 국화과 꽃 구조 — 두상화서(頭狀花序)</h2>
+
+  <div class="exam-box">
+    국화과 꽃의 2가지 소화:<br>
+    <span class="hl-red">통꽃(관상화, 筒狀花)</span>: 안쪽 꽃 — 암수술이 통 안에 있음 → <strong>양성화</strong><br>
+    <span class="hl-blue">혀꽃(설상화, 舌狀花)</span>: 가장자리 꽃 — 수술이 없음 → <strong>암꽃 or 중성화</strong><br><br>
+    민들레: 통꽃만 있고, 모두 양성화 / 머리모양 꽃차례 = <strong>두상화서</strong><br>
+    국화: 통꽃(양성화) + 혀꽃(암꽃 or 중성)이 함께 있음<br>
+    <strong>국화과 — 꽃받침 없음</strong>
+  </div>
+
+  <h3>민들레 상세</h3>
+  <ul>
+    <li>혀꽃○ 통꽃× 양성화 (<span class="hl-purple">암꽃양성화한그루</span>)</li>
+    <li>꽃받침처럼 보이는 것 = <strong>총포</strong>. 각각을 <strong>총포편</strong>이라고 함</li>
+    <li>총포가 2겹: <span class="hl-red">겉에 있는 총포가 늘어지면 서양민들레(돌기 없음)</span></li>
+    <li>우리나라 민들레: 겉에 있는 총포에 <strong>돌기 달려 있음 = 늘어지지 않음</strong></li>
+    <li>민들레씨: 갓털(수많은 꽃들이 각각의 씨방이 있고, 각각의 열매가 하나의 열매로 보임) = <strong>관모</strong></li>
+    <li>털은 멀리 퍼뜨리기 위해 있음. 각각의 씨앗, 각각의 열매. <strong>홀씨× (포자만 홀씨임)</strong></li>
+  </ul>
+
+  <h3>국화과</h3>
+  <ul>
+    <li>지칭개: 뜨거운 양지에 있음. 지친개처럼 보임. 보라꽃. 진딧물 많음=단물 많음. 괴산 특산 나물로 먹음</li>
+    <li>국화·엉겅퀴 양성화(국화) / 양성화 — 영경구</li>
+  </ul>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+  <h2>10. 미나리아재비과(Ranunculaceae)</h2>
+
+  <div class="exam-box">
+    미나리아재비과의 특징: <span class="hl-red">꽃잎이 없고 꽃받침이 꽃잎 역할을 함</span>
+  </div>
+
+  <h3>바람꽃 종류</h3>
+  <ul>
+    <li>하얗게 보이는 것이 <strong>꽃받침</strong> (꽃잎이 아님). 꽃잎의 수는 종류마다 5~12개</li>
+    <li>6월 말에 개화, 키 50cm까지 성장. 고산(초지)에 분포</li>
+    <li><strong>꿩의 바람꽃</strong>: 꽃밭의 가장 많음 (10~15m)</li>
+    <li><strong>홀아비 바람꽃</strong>: 1줄기 1꽃대</li>
+    <li><strong>번스 바람꽃</strong>: 유일하게 꽃잎이 있음</li>
+    <li><strong>너도바람꽃</strong>: 꽃잎이 있음 — 우리나라에 2종(오대산 너도바람꽃, 연산 너도바람꽃)</li>
+    <li><strong>최리 바람꽃</strong></li>
+  </ul>
+
+  <h3>매발톱 · 세미매발톱</h3>
+  <ul>
+    <li><strong>매발톱</strong></li>
+    <li><strong>세미매발톱</strong> = 개구리발톱 — 열매가 개구리발톱 모양. 꽃잎 4개. 3월 말~4월 초 꽃핌. 세미=작다 뜻</li>
+  </ul>
+
+  <h3>피나물 vs 매미꽃</h3>
+  <div class="compare-box">
+    둘 다: 피, 혈액. 노란꽃. 꽃잎 4장. 수술 8개·12개 (4의 배수)<br>
+    <strong>피나물</strong>: 줄기가 올라와 잎이 달림, 줄기 끝에 꽃이 핌 = <strong>꽃대</strong><br>
+    <strong>매미꽃</strong>: 줄기가 올라와 끝에 꽃만 핌 = <strong>꽃줄기</strong>
+  </div>
+</section>
+
+<!-- S11 -->
+<section id="s11">
+  <h2>11. 상사화류 · 특산종 · 희귀종</h2>
+
+  <h3>상사화 종류</h3>
+  <ul>
+    <li>상사화류는 <strong>인경(알뿌리, 실제론 줄기 변형)</strong>을 가짐</li>
+    <li><strong>진노랑상사화</strong>: 내장산(백양사 계곡), 고창 선운사에만 자생. 우리나라 법정 보호식물 90종 중 하나. <span class="hl-red">멸종위기 야생식물 2급</span></li>
+    <li><strong>북노랑상사화</strong>: 부안. <span class="hl-red">우리나라 특산종(고유종)</span></li>
+    <li><strong>위도상사화</strong>: 자생종. 임경, 경엽</li>
+    <li><strong>석산(꽃무릇)</strong>: 사찰 경내에 많이 심어 불화(佛畵)의 분위기를 냄. 귀화식물</li>
+  </ul>
+
+  <div class="exam-box">
+    <span class="hl-red">특산종 = 고유종 = 우리나라에만 있는 종</span> (같은 말)<br>
+    귀화종: 외국에서 들어와 야생화된 종<br>
+    자생종: 우리나라에 원래부터 자라는 종
+  </div>
+
+  <h3>우리나라만 있는 6개 속 (고유속)</h3>
+  <div class="exam-box">
+    <ol>
+      <li><strong>매미꽃속</strong>: 매미꽃 (피나무는 피나무과 피나무속으로 아님)</li>
+      <li><strong>미선나무속</strong>: 1원종, 3개 품종(상아미선·분홍미선·푸른미선), 1변종(둥근잎미선). 물푸레나무과 미선나무속. 줄기가 동물꼬리, 열매가 부채 모양(꼬리미, 부채선)</li>
+      <li><strong>제주고사리삼속</strong>: 제주고사리삼 (제주 동백동산)</li>
+      <li><strong>금강초롱꽃속</strong>: 청사초롱 (① 금강초롱꽃 ② 검산초롱꽃—금강산 가야함)</li>
+      <li><strong>금강인가목속</strong>: 금강산 암벽에만 붙어있음</li>
+      <li><strong>더구기름나물속</strong>: 석회암지대. 강원도 정선 더구리 동네 (원빈, 이나영)</li>
+    </ol>
+    ※ 개느삼속은 최근 만주쪽에서 발견되어 제외됨. 개느삼=너삼
+  </div>
+
+  <h3>개느삼</h3>
+  <ul>
+    <li>총상꽃차례. 진노란꽃. 콩과식물. 회화나무와 비슷(연노란꽃). 키 작은 관목</li>
+    <li>강원도 양구 펀치볼(화채그릇)이 유명</li>
+    <li>2015년까지 법종보호종 멸종위기 야생생물 2급. 한반도에만 있는 고유종 → 최근 만주쪽에서 발견되어 6개속에서 빠짐</li>
+    <li>1980년대 서울대생과 강원도 시골 꼬마가 발견한 이야기</li>
+  </ul>
+</section>
+
+<!-- S12 -->
+<section id="s12">
+  <h2>12. 왕벚나무 · 개나리 · 병조희풀 · 동백나무</h2>
+
+  <h3>왕벚나무</h3>
+  <ul>
+    <li>(Cerasus × yedoensis) — 일본 도쿄 인근 <strong>소메이(染井)</strong>에서 올벚나무 × 오시마벚나무를 교잡하여 만든 인공 교잡종</li>
+    <li>일본 나라(奈良) 요시노(吉野) 지역이 유명한 묘목 생산지 → 전 세계에 심음</li>
+    <li>우리나라 제주도에도 왕벚나무 자생지 있음. 제주 자생 왕벚나무와 일본 소메이요시노는 유전적으로 동일하다는 연구 결과도 있음</li>
+    <li>나라현 지역 교잡으로 탄생</li>
+    <li><span class="hl-red">소메이 요시노 벚나무</span></li>
+  </ul>
+
+  <h3>산벚나무</h3>
+  <ul>
+    <li>지리산 고산대</li>
+    <li>잔털벚나무</li>
+  </ul>
+
+  <h3>개나리</h3>
+  <ul>
+    <li>(Forsythia koreana) — <span class="hl-green">우리나라 특산종</span></li>
+    <li>열매(연교)는 <strong>해열제</strong>로 사용</li>
+    <li><strong>장주화·단주화</strong> 두 종류 있음. 수술머리(꽃밥) 4개</li>
+    <li>단주화: 암술이 수술 대비 짧음 / 장주화: 암술이 수술 대비 길음</li>
+    <li><span class="hl-red">자가불화합성</span> — 우리나라 가로수 개나리는 모두 장주화 또는 단주화 중 한 타입만 심어 열매가 거의 없음</li>
+    <li><strong>개나리 자생지 없음</strong> — 우리나라 것이 아닐 수 있음</li>
+  </ul>
+
+  <h3>병조희풀</h3>
+  <ul>
+    <li>우리나라 <span class="hl-red">유일하게 암꽃·수꽃·양성화가 한 그루에 모두 있는 식물</span></li>
+    <li>목본보다 키가 작아 풀처럼 보이지만 목본. 꽃이 항아리 모양이며 보라색</li>
+  </ul>
+
+  <h3>동백나무와 생강나무</h3>
+  <ul>
+    <li><strong>동백나무</strong>: 겨울에도 잎이 지지 않는 상록수. 겨울~봄에 붉은 꽃이 핌. 차나무과 차나무속</li>
+    <li>김유정 소설 "동백꽃"의 동백은 강원도 배경이므로 실제는 <span class="hl-blue">생강나무</span>를 지칭 (강원도에 동백나무 자생 불가)</li>
+    <li><strong>생강나무</strong>: 잎·가지를 문지르면 생강향. 암수딴그루(자웅이주). 무성생식(영양생식)도 함. 감태나무(=백동백)와 유사. 삼동백. 강원도 평창.</li>
+  </ul>
+</section>
+
+<!-- S13 -->
+<section id="s13">
+  <h2>13. 단풍나무 — 열편(裂片) 구분</h2>
+
+  <div class="exam-box">
+    단풍나무: <strong>장상엽(=손골잎)</strong> — 열편(갈라진 잎조각) 수로 종류 구분<br>
+    <table style="margin-top:.6rem;">
+      <thead><tr><th>열편 수</th><th>종류</th><th>지역</th></tr></thead>
+      <tbody>
+        <tr><td>5~7개</td><td><strong>단풍나무</strong></td><td>내장산 (단풍나무)</td></tr>
+        <tr><td>7~9개</td><td><strong>당단풍</strong></td><td>설악산 (당단풍)</td></tr>
+        <tr><td>9~11개</td><td><strong>섬단풍</strong></td><td>울릉도</td></tr>
+        <tr><td>3개 (냇가 습지)</td><td><strong>신나무</strong></td><td>—</td></tr>
+        <tr><td>3개 (가로수, 수피 벗겨짐)</td><td><strong>중국단풍</strong></td><td>아중리에 많이 심음</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>단풍 열매 — 시과(翼果)</h3>
+  <ul>
+    <li><strong>시과</strong> = 날개. 翼果(날개익, 실과과). 씨앗 2개 양쪽. 프로펠러 만듦. 단풍나무 열매</li>
+    <li>소나무와 비슷한 날개 구조</li>
+  </ul>
+
+  <h3>홍단풍</h3>
+  <ul>
+    <li>붉은 단풍 = <strong>홍단풍</strong> — 엽록소 없음. 엽록소 자체를 파괴시킴</li>
+    <li>= 일본 노무라단풍 = 야촌단풍 (노무라=야촌 뜻. 들판마을)</li>
+    <li>식물의 특징: ① 세포벽 있음 ② 엽록체는 엽록소(녹색)를 가짐. 엽록소 파괴 → 안토시닌·안토시아닌(=붉은색)</li>
+    <li><span class="hl-red">청단×. 단풍나무○</span></li>
+  </ul>
+
+  <h3>웅성양성동주</h3>
+  <ul>
+    <li>단풍나무: 웅성양성동주 (모과나무, 자귀나무와 같음)</li>
+  </ul>
+</section>
+
+<!-- S14 -->
+<section id="s14">
+  <h2>14. 참나무류 6종 비교</h2>
+
+  <div class="exam-box">
+    참나무류 21% · 소나무 21% (우리나라 산림 구성)<br>
+    <span class="hl-red">밤나무: 앞·뒤·거치 모두 녹색. 참나무과 밤나무속 — 참나무류는 아님</span>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>수종</th><th>잎 모양</th><th>앞/뒤</th><th>잎자루</th><th>특징</th><th>서식지</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>상수리</strong></td>
+        <td>가는 잎(선형, 피침형)</td>
+        <td>앞·뒤 같은 녹색</td>
+        <td>○</td>
+        <td>해걸이. 거치가 갈색(엽록소 없음). 꿀밤(옛날사람). 민가 주변</td>
+        <td>민가 주변 / 산불 후 가장 먼저 들어오는 개척종×(떡갈이 개척종)</td>
+      </tr>
+      <tr>
+        <td><strong>굴참</strong></td>
+        <td>가는 잎(선형, 피침형)</td>
+        <td>앞-녹색, 뒤-노랗·흰색→노랗게</td>
+        <td>○</td>
+        <td>해걸이. 털있음. <strong>수피 코르크</strong>. 3대 코르크 나무 중 하나</td>
+        <td>사면, 절벽</td>
+      </tr>
+      <tr>
+        <td><strong>졸참</strong></td>
+        <td>도타원형(거꾸로 해놓은 것 같음)</td>
+        <td>—</td>
+        <td>○</td>
+        <td>작음. 가장 맛있음</td>
+        <td>계류(산 골짜기 흐르는 물)</td>
+      </tr>
+      <tr>
+        <td><strong>갈참</strong></td>
+        <td>도타원형(거꾸로 해놓은 것 같음)</td>
+        <td>—</td>
+        <td>○</td>
+        <td>점점 커짐. 잎을 갈음</td>
+        <td>산 중턱, 사면, 절 금산사, 평탄지역</td>
+      </tr>
+      <tr>
+        <td><strong>떡갈</strong></td>
+        <td>도타원형(거꾸로 해놓은 것 같음)</td>
+        <td>잎뒤-갈색, 털있음</td>
+        <td>×</td>
+        <td><strong>산불 후 가장 먼저 들어오는 개척종</strong>. 모찌 찔 때</td>
+        <td>산불 후, 산정상, 해안 산지</td>
+      </tr>
+      <tr>
+        <td><strong>신갈</strong></td>
+        <td>도타원형(거꾸로 해놓은 것 같음)</td>
+        <td>잎뒤-매끈</td>
+        <td>×</td>
+        <td>짚신을 깔음</td>
+        <td>산정상</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>도토리 각두(곡두=깍정)</h3>
+  <div class="exam-box">
+    <ul>
+      <li><strong>민모자(베레모자)</strong>: 신갈, 갈참, 졸참 — 각두 밋밋</li>
+      <li><strong>털모자</strong>: 상수리, 굴참, 떡갈 — 각두에 털</li>
+      <li><strong>해걸이 2종</strong>: 상수리, 굴참나무</li>
+    </ul>
+    열매: 도토리. <strong>견과</strong>(익어도 열리지 않는 열매)<br>
+    우리나라 견과: 밤, 개암, 도토리 (땅콩은 콩류라 제외)<br>
+    각두과(도토리 열매)를 총칭해서 견과라 함
+  </div>
+
+  <h3>3대 코르크 나무</h3>
+  <div class="exam-box">
+    <ol>
+      <li><strong>황벽나무</strong> — 수피 안쪽이 황색, 약용나무. 호랑나비가 주로 황벽나무·산초나무에 알을 낳음</li>
+      <li><strong>굴참나무</strong></li>
+      <li><strong>개살구</strong> — 우리나라 자생종. "빛 좋은 개살구"가 진짜 빛이 좋음. 살구: 중앙아시아 원산</li>
+    </ol>
+  </div>
+
+  <h3>가시나무류 (상록 참나무)</h3>
+  <ul>
+    <li>낙엽수 = 참나무 / 상록수 = <strong>가시나무</strong>: 각두(도토리 모자) 있음. 동심원처럼 가로무늬. 아래쪽에서 볼 수 있음</li>
+  </ul>
+
+  <h3>시험 문제 예시</h3>
+  <div class="exam-box">
+    잎자루가 있고, 거꾸로 된 타원형, 잎 뒷면에 털이 있고, 산불 나면 들어오는 개척종? → <strong>떡갈나무</strong><br>
+    곡두에 민모자가 달려있고, 산정상에 흔한 나무? → <strong>신갈나무</strong>
+  </div>
+</section>
+
+<!-- S15 -->
+<section id="s15">
+  <h2>15. 대나무 3종</h2>
+
+  <div class="exam-box">
+    <span class="hl-red">대나무는 마디가 다 2줄임</span> (맹종죽만 마디 1줄)
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>수종</th><th>죽순 시기</th><th>마디</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>맹종죽</strong> (= 죽순대)</td>
+        <td>5월 초 — 가장 먼저</td>
+        <td><strong>1줄</strong></td>
+        <td>대나무의 으뜸. 가장 굵음. 무늬있고 털있음. 큰아들·장자</td>
+      </tr>
+      <tr>
+        <td><strong>왕대</strong></td>
+        <td>5월 말~6월 초 — 가장 늦게</td>
+        <td>2줄</td>
+        <td>맹종죽에 가까운 애들. 털이 없고 매끈함. 맹종죽·왕대는 굵음</td>
+      </tr>
+      <tr>
+        <td><strong>솜대</strong></td>
+        <td>5월 중순</td>
+        <td>2줄</td>
+        <td>무늬없고, 털있음. 갈색</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li>조릿대 — 작은 대나무</li>
+    <li>▼: 잎을 싸고 있는 잎즙 = <strong>엽초</strong> — 껍질이 죽순을 싸고 있다 나중에 벗겨짐. 대나무 잎 — 벼과식물</li>
+  </ul>
+
+  <h3>오죽 vs 솜대 (변종·품종 관계)</h3>
+  <div class="compare-box">
+    일반적으로 솜대가 기본종이고 오죽이 변종·품종임 (보통의 경우)<br>
+    <span class="hl-red">오죽이 기본적이고 오죽의 변종·품종이 솜대임 — 거꾸로임</span><br>
+    오죽: 녹색 → (3년 지나면) 검은색
+  </div>
+
+  <h3>대나무 숲 버섯</h3>
+  <ul>
+    <li>대나무 숲: <strong>하얀망태버섯(식용)</strong> = 망태말뚝버섯. 1년에 2번 ① 장마 ② 가을에 핌</li>
+    <li>참나무 숲: <strong>노란망태버섯(식용)</strong> = 노랑망태버섯</li>
+    <li>말뚝에 머리 갓부분(끈적끈적 점액) 떼어내고 대만 먹음. 중국의 최고 요리임. 망태도 맛있음. 점액에 포자 있음. 매개-똥파리</li>
+  </ul>
+</section>
+
+<!-- S16 -->
+<section id="s16">
+  <h2>16. 수국 4종류</h2>
+
+  <table>
+    <thead>
+      <tr><th>종류</th><th>원산지</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 불두화</strong></td>
+        <td>일본</td>
+        <td>암술·수술 없음. 씨앗 못 맺음. 불구. 번식은 꺾꽂이. 잎-타원형, 잎 3갈래로 나뉨. 부처님머리꽃</td>
+      </tr>
+      <tr>
+        <td><strong>2. 별당나무</strong></td>
+        <td>일본</td>
+        <td>씨앗을 맺는 꽃=유성화. 최근 조경수로 심음</td>
+      </tr>
+      <tr>
+        <td><strong>3. 백당나무</strong></td>
+        <td>우리나라 자생종</td>
+        <td>하얀 계단형(백단→백당). 유성화(씨앗 맺음). 잎 3갈래로 나뉨. 산방꽃차례(p.285). 안쪽은 꽃봉오리. 주변 가짜꽃에는 암술 없음. 안쪽에는 유성화꽃이 핌. 꽃받침-교각 5개. 꽃이 말려진 것=꽃받침</td>
+      </tr>
+      <tr>
+        <td><strong>4. 설구화</strong></td>
+        <td>일본</td>
+        <td>최근 조경수로 심음</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="field-box">
+    오른쪽 분꽃나무: 백당나무와 비슷 형제임. 우리나라 자생. 분처럼 하얗고, 잎 뒷면에 분이 묻어있음. 꽃이 강하고 예쁨.
+  </div>
+</section>
+
+<!-- S17 -->
+<section id="s17">
+  <h2>17. 목련 종류</h2>
+
+  <table>
+    <thead>
+      <tr><th>종류</th><th>원산지</th><th>화피 수</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. 목련</strong></td>
+        <td>우리것</td>
+        <td>9개 (6개만 보임. 6개 뒤에 3개는 작게 가늘게. 틈이 있어 늘어짐)</td>
+        <td>공룡이전 나옴. 향 없음(나비·벌 없었을 때). 매개체–딱정벌레. 벼과식물=원시적. 꽃·꽃받침 구분없음=화피</td>
+      </tr>
+      <tr>
+        <td><strong>2. 백목련</strong></td>
+        <td>중국산</td>
+        <td>9개 (촘촘, 서로 기대고 있어 늘어지지 않음)</td>
+        <td>실제는 아이보리색임</td>
+      </tr>
+      <tr>
+        <td><strong>3. 자목련</strong></td>
+        <td>중국산</td>
+        <td>9개</td>
+        <td>화피 안·밖 자주색</td>
+      </tr>
+      <tr>
+        <td><strong>4. 자주목련</strong></td>
+        <td>교잡종 (백목련+자목련)</td>
+        <td>9개</td>
+        <td>화피 안(흰색)·밖(자주색). 백목련+자목련 교배. 자목련보다 자주목련이 흔함</td>
+      </tr>
+      <tr>
+        <td><strong>5. 일본목련</strong></td>
+        <td>일본</td>
+        <td>12개 (3의배수, 단자엽)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>6. 일본별목련</strong></td>
+        <td>일본. 멸종위기종</td>
+        <td>18~24개 — 가장 많음</td>
+        <td>가장 큼</td>
+      </tr>
+      <tr>
+        <td><strong>7. 태산목련</strong></td>
+        <td>—</td>
+        <td>12~15개</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tip-box">
+    외떡잎: 단자엽 3배수.<br>
+    목련: 쌍자엽으로 4배수~5배수이어야 하나, <strong>3배수로 단자엽에 유사</strong><br>
+    일본에서 초령목(귀신을 부름): 목련 종류. 굿할 때 사용.
+  </div>
+</section>
+
+<!-- S18 -->
+<section id="s18">
+  <h2>18. 백합나무 · 목련과</h2>
+
+  <h3>백합나무</h3>
+  <ul>
+    <li>목련과 튤립나무속. 목련 종류는 아님</li>
+    <li>고향: 북미. 노랑꽃이 피는 퍼플러 = 엘로우 퍼플러</li>
+    <li>꽃잎과 꽃받침을 받히는 <strong>화탁=꽃턱</strong>이 비대해짐, 거기에 암술이 달림. 3배수</li>
+    <li>울퉁불퉁한 열매 = <strong>골돌과</strong>(개뼈다귀 돌출) = 쪽꼬투리열매(열매가 터지면서 밖으로 나오는 열매 = 협과)</li>
+    <li>환경청: 백합나무 (꽃이 백합 모양) / 산림청: 튤립나무 (꽃이 튤립 닮아)</li>
+    <li>백합나무 꽃잎 9개: 안쪽 6개, 3개는 바깥쪽으로 꽃받침처럼 — 2겹</li>
+    <li><span class="hl-blue">"C-탄소" 흡수량 많음</span> — 산불 뒤 백합나무(빠른 복구)와 상수리(숲 완성)를 심고 있음</li>
+  </ul>
+
+  <div class="field-box">
+    백합나무: 목련과 튤립나무속. 목련 종류 아님. 고향 북미. 노랑꽃.<br>
+    꽃잎과 꽃받침을 받히는 화탁=꽃턱이 비대해짐, 거기에 암술이 달림. 3배수.<br>
+    울퉁불퉁한 열매 = 골돌과(개뼈다귀 돌출) = 쪽꼬투리열매(협과)
+  </div>
+</section>
+
+<!-- S19 -->
+<section id="s19">
+  <h2>19. 느릅나무과</h2>
+
+  <div class="tip-box">
+    느릅나무과 4개 (팽나무 제외 — 팽나무는 독립해서 삼과임)<br>
+    의저·외저: 주맥을 포개면 한쪽이 길쭉, 한쪽이 짧아 대칭이 안됨<br>
+    삼 종류: ① 대마 ② 환삼덩굴 ③ 홉(맛을 냄)
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>수종</th><th>성(性)</th><th>특징</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>느릅나무</strong></td>
+        <td>양성화. 암수한그루</td>
+        <td>잎이 큼. 이른 봄에 꽃핌. 약 쓰는 부위: 뿌리껍질(=유근피). 유=느릅나무 유</td>
+      </tr>
+      <tr>
+        <td><strong>느티나무</strong></td>
+        <td>암수한그루</td>
+        <td>가로수. 게야키(일본명). 노랗게 꽃(4월말이면 짐). ① 어릴 때 가로무늬 피목발달 ② 나이 먹으면 수피 떨어짐</td>
+      </tr>
+      <tr>
+        <td><strong>시무나무</strong></td>
+        <td>수꽃양성화한그루</td>
+        <td>10리목. 가시있음. 가시자, 느릅나무유 = 자유목. 심피 1개 (분리된 심피). 가시 큼</td>
+      </tr>
+      <tr>
+        <td><strong>푸조나무</strong></td>
+        <td>암수한그루</td>
+        <td>담양 관방제림에 있음</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="exam-box">
+    느릅나무 성이 다른 것이 특징임 (느티나무·푸조나무 암수한그루, 시무나무 수꽃양성화한그루)
+  </div>
+
+  <h3>참느릅나무 vs 느릅나무</h3>
+  <ul>
+    <li>느릅나무: 잎이 큼. 이른 봄에 꽃핌</li>
+    <li>참느릅나무: 잎이 작음. 가을꽃</li>
+  </ul>
+
+  <h3>오리나무 · 시무나무</h3>
+  <ul>
+    <li><strong>오리나무</strong>: 5리목 (5리 간격으로 나무를 심었다)</li>
+    <li><strong>시무나무</strong>: 10리목</li>
+  </ul>
+</section>
+
+<!-- S20 -->
+<section id="s20">
+  <h2>20. 수목원 실습 — 주요 관찰·설명 항목</h2>
+
+  <h3>철쭉류 구분</h3>
+  <div class="field-box">
+    도심 철쭉은 일본에서 개량화한 것 = 원예품종 = <strong>왜철쭉</strong><br>
+    1. 일본산철쭉 (자산홍 포함)<br>
+    2. 영산홍(일본): 잎이 가늘고 작음. 상록성. 수술 5개<br>
+    <br>
+    우리나라 자생:<br>
+    1. <strong>산철쭉</strong>(우리나라): 산지, 냇가, 계류, 물가. 진달래 ⇒ 수달래(경상북도 청송에서 수달래 축제함)<br>
+    &nbsp;&nbsp; <strong>진달래</strong>(=참꽃나무): 3월말~4월초 잎나는데 그전에 꽃 피움. 매끈. 식용 가능<br>
+    2. <strong>철쭉</strong>(우리나라): 산정상, 산중턱, 능선. 잎 5개. 꽃 크고 색 연함 ⇒ 연달래<br>
+    &nbsp;&nbsp; 철쭉(=개꽃나무): 잎+꽃 동시에 핌. 만지면 끈적끈적 (먹으면 배탈 일으킴)<br>
+    ※ 진달래·철쭉: 통꽃 1개. 대롱꽃. 수술(짧음) 5배수 10개. 암술 1개(길게 나옴) — 양성화=암수한꽃<br>
+    ※ 한라산: 참꽃나무라고 하는 진달래가 따로 있음
+  </div>
+
+  <h3>5대 삼(蔘)</h3>
+  <div class="exam-box">
+    ① 인삼 ② 사삼=잔대 ③ 만삼=더덕 ④ 현삼 ⑤ 고삼: 풀회화나무. 묘지 주변 많이 올라옴<br>
+    도라지 = 길경
+  </div>
+
+  <h3>계수나무</h3>
+  <ul>
+    <li>일본. 암수딴그루. ♡모양 잎. 가을단풍. 달콤한 향. 교수님이 개인적으로 좋아함</li>
+    <li>달나라 - 금목서</li>
+  </ul>
+
+  <h3>며느리배꼽 vs 며느리밑씻개</h3>
+  <div class="compare-box">
+    1. <strong>며느리배꼽</strong>: 신맛. 잎자루가 (약간 안쪽 배꼽)에 붙어있음. 턱잎이 줄기를 완전히 싸고 있음<br>
+    2. <strong>며느리밑씻개</strong>: 가시있음. 잎자루가 (기부=엽저) 파여있는 곳에 붙어있음. 턱잎이 반쪽만 싸고 있음
+  </div>
+
+  <h3>괴불나무</h3>
+  <ul>
+    <li>열매가 남자아이의 노리개 모양 = 괴불. 항상 꽃이 2개씩 달려있음</li>
+    <li>정원수로 많이 심음. 꿀 많음. 향 있음 → 밀원식물</li>
+    <li>처음엔 흰색·노란색 꽃이 2개 핌 (꽃가루 담고 있음) → 나중엔 흰색꽃으로 바뀜 1개 (꽃가루 날렸음)</li>
+  </ul>
+
+  <h3>괴불주머니 · 염주괴불주머니</h3>
+  <ul>
+    <li><strong>괴불주머니</strong>: 열매가 남자아이의 노리개 모양. 목에 통증 있을 때 나물로 먹으면 좋음. 진통 억제</li>
+    <li><strong>염주괴불주머니</strong>: 열매가 염주 모양</li>
+  </ul>
+
+  <h3>회화나무</h3>
+  <ul>
+    <li>= 학자수. 중국나무. 과거합격기원. 중국에서 원산지 아니라고 함. 자생지 없으므로</li>
+    <li>뒤에 회화나무 있음</li>
+    <li>p.283: 아까시나무·개느삼 — 총상꽃차례 / 회화나무 — 원추꽃차례 / 백당나무(수국) — 산방꽃차례</li>
+  </ul>
+
+  <h3>히어리 vs 털히어리</h3>
+  <div class="compare-box">
+    <strong>히어리</strong>: 우리 고유종. 열매 7~8개. 잎자루 털없음. 순천 많음. 수목원 오른쪽에 있음. 깃대종<br>
+    <strong>털히어리</strong>: 일본. 열매 10개 내외. 잎자루 털있음. 옛날: 고사 물나무. 수목원 왼쪽에 있음
+  </div>
+
+  <h3>말오줌때</h3>
+  <ul>
+    <li>교수님이 제일 좋아하는 나무. 거품벌레 유충이 자신을 보호하려고 만든 거품 집</li>
+    <li>잎이 깃꼴 겹잎. 잎이 더 펴지면 광택있음. 우리 자생종. 변산에 많음. 추위에 약해 위쪽은 볼 수 없음</li>
+    <li>열매가 특이함(가을에 붉게 익는 구형, 껍질이 터지면 안쪽에 검은 씨앗이 보임)</li>
+    <li>줄기나 가지를 자르면 말 오줌 냄새가 남</li>
+  </ul>
+
+  <h3>사과나무 4종류</h3>
+  <div class="exam-box">
+    ① <strong>사과나무</strong> (모래땅에 사는 열매)<br>
+    ② <strong>아그배나무</strong> (작은사과. 아그=작다 뜻. 잎이 세갈래로 갈라져있음→하나로 뭉툭해짐. 꽃잎 5개. 수술 5배수)<br>
+    ③ <strong>야광나무</strong> (밤에 하얀꽃이 보임)<br>
+    ④ <strong>능금</strong> (토종사과)
+  </div>
+
+  <h3>살구 주의사항</h3>
+  <ul>
+    <li>살구: 개가 먹고 죽음 (죽일살, 개구)</li>
+    <li>① 목에 걸려서 ② 살구·매실·사과·배 씨앗에 청산가리 성분 "독" 있음</li>
+  </ul>
+
+  <h3>둥글레</h3>
+  <ul>
+    <li>줄기에 마디·관절 있음. 둥글레 뿌리 = <strong>황정</strong></li>
+    <li>마디가 있어 죽대임. 관절이라고 표현함</li>
+    <li>마디가 없으면 둥글레가 아닌 다른 종류임 — 먹으면 안 됨</li>
+  </ul>
+  <ul>
+    <li>둥글레 종류 1: 줄기의 꽃이 아래로 처져있음</li>
+    <li>둥글레 종류 2: 꽃이 잎을 따라 수평으로 퍼져있음 — <strong>죽대</strong></li>
+  </ul>
+
+  <h3>콩배나무·돌배나무 계열</h3>
+  <ul>
+    <li>콩배나무 - 돌배나무 - 배나무 — 사과</li>
+    <li>콩배나무: 꽃은 배, 열매는 콩임 (열매가 작아서 콩처럼 보임)</li>
+    <li>콩배나무와 돌배나무는 형제임</li>
+  </ul>
+
+  <h3>꼬리뱅이·보리뺑이·포아풀</h3>
+  <ul>
+    <li>꼬리뱅이: 노란색 꽃</li>
+    <li>보리뺑이: 개보리뺑이·그늘보리뺑이 — 노란색 꽃</li>
+    <li>포아풀 = 꾸러미풀</li>
+  </ul>
+
+  <h3>꽃마리 vs 물망초</h3>
+  <div class="compare-box">
+    <strong>꽃마리</strong>: 우리 토종 물망초. 줄기 끝 꽃들이 말려있음. 흔히 볼 수 있는 야초·들풀. 김밥말이 → 꽃말이 → 꽃마리<br>
+    <strong>물망초</strong>: 외래종. "나를 잊지 말아요." 김희애
+  </div>
+
+  <h3>반하</h3>
+  <ul>
+    <li>토란 종류. 살눈=괴경. 잎 3개. 꽃이 정말 예쁨. 대나무 아래 있었음</li>
+  </ul>
+
+  <h3>비쭈기나무 vs 녹차·차나무</h3>
+  <div class="compare-box">
+    <strong>비쭈기나무</strong>: 우리나라, 남해 섬. 끝눈(=정아)이 삐틀어져 있음<br>
+    <strong>녹차</strong>: 차나무
+  </div>
+
+  <h3>교양목(굴거리나무)</h3>
+  <ul>
+    <li>우리나라 자생종. 내장산 국립공원 케이블카 타고 올라가면 군락지. 천연기념물 91호</li>
+    <li>새잎을 위해 양보를 함. 교=교차 뜻</li>
+    <li>상록수 묵은잎은 아래로 처짐. 북방한계선. 굿할 때 사용. 굴거(굴처럼 생긴 집) ⇒ 굴거리</li>
+  </ul>
+
+  <h3>칠엽수·가시칠엽수(마로니에)</h3>
+  <div class="compare-box">
+    <strong>칠엽수</strong>(7장, 6장·8장도 있음): 열매 밤처럼 생겼음-못먹음. 열매에 가시 없음. 끝이 매끈. 일본. 조경수<br>
+    <strong>가시칠엽수(마로니에)</strong>: 열매 밤처럼 생겼음-못먹음. 열매에 가시 있음. 끝이 매끈. 유럽<br>
+    <strong>밤</strong>: 끝이 뾰족. 암술대가 남아있음<br>
+    <strong>말밤=마름</strong>: 수생식물. 물가에 있음. 먹을 수 있음<br>
+    몽마르트 = 언덕 뜻. 마로니에 심어져 있음
+  </div>
+
+  <h3>무궁화</h3>
+  <ul>
+    <li>이란=페르시아. 서남아시아 중동. 시리아 원산지. 고려시대 비단길 거쳐 걸어옴</li>
+    <li>단점: 진딧물 많음 — 왜? 목화진딧물이 산란을 1년에 23번 함 (보통 진딧물 5~10회)</li>
+    <li>진딧물을 이주교배로 여름에 고추·오이에 갔다가 다시 돌아옴</li>
+  </ul>
+
+  <h3>상수리 거치 vs 밤나무</h3>
+  <div class="compare-box">
+    <strong>상수리</strong>: 앞·뒤 잎 녹색, 거치는 갈색으로 바뀜 (엽록소가 파괴되므로)<br>
+    <strong>밤나무</strong>: 앞·뒤 잎 녹색, 거치도 녹색
+  </div>
+
+  <h3>가침박달나무</h3>
+  <ul>
+    <li>임실 사선대 절벽에 자생 군락있음. 천연기념물. 희귀식물</li>
+    <li>열매가 다섯갈래로 마치 실로 감치다</li>
+  </ul>
+
+  <h3>정향풀</h3>
+  <ul>
+    <li>귀한꽃임. 꽃모양이 고무래꽃, 향기가 남. 멸종위기 2급. 파란·보라색 꽃. 丁(고무래정)</li>
+    <li>고무래: 곡식을 그러모으거나 펼 때, 밭의 흙을 고르거나 씨 뿌린 뒤 흙을 덮을 때 사용하는 농기구</li>
+  </ul>
+
+  <h3>병아리꽃나무</h3>
+  <ul>
+    <li>우리나라 토종. 꽃잎 4개. 수술 4배수. 열매 4개 검은색. 최근 가로수로 각광받음. 앵두×</li>
+    <li>20년 전 도토리골에서 군락 발견. 교수님이 개인적으로 좋아하는 나무</li>
+  </ul>
+
+  <h3>모과</h3>
+  <ul>
+    <li>목과⇒모과. 나무에 달린 참외. 과-오이·박·참외. 장미과 명자나무속</li>
+    <li>수피가 벗겨져 갈색과 녹색 얼룩무늬. 수피 예쁨</li>
+  </ul>
+
+  <h3>가래나무(추자) vs 호두나무</h3>
+  <div class="compare-box">
+    <strong>가래나무</strong>(추자): 호두나무 종류. 암꽃 붉은꽃. 수꽃 길음(=수꽃차례). 암수한그루. 모든 개체 열매 열림. <strong>타원형</strong><br>
+    <strong>호두나무</strong>: <strong>둥근형</strong>
+  </div>
+
+  <h3>점나도나물 vs 유럽점나도나물</h3>
+  <div class="compare-box">
+    <strong>점나도나물</strong>: 우리것. 꽃받침이 길음. 전나무빗자루병 중간기주 역할을 함 (점나도나물 ↔ 전나무 왕래). 녹색빛<br>
+    <strong>유럽점나도나물(양점나도나물)</strong>: 꽃받침이 반으로 짧음. 노란색
+  </div>
+
+  <h3>죽단화·황매화</h3>
+  <ul>
+    <li><strong>죽단화(겹꽃)</strong> = 만첩황매화 = 죽도화. 만첩: 병풍이 첩으로 있듯이 꽃들이 많다 뜻. 죽=대나무, 도=복숭아</li>
+    <li><strong>황매화(홑꽃)</strong>: 중국</li>
+  </ul>
+
+  <h3>가는살갈퀴·얼치기완두·새완두</h3>
+  <ul>
+    <li><strong>가는살갈퀴○</strong>: 꼬투리에 털×, 열매 큼. 덩굴손 3갈래. (살갈퀴×)</li>
+    <li><strong>얼치기완두</strong>: 꽃 1~2개 보라색. 꼬투리에 털×. 가는살갈퀴+새완두 교배. 덩굴손 1갈래. 개미가 교잡&lt;밀선&gt;. 탁엽(잎자루 밑에 붙은 한쌍의 작은잎)에 점무늬 2개 있음 = 꿀샘</li>
+    <li><strong>새완두</strong> = 작은 완두: 꼬투리에 털 많음</li>
+  </ul>
+
+  <h3>인진쑥 · 고사리 · 고비</h3>
+  <ul>
+    <li><strong>인진쑥</strong>: 더위지기. 더위 이겨냄. 목질화</li>
+    <li><strong>고사리</strong>: 포자(잎 뒤). 양치식물. 잎이 양의 치아 모양. 우리나라 340종</li>
+    <li><strong>고비</strong>: 따로 포자 있음. 영양엽 = 생식엽 = 포자엽</li>
+  </ul>
+
+  <h3>버드나무 씨앗</h3>
+  <ul>
+    <li>버드나무 씨앗: 종모, 씨앗털, 검은점</li>
+  </ul>
+
+  <h3>쇠무릎</h3>
+  <ul>
+    <li>= 우슬. 슬: 무릎 뜻</li>
+  </ul>
+
+  <h3>공조팝 vs 조팝</h3>
+  <div class="compare-box">
+    <strong>공조팝</strong>: 중국산<br>
+    <strong>조팝</strong>: 우리나라
+  </div>
+
+  <h3>홍가시나무 vs 가시나무</h3>
+  <div class="compare-box">
+    <strong>홍가시나무</strong>: 새순 붉은색이 특징. 꽃이 작아 눈에 안 띔. 일본. 산울타리. 가시없음<br>
+    <strong>가시나무</strong>: 상록수. 가시없음 (가시: 일본어에서 따옴)
+  </div>
+
+  <h3>풍년화 · 섬댕강나무 · 댕강나무</h3>
+  <ul>
+    <li><strong>풍년화</strong>: 이른 봄 꽃핌. 노란꽃</li>
+    <li><strong>섬댕강나무</strong>: 울릉도에 있음</li>
+    <li><strong>댕강나무</strong></li>
+  </ul>
+
+  <h3>기타</h3>
+  <ul>
+    <li>새우난초: 자생종. 뿌리가 새우처럼 휘어있음</li>
+    <li>붉은꽃칠엽수: 빨간꽃. 미국산</li>
+    <li>보리수: 씨앗이 보리 모양</li>
+    <li>개양귀비</li>
+    <li>무늬조팝</li>
+    <li>별꽃</li>
+    <li>민백이꽃</li>
+    <li>아스파라거스</li>
+    <li>크리스마스 로즈</li>
+    <li>등대풀 = 등잔풀: 밭에 많음</li>
+    <li>세포아풀</li>
+    <li>직박구리 = 수다쟁이 새 (식욕이 강해 다른 새들의 접근을 허용하지 않음)</li>
+    <li>쇠딱다구리 = 작은 딱다구리. 청딱다구리는 형제임</li>
+    <li>멧비둘기: 81세</li>
+    <li>국립공원 24개. 히어리: 깃대종</li>
+    <li>양서파충류 50종</li>
+    <li>제비꽃 60여종</li>
+    <li>호랑이: 범호, 이리랑. 호랑이+이리. 북한 — 범</li>
+    <li>토피아리</li>
+  </ul>
+</section>
+
+<!-- S21 -->
+<section id="s21">
+  <h2>21. 열매 종류 · 기타 용어</h2>
+
+  <table>
+    <thead>
+      <tr><th>열매 종류</th><th>설명</th><th>대표 식물</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>견과</strong></td><td>익어도 열리지 않는 열매. 단단한 열매</td><td>밤, 개암, 도토리 (땅콩은 콩류라 제외)</td></tr>
+      <tr><td><strong>시과(翼果)</strong></td><td>날개. 씨앗 2개 양쪽. 프로펠러</td><td>단풍나무</td></tr>
+      <tr><td><strong>이과</strong></td><td>—</td><td>사과나무, 배나무</td></tr>
+      <tr><td><strong>골돌과</strong></td><td>쪽꼬투리열매 (협과). 열매가 터지면서 밖으로 나오는 열매</td><td>백합나무</td></tr>
+      <tr><td><strong>핵과(=인과)</strong></td><td>—</td><td>살구, 매실, 모과 (p.289)</td></tr>
+      <tr><td><strong>장과</strong></td><td>—</td><td>감나무</td></tr>
+      <tr><td><strong>감과</strong></td><td>—</td><td>귤, 유자</td></tr>
+    </tbody>
+  </table>
+
+  <h3>기타 용어 정리</h3>
+  <ul>
+    <li><strong>처녀생식(무성생식)</strong> — 생강나무도 함</li>
+    <li><strong>종달새 → 좁다리</strong></li>
+    <li><strong>청서○ / 청설모×</strong> (푸른쥐의 가죽 털 뜻. 서=쥐 뜻)</li>
+    <li><strong>꿩: 암-까투리, 수-장끼</strong></li>
+    <li>꿩고비</li>
+    <li><strong>숲해설가라면 식물 100종 알아야. 1종을 1~2분 스토리할 수 있어야.</strong></li>
+  </ul>
+</section>
+
+<!-- S22 (Summary cards) -->
+<section id="s22">
+  <h2>22. 물들메나무 vs 물푸레나무 / 기타 형제 관계</h2>
+
+  <h3>물들메나무 vs 물푸레나무</h3>
+  <div class="compare-box">
+    <strong>물들메나무</strong>: 교배종× 독립종. chilisanenis(지리산) X=하이브리드=교배 뜻<br>
+    <strong>물푸레나무</strong>: 형제
+  </div>
+
+  <h3>메타세쿼이아 vs 낙우송</h3>
+  <div class="compare-box">
+    <strong>메타세쿼이아</strong>: 중국 원산지. 마주나기(대생). 잎, 잔가지<br>
+    <strong>낙우송</strong>: 미국 원산지. 어긋나기(호생). 잎, 잔가지. 잔가지·잎 어긋남. 뿌리 주변 혹=숨구멍=기근(공중뿌리)=호흡근. 습한 곳 자람. 쉽게 넘어짐. 슬근(얕은 뿌리)=지주역할=지주근.<br>
+    떨어질락, 깃우, 소나무송 — 두 수종 모두 낙엽수임
+  </div>
+
+  <h3>산초나무 vs 초피나무</h3>
+  <div class="compare-box">
+    <strong>산초나무</strong>: 호생(어긋나기). 잎, 줄기에 달린 가시<br>
+    <strong>초피나무</strong>: 대생(마주나기). 잎, 줄기에 달린 가시. 자웅이주(암수딴그루)
+  </div>
+
+  <h3>거지나무·꾸지뽕</h3>
+  <ul>
+    <li>거지나무, 꾸지뽕</li>
+  </ul>
+</section>
+
+<!-- S23 (Summary) -->
+<section id="s23" class="summary-section">
+  <h2>23. 핵심 암기 카드 — 시험 정리</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <strong>나자식물 vs 피자식물</strong>
+      나자식물: 씨앗 겉에 노출, 열매 없음<br>
+      피자식물: 씨앗이 씨방 안, 열매 있음<br>
+      솔방울 = 열매 아님, 씨앗 집합체
+    </div>
+    <div class="card">
+      <strong>꽃의 4요소</strong>
+      암술 + 수술 + 꽃잎 + 꽃받침<br>
+      씨방 → 열매 / 밑씨(배주) → 씨앗
+    </div>
+    <div class="card">
+      <strong>영양기관·생식기관</strong>
+      영양: 잎·줄기·뿌리<br>
+      생식: 꽃·열매·씨앗
+    </div>
+    <div class="card">
+      <strong>세계 3대 미수</strong>
+      히말라야시다 / 아라우카리아(남양삼나무) / 금송<br>
+      금송 = 낙우송과 (소나무과 아님!)
+    </div>
+    <div class="card">
+      <strong>국화과 두상화서</strong>
+      통꽃(관상화): 안쪽, 양성화<br>
+      혀꽃(설상화): 가장자리, 암꽃/중성<br>
+      민들레: 혀꽃만 / 국화: 통+혀꽃
+    </div>
+    <div class="card">
+      <strong>쌍떡잎 vs 외떡잎</strong>
+      쌍자엽: 4·5배수 꽃잎 / 곧은뿌리<br>
+      단자엽: 3·6배수 꽃잎 / 수염뿌리
+    </div>
+    <div class="card">
+      <strong>참나무 6종</strong>
+      잎자루○: 상수리·굴참·졸참·갈참<br>
+      잎자루×: 떡갈·신갈<br>
+      민모자: 신갈·갈참·졸참<br>
+      털모자: 상수리·굴참·떡갈<br>
+      해걸이: 상수리·굴참
+    </div>
+    <div class="card">
+      <strong>단풍나무 열편</strong>
+      5~7개: 단풍나무 (내장산)<br>
+      7~9개: 당단풍 (설악산)<br>
+      9~11개: 섬단풍 (울릉도)<br>
+      3개(습지): 신나무<br>
+      3개(가로수): 중국단풍
+    </div>
+    <div class="card">
+      <strong>대나무 죽순 시기</strong>
+      맹종죽: 5월초 (마디 1줄, 가장 굵음)<br>
+      솜대: 5월 중순<br>
+      왕대: 5월말~6월초 (가장 늦게)
+    </div>
+    <div class="card">
+      <strong>특산종·고유종</strong>
+      개나리, 노랑상사화, 히어리<br>
+      우리나라 6개속: 매미꽃속·미선나무속·제주고사리삼속·금강초롱꽃속·금강인가목속·더구기름나물속
+    </div>
+    <div class="card">
+      <strong>인경(비늘줄기)</strong>
+      줄기가 변형된 것<br>
+      대표: 양파·상사화류<br>
+      석산(꽃무릇): 귀화식물·인경
+    </div>
+    <div class="card">
+      <strong>병조희풀</strong>
+      우리나라 유일 잡성동주<br>
+      한 그루에 암꽃·수꽃·양성화 모두<br>
+      목본, 꽃 항아리 모양, 보라색
+    </div>
+    <div class="card">
+      <strong>개나리</strong>
+      우리나라 특산종<br>
+      열매(연교) = 해열제<br>
+      자가불화합성 → 가로수에 열매 없음
+    </div>
+    <div class="card">
+      <strong>3대 코르크 나무</strong>
+      황벽나무 / 굴참나무 / 개살구
+    </div>
+    <div class="card">
+      <strong>5대 삼(蔘)</strong>
+      인삼·사삼(잔대)·만삼(더덕)·현삼·고삼
+    </div>
+    <div class="card">
+      <strong>분류 단계</strong>
+      종 &lt; 속 &lt; 과 &lt; 목 &lt; 강 &lt; 문 &lt; 계 &lt; 역
+    </div>
+    <div class="card">
+      <strong>엽병내아 3가지</strong>
+      황벽나무 / 플라타너스(버즘나무) / 때죽나무(쪽동백나무)
+    </div>
+    <div class="card">
+      <strong>민들레 구분</strong>
+      서양민들레: 총포 겉이 늘어짐(돌기 없음)<br>
+      우리나라 민들레: 총포에 돌기 달림(늘어지지 않음)
+    </div>
+  </div>
+</section>
+
+<div class="part-divider" id="part2">
+  <h2>🌲 Part 2 — 목본 (Woody Plants)</h2>
+  <p>나무의 구조·분류·식별·침엽수·참나무 6형제</p>
+  <span class="badge">📅 강의: 2026. 04. 09</span>
+  <span class="badge">📂 소스: 음성정리 DOCX + Gnote PDF(25p) + 김창섭 기출문제 HWP</span>
+</div>
+
+<!-- S1 -->
+<section class="mokbon-section" id="mb-s1">
+  <h2>1. 나무와 풀의 구분 — 나이테(연륜)</h2>
+
+  <div class="exam-box">
+    나무와 풀의 가장 정확한 구분 기준: <span class="hl-red">나이테(연륜) 유무</span><br>
+    나무 → 매년 형성층에서 직경 생장(2차 생장)을 하여 나이테가 1년에 하나씩 생김<br>
+    풀(초본) → 2차 생장(직경 생장)을 하지 않아 나이테가 없음<br>
+    <span class="hl-red">야자수, 대나무 → 나이테 없음 → 식물학적으로 풀(초본)</span>
+  </div>
+
+  <h3>잘못된 구분 기준</h3>
+  <ul>
+    <li>"풀은 키가 작고 나무는 키가 크다" — 예외: <strong>암매(돌매화나무)</strong> 한라산 꼭대기 바위틈 자생, 전체 크기 5~10cm지만 분명한 나무</li>
+    <li>"겨울에 지상부가 죽느냐" — 예외: 도깨비고사리·꼬리고사리처럼 겨울에도 잎이 살아있는 상록성 풀 있음</li>
+    <li>"형성층 유무" — 예외: 해바라기처럼 풀이면서도 형성층이 있는 식물 있음</li>
+  </ul>
+
+  <div class="tip-box">
+    <strong>대나무의 분류</strong>: 용도학적으로는 나무처럼 쓰이지만, 식물학적(분류학적)으로는 풀(초본).<br>
+    이유: 대나무 속이 비어 있어 <strong>나이테(연륜)가 없기 때문</strong>.
+  </div>
+
+  <h3>나이테 = Annual Ring(애뉴얼 링) = 연륜(年輪)</h3>
+  <ul>
+    <li>나이테 간격이 고르면 좋은 환경, 한쪽이 좁으면 경사지나 스트레스 환경에서 자란 것</li>
+    <li><strong>춘재(春材)</strong>: 봄·여름에 자란 밝은 부분 (= 조재, early wood)</li>
+    <li><strong>추재(秋材)</strong>: 가을에 자란 짙은 부분 (= 만재, late wood)</li>
+    <li>가운데 짙은 부분: <strong>심재(心材)</strong> — 세포가 죽어있으나 단단함</li>
+    <li>바깥 밝은 부분: <strong>변재(邊材)</strong> — 살아있는 세포</li>
+  </ul>
+
+  <h3>수령 측정 방법</h3>
+  <ul>
+    <li>① 심은 기록 확인</li>
+    <li>② <strong>생장추(increment borer)</strong>로 목편 채취 후 나이테 계수 — 뿌리가 가운데 통하지 않을 때, 줄기의 중심을 향해 생장추를 들여넣고 육안으로 나이테 수를 세어 나정. 뿌리에서 발달한 거리를 감안하여 추가 (모를 경우 가슴높이이면 5년 추가)</li>
+    <li>③ <strong>레지스토그래피(resistograph)</strong> — 수령측정기(비파괴검사법). 나무줄기에 침형 센서를 삽입하여 목재밀도에 따른 전기저항 변화값을 이용. 그 자리에서 바로 충재와 부재의 구분을 그래프로 볼 수 있어 편리. 그러나 센서가 닿지 않는 한계로 느티나무류 등 단단한 나무와 거대한 노수의 나이를 측정하기 어려워 실리 이용되지는 못함</li>
+    <li>④ LiDAR 드론·위성 활용</li>
+    <li>침엽수는 나이테가 선명하여 바로 계수 가능, 활엽수는 화학 처리로 선명하게 만든 뒤 계수</li>
+  </ul>
+</section>
+
+<!-- S2 -->
+<section class="mokbon-section" id="mb-s2">
+  <h2>2. 수목 식별 · 분류 · 명명</h2>
+
+  <h3>용어 정의</h3>
+  <ul>
+    <li><strong>식별(동정, identification)</strong>: 눈앞의 식물이 어떤 종인지 구별하는 것 (일반인)</li>
+    <li><strong>분류(classification)</strong>: 식물 간의 서로 가깝고 먼 관계를 따지는 유연관계를 밝혀서 식물의 체계를 세우는 것 = 식물의 족보를 만드는 것 (전문가)</li>
+    <li><strong>명명(nomenclature)</strong>: 새로운 종에 ICN(국제식물명명규약)에 따라 공식 이름(학명)을 부여하는 것 (전문가)</li>
+  </ul>
+
+  <h3>APG 분류체계</h3>
+  <ul>
+    <li>현재는 DNA 분석에 기반한 <strong>APG(피자식물계통군)</strong> 분류체계로 단일화</li>
+    <li>논문 작성 시 어떤 분류체계를 따랐는지 반드시 명기해야 함</li>
+    <li>국가식물 표준 목록: www.nature.go.kr</li>
+  </ul>
+
+  <h3>분류 단위</h3>
+  <div class="exam-box">
+    분류 단위(크기 순): <span class="hl-red">계 &gt; 문 &gt; 강 &gt; 목 &gt; 과 &gt; 속 &gt; 종</span><br>
+    총 &lt; 속 &lt; 과 &lt; 목 &lt; 강 &lt; 문 &lt; 계 (작은 단위 → 큰 단위)<br>
+    식물 분류의 기본 단위는 <strong>종(種)</strong>. 종 아래 아종·변종·품종이 있음<br>
+    예) 소나무: 식물계 &gt; 구과식물문 &gt; 소나무강 &gt; 소나무목 &gt; 소나무과 &gt; 소나무속 &gt; 소나무<br>
+    벚나무: 꽃으로 구분
+  </div>
+
+  <h3>학명(이명법) 작성 규칙</h3>
+  <div class="exam-box">
+    학명 3원칙:<br>
+    ① <span class="hl-red">속명(Genus): 첫 글자만 대문자</span>, 나머지 소문자<br>
+    ② <span class="hl-red">종소명: 모두 소문자</span><br>
+    ③ <span class="hl-red">학명 전체를 이탤릭체</span>로 표기<br>
+    이름이 긴 경우 줄임 (속명 약어 사용)<br>
+    예) 소나무: <em>Pinus densiflora</em> / 곰솔: <em>Pinus thunbergii</em>
+  </div>
+  <ul>
+    <li>속명이 같으면 같은 집안(친척) 관계</li>
+    <li>학명 약어: var.(변종), f.(품종), cv.(재배종)</li>
+    <li>화훼 식물 학명: 몬스테라, 산세베리아 → 속명 사용</li>
+  </ul>
+</section>
+
+<!-- S3 -->
+<section class="mokbon-section" id="mb-s3">
+  <h2>3. 잎의 구조와 기능</h2>
+
+  <h3>영양기관과 생식기관</h3>
+  <ul>
+    <li>잎·줄기·뿌리: <strong>영양기관</strong> (성 없음)</li>
+    <li>꽃·열매·종자: <strong>생식기관</strong> (성 있음, 유성생식 관여)</li>
+  </ul>
+
+  <div class="exam-box">
+    잎의 세 가지 기능:<br>
+    ① <strong>광합성</strong>: CO₂ + H₂O + 빛에너지 → 포도당(유기물) + O₂ 방출<br>
+    ② <strong>호흡</strong>: O₂ 흡수, CO₂ 배출 (광합성에 비해 미약)<br>
+    ③ <strong>증산작용</strong>: 기공을 통해 수분을 수증기로 배출 → 물의 상승 원동력<br>
+    광합성·호흡·증산작용 담당 기관 = <span class="hl-red">기공(잎 뒷면)</span>
+  </div>
+
+  <h3>잎맥과 부속물</h3>
+  <ul>
+    <li><strong>주맥(主脈)</strong>: 잎 가운데 굵은 줄기</li>
+    <li><strong>측맥(側脈)</strong>: 주맥에서 좌우로 뻗은 것</li>
+    <li><strong>턱잎(탁엽)</strong>: 잎자루 아랫부분 작은 잎 모양 부속물 (버드나무류 등)</li>
+  </ul>
+
+  <h3>단엽과 복엽</h3>
+  <ul>
+    <li><strong>단엽(홑잎)</strong>: 잎 한 장씩 달림</li>
+    <li><strong>복엽(겹잎)</strong>: 소엽 여러 장이 하나의 잎자루에 달림</li>
+  </ul>
+  <table>
+    <thead><tr><th>복엽 종류</th><th>설명</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><strong>기수우상복엽</strong></td><td>소엽 홀수</td><td>복나무</td></tr>
+      <tr><td><strong>우수우상복엽</strong></td><td>소엽 짝수</td><td>가죽나무</td></tr>
+      <tr><td><strong>삼출복엽</strong></td><td>소엽 3장</td><td>쪽동백</td></tr>
+      <tr><td><strong>단신복엽</strong></td><td>몸통 1개+끝잎 1장</td><td>귤나무</td></tr>
+    </tbody>
+  </table>
+
+  <h3>잎차례(엽서)</h3>
+  <div class="compare-box">
+    <strong>마주나기(대생)</strong>: 한 마디에서 좌우 2장<br>
+    <strong>어긋나기(호생)</strong>: 한 마디에서 1장씩<br>
+    <strong>돌려나기(윤생)</strong>: 한 마디에서 3장 이상<br>
+    예: 메타세쿼이아(마주나기) vs 낙우송(어긋나기) / 키버들(마주나기) vs 갯버들(어긋나기)
+  </div>
+
+  <h3>잎 모양·끝·밑·가장자리</h3>
+  <ul>
+    <li>잎 모양: 피침형(소나무), 심장형(박태기나무), 삼각형(포플러), 타원형(층층나무), 계란형(강나무), 도란형(백목련)</li>
+    <li>잎 끝: <strong>요두</strong>(오목), <strong>원두</strong>(원형), <strong>점첨두</strong>(꼬리처럼 긺)</li>
+    <li>가장자리: <strong>전연</strong>(밋밋), <strong>파상</strong>, <strong>거치</strong>(톱니), <strong>이중거치</strong></li>
+    <li>잎 밑: 느릅나무(좌우 대칭) vs 팽나무(비대칭) — 비슷한 수종 구별 시 중요</li>
+  </ul>
+
+  <h3>침엽수 잎 수 구별</h3>
+  <div class="exam-box">
+    <table>
+      <thead><tr><th>수종</th><th>잎 묶음</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td><strong>소나무</strong> (육송·여송·직송)</td><td class="hl-red">2엽속</td><td>겨울눈: 붉은색</td></tr>
+        <tr><td><strong>곰솔</strong> (해송·흑송·남송)</td><td class="hl-red">2엽속</td><td>겨울눈: 흰색 (핵심 구별!)</td></tr>
+        <tr><td><strong>리기다소나무</strong></td><td class="hl-red">3엽속</td><td>—</td></tr>
+        <tr><td><strong>잣나무</strong></td><td class="hl-red">5엽속 (long)</td><td>—</td></tr>
+        <tr><td><strong>섬잣나무</strong></td><td class="hl-red">5엽속 (short)</td><td>울릉도 특산식물. 잎이 짧음</td></tr>
+        <tr><td><strong>스트로브잣나무</strong></td><td class="hl-red">5엽속</td><td>—</td></tr>
+        <tr><td><strong>백송</strong></td><td class="hl-red">3엽속</td><td>잣나무류에 속함</td></tr>
+      </tbody>
+    </table>
+    소나무(2) + 리기다소나무(3) + 스트로브잣나무(5) = <span class="hl-red">10개</span>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="mokbon-section" id="mb-s4">
+  <h2>4. 잎으로 수종 구별하는 법</h2>
+
+  <h3>잎차례로 구별</h3>
+  <div class="compare-box">
+    낙우송(어긋나기) vs 메타세쿼이아(마주나기)<br>
+    갯버들(어긋나기) vs 키버들(마주나기)<br>
+    초피나무(마주나기, 대생) vs 산초나무(어긋나기, 호생)
+  </div>
+
+  <h3>잎의 숫자로 구별</h3>
+  <ul>
+    <li>소나무·곰솔: 2개 / 리기다소나무: 3개 / 잣나무류: 5개</li>
+    <li>싸리나무: 잎두 모양으로 구별</li>
+  </ul>
+
+  <h3>잎 끝 모양으로 구별</h3>
+  <div class="compare-box">
+    <strong>구상나무</strong>: 잎 끝 오목하게 들어감 (요두)<br>
+    <strong>전나무</strong>: 잎 끝 뾰족
+  </div>
+
+  <h3>잎 뒷면(엽면)으로 구별</h3>
+  <div class="compare-box">
+    <strong>상수리나무</strong>: 앞·뒤 동일 녹색<br>
+    <strong>굴참나무</strong>: 뒷면에 털이 나서 색상이 흐림(흰색)<br><br>
+    <strong>측백나무</strong>: 앞뒤 모두 녹색<br>
+    <strong>화백</strong>: 뒷면 흰색 <span class="hl-red">X자</span> 기공선<br>
+    <strong>편백(히노키)</strong>: 뒷면 흰색 <span class="hl-red">Y자</span> 기공선. 피톤치드 함량 최다
+  </div>
+
+  <h3>잎자루(엽저 모양)로 구별</h3>
+  <div class="compare-box">
+    <strong>느릅나무</strong>: 잎 밑 좌우 대칭<br>
+    <strong>팽나무</strong>: 잎 밑 비대칭 (불균형, 좌우 비대칭)
+  </div>
+
+  <h3>잎의 가장자리(엽면 톱니)로 구별</h3>
+  <div class="compare-box">
+    <strong>작살나무</strong> vs <strong>좀작살나무</strong>: 톱니 유무
+  </div>
+
+  <h3>피목(皮目)으로 구별</h3>
+  <ul>
+    <li>피목: 나무들의 노폐물을 배출하는 기관</li>
+    <li><strong>벚나무</strong>: 피목이 가로 방향 (가로로 달린다)</li>
+    <li><strong>자작나무</strong>: 피목이 세로 방향</li>
+  </ul>
+
+  <h3>수지(樹脂)로 구별</h3>
+  <ul>
+    <li>굴참 vs 졸참</li>
+    <li>보과 vs 노각 vs 양비증나무: 수피 무늬로 구별</li>
+  </ul>
+
+  <h3>가시로 구별</h3>
+  <div class="compare-box">
+    초피나무(마주나기, 대생) vs 산초나무(어긋나기, 호생) — 잎, 줄기에 달린 가시
+  </div>
+
+  <h3>가래나무 vs 호두나무</h3>
+  <div class="compare-box">
+    <strong>가래나무</strong>: 타원형 열매<br>
+    <strong>호두나무</strong>: 둥근형 열매<br>
+    이칸(페카): 관련 수종
+  </div>
+</section>
+
+<!-- S5 -->
+<section class="mokbon-section" id="mb-s5">
+  <h2>5. 꽃과 번식</h2>
+
+  <h3>수분과 수정</h3>
+  <ul>
+    <li><strong>수분(受粉)</strong>: 꽃가루가 암술머리에 붙는 것</li>
+    <li><strong>수정(受精)</strong>: 꽃가루관이 자라 밑씨와 세포핵이 결합하는 것</li>
+    <li>수정 후 씨방이 자라 열매가 됨</li>
+    <li>수분 방식: <strong>풍매화</strong>(바람 — 소나무 등), <strong>충매화</strong>(곤충 — 약 80% 이상)</li>
+  </ul>
+
+  <h3>양성화·단성화·중성화</h3>
+  <div class="exam-box">
+    <strong>양성화</strong>: 한 꽃에 암술·수술 모두 있음 (장미, 매실 등)<br>
+    <strong>단성화</strong>: 암술 또는 수술만 있음 (소나무 — 자웅동주+단성화)<br>
+    <strong>중성화(장식꽃)</strong>: 암술·수술 모두 없음 (불두화)<br>
+    <strong>잡성화</strong>: 단풍나무<br><br>
+    <span class="hl-red">소나무: 자웅동주(암수한그루)이지만 양성화가 아닌 단성화!</span><br>
+    암꽃(위쪽, 빨간색)과 수꽃(아래쪽, 송화가루)이 같은 나무의 서로 다른 가지에 핌
+  </div>
+
+  <ul>
+    <li><strong>자웅동주(암수한그루)</strong>: 암꽃·수꽃이 같은 나무에 — 소나무, 살구나무</li>
+    <li><strong>자웅이주(암수딴그루)</strong>: 암나무·수나무가 따로 — 은행나무, 버드나무류</li>
+  </ul>
+
+  <h3>번식 방법</h3>
+  <ul>
+    <li><strong>유성번식(종자번식)</strong>: 유전적 다양성 기대 가능, 부모 형질 100% 보장 안 됨</li>
+    <li><strong>무성번식(영양번식)</strong>: 삽목·취목·접목 — 모수 형질 100% 유전</li>
+    <li>접목 시 형성층을 정확히 맞춰야 성공</li>
+    <li>영양번식: 접목, 취목, 삽목</li>
+  </ul>
+</section>
+
+<!-- S6 -->
+<section class="mokbon-section" id="mb-s6">
+  <h2>6. 겉씨식물 vs 속씨식물</h2>
+
+  <div class="exam-box">
+    <strong>속씨식물(피자식물)</strong>: 씨방 안에 씨 → 진정한 꽃(암술·수술·꽃잎·꽃받침) 있음<br>
+    <strong>겉씨식물(나자식물)</strong>: 씨방 없이 씨가 밖으로 노출<br>
+    은행나무 → 겉씨식물 → <span class="hl-red">"열매"가 아닌 "종자"라고 해야 정확</span><br>
+    소나무 → 겉씨식물 → <span class="hl-red">암구화·수구화(배우체)로 불러야 정확</span>
+  </div>
+
+  <h3>은행나무 분류 논란</h3>
+  <ul>
+    <li>침엽수? 활엽수? — 잎의 형태는 활엽수처럼 넓지만 나자식물(겉씨식물)</li>
+    <li>수배우체, 암배우체로 구분</li>
+    <li>성 감별: DNA 분석기술로 가능</li>
+  </ul>
+
+  <h3>외떡잎식물과 쌍떡잎식물</h3>
+  <table>
+    <thead><tr><th>구분</th><th>외떡잎식물</th><th>쌍떡잎식물</th></tr></thead>
+    <tbody>
+      <tr><td><strong>떡잎</strong></td><td>1장</td><td>2장</td></tr>
+      <tr><td><strong>뿌리</strong></td><td>수염뿌리</td><td>곧은뿌리+곁뿌리</td></tr>
+      <tr><td><strong>잎맥</strong></td><td>나란히맥</td><td>그물맥</td></tr>
+      <tr><td><strong>대표</strong></td><td>벼·대나무·야자수</td><td>대부분의 나무·초화</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>포자식물 → 종자식물: 겉씨식물(침엽수류, 은행나무) + 속씨식물(활엽수류)</li>
+    <li>오떡은 쌍력임 (외떡잎식물 ≠ 쌍떡잎식물)</li>
+    <li>씨방이 과육이 된다 (속씨식물)</li>
+  </ul>
+</section>
+
+<!-- S7 -->
+<section class="mokbon-section" id="mb-s7">
+  <h2>7. 침엽수(구과식물) 주요 수종</h2>
+
+  <h3>소나무 계열 구별</h3>
+  <table>
+    <thead><tr><th>수종</th><th>잎</th><th>겨울눈</th><th>특징</th></tr></thead>
+    <tbody>
+      <tr><td><strong>소나무</strong> (육송·여송·직송)</td><td>2엽속</td><td class="hl-red">붉은색</td><td>—</td></tr>
+      <tr><td><strong>곰솔</strong> (해송·흑송·남송)</td><td>2엽속</td><td class="hl-blue">흰색</td><td>핵심 구별 포인트!</td></tr>
+      <tr><td><strong>리기다소나무</strong></td><td>3엽속</td><td>—</td><td>—</td></tr>
+      <tr><td><strong>잣나무</strong></td><td>5엽속 (long)</td><td>—</td><td>홍송</td></tr>
+      <tr><td><strong>섬잣나무</strong></td><td>5엽속 (short)</td><td>—</td><td>울릉도 특산식물</td></tr>
+      <tr><td><strong>스트로브잣나무</strong></td><td>5엽속</td><td>—</td><td>—</td></tr>
+      <tr><td><strong>백송</strong></td><td>3엽속</td><td>—</td><td>잣나무류에 속함</td></tr>
+    </tbody>
+  </table>
+
+  <h3>소나무 품종·지역변이</h3>
+  <ul>
+    <li><strong>금강소나무(강송·춘양목)</strong>: 경북 북부·강원 남부 분포. 줄기 곧고 재질 우수. 일제시대 춘양역을 통해 반출 → 이름에 잔재</li>
+    <li><strong>이봉용 소나무</strong>: 전북 완주 특산. 전나무 수형으로 곧게 자람</li>
+    <li><strong>반송(盤松)</strong>: 줄기가 밑에서 여러 갈래로 갈라짐 (쟁반처럼 퍼짐)</li>
+    <li>소나무 꽃가루(송화가루): 풍매화</li>
+    <li>천연기념물 → 후계목 보전 사업</li>
+  </ul>
+
+  <h3>전나무·구상나무·가문비나무</h3>
+  <div class="compare-box">
+    <strong>전나무</strong>: 잎 끝 뾰족<br>
+    <strong>구상나무</strong>: 잎 끝 오목하게 들어감. 우리나라 특산식물, 해발 1000m 이상 자생. 기후변화로 고사 급증. 솔방울: 포린(돌기)이 있어 전나무보다 예쁨
+  </div>
+
+  <h3>메타세쿼이아 vs 낙우송</h3>
+  <div class="compare-box">
+    <strong>메타세쿼이아</strong>: 잎 마주나기. 중국 원산<br>
+    <strong>낙우송</strong>: 잎 어긋나기. 미국 원산. <span class="hl-red">가로수 안 되는 이유: 기근(공기뿌리)이 올라와 보도블록 뚫음</span>
+  </div>
+
+  <h3>측백나무류 구별 — 기공선</h3>
+  <div class="exam-box">
+    <span class="hl-green">측백나무</span>: 앞뒤 모두 녹색<br>
+    <span class="hl-blue">화백</span>: 뒷면 흰색 <span class="hl-red">X자</span> 기공선<br>
+    <span class="hl-amber">편백(히노키)</span>: 뒷면 흰색 <span class="hl-red">Y자</span> 기공선. 피톤치드 함량 최다
+  </div>
+
+  <h3>솔방울(구과) 종류</h3>
+  <ul>
+    <li><strong>구과</strong>: 솔방울 (소나무류)</li>
+    <li><strong>시과</strong>: 날개 달린 열매 — 단풍나무, 고로쇠, 느릅나무 씨앗에 날개 있음</li>
+    <li><strong>협과</strong>: 콩깍지 — 콩, 아까시나무, 회화, 등나무, 박태기, 히어리</li>
+    <li><strong>물푸레나무</strong>: 물을 푸르게 하는 나무</li>
+  </ul>
+</section>
+
+<!-- S8 -->
+<section class="mokbon-section" id="mb-s8">
+  <h2>8. 참나무 6형제</h2>
+
+  <div class="exam-box">
+    참나무류 6종: <span class="hl-red">상수리·굴참·신갈·떡갈·갈참·졸참나무</span><br>
+    모두 도토리 생산 → 통칭 "도토리나무". "참(眞)": 버릴 데 없는 나무<br>
+    참나무 죽령개 이야기 — 상수리: 수라상, 굴참나무는 코르크가 특징
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>수종</th><th>잎 형태</th><th>잎자루</th><th>잎 뒷면</th><th>이름 유래</th><th>서식지</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>상수리</strong></td>
+        <td>긴 타원형 (피침형)</td>
+        <td>○ (15mm)</td>
+        <td>앞·뒤 동일 녹색</td>
+        <td>도토리 중 가장 맛있어 임금 수라상에 올림 → 수라→수리→상수리. 국고자목 NO!</td>
+        <td>민가 주변</td>
+      </tr>
+      <tr>
+        <td><strong>굴참</strong></td>
+        <td>긴 타원형 (피침형)</td>
+        <td>○</td>
+        <td>흰털 밀생 (흰색)</td>
+        <td>코르크 골이 깊음. 너와집 지붕 재료</td>
+        <td>사면, 절벽</td>
+      </tr>
+      <tr>
+        <td><strong>갈참</strong></td>
+        <td>도타원형 (거꾸로)</td>
+        <td>○</td>
+        <td>—</td>
+        <td>단풍이 늦게까지 달려있음 (잎을 갈음)</td>
+        <td>산 중턱, 평탄지역</td>
+      </tr>
+      <tr>
+        <td><strong>졸참</strong></td>
+        <td>도타원형 (거꾸로)</td>
+        <td>○</td>
+        <td>—</td>
+        <td>졸병처럼 작다. 가장 맛있음</td>
+        <td>계류(산 골짜기)</td>
+      </tr>
+      <tr>
+        <td><strong>떡갈</strong></td>
+        <td>도타원형 (거꾸로)</td>
+        <td>× (거의 없음)</td>
+        <td>갈색, 털있음</td>
+        <td>떡 찔 때 깔개. 두렵고 큰 잎</td>
+        <td>산불 후 개척종, 산정상, 해안</td>
+      </tr>
+      <tr>
+        <td><strong>신갈</strong></td>
+        <td>도타원형 (거꾸로)</td>
+        <td>× (거의 없음)</td>
+        <td>매끈</td>
+        <td>짚신 밑창에 깔았음</td>
+        <td>산정상</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>이름 유래 암기</h3>
+  <ul>
+    <li><strong>상수리</strong>: 수라상 → 수리 → 상수리</li>
+    <li><strong>굴참</strong>: 코르크 골이 깊음 → 굴참</li>
+    <li><strong>신갈</strong>: 짚신 밑창에 깔았음</li>
+    <li><strong>갈참</strong>: 단풍이 늦게 달려있음 (잎을 갈음)</li>
+    <li><strong>떡갈</strong>: 떡 찔 때 깔개</li>
+    <li><strong>졸참</strong>: 졸병처럼 작다</li>
+  </ul>
+
+  <h3>표고버섯 원목 적합성</h3>
+  <ul>
+    <li>가장 적합: <strong>상수리나무</strong> (균 잘 퍼지고 5~6년 사용 가능)</li>
+    <li>굴참: 오래가지만 균이 잘 안 퍼짐</li>
+  </ul>
+
+  <h3>가시나무 (상록 참나무류)</h3>
+  <div class="exam-box">
+    <span class="hl-red">낙엽성 참나무 6형제 ≠ 가시나무</span><br>
+    가시나무: 남도 지방 자생 <strong>상록성</strong> 참나무류. 잎이 겨울에도 안 떨어짐. 가시없음 (가시: 일본어)
+  </div>
+</section>
+
+<!-- S9 -->
+<section class="mokbon-section" id="mb-s9">
+  <h2>9. 식물 이름의 유래 · 접두어</h2>
+
+  <h3>자생지·냄새·동물에서 온 이름</h3>
+  <ul>
+    <li><strong>"갯-"</strong>: 바닷가·해안가</li>
+    <li><strong>"물-"</strong>: 습지 선호</li>
+    <li><strong>"돌-"</strong>: 바위·돌틈</li>
+    <li><strong>"구름-"</strong>: 두에(높은 곳)</li>
+    <li><strong>생강나무</strong>: 가지 꺾으면 생강 냄새</li>
+    <li><strong>오미자(五味子)</strong>: 다섯 가지 맛</li>
+    <li><strong>오이자나무</strong>: 오이 냄새</li>
+    <li><strong>누리장나무</strong>: 냄새</li>
+    <li><strong>천리향</strong>: 향기</li>
+    <li><strong>소태나무</strong>: 소 태 맛</li>
+    <li><strong>호랑가시나무</strong>: 잎이 호랑이 발톱처럼 뾰족</li>
+    <li><strong>박쥐나무</strong>: 잎이 박쥐 날개처럼</li>
+    <li><strong>노가자</strong>: 노(老)+가자</li>
+    <li><strong>쥐동</strong>: 쥐 모양</li>
+  </ul>
+
+  <h3>숫자를 반영한 이름</h3>
+  <ul>
+    <li><strong>칠엽수(마로니에)</strong>: 잎 7장</li>
+    <li><strong>안병초</strong></li>
+    <li><strong>오갈피</strong>: 5개 가지</li>
+    <li><strong>오리</strong>: 5리 간격 (오리나무)</li>
+  </ul>
+
+  <h3>쓰임새에서 온 이름</h3>
+  <ul>
+    <li><strong>참빗살 = 화살나무</strong>: 화살나무에 코르크 날개(비살)가 있음. 참비살나무는 날개 없는 별도의 종</li>
+    <li><strong>윤노리</strong>: 물놀이 (윤노리나무)</li>
+    <li><strong>대포집</strong></li>
+    <li><strong>작살</strong>: 잎 모양이 작살처럼</li>
+    <li><strong>은행나무</strong>: 빛깔·어선 유래 / 각목 / 곰솔 / 노린재</li>
+  </ul>
+
+  <h3>접두어의 의미</h3>
+  <table>
+    <thead><tr><th>접두어</th><th>의미</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><strong>"개-"</strong></td><td>못 먹거나 가짜인 것</td><td>개머루, 개옻나무, 개나리, 하늘나리</td></tr>
+      <tr><td><strong>"참-"</strong></td><td>진짜이거나 쓰임새 좋음</td><td>참나무, 참나리, 참취</td></tr>
+      <tr><td><strong>"왕-"(수리)</strong></td><td>크다</td><td>왕원추리</td></tr>
+      <tr><td><strong>"가-"</strong></td><td>가짜</td><td>—</td></tr>
+      <tr><td><strong>"땅-"(좀, 오)</strong></td><td>작다, 땅에 붙음</td><td>—</td></tr>
+      <tr><td><strong>"당-"</strong></td><td>중국에서 온 것</td><td>당나리, 당단풍</td></tr>
+      <tr><td><strong>"탈증나리"</strong></td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam-box">
+    <strong>솔나무(소나무)</strong>: 순우리말 <span class="hl-red">"우두머리 나무"</span> 의미<br>
+    <strong>아카시아(X) → 아까시나무(O)</strong>: 정식 명칭은 아까시나무<br>
+    <strong>"진(眞)"</strong>: 열에 이미
+  </div>
+
+  <h3>식물의 독성</h3>
+  <ul>
+    <li><strong>상사화</strong>: 꽃무릇·상사화 유사함(고창 선운사). 규번식을 하며 주변 식물을 죽임</li>
+  </ul>
+</section>
+
+<!-- S10 -->
+<section class="mokbon-section" id="mb-s10">
+  <h2>10. 열매 종류</h2>
+
+  <table>
+    <thead><tr><th>열매 종류</th><th>특징</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><strong>구과(솔방울)</strong></td><td>나자식물의 종자 집합체</td><td>소나무류</td></tr>
+      <tr><td><strong>시과(翅果)</strong></td><td>날개 달린 열매</td><td>단풍나무, 고로쇠, 느릅나무, 물푸레나무</td></tr>
+      <tr><td><strong>협과</strong></td><td>콩깍지처럼 생긴 열매</td><td>콩, 아까시나무, 회화나무, 등나무, 박태기나무, 히어리</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip-box">
+    콩과 수종: 아까시나무·등나무·박태기나무·자귀나무<br>
+    <span class="hl-red">모감주나무 = 무환자나무과 (콩과 아님!)</span><br>
+    <span class="hl-red">모과나무 = 장미과 명자나무속 (콩과 아님!)</span>
+  </div>
+</section>
+
+<!-- S11 -->
+<section class="mokbon-section" id="mb-s11">
+  <h2>11. 전라북도 희귀·특산식물 및 보호수</h2>
+
+  <ul>
+    <li><strong>천연기념물</strong>: 문화재청 지정</li>
+    <li><strong>보호수</strong>: 전라북도 도청 지정 (시·군 신청 → 전문위원 현지 심사)</li>
+    <li>전라북도 천연기념물 나무 <strong>24개체</strong></li>
+    <li><strong>대화수목원</strong>에서 후계목 증식·보존 사업 진행 — 일요일 10시 방문 시 관람 가능, 방문과 센터에서 미팅</li>
+  </ul>
+</section>
+
+<!-- S12 -->
+<section class="mokbon-section" id="mb-s12">
+  <h2>12. 기출·예상 시험문제 (12문항)</h2>
+  <p style="font-size:.85rem; color:#888; margin-bottom:1rem;">출처: 김창섭 기출문제 HWP + 음성정리 DOCX</p>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q1. 통용될 수 있는 하나의 과학적인 이름을 무엇이라 하는가?</div>
+    <div class="quiz-a">A: 학명</div>
+    <div class="quiz-ex">국제어(라틴어) 표기. 생물 분류: 계·문·강·목·과·속·종 7단계</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q2. 다음 중 잣나무류에 속하는 수종은?<br>① 소나무 ② 백송 ③ 해송 ④ 방크스소나무</div>
+    <div class="quiz-a">A: ② 백송</div>
+    <div class="quiz-ex">잣나무류(5엽속): 잎이 5개씩 묶음. 백송은 3엽속이지만 잣나무류에 속함. 소나무·해송(곰솔)·방크스소나무는 모두 2엽속.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q3. 다음 중 낙엽성 참나무류가 아닌 것은?<br>① 신갈 ② 떡갈 ③ 굴참 ④ 가시나무</div>
+    <div class="quiz-a">A: ④ 가시나무</div>
+    <div class="quiz-ex">참나무 6형제(상수리·굴참·신갈·떡갈·갈참·졸참)는 모두 낙엽성. 가시나무는 남도 지방 자생 <strong>상록성</strong> 참나무류.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q4. 잎은 단엽으로 마주나고 열매는 시과(翅果: 날개 달린 형태)인 것은?<br>① 층층나무과 ② 진달래과 ③ 단풍나무과 ④ 버드나무과</div>
+    <div class="quiz-a">A: ③ 단풍나무과</div>
+    <div class="quiz-ex">단풍나무류: 잎이 마주나기. 열매는 날개 달린 시과(翅果). 프로펠러처럼 생김.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q5. 소나무에 대한 설명이 올바르지 않은 것은?<br>① 침엽수에 속한다. ② 두 개씩 뭉쳐난다. ③ 양성화이다. ④ 암수한그루이다.</div>
+    <div class="quiz-a">A: ③ 양성화이다 (→ 틀린 설명)</div>
+    <div class="quiz-ex">소나무는 자웅동주(암수한그루)이지만 <strong>양성화가 아닌 단성화</strong>! 암꽃(위쪽, 빨간색)과 수꽃(아래쪽, 송화가루)이 같은 나무의 서로 다른 가지에 핌.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q6. (주관식) 낙엽성 참나무류 중 잎은 긴 타원형이고 뒷면에 흰털이 밀생하고 줄기에 두꺼운 코르크층이 발달한 수종은?</div>
+    <div class="quiz-a">A: 굴참나무</div>
+    <div class="quiz-ex">상수리나무와 잎 형태는 비슷하나, 뒷면이 흰색(흰털 밀생)이면 굴참나무. 코르크층 두껍게 발달 — 너와집 지붕 재료로 사용.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q7. 다음 중 콩과에 속하지 않는 수종은?<br>① 아까시나무 ② 모과나무 ③ 등나무 ④ 자귀나무</div>
+    <div class="quiz-a">A: ② 모과나무 (장미과 명자나무속)</div>
+    <div class="quiz-ex">아까시나무·등나무·자귀나무는 모두 콩과. 열매가 콩깍지처럼 생김. 모과나무는 장미과.<br>
+    <span style="font-size:.8rem; color:#888;">※ 음성정리에는 모감주나무(무환자나무과)가 정답으로 나오지만, 기출HWP에는 모과나무가 ②번 선택지로 정답 처리되어 있음. 두 버전 모두 숙지 필요.</span></div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q8. 단풍나무 중에서 외국에서 도입된 수종은?<br>① 고로쇠 ② 신나무 ③ 산겨릅나무 ④ 중국단풍</div>
+    <div class="quiz-a">A: ④ 중국단풍</div>
+    <div class="quiz-ex">신나무·한계름나무(산겨릅나무)는 우리나라 자생 단풍나무류. 중국단풍은 중국에서 도입.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q9. (주관식) 수목 기관 중에서 광합성·호흡·증산작용을 담당하는 곳은?</div>
+    <div class="quiz-a">A: 잎 (기공, 잎 뒷면)</div>
+    <div class="quiz-ex">기공은 광합성 시 CO₂ 흡수·O₂ 방출, 증산작용 시 수분(수증기) 배출. 잎 뒷면에 위치.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q10. (주관식) 암꽃과 수꽃이 각각 다른 그루에 달리는 나무를 무엇이라 하는가?</div>
+    <div class="quiz-a">A: 자웅이주(雌雄異株) / 암수딴그루</div>
+    <div class="quiz-ex">같은 나무에 암·수꽃이 달리면 자웅동주(암수한그루). 대표 자웅이주 수종: 은행나무, 버드나무류.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q11. 측백나무과에 속하고 잎 뒷면이 Y자 형태를 나타내는 수종은?</div>
+    <div class="quiz-a">A: 편백(히노키)</div>
+    <div class="quiz-ex">화백 = X자형 기공선 / 편백 = Y자형 기공선. 두 수종 모두 피톤치드 함량이 높아 삼림욕에 활용.</div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-q">Q12. 소나무·리기다소나무·스트로브잣나무의 잎 수를 모두 더하면 몇 개인가?</div>
+    <div class="quiz-a">A: 10개</div>
+    <div class="quiz-ex">소나무 2엽 + 리기다소나무 3엽 + 스트로브잣나무 5엽 = 10개.</div>
+  </div>
+</section>
+
+<!-- S13 -->
+<section class="mokbon-section" id="mb-s13" class="summary-section">
+  <h2>13. 핵심 암기 카드</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <strong>나무 vs 풀 구분</strong>
+      나이테(연륜) 유무<br>
+      대나무·야자수 = 식물학적 풀<br>
+      대나무 = 용도학적 나무, 식물학적 풀
+    </div>
+    <div class="card">
+      <strong>소나무 핵심</strong>
+      자웅동주이지만 단성화!<br>
+      (양성화 아님 — 시험 단골 오답)<br>
+      겨울눈: 소나무=붉은색 / 곰솔=흰색
+    </div>
+    <div class="card">
+      <strong>침엽수 잎 묶음</strong>
+      소나무·곰솔: 2개<br>
+      리기다소나무: 3개<br>
+      잣나무류·스트로브잣나무: 5개<br>
+      백송: 3엽속 (잣나무류 속함)
+    </div>
+    <div class="card">
+      <strong>측백나무과 기공선</strong>
+      측백나무: 앞뒤 녹색<br>
+      화백: 뒷면 X자<br>
+      편백: 뒷면 Y자 (피톤치드 최다)
+    </div>
+    <div class="card">
+      <strong>참나무 6형제</strong>
+      잎자루○: 상수리·굴참·졸참·갈참<br>
+      잎자루×: 떡갈·신갈<br>
+      가시나무: 상록성 (6형제 아님!)
+    </div>
+    <div class="card">
+      <strong>학명 3원칙</strong>
+      속명: 첫글자 대문자<br>
+      종소명: 모두 소문자<br>
+      전체: 이탤릭체
+    </div>
+    <div class="card">
+      <strong>분류 단위</strong>
+      종 &lt; 속 &lt; 과 &lt; 목 &lt; 강 &lt; 문 &lt; 계<br>
+      기본단위 = 종(種)
+    </div>
+    <div class="card">
+      <strong>콩과 수종</strong>
+      아까시나무·등나무·박태기나무·자귀나무<br>
+      모감주나무 = 무환자나무과 (콩과 ✕)<br>
+      모과나무 = 장미과 명자나무속 (콩과 ✕)
+    </div>
+    <div class="card">
+      <strong>겉씨 vs 속씨</strong>
+      은행나무 = 겉씨 → "종자" (열매 아님)<br>
+      소나무 = 겉씨 → 구화(배우체)<br>
+      속씨식물: 씨방이 과육이 됨
+    </div>
+    <div class="card">
+      <strong>자웅이주 대표</strong>
+      은행나무, 버드나무류<br>
+      자웅동주: 소나무, 살구나무
+    </div>
+    <div class="card">
+      <strong>나이테 용어</strong>
+      춘재(조재): 봄·여름, 밝은 부분<br>
+      추재(만재): 가을, 짙은 부분<br>
+      심재: 가운데 죽은 세포(단단)<br>
+      변재: 바깥 살아있는 세포
+    </div>
+    <div class="card">
+      <strong>단풍나무 시과</strong>
+      잎 마주나기 + 열매 날개(시과)<br>
+      = 단풍나무과<br>
+      중국단풍: 도입종 (열편 3개)
+    </div>
+    <div class="card">
+      <strong>낙우송 가로수 불가</strong>
+      기근(공기뿌리)이 올라와<br>
+      보도블록 뚫기 때문
+    </div>
+    <div class="card">
+      <strong>아까시나무</strong>
+      아카시아(✕) → 아까시나무(○)<br>
+      콩과. 총상꽃차례
+    </div>
+    <div class="card">
+      <strong>접두어 의미</strong>
+      "개-": 가짜·못먹음<br>
+      "참-": 진짜·좋은 것<br>
+      "왕-": 크다 / "솔": 우두머리
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>📂 통합 소스: 0430 음성정리 DOCX · 0430 Gnote PDF(12p) · 전주수목원실습 HWP · 0409 음성정리 DOCX · 0409 Gnote PDF(25p) · 0409 김창섭 기출문제 HWP</p>
+  <p>🌿 숲해설가 양성과정 — 식물의이해 (초본/목본) 통합 정리본 | 정리: 보아시스랩</p>
+</footer>
+
+</body>
+</html>
