@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>숲해설가 18기 강의자료</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  /* 로그인 화면 */
+  #login-screen { text-align: center; padding: 40px 20px; }
+  .login-card { background: white; border-radius: 20px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); max-width: 380px; width: 100%; }
+  .login-card .icon { font-size: 3.5em; margin-bottom: 12px; }
+  .login-card h1 { color: #2d6a4f; font-size: 1.4em; margin-bottom: 6px; }
+  .login-card p { color: #777; font-size: 0.9em; margin-bottom: 28px; }
+  .pw-input { width: 100%; padding: 14px 16px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.1em; text-align: center; letter-spacing: 3px; outline: none; transition: border-color 0.2s; }
+  .pw-input:focus { border-color: #2d6a4f; }
+  .pw-input.shake { animation: shake 0.4s; border-color: #dc3545; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+  .login-btn { width: 100%; margin-top: 16px; padding: 14px; background: #2d6a4f; color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+  .login-btn:hover { background: #1e4d38; }
+  .error-msg { color: #dc3545; font-size: 0.88em; margin-top: 10px; min-height: 20px; }
+
+  /* 메인 화면 */
+  #main-screen { display: none; width: 100%; max-width: 860px; padding: 24px 16px; }
+  .site-header { text-align: center; margin-bottom: 32px; }
+  .site-header h1 { color: #2d6a4f; font-size: 1.6em; margin-bottom: 6px; }
+  .site-header p { color: #666; font-size: 0.92em; }
+
+  .subject-block { background: white; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .subject-title { background: #2d6a4f; color: white; padding: 14px 20px; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; gap: 8px; }
+  .subject-title .date-badge { background: rgba(255,255,255,0.25); font-size: 0.78em; padding: 2px 8px; border-radius: 10px; font-weight: normal; }
+  .file-list { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) { .file-list { grid-template-columns: 1fr; } }
+  .file-btn { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid #e0e0e0; text-decoration: none; color: #333; transition: all 0.2s; }
+  .file-btn:hover { border-color: #2d6a4f; background: #f0f7f4; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(45,106,79,0.12); }
+  .file-btn .emoji { font-size: 1.5em; }
+  .file-btn .info { flex: 1; }
+  .file-btn .info .label { font-weight: bold; font-size: 0.95em; }
+  .file-btn .info .sublabel { font-size: 0.78em; color: #888; margin-top: 2px; }
+  .file-btn.quiz { border-color: #e8c840; }
+  .file-btn.quiz:hover { border-color: #c9a800; background: #fffdf0; }
+
+  .footer { text-align: center; color: #aaa; font-size: 0.8em; margin-top: 24px; padding-bottom: 16px; }
+  .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
+  .logout-btn:hover { border-color: #999; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- 로그인 화면 -->
+<div id="login-screen">
+  <div style="margin-bottom:16px;"><a href="index.html" style="color:#666;font-size:0.85em;text-decoration:none;">← 메인으로</a></div>
+  <div class="login-card">
+    <div class="icon">🌿</div>
+    <h1>숲해설가 18기 강의자료</h1>
+    <p>접속 비밀번호를 입력해주세요</p>
+    <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="20"
+      onkeydown="if(event.key==='Enter') tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">입장하기</button>
+    <div class="error-msg" id="err-msg"></div>
+  </div>
+</div>
+
+<!-- 메인 화면 -->
+<div id="main-screen">
+  <div class="site-header">
+    <h1>🌿 숲해설가 18기 강의자료</h1>
+    <p>각 과목의 정리본과 기출문제집을 클릭하면 바로 열립니다</p>
+  </div>
+
+  <!-- 산림교육의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      📚 산림교육의이해
+      <span class="date-badge">2026-02-24</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0224_산림교육의이해_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 1.2 MB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0224_산림교육의이해_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 산림정책의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🏛️ 산림정책의이해
+      <span class="date-badge">2026-03-05</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0305_산림정책의이해.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 요약 및 기출문제</div>
+          <div class="sublabel">산림정책 핵심 요약 · 10 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 나무숲임업 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌲 나무·숲·임업
+      <span class="date-badge">2026-03-10</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0310_나무숲임업_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 1.7 MB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0310_나무숲임업_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 산림생태학 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🍃 산림생태학
+      <span class="date-badge">2026-04-21</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0421_산림생태학_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 284 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0421_산림생태학_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 숲해설개론 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌳 숲해설개론
+      <span class="date-badge">2026-05-19</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0519_숲해설개론_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 55 MB (PC 권장)</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0519_숲해설개론_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 산림휴양문화 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🏕️ 산림휴양문화
+      <span class="date-badge">2026-02-26</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="20260226_산림휴양문화_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 47 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="20260226_산림휴양문화_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 산림토양학 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌱 산림토양학
+      <span class="date-badge">2026-03-28</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0328_산림토양학_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 34 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0328_산림토양학_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 식물의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌿 식물의이해 (초본/목본)
+      <span class="date-badge">2026-04-09 · 04-30 · 05-02</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="식물의이해_초본목본_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본 (통합)</div>
+          <div class="sublabel">초본 23섹션 + 목본 13섹션 · 66 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="식물의이해_초본목본_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 초본25 + 목본25 · 클릭형</div>
+        </div>
+      </a>
+      <a class="file-btn" href="0502_식물의이해_수목원.html" target="_blank">
+        <span class="emoji">🌳</span>
+        <div class="info">
+          <div class="label">수목원 현장학습 정리</div>
+          <div class="sublabel">수목원 관찰 학습 · 26 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 기후위기·탄소중립 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌍 기후위기·탄소중립
+      <span class="date-badge">2026-06-20</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="기후위기탄소중립_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 통합정리본</div>
+          <div class="sublabel">생태·온실가스·탄소중립·IPCC · 27 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 도시숲 가꾸기의 이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌳 도시숲 가꾸기의 이해
+      <span class="date-badge">2026-03-19</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="도시숲가꾸기_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 통합정리본</div>
+          <div class="sublabel">산림기본용어·임상·숲가꾸기·그린짐 · 21 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="도시숲가꾸기_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">25문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 야생동물의이해 (조류·포유류) -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🦅 야생동물의 이해 (조류·포유류)
+      <span class="date-badge">2026-03-07 · 03-09</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0307_야생동물의이해_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 통합정리본</div>
+          <div class="sublabel">조류 16섹션 · 포유류 8섹션 · 51 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0307_야생동물의이해_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 (조류 25 + 포유류 25) · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 양서파충류 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🐸 양서파충류
+      <span class="date-badge">2026-04-16</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0416_양서파충류_정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">11섹션 · 생명사 · 분류 · 생태 · 45 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0416_양서파충류_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">25문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html" style="color:#aaa;font-size:0.82em;text-decoration:none;">← 메인으로</a><br><br>
+    숲해설가 18기 · 강의자료 공유 페이지<br>
+    <button class="logout-btn" onclick="logout()">로그아웃</button>
+  </div>
+</div>
+
+<script>
+  const PW = 'forest18@@';
+  const OWNER_KEY = 'yyj2026forest';
+
+  function showMain() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'block';
+  }
+
+  function tryLogin() {
+    const val = document.getElementById('pw').value;
+    const inp = document.getElementById('pw');
+    const err = document.getElementById('err-msg');
+    if (val === PW) {
+      sessionStorage.setItem('auth', '1');
+      showMain();
+      err.textContent = '';
+    } else {
+      inp.classList.remove('shake');
+      void inp.offsetWidth;
+      inp.classList.add('shake');
+      err.textContent = '비밀번호가 틀렸습니다.';
+      inp.value = '';
+      setTimeout(() => inp.classList.remove('shake'), 400);
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('auth');
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pw').value = '';
+  }
+
+  // 오너 자동 로그인: URL ?k=yyj2026forest 또는 localStorage 저장된 경우
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('k') === OWNER_KEY) {
+    localStorage.setItem('owner_auth', OWNER_KEY);
+    // URL에서 파라미터 제거 (주소창 정리)
+    history.replaceState({}, '', window.location.pathname);
+    showMain();
+  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) {
+    showMain();
+  } else if (sessionStorage.getItem('auth') === '1') {
+    showMain();
+  }
+</script>
+</body>
+</html>
