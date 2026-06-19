@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기후위기·탄소중립 — 기출문제집</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; line-height: 1.7; color: #222; background: #f0f4f8; }
+  .container { max-width: 860px; margin: 0 auto; padding: 20px; }
+  header { background: linear-gradient(135deg, #1565c0, #0288d1); color: white; padding: 24px 24px; border-radius: 12px; margin-bottom: 24px; }
+  header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  header .meta { font-size: 13px; opacity: 0.85; }
+  .score-bar { background: white; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .score-bar .score-label { font-size: 14px; color: #555; }
+  .score-bar .score-val { font-size: 22px; font-weight: 800; color: #1565c0; }
+  .score-bar .btn-reset { margin-left: auto; background: #e3f2fd; color: #1565c0; border: none; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .score-bar .btn-reset:hover { background: #bbdefb; }
+
+  .q-card { background: white; border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border-left: 5px solid #90caf9; }
+  .q-card.correct-card { border-left-color: #43a047; }
+  .q-card.wrong-card   { border-left-color: #e53935; }
+  .q-num { font-size: 12px; font-weight: 700; color: #1565c0; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .q-text { font-size: 15px; font-weight: 600; margin-bottom: 14px; line-height: 1.6; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt-btn {
+    display: block; width: 100%; text-align: left; padding: 10px 14px;
+    border: 1.5px solid #dce8f7; border-radius: 8px; background: #fafcff;
+    font-size: 14px; cursor: pointer; color: #333; transition: all 0.15s;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: #1565c0; background: #e3f2fd; }
+  .opt-btn.selected-correct { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+  .opt-btn.selected-wrong   { background: #ffebee; border-color: #e53935; color: #b71c1c; font-weight: 700; }
+  .opt-btn.show-answer      { background: #e8f5e9; border-color: #43a047; color: #1b5e20; font-weight: 700; }
+  .opt-btn:disabled { cursor: default; }
+  .explanation { margin-top: 12px; background: #fff3e0; border-left: 3px solid #fb8c00; border-radius: 6px; padding: 10px 14px; font-size: 13px; color: #5d4037; display: none; }
+  .explanation.visible { display: block; }
+
+  .footer { text-align: center; margin-top: 30px; padding-bottom: 20px; }
+  .back-btn { display: inline-block; color: #aaa; font-size: 0.82em; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🌍 기후위기·탄소중립 — 기출문제집</h1>
+  <div class="meta">25문항 · 클릭형 정답 확인 · 2026-06-20</div>
+</header>
+
+<div class="score-bar">
+  <span class="score-label">맞은 문항</span>
+  <span class="score-val" id="score">0 / 25</span>
+  <button class="btn-reset" onclick="resetAll()">다시 풀기</button>
+</div>
+
+<div id="quiz"></div>
+
+<div class="footer">
+  <a class="back-btn" href="forest.html">← 강의자료 목록으로</a>
+</div>
+
+</div>
+<script>
+const QS = [
+  {
+    q: "생태(Ecology)의 어원으로 올바른 것은?",
+    opts: ["라틴어 '에코(eco)' + '로고스(logos)'", "그리스어 '오이코스(집)' + '로고스(배우다)'", "그리스어 '오이코스(집)' + '노모스(다루다)'", "라틴어 '에코(eco)' + '노미아(경제)'"],
+    ans: 1,
+    exp: "생태(Ecology)는 그리스어 오이코스(집)와 로고스(배우다)의 합성어. 경제(Economics)는 오이코스(집)+노모스(다루다)."
+  },
+  {
+    q: "생태맹에 대한 설명으로 옳은 것은?",
+    opts: ["글을 모르는 사람을 의미한다", "자신이 모른다는 사실을 알고 있다", "자신이 모른다는 것을 모르고, 몰라도 부끄럽지 않다고 여기는 상태", "의지로 극복할 수 없는 선천적 장애"],
+    ans: 2,
+    exp: "생태맹은 자신이 생태에 무지하다는 것을 인식하지 못하고, 몰라도 괜찮다고 여기는 상태. 기후위기 시대에 매우 위험함."
+  },
+  {
+    q: "생태중심주의의 특징으로 옳은 것은?",
+    opts: ["인간이 자연 위에서 지배하는 상하 구조", "자연을 인간의 수단과 자원으로 봄", "인간과 다른 생물이 동등한 내재적 가치를 가지는 원(圓) 구조", "경제 발전을 위해 자연 이용을 극대화해야 함"],
+    ans: 2,
+    exp: "생태중심주의(에코중심)는 원(圓) 구조로 인간과 자연이 동등한 가치를 지님. 인간중심주의(에고중심)는 상하 지배 구조."
+  },
+  {
+    q: "환경 위기 시계에서 12시가 의미하는 것은?",
+    opts: ["환경이 가장 좋은 상태", "조금 불안한 상태", "환경 위기가 완전히 끝나는 종료 시점", "회복 가능한 최후의 시점"],
+    ans: 2,
+    exp: "12시는 되돌아가는 것이 아닌 종료(끝)를 의미함. 1992년 리우 환경회의부터 매년 측정. 2025년 기준 전 세계 9시 33분."
+  },
+  {
+    q: "2025년 기준 대한민국 환경 위기 시계는?",
+    opts: ["7시 49분", "8시 53분", "9시 19분", "9시 47분"],
+    ans: 1,
+    exp: "2025년 기준 전 세계 9시 33분, 대한민국 8시 53분. 1992년 7시 49분에서 지속 상승 중."
+  },
+  {
+    q: "MCC 탄소 시계가 나타내는 것은?",
+    opts: ["지구 온도 상승 현황을 24시간으로 표현한 시계", "지구 온도 1.5도 상승 한계를 유지하기 위해 남은 탄소 배출 가능량", "이산화탄소 농도를 연도별로 보여주는 그래프", "탄소국경세 부과 기준을 시각화한 자료"],
+    ans: 1,
+    exp: "MCC 탄소 시계는 지구 온도 상승 한계 1.5도를 지키기 위해 배출 가능한 탄소 잔여량을 실시간으로 보여줌. 현재 약 3년 3개월."
+  },
+  {
+    q: "지구 생태 용량 초과의 날에 대한 설명으로 틀린 것은?",
+    opts: ["2025년 기준 지구 1.8개가 필요한 상태이다", "2019년 세계 기준 초과일은 7월 29일이다", "대한민국 초과일은 4월 9일로 세계 최상위권이다", "카타르보다 온두라스가 더 빠른 날짜에 초과한다"],
+    ans: 3,
+    exp: "카타르(2월 4일)가 가장 빠르고, 온두라스(11월 말)가 가장 느림. 한국인처럼 쓰면 지구 약 3개가 필요."
+  },
+  {
+    q: "기후(Climate)의 정의로 올바른 것은?",
+    opts: ["오늘의 날씨처럼 시시각각 변화하는 대기 현상", "특정 지역의 10년 이상 평균 기상 상태", "특정 지역의 30년 이상 평균 기상 상태", "전 지구의 1년 평균 온도"],
+    ans: 2,
+    exp: "기후(Climate)는 특정 지역의 30년 이상 평균 기상 상태. 기상(Weather)은 시시각각 변화하는 대기 현상."
+  },
+  {
+    q: "'기후위기'라는 용어 사용을 처음 권고한 언론사와 연도는?",
+    opts: ["CNN, 2015년", "BBC, 2018년", "영국 가디언지, 2019년", "뉴욕타임스, 2020년"],
+    ans: 2,
+    exp: "2019년 영국 가디언지에서 '기후변화(Climate Change)' 대신 '기후위기(Climate Crisis)'를 권고. 더 정확한 표현으로 인정받음."
+  },
+  {
+    q: "지구온난화보다 더 정확한 표현으로 권고되는 용어는?",
+    opts: ["지구 열화", "지구 가열(Global Heating) / 지구 열타화", "지구 온난위기", "지구 온도재난"],
+    ans: 1,
+    exp: "'온난화(Warming·따뜻함)'는 긍정적 뉘앙스가 있어 부정확. '지구 가열(Global Heating)' 또는 '지구 열타화'가 실제 상황을 더 정확히 표현."
+  },
+  {
+    q: "온실가스 6종에 해당하지 않는 것은?",
+    opts: ["이산화탄소(CO₂)", "메탄(CH₄)", "아산화질소(N₂O)", "이산화황(SO₂)"],
+    ans: 3,
+    exp: "온실가스 6종: 이산화탄소, 메탄, 아산화질소, 수소불화탄소(HFCs), 과불화탄소(PFCs), 육불화황(SF₆). 이산화황은 포함되지 않음."
+  },
+  {
+    q: "온실가스 중 지구 온난화 기여도가 가장 높은 것은?",
+    opts: ["메탄(CH₄) — 지구온난화 지수가 높기 때문", "아산화질소(N₂O) — 310의 지구온난화 지수 때문", "이산화탄소(CO₂) — 배출량이 압도적으로 많기 때문", "수소불화탄소(HFCs) — 냉매 사용이 급증했기 때문"],
+    ans: 2,
+    exp: "이산화탄소는 지구온난화 지수(GWP=1)로 가장 낮지만, 배출량이 압도적으로 많아 온난화 기여도 56%로 1위."
+  },
+  {
+    q: "킬링 곡선(Keeling Curve)에 대한 설명으로 옳은 것은?",
+    opts: ["1850년 산업혁명부터 CO₂ 농도를 측정한 그래프", "봄·여름에 CO₂가 감소하고 가을·겨울에 증가하는 톱니 모양이 나타남", "CO₂ 농도와 지구온도는 반비례 관계이다", "산업화 이전 CO₂ 농도는 350ppm이었다"],
+    ans: 1,
+    exp: "1958년부터 측정 시작. 봄·여름 광합성 활발→CO₂ 감소, 가을·겨울→CO₂ 증가로 톱니 모양. 전체적으로 상승(278ppm→420ppm). 온도와 비례."
+  },
+  {
+    q: "산업화 이전 CO₂ 농도와 2021년 기준 CO₂ 농도는?",
+    opts: ["200ppm → 350ppm", "278ppm → 약 419~420ppm", "300ppm → 380ppm", "250ppm → 450ppm"],
+    ans: 1,
+    exp: "산업화 이전 278ppm에서 2021년 기준 약 419~420ppm으로 증가. 킬링 곡선으로 확인됨."
+  },
+  {
+    q: "지구 온도 1.5도 vs 2도 상승 시 곤충 멸종 위기 비율은?",
+    opts: ["1.5도: 3%, 2도: 6%", "1.5도: 6%, 2도: 18%", "1.5도: 10%, 2도: 20%", "1.5도: 8%, 2도: 16%"],
+    ans: 1,
+    exp: "곤충: 1.5도→6%, 2도→18% / 식물: 1.5도→8%, 2도→16% / 척추동물: 1.5도→4%, 2도→8%. 척추동물에는 인간도 포함."
+  },
+  {
+    q: "SSP 시나리오에서 아무것도 하지 않을 경우 예상되는 온도 상승은?",
+    opts: ["2도 이상", "3.6도", "4.9도 이상", "6도 이상"],
+    ans: 2,
+    exp: "아무것도 안 하면 4.9도 이상, 현재 정책 수준 유지 시 3.6도, 적극적 감축 시 1.8도 이하로 억제 가능."
+  },
+  {
+    q: "해수면 상승의 직접적 원인으로 옳은 것은?",
+    opts: ["바다 위 빙산이 녹으면서 해수량 증가", "바닷물의 온도 상승으로 부피 팽창만으로 발생", "육지 위 빙하(만년설)가 녹아 바다로 유입", "해저 화산 활동으로 인한 물 분출"],
+    ans: 2,
+    exp: "바다 위 빙산(유빙)이 녹아도 해수면 변화 없음(이미 물 속에 있음). 육지 위 빙하가 녹아 바다로 유입될 때 해수면이 상승."
+  },
+  {
+    q: "지표종(Indicator Species)에 대한 설명으로 옳은 것은?",
+    opts: ["멸종 위기에 처한 종을 보호하기 위한 법적 개념", "특정 환경 상태를 알려주는 생물로, 환경 건강 척도 역할", "핵심종과 동일한 개념으로 생태계 균형 유지에 결정적 역할", "인간이 경제적으로 가장 중요하게 여기는 생물"],
+    ans: 1,
+    exp: "지표종: 특정 환경 상태를 알려주는 생물. 예: 지류(1급수), 산호(해수온도), 두꺼비(습지 건강성). 핵심종과는 다른 개념."
+  },
+  {
+    q: "핵심종(Keystone Species)의 사례로 옳은 것은?",
+    opts: ["도도새 — 씨앗 운반의 핵심 매개였던 사례", "불가사리 — 제거 시 홍합이 급증하여 생태계 변화", "카바리아 나무 — 산림 탄소 흡수의 핵심종", "산호 — 해양 먹이사슬의 최상위 포식자"],
+    ans: 1,
+    exp: "불가사리 제거 실험(로버트 페인): 미국 워싱턴 조간대에서 불가사리 제거→홍합 폭발 증식→생태계 완전 변화. 옐로우스톤 늑대도 핵심종 사례."
+  },
+  {
+    q: "탄소중립(Carbon Neutrality·Net Zero)의 정의는?",
+    opts: ["온실가스 배출량을 0으로 만드는 것", "배출하는 온실가스와 흡수·제거하는 온실가스의 양이 같아 순 배출량이 0인 상태", "산림으로만 이산화탄소를 흡수하여 균형을 맞추는 방법", "모든 화석연료 사용을 금지하는 국제 협약"],
+    ans: 1,
+    exp: "탄소중립 = 배출량과 흡수·제거량이 같아 순 배출량이 0. 숲의 탄소 흡수나 탄소 포집 기술 활용."
+  },
+  {
+    q: "RE100에 대한 설명으로 옳은 것은?",
+    opts: ["국가가 강제하는 재생에너지 의무 사용 비율 100%", "기업이 사용 전력 100%를 재생에너지로 충당하겠다는 자발적 캠페인", "2100년까지 이산화탄소를 100% 감축하겠다는 국제 목표", "핵발전 비중을 전체 에너지의 100% 이하로 제한하는 규제"],
+    ans: 1,
+    exp: "RE100(Renewable Energy 100%): 기업이 자발적으로 전력 100%를 재생에너지로 충당하겠다는 캠페인. 애플·이케아·BMW 등 참여."
+  },
+  {
+    q: "IPCC 6차 보고서의 핵심 내용은?",
+    opts: ["지구 온도 상승 한계를 2도에서 1.5도로 하향 경고", "지구 온도 상승 한계를 1.5도에서 1도로 하향 경고", "2100년까지 탄소 배출을 50% 감축해야 한다는 권고", "기후변화는 자연적 원인이 주요인이라는 수정 결론"],
+    ans: 0,
+    exp: "IPCC(기후변화에 관한 정부간 협의체) 6차 보고서에서 지구 온도 상승 한계를 기존 2도에서 1.5도로 하향 경고. WMO+UNEP 설립."
+  },
+  {
+    q: "배출권 거래제(Emission Trading Scheme)에 대한 설명으로 옳은 것은?",
+    opts: ["기업이 탄소를 배출할 때마다 정부에 벌금을 내는 제도", "탄소를 많이 쓴 수입 제품에 부과하는 관세 제도", "온실가스 배출 허용량(배출권)을 기업 간 사고팔 수 있는 제도", "탄소 포집 기술을 개발한 기업에 보조금을 지원하는 제도"],
+    ans: 2,
+    exp: "배출권 거래제: 온실가스 배출 허용량을 기업 간 거래 가능. 감축 기술 개발 기업이 잉여 배출권 판매 가능. 탄소국경세와 다른 제도."
+  },
+  {
+    q: "환경교육의 3단계를 올바른 순서로 나열한 것은?",
+    opts: ["발(행동) → 머리(지식) → 가슴(감수성)", "머리(지식) → 가슴(감수성) → 발(행동)", "가슴(감수성) → 발(행동) → 머리(지식)", "발(행동) → 가슴(감수성) → 머리(지식)"],
+    ans: 1,
+    exp: "환경교육 3단계: ① 머리(지식) — 환경 현상과 원리 이해 ② 가슴(감수성) — 생태 감수성 키우기 ③ 발(행동) — 실천으로 연결."
+  },
+  {
+    q: "에너지 절약을 위한 여름 실내 냉방 적정 온도는?",
+    opts: ["18도 이상", "22도 이상", "24도 이상", "26도 이상"],
+    ans: 3,
+    exp: "여름 실내 냉방은 26도 이상(습도 60% 이상 시 에어컨 가동). 겨울 난방은 20~22도. 극단적 냉난방은 더 많은 에너지→더 뜨거운 지구의 악순환."
+  }
+];
+
+let correctCount = 0;
+const answered = new Array(QS.length).fill(false);
+
+function render() {
+  const container = document.getElementById('quiz');
+  container.innerHTML = '';
+  QS.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'card-' + i;
+
+    const num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = `문제 ${i + 1}`;
+    card.appendChild(num);
+
+    const qt = document.createElement('div');
+    qt.className = 'q-text';
+    qt.textContent = q.q;
+    card.appendChild(qt);
+
+    const opts = document.createElement('div');
+    opts.className = 'options';
+    q.opts.forEach((opt, j) => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = `${['①','②','③','④'][j]} ${opt}`;
+      btn.onclick = () => answer(i, j, btn, opts);
+      opts.appendChild(btn);
+    });
+    card.appendChild(opts);
+
+    const exp = document.createElement('div');
+    exp.className = 'explanation';
+    exp.id = 'exp-' + i;
+    exp.textContent = '📌 ' + q.exp;
+    card.appendChild(exp);
+
+    container.appendChild(card);
+  });
+  updateScore();
+}
+
+function answer(qi, selected, btn, opts) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+
+  const correct = QS[qi].ans;
+  const allBtns = opts.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const card = document.getElementById('card-' + qi);
+  const exp = document.getElementById('exp-' + qi);
+
+  if (selected === correct) {
+    btn.classList.add('selected-correct');
+    card.classList.add('correct-card');
+    correctCount++;
+  } else {
+    btn.classList.add('selected-wrong');
+    allBtns[correct].classList.add('show-answer');
+    card.classList.add('wrong-card');
+  }
+  exp.classList.add('visible');
+  updateScore();
+}
+
+function updateScore() {
+  const done = answered.filter(Boolean).length;
+  document.getElementById('score').textContent = `${correctCount} / ${QS.length}`;
+}
+
+function resetAll() {
+  correctCount = 0;
+  answered.fill(false);
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+render();
+</script>
+</body>
+</html>
