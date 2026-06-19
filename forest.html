@@ -29,9 +29,33 @@
   .site-header h1 { color: #2d6a4f; font-size: 1.6em; margin-bottom: 6px; }
   .site-header p { color: #666; font-size: 0.92em; }
 
-  .subject-block { background: white; border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  /* 카테고리 섹션 헤더 */
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 32px 0 14px;
+    padding: 10px 18px;
+    background: linear-gradient(90deg, #1a2e22, #2d6a4f);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .category-header:first-of-type { margin-top: 0; }
+  .category-header .cat-badge {
+    background: rgba(255,255,255,0.2);
+    font-size: 0.78em;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* 과목 블록 */
+  .subject-block { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
   .subject-title { background: #2d6a4f; color: white; padding: 14px 20px; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; gap: 8px; }
-  .subject-title .date-badge { background: rgba(255,255,255,0.25); font-size: 0.78em; padding: 2px 8px; border-radius: 10px; font-weight: normal; }
+  .subject-title .date-badge { background: rgba(255,255,255,0.25); font-size: 0.78em; padding: 2px 8px; border-radius: 10px; font-weight: normal; margin-left: auto; }
   .file-list { padding: 12px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   @media (max-width: 560px) { .file-list { grid-template-columns: 1fr; } }
   .file-btn { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid #e0e0e0; text-decoration: none; color: #333; transition: all 0.2s; }
@@ -71,6 +95,12 @@
     <p>각 과목의 정리본과 기출문제집을 클릭하면 바로 열립니다</p>
   </div>
 
+  <!-- ====== 공통 과목 ====== -->
+  <div class="category-header">
+    🌿 공통 과목
+    <span class="cat-badge">산림·생태·해설 기초</span>
+  </div>
+
   <!-- 산림교육의이해 -->
   <div class="subject-block">
     <div class="subject-title">
@@ -95,18 +125,25 @@
     </div>
   </div>
 
-  <!-- 산림정책의이해 -->
+  <!-- 산림문화휴양 -->
   <div class="subject-block">
     <div class="subject-title">
-      🏛️ 산림정책의이해
-      <span class="date-badge">2026-03-05</span>
+      🏕️ 산림문화휴양
+      <span class="date-badge">2026-02-26</span>
     </div>
     <div class="file-list">
-      <a class="file-btn" href="0305_산림정책의이해.html" target="_blank">
+      <a class="file-btn" href="20260226_산림휴양문화_정리본_최종.html" target="_blank">
         <span class="emoji">📖</span>
         <div class="info">
-          <div class="label">강의 요약 및 기출문제</div>
-          <div class="sublabel">산림정책 핵심 요약 · 10 KB</div>
+          <div class="label">강의 정리본</div>
+          <div class="sublabel">최종 통합본 · 47 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="20260226_산림휴양문화_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
         </div>
       </a>
     </div>
@@ -127,30 +164,6 @@
         </div>
       </a>
       <a class="file-btn quiz" href="0310_나무숲임업_기출문제집.html" target="_blank">
-        <span class="emoji">📝</span>
-        <div class="info">
-          <div class="label">기출문제집</div>
-          <div class="sublabel">50문항 · 클릭형 정답 확인</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 산림생태학 -->
-  <div class="subject-block">
-    <div class="subject-title">
-      🍃 산림생태학
-      <span class="date-badge">2026-04-21</span>
-    </div>
-    <div class="file-list">
-      <a class="file-btn" href="0421_산림생태학_정리본_최종.html" target="_blank">
-        <span class="emoji">📖</span>
-        <div class="info">
-          <div class="label">강의 정리본</div>
-          <div class="sublabel">최종 통합본 · 284 KB</div>
-        </div>
-      </a>
-      <a class="file-btn quiz" href="0421_산림생태학_기출문제집.html" target="_blank">
         <span class="emoji">📝</span>
         <div class="info">
           <div class="label">기출문제집</div>
@@ -184,25 +197,93 @@
     </div>
   </div>
 
-  <!-- 산림휴양문화 -->
+  <!-- 산림생태학 -->
   <div class="subject-block">
     <div class="subject-title">
-      🏕️ 산림휴양문화
-      <span class="date-badge">2026-02-26</span>
+      🍃 산림생태학
+      <span class="date-badge">2026-04-21</span>
     </div>
     <div class="file-list">
-      <a class="file-btn" href="20260226_산림휴양문화_정리본_최종.html" target="_blank">
+      <a class="file-btn" href="0421_산림생태학_정리본_최종.html" target="_blank">
         <span class="emoji">📖</span>
         <div class="info">
           <div class="label">강의 정리본</div>
-          <div class="sublabel">최종 통합본 · 47 KB</div>
+          <div class="sublabel">최종 통합본 · 284 KB</div>
         </div>
       </a>
-      <a class="file-btn quiz" href="20260226_산림휴양문화_기출문제집.html" target="_blank">
+      <a class="file-btn quiz" href="0421_산림생태학_기출문제집.html" target="_blank">
         <span class="emoji">📝</span>
         <div class="info">
           <div class="label">기출문제집</div>
           <div class="sublabel">50문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 식물의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌿 식물의 이해 (초본·목본)
+      <span class="date-badge">2026-04-09 · 04-30 · 05-02</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="식물의이해_초본목본_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본 (통합)</div>
+          <div class="sublabel">초본 23섹션 + 목본 13섹션 · 66 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="식물의이해_초본목본_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 · 초본25 + 목본25 · 클릭형</div>
+        </div>
+      </a>
+      <a class="file-btn" href="0502_식물의이해_정리본_최종.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 정리본 (05-02)</div>
+          <div class="sublabel">수목원 실습 포함 정리본</div>
+        </div>
+      </a>
+      <a class="file-btn" href="0502_식물의이해_수목원.html" target="_blank">
+        <span class="emoji">🌳</span>
+        <div class="info">
+          <div class="label">수목원 현장학습 정리</div>
+          <div class="sublabel">수목원 관찰 학습 · 26 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====== 선택2 - 산림생태계 ====== -->
+  <div class="category-header">
+    🦅 선택2 — 산림생태계
+    <span class="cat-badge">생물·토양·환경</span>
+  </div>
+
+  <!-- 야생동물의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🦅 야생동물의 이해 (조류·포유류)
+      <span class="date-badge">2026-03-07 · 03-09</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0307_야생동물의이해_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 통합정리본</div>
+          <div class="sublabel">조류 16섹션 · 포유류 8섹션 · 51 KB</div>
+        </div>
+      </a>
+      <a class="file-btn quiz" href="0307_야생동물의이해_기출문제집.html" target="_blank">
+        <span class="emoji">📝</span>
+        <div class="info">
+          <div class="label">기출문제집</div>
+          <div class="sublabel">50문항 (조류 25 + 포유류 25) · 클릭형</div>
         </div>
       </a>
     </div>
@@ -232,55 +313,7 @@
     </div>
   </div>
 
-  <!-- 식물의이해 -->
-  <div class="subject-block">
-    <div class="subject-title">
-      🌿 식물의이해 (초본/목본)
-      <span class="date-badge">2026-04-09 · 04-30 · 05-02</span>
-    </div>
-    <div class="file-list">
-      <a class="file-btn" href="식물의이해_초본목본_통합정리본.html" target="_blank">
-        <span class="emoji">📖</span>
-        <div class="info">
-          <div class="label">강의 정리본 (통합)</div>
-          <div class="sublabel">초본 23섹션 + 목본 13섹션 · 66 KB</div>
-        </div>
-      </a>
-      <a class="file-btn quiz" href="식물의이해_초본목본_기출문제집.html" target="_blank">
-        <span class="emoji">📝</span>
-        <div class="info">
-          <div class="label">기출문제집</div>
-          <div class="sublabel">50문항 · 초본25 + 목본25 · 클릭형</div>
-        </div>
-      </a>
-      <a class="file-btn" href="0502_식물의이해_수목원.html" target="_blank">
-        <span class="emoji">🌳</span>
-        <div class="info">
-          <div class="label">수목원 현장학습 정리</div>
-          <div class="sublabel">수목원 관찰 학습 · 26 KB</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 기후위기·탄소중립 -->
-  <div class="subject-block">
-    <div class="subject-title">
-      🌍 기후위기·탄소중립
-      <span class="date-badge">2026-06-20</span>
-    </div>
-    <div class="file-list">
-      <a class="file-btn" href="기후위기탄소중립_통합정리본.html" target="_blank">
-        <span class="emoji">📖</span>
-        <div class="info">
-          <div class="label">강의 통합정리본</div>
-          <div class="sublabel">생태·온실가스·탄소중립·IPCC · 27 KB</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 도시숲 가꾸기의 이해 -->
+  <!-- 도시숲가꾸기 (선택과목) -->
   <div class="subject-block">
     <div class="subject-title">
       🌳 도시숲 가꾸기의 이해
@@ -304,34 +337,10 @@
     </div>
   </div>
 
-  <!-- 야생동물의이해 (조류·포유류) -->
+  <!-- 양서파충류 (선택과목) -->
   <div class="subject-block">
     <div class="subject-title">
-      🦅 야생동물의 이해 (조류·포유류)
-      <span class="date-badge">2026-03-07 · 03-09</span>
-    </div>
-    <div class="file-list">
-      <a class="file-btn" href="0307_야생동물의이해_통합정리본.html" target="_blank">
-        <span class="emoji">📖</span>
-        <div class="info">
-          <div class="label">강의 통합정리본</div>
-          <div class="sublabel">조류 16섹션 · 포유류 8섹션 · 51 KB</div>
-        </div>
-      </a>
-      <a class="file-btn quiz" href="0307_야생동물의이해_기출문제집.html" target="_blank">
-        <span class="emoji">📝</span>
-        <div class="info">
-          <div class="label">기출문제집</div>
-          <div class="sublabel">50문항 (조류 25 + 포유류 25) · 클릭형 정답 확인</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 양서파충류 -->
-  <div class="subject-block">
-    <div class="subject-title">
-      🐸 양서파충류
+      🐸 양서파충류 이야기
       <span class="date-badge">2026-04-16</span>
     </div>
     <div class="file-list">
@@ -347,6 +356,46 @@
         <div class="info">
           <div class="label">기출문제집</div>
           <div class="sublabel">25문항 · 클릭형 정답 확인</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 기후위기탄소중립 (선택과목) -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🌍 기후위기·탄소중립
+      <span class="date-badge">2026-06-20</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="기후위기탄소중립_통합정리본.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 통합정리본</div>
+          <div class="sublabel">생태·온실가스·탄소중립·IPCC · 27 KB</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ====== 기타 ====== -->
+  <div class="category-header">
+    🏛️ 기타 자료
+    <span class="cat-badge">정책·제도</span>
+  </div>
+
+  <!-- 산림정책의이해 -->
+  <div class="subject-block">
+    <div class="subject-title">
+      🏛️ 산림정책의이해
+      <span class="date-badge">2026-03-05</span>
+    </div>
+    <div class="file-list">
+      <a class="file-btn" href="0305_산림정책의이해.html" target="_blank">
+        <span class="emoji">📖</span>
+        <div class="info">
+          <div class="label">강의 요약 및 기출문제</div>
+          <div class="sublabel">산림정책 핵심 요약 · 10 KB</div>
         </div>
       </a>
     </div>
@@ -397,7 +446,6 @@
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
     localStorage.setItem('owner_auth', OWNER_KEY);
-    // URL에서 파라미터 제거 (주소창 정리)
     history.replaceState({}, '', window.location.pathname);
     showMain();
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) {
