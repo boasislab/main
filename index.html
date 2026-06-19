@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보아시스랩 · bettyyoon oasis lab</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, #1a2e22 0%, #2d6a4f 60%, #52b788 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .site-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .site-header .logo { font-size: 2.6em; margin-bottom: 14px; }
+  .site-header .brand-top {
+    font-size: 0.78em;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+  .site-header h1 {
+    color: #fff;
+    font-size: 1.9em;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+  }
+  .site-header h1 .accent { color: #74c69d; }
+  .site-header .brand-ko {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .site-header .brand-sub {
+    font-size: 0.78em;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 820px;
+    width: 100%;
+  }
+  @media (max-width: 620px) {
+    .menu-grid { grid-template-columns: 1fr; max-width: 360px; }
+  }
+
+  .menu-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 36px 24px 32px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.25);
+  }
+  .menu-card .card-icon { font-size: 3em; line-height: 1; }
+  .menu-card .card-title { font-size: 1.05em; font-weight: 700; color: #1a2e22; line-height: 1.4; }
+  .menu-card .card-desc { font-size: 0.8em; color: #888; line-height: 1.5; }
+  .menu-card .card-badge {
+    margin-top: 4px;
+    font-size: 0.72em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .badge-lock { background: #fff3cd; color: #856404; }
+  .badge-coming { background: #e9ecef; color: #6c757d; }
+  .badge-open { background: #d4edda; color: #155724; }
+
+  .footer {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75em;
+    margin-top: 40px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo">🦞</div>
+  <div class="brand-top">bettyyoon oasis lab</div>
+  <h1>보<span class="accent">아시스</span>랩</h1>
+  <div class="brand-ko">boasis lab</div>
+  <div class="brand-sub">yyj assistant</div>
+</div>
+
+<div class="menu-grid">
+
+  <!-- 1. NPS Event Log -->
+  <a class="menu-card" href="nps.html">
+    <div class="card-icon">📋</div>
+    <div class="card-title">NPS Event Log</div>
+    <div class="card-desc">업무처리 이벤트 로그 관리</div>
+    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+  </a>
+
+  <!-- 2. 맛집멋집 -->
+  <a class="menu-card" href="food.html">
+    <div class="card-icon">🍽️</div>
+    <div class="card-title">윤슬랭가이드</div>
+    <div class="card-desc">맛집 &amp; 멋집 추천 및 기록</div>
+    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+  </a>
+
+  <!-- 3. 숲해설가 18기 강의자료 -->
+  <a class="menu-card" href="study.html">
+    <div class="card-icon">🌿</div>
+    <div class="card-title">숲해설가 18기<br>강의자료</div>
+    <div class="card-desc">과목별 정리본<br>및 기출문제집</div>
+    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+  </a>
+
+</div>
+
+<div class="footer">boasis_lab · 2026</div>
+
+</body>
+</html>

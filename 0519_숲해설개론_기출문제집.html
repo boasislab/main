@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>숲해설개론 기출문제집 (50문항)</title>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f7f5; color: #333; line-height: 1.7; }
+  h1 { background: #2d6a4f; color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 8px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 0.95em; }
+  .progress-bar-wrap { background: #ddd; border-radius: 8px; height: 12px; margin: 10px 0 24px; }
+  .progress-bar { background: #2d6a4f; height: 12px; border-radius: 8px; width: 0%; transition: width 0.4s; }
+  #score-display { font-weight: bold; color: #2d6a4f; font-size: 1.1em; margin-bottom: 20px; }
+  .question { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 18px 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+  .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .q-num { background: #2d6a4f; color: white; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85em; flex-shrink: 0; }
+  .q-cat { background: #e8f4f0; color: #2d6a4f; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+  .q-text { margin: 0 0 12px 0; font-size: 1em; }
+  .option { display: block; width: 100%; padding: 10px 14px; margin: 6px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: background 0.15s; background: white; color: #333; font-family: inherit; font-size: 1em; text-align: left; -webkit-appearance: none; appearance: none; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+  .option:hover:not(.correct):not(.wrong) { background: rgba(45,106,79,0.08); }
+  .option.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+  .option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; text-decoration: line-through; }
+  .option.disabled { pointer-events: none; }
+  .explanation { display: none; background: #e8f4f8; padding: 10px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8; }
+  .explanation.show { display: block; }
+  .answered-correct .q-num { background: #28a745; }
+  .answered-wrong .q-num { background: #dc3545; }
+</style>
+<script>
+var answered = 0, correct_count = 0, total = 50;
+function checkAnswer(qNum, selected, correctLetter) {
+  var opts = document.querySelectorAll('.q' + qNum + ' .option');
+  opts.forEach(function(o) { o.classList.add('disabled'); o.style.pointerEvents = 'none'; });
+  var selectedEl = document.querySelector('.q' + qNum + ' .opt' + selected);
+  var isCorrect = selected === correctLetter;
+  if (isCorrect) {
+    selectedEl.classList.add('correct');
+    selectedEl.style.background = '#d4edda';
+    selectedEl.style.borderColor = '#28a745';
+    selectedEl.style.color = '#155724';
+    selectedEl.style.fontWeight = 'bold';
+  } else {
+    selectedEl.classList.add('wrong');
+    selectedEl.style.background = '#f8d7da';
+    selectedEl.style.borderColor = '#dc3545';
+    selectedEl.style.color = '#721c24';
+    selectedEl.style.textDecoration = 'line-through';
+    var correctEl = document.querySelector('.q' + qNum + ' .opt' + correctLetter);
+    correctEl.classList.add('correct');
+    correctEl.style.background = '#d4edda';
+    correctEl.style.borderColor = '#28a745';
+    correctEl.style.color = '#155724';
+    correctEl.style.fontWeight = 'bold';
+  }
+  var expEl = document.getElementById('exp' + qNum);
+  expEl.classList.add('show');
+  expEl.style.display = 'block';
+  var qEl = document.querySelector('.q' + qNum + '.question');
+  qEl.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  answered++;
+  if (isCorrect) correct_count++;
+  var pct = Math.round(answered / total * 100);
+  document.querySelector('.progress-bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+}
+</script>
+</head>
+<body>
+<h1>📝 숲해설개론 기출문제집</h1>
+<p class="subtitle">강의일: 2026년 5월 19일 | 총 50문항 | 클릭하여 정답 확인</p>
+<div id="score-display">진행: 0/50</div>
+<div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+<div class="question q1">
+  <div class="q-header"><span class="q-num">Q1</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">다음 중 우리나라 「산림문화·휴양에 관한 법률」(2011)에서 정의하는'숲길'의 활동 목적이아닌것은?</p>
+  <button class="option q1 optA" onclick="checkAnswer(1,'A','D')">(A) 등산·트레킹</button>
+  <button class="option q1 optB" onclick="checkAnswer(1,'B','D')">(B) 레저스포츠·탐방</button>
+  <button class="option q1 optC" onclick="checkAnswer(1,'C','D')">(C) 휴양·치유</button>
+  <button class="option q1 optD" onclick="checkAnswer(1,'D','D')">(D) 농업·임업 생산활동</button>
+  <div class="explanation" id="exp1">💡 「산림문화·휴양에 관한 법률」상 숲길은등산·트레킹·레저스포츠·탐방 또는 휴양·치유등의 활동을 위해 산림에 조성한 길로 정의. 생산활동은 포함되지 않음.</div>
+</div>
+<div class="question q2">
+  <div class="q-header"><span class="q-num">Q2</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">숲길 조성 및 관리 기본계획의 수립 주기로 옳은 것은?</p>
+  <button class="option q2 optA" onclick="checkAnswer(2,'A','C')">(A) 1년 단위</button>
+  <button class="option q2 optB" onclick="checkAnswer(2,'B','C')">(B) 3년 단위</button>
+  <button class="option q2 optC" onclick="checkAnswer(2,'C','C')">(C) 5년 단위</button>
+  <button class="option q2 optD" onclick="checkAnswer(2,'D','C')">(D) 10년 단위</button>
+  <div class="explanation" id="exp2">💡 법정 의무로 5년 단위 수립. 2007 → 2012 → 2017 → 2022 → 2027... 지자체장이 산림청에 보고하며, 산림청은 보조비를 지원.</div>
+</div>
+<div class="question q3">
+  <div class="q-header"><span class="q-num">Q3</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">우리나라숲 탐방 활동의 증대 이유 3가지에 해당하지않는것은?</p>
+  <button class="option q3 optA" onclick="checkAnswer(3,'A','D')">(A) 사회적 요인</button>
+  <button class="option q3 optB" onclick="checkAnswer(3,'B','D')">(B) 개인적 요인</button>
+  <button class="option q3 optC" onclick="checkAnswer(3,'C','D')">(C) 정책적 요인</button>
+  <button class="option q3 optD" onclick="checkAnswer(3,'D','D')">(D) 인구적 요인</button>
+  <div class="explanation" id="exp3">💡 강사 강조 함정 보기. 숲탐방 확산 요인은① 사회적, ② 개인적, ③ 정책적3가지. '인구적 요인'·'경제적 요인'은 출제 시 함정 보기로 등장.</div>
+</div>
+<div class="question q4">
+  <div class="q-header"><span class="q-num">Q4</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">다음 중 숲 탐방 활동의사회적 요인에 해당하는 것은?</p>
+  <button class="option q4 optA" onclick="checkAnswer(4,'A','B')">(A) 신체적 건강 유지</button>
+  <button class="option q4 optB" onclick="checkAnswer(4,'B','B')">(B) 주 5일제, 동호회 다양화, Eco Tour 확산</button>
+  <button class="option q4 optC" onclick="checkAnswer(4,'C','B')">(C) 학생들의 자연학습 의무화</button>
+  <button class="option q4 optD" onclick="checkAnswer(4,'D','B')">(D) 숲해설가·산림치유지도사 양성 배치</button>
+  <div class="explanation" id="exp4">💡 ①은 개인적, ③④는 정책적 요인. 사회적 요인 = 조기퇴직 증가·여가확대(주5일제)·동호회 다양화·환경시민단체 활성화·산행 문화 변화(Mass Tour → Eco Tour, 정상통과 → 트레킹).</div>
+</div>
+<div class="question q5">
+  <div class="q-header"><span class="q-num">Q5</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">우리나라에서가장 먼저 만들어지고 가장 많이 찾는 숲길두 곳은?</p>
+  <button class="option q5 optA" onclick="checkAnswer(5,'A','B')">(A) 한라산 둘레길 / DMZ 펀치볼 둘레길</button>
+  <button class="option q5 optB" onclick="checkAnswer(5,'B','B')">(B) 지리산 둘레길 / 제주 올레길</button>
+  <button class="option q5 optC" onclick="checkAnswer(5,'C','B')">(C) 동서트레일 / 백두대간 트레일</button>
+  <button class="option q5 optD" onclick="checkAnswer(5,'D','B')">(D) 낙동정맥 트레일 / 금강소나무길</button>
+  <div class="explanation" id="exp5">💡 둘 다 동시에 시작해서 동시에 완성. 지리산 둘레길은 2007년 시범조성 → 2012년 5월 완전 개통, 5개 시·군 100여 마을 274km 환형.</div>
+</div>
+<div class="question q6">
+  <div class="q-header"><span class="q-num">Q6</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">2025년 개통된 동서트레일의 양 끝 지역으로 옳은 것은?</p>
+  <button class="option q6 optA" onclick="checkAnswer(6,'A','B')">(A) 부산 ↔ 서울</button>
+  <button class="option q6 optB" onclick="checkAnswer(6,'B','B')">(B) 울진 바닷가 ↔ 경기 파주 임진각</button>
+  <button class="option q6 optC" onclick="checkAnswer(6,'C','B')">(C) 강릉 ↔ 인천</button>
+  <button class="option q6 optD" onclick="checkAnswer(6,'D','B')">(D) 부산 ↔ 강릉</button>
+  <div class="explanation" id="exp6">💡 강원·경기·강원 등 한반도 동서를 가로지르는 숲길 네트워크.</div>
+</div>
+<div class="question q7">
+  <div class="q-header"><span class="q-num">Q7</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">Path와 Trail의 차이에 대한 설명 중 옳은 것은?</p>
+  <button class="option q7 optA" onclick="checkAnswer(7,'A','C')">(A) Path는 야생 지역에만 존재한다</button>
+  <button class="option q7 optB" onclick="checkAnswer(7,'B','C')">(B) Trail은 도시건축 프로젝트와 닮은 문명화된 실체이다</button>
+  <button class="option q7 optC" onclick="checkAnswer(7,'C','C')">(C) Trail은 옥스퍼드 영어사전에 '대충 만든 path'로 정의된다</button>
+  <button class="option q7 optD" onclick="checkAnswer(7,'D','C')">(D) Path는 흙 묻은 발이 지나가면서 형성된다</button>
+  <div class="explanation" id="exp7">💡 Path = 품위·위엄 있고 손으로 만들어진 문명화된 선. Trail = 무계획적·자연 발생적, 야생지역에만 존재.</div>
+</div>
+<div class="question q8">
+  <div class="q-header"><span class="q-num">Q8</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">강사가 강조한트래킹의 진정한 목적은?</p>
+  <button class="option q8 optA" onclick="checkAnswer(8,'A','C')">(A) 인증샷 촬영과 SNS 공유</button>
+  <button class="option q8 optB" onclick="checkAnswer(8,'B','C')">(B) 정상 정복과 신체단련</button>
+  <button class="option q8 optC" onclick="checkAnswer(8,'C','C')">(C) 자기 성찰과 지역의 역사·문화·사람들 탐험</button>
+  <button class="option q8 optD" onclick="checkAnswer(8,'D','C')">(D) 친목 도모와 단체 활동</button>
+  <div class="explanation" id="exp8">💡 강사 구술: "우리나라 트레일 이용자 99%는 인증샷 문화, 자기 성찰하는 사람은 침묵하는 1%". 그래서 해설자가 필요.</div>
+</div>
+<div class="question q9">
+  <div class="q-header"><span class="q-num">Q9</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">다음은 한자 풀이이다. 강사가 직접 해석한'휴(休)' 자의 뜻은?</p>
+  <button class="option q9 optA" onclick="checkAnswer(9,'A','B')">(A) 사람이 등을 돌리고 쉬는 모습</button>
+  <button class="option q9 optB" onclick="checkAnswer(9,'B','B')">(B) 사람이 나무를 안고 있는 모습 (스트레스를 풀어놓음)</button>
+  <button class="option q9 optC" onclick="checkAnswer(9,'C','B')">(C) 사람이 강가에서 멈춤</button>
+  <button class="option q9 optD" onclick="checkAnswer(9,'D','B')">(D) 나무 밑에 누워있는 사람</button>
+  <div class="explanation" id="exp9">💡 강사 자체 해석(경전 ✕). 휴(休) = 사람이 나무 안기 → 스트레스 풀어놓음. 식(息) = 혼(魂)·백(魄)이 다 쉬고 맑아짐. 즉 휴식 = 백·혼을 다 쉬게 함.</div>
+</div>
+<div class="question q10">
+  <div class="q-header"><span class="q-num">Q10</span><span class="q-cat">제1강 (전반) — 숲탐방 행태의 변화</span></div>
+  <p class="q-text">다음 중 강릉 금란반월계 최응현(대사헌)의'심우(心友)'의 특징이아닌것은?</p>
+  <button class="option q10 optA" onclick="checkAnswer(10,'A','D')">(A) 선한 일을 하면 기뻐한다</button>
+  <button class="option q10 optB" onclick="checkAnswer(10,'B','D')">(B) 과실이 있으면 타이른다</button>
+  <button class="option q10 optC" onclick="checkAnswer(10,'C','D')">(C) 귀천을 불문한다</button>
+  <button class="option q10 optD" onclick="checkAnswer(10,'D','D')">(D) 나보다 똑똑하면 시기한다</button>
+  <div class="explanation" id="exp10">💡 이건 면우(面友)의 특징. 심우는 한결같고 분함과 욕심을 자제할 줄 아는 마음의 친구.</div>
+</div>
+<div class="question q11">
+  <div class="q-header"><span class="q-num">Q11</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">숲체험의 정의로 가장 적절한 것은?</p>
+  <button class="option q11 optA" onclick="checkAnswer(11,'A','B')">(A) 등산 위주의 신체단련 활동</button>
+  <button class="option q11 optB" onclick="checkAnswer(11,'B','B')">(B) 나무·숲·산이 지닌 자연·문화자원의 경제적·환경적·문화적 효용을 체험·이해함으로써 생태맹을 극복하는 모든 활동</button>
+  <button class="option q11 optC" onclick="checkAnswer(11,'C','B')">(C) 산림자원의 경제적 채취·활용</button>
+  <button class="option q11 optD" onclick="checkAnswer(11,'D','B')">(D) 숲 보호를 위한 출입통제 활동</button>
+  <div class="explanation" id="exp11">💡 숲체험 = 보고·듣고·만지고·냄새 맡고·느끼고·배우는 모든 활동. 생태맹 극복 + 건강·정서적 풍요·자아실현 욕구 확보를 위한 모든 숲 활동.</div>
+</div>
+<div class="question q12">
+  <div class="q-header"><span class="q-num">Q12</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">생태맹(Ecological Illiteracy)의 단계별 설명으로잘못된것은?</p>
+  <button class="option q12 optA" onclick="checkAnswer(12,'A','D')">(A) 1단계 — 자연생태학적 지식과 자연 회복 능력이 없는 깜깜이 상태</button>
+  <button class="option q12 optB" onclick="checkAnswer(12,'B','D')">(B) 2단계 — 자연에 관심이 조금 있지만 혜택의 고마움을 모름</button>
+  <button class="option q12 optC" onclick="checkAnswer(12,'C','D')">(C) 3단계 — 관심·혜택은 알지만 보호·공존 의식이 없음</button>
+  <button class="option q12 optD" onclick="checkAnswer(12,'D','D')">(D) 4단계 — 자연을 적극적으로 파괴하려는 의도가 있음</button>
+  <div class="explanation" id="exp12">💡 생태맹은3단계까지만분류됨. 1=깜깜이, 2=혜택 모름, 3=보호의식 없음.</div>
+</div>
+<div class="question q13">
+  <div class="q-header"><span class="q-num">Q13</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">생태맹의 극복 방법 6가지에 해당하지않는것은?</p>
+  <button class="option q13 optA" onclick="checkAnswer(13,'A','C')">(A) 숲 생태계 현상에 대한 개념적 이해</button>
+  <button class="option q13 optB" onclick="checkAnswer(13,'B','C')">(B) 생명체들의 이름 알기</button>
+  <button class="option q13 optC" onclick="checkAnswer(13,'C','C')">(C) 대규모 산림자원 채취·활용</button>
+  <button class="option q13 optD" onclick="checkAnswer(13,'D','C')">(D) 숲을 닮으려는 노력</button>
+  <div class="explanation" id="exp13">💡 6가지: ① 개념적 이해 ② 이름 알기 ③ 직접 기르기 ④ 교감 실천(완상) ⑤ 숲을 닮기 ⑥ 환경윤리 함양(에코지능).</div>
+</div>
+<div class="question q14">
+  <div class="q-header"><span class="q-num">Q14</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">강사가 언급한"숲이 준 3대 명약"이 아닌 것은?</p>
+  <button class="option q14 optA" onclick="checkAnswer(14,'A','D')">(A) 페니실린</button>
+  <button class="option q14 optB" onclick="checkAnswer(14,'B','D')">(B) 모르핀</button>
+  <button class="option q14 optC" onclick="checkAnswer(14,'C','D')">(C) 아스피린</button>
+  <button class="option q14 optD" onclick="checkAnswer(14,'D','D')">(D) 인슐린</button>
+  <div class="explanation" id="exp14">💡 숲이 준 3대 명약 = 페니실린·모르핀·아스피린 (모두 식물·곰팡이에서 유래).</div>
+</div>
+<div class="question q15">
+  <div class="q-header"><span class="q-num">Q15</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">"사랑하면 알게 되고 알면 보이나니, 그때 보이는 것은 전과 같지 않으리라"의원문 출처는?</p>
+  <button class="option q15 optA" onclick="checkAnswer(15,'A','B')">(A) 유홍준나의 문화유산답사기</button>
+  <button class="option q15 optB" onclick="checkAnswer(15,'B','B')">(B) 저암 유한준(俞漢雋, 1732-1811), 김광국 『석농화원』 화첩 서문</button>
+  <button class="option q15 optC" onclick="checkAnswer(15,'C','B')">(C) 정약용 『목민심서』</button>
+  <button class="option q15 optD" onclick="checkAnswer(15,'D','B')">(D) 김춘수의 시 『꽃』</button>
+  <div class="explanation" id="exp15">💡 조선시대 문장가 유한준이 원문 저자. 유홍준이 "아는 만큼 보인다"로 줄여 인용하면서 널리 알려짐. 시험 출제 시 두 사람 혼동 주의.</div>
+</div>
+<div class="question q16">
+  <div class="q-header"><span class="q-num">Q16</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">다음BBC 행복헌장 10계명중 식물·동물 관련 항목은?</p>
+  <button class="option q16 optA" onclick="checkAnswer(16,'A','C')">(A) 운동을 하라. 1주일에 3회 하루 30분</button>
+  <button class="option q16 optB" onclick="checkAnswer(16,'B','C')">(B) 매일 누군가에게 친절을 베풀어라</button>
+  <button class="option q16 optC" onclick="checkAnswer(16,'C','C')">(C) 식물과 동물을 가꾸고 길러라. 죽이지만 말라!</button>
+  <button class="option q16 optD" onclick="checkAnswer(16,'D','C')">(D) TV 시청시간을 절반으로 줄여라</button>
+  <div class="explanation" id="exp16">💡 4번 항목. "죽이지만 말라!" 부분이 핵심 표현.</div>
+</div>
+<div class="question q17">
+  <div class="q-header"><span class="q-num">Q17</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">강사가 설명한완상(玩賞)의 의미로 가장 적절한 것은?</p>
+  <button class="option q17 optA" onclick="checkAnswer(17,'A','B')">(A) 빠르게 산을 정복하는 것</button>
+  <button class="option q17 optB" onclick="checkAnswer(17,'B','B')">(B) 천천히 감상하며 자연과 영적 교감·공생관계를 모색하는 것</button>
+  <button class="option q17 optC" onclick="checkAnswer(17,'C','B')">(C) 신체단련을 위한 근육운동</button>
+  <button class="option q17 optD" onclick="checkAnswer(17,'D','B')">(D) 단체 활동을 통한 친목 도모</button>
+  <div class="explanation" id="exp17">💡 완상 = 천천히 걸으며 두리번거리기.송운(松韻)같은 자연의 소리도 들어야. "귀에 이어폰 꽂고 다녀선 안 된다" (강사 구술).</div>
+</div>
+<div class="question q18">
+  <div class="q-header"><span class="q-num">Q18</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">"치유가 필요한 것은 지구가 아니라 우리 인간이다"라는 말을 한 인물은?</p>
+  <button class="option q18 optA" onclick="checkAnswer(18,'A','C')">(A) 칼 융 (Carl Jung)</button>
+  <button class="option q18 optB" onclick="checkAnswer(18,'B','C')">(B) 대니얼 골만 (Daniel Goleman)</button>
+  <button class="option q18 optC" onclick="checkAnswer(18,'C','C')">(C) 이언 매칼럼 (Ian McCallum)— 남아공 의사·자연주의자</button>
+  <button class="option q18 optD" onclick="checkAnswer(18,'D','C')">(D) 요한 바오로 2세</button>
+  <div class="explanation" id="exp18">💡 대니얼 골만의 『에코지능』 결론에서 인용된 남아프리카공화국 의사이자 자연주의자.</div>
+</div>
+<div class="question q19">
+  <div class="q-header"><span class="q-num">Q19</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">에코지능(Ecological Intelligence)을 창안한 인물은?</p>
+  <button class="option q19 optA" onclick="checkAnswer(19,'A','B')">(A) 칼 융 (Carl Gustav Jung)</button>
+  <button class="option q19 optB" onclick="checkAnswer(19,'B','B')">(B) 대니얼 골만 (Daniel Goleman)</button>
+  <button class="option q19 optC" onclick="checkAnswer(19,'C','B')">(C) 프리먼 틸든 (Freeman Tilden)</button>
+  <button class="option q19 optD" onclick="checkAnswer(19,'D','B')">(D) 존 뮤어 (John Muir)</button>
+  <div class="explanation" id="exp19">💡 에코지능 = 인간의 생활방식이 지구환경에 미칠 생태학적 영향을 파악하는 통찰력. 향후 반세기를 지배할 패러다임.</div>
+</div>
+<div class="question q20">
+  <div class="q-header"><span class="q-num">Q20</span><span class="q-cat">제1강 (후반) — 숲체험과 생태맹의 극복</span></div>
+  <p class="q-text">Maslow 5단계 욕구 중최상위 5단계는?</p>
+  <button class="option q20 optA" onclick="checkAnswer(20,'A','D')">(A) 안전에 대한 욕구</button>
+  <button class="option q20 optB" onclick="checkAnswer(20,'B','D')">(B) 친화(소속)의 욕구</button>
+  <button class="option q20 optC" onclick="checkAnswer(20,'C','D')">(C) 평가(자아존중)의 욕구</button>
+  <button class="option q20 optD" onclick="checkAnswer(20,'D','D')">(D) 자아실현의 욕구</button>
+  <div class="explanation" id="exp20">💡 5단계(자아실현) → 타인의 자아실현과 잠재력 발견 원조 (이타주의, 영성).</div>
+</div>
+<div class="question q21">
+  <div class="q-header"><span class="q-num">Q21</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">Freeman Tilden의 해설 정의로 옳은 것은?</p>
+  <button class="option q21 optA" onclick="checkAnswer(21,'A','C')">(A) 단순한 사실 정보의 전달</button>
+  <button class="option q21 optB" onclick="checkAnswer(21,'B','C')">(B) 학교 정규교과에 의한 환경교육</button>
+  <button class="option q21 optC" onclick="checkAnswer(21,'C','C')">(C) 실제 목적물·직접 경험·매체를 통해 현상에 내재된 의미와 관련성을 나타내는 교육적 활동</button>
+  <button class="option q21 optD" onclick="checkAnswer(21,'D','C')">(D) 자연자원의 채취 방법 지도</button>
+  <div class="explanation" id="exp21">💡 Tilden은 미국 자연·문화 해설의 아버지.Interpreting Our Heritage(1957)에서 위 정의 제시.</div>
+</div>
+<div class="question q22">
+  <div class="q-header"><span class="q-num">Q22</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">'국립공원의 아버지'라 불리는 자연주의자는?</p>
+  <button class="option q22 optA" onclick="checkAnswer(22,'A','C')">(A) 마쉬 (Marsh)</button>
+  <button class="option q22 optB" onclick="checkAnswer(22,'B','C')">(B) 핀쇼 (Pinchot)</button>
+  <button class="option q22 optC" onclick="checkAnswer(22,'C','C')">(C) 존 뮤어 (John Muir)</button>
+  <button class="option q22 optD" onclick="checkAnswer(22,'D','C')">(D) 밀즈 (Mills)</button>
+  <div class="explanation" id="exp22">💡 링컨 대통령에게 청원하여 미국 국립공원 지정에 결정적 역할. 19세기 말 미국 4대 자연주의자 = 마쉬·핀쇼·뮤어·밀즈.</div>
+</div>
+<div class="question q23">
+  <div class="q-header"><span class="q-num">Q23</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">레그니어(Régnier) 등이 제시한자연해설의 목적 3가지 연계성이아닌것은?</p>
+  <button class="option q23 optA" onclick="checkAnswer(23,'A','D')">(A) 자연해설 현장 (효율적 자원관리)</button>
+  <button class="option q23 optB" onclick="checkAnswer(23,'B','D')">(B) 해당 행정기관 (이미지 개선)</button>
+  <button class="option q23 optC" onclick="checkAnswer(23,'C','D')">(C) 탐방객 (만족 제고)</button>
+  <button class="option q23 optD" onclick="checkAnswer(23,'D','D')">(D) 지역경제 (수익 창출)</button>
+  <div class="explanation" id="exp23">💡 3가지 연계성 = 현장·행정기관·탐방객. 지역경제 수익은 별개 부수효과.</div>
+</div>
+<div class="question q24">
+  <div class="q-header"><span class="q-num">Q24</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">환경교육과 환경해설의 차이로 옳지않은것은?</p>
+  <button class="option q24 optA" onclick="checkAnswer(24,'A','C')">(A) 환경교육은 공식적 학습과정, 환경해설은 비공식적 학습과정</button>
+  <button class="option q24 optB" onclick="checkAnswer(24,'B','C')">(B) 환경교육은 일정 의무적 참여자, 환경해설은 자율적 참여자</button>
+  <button class="option q24 optC" onclick="checkAnswer(24,'C','C')">(C) 환경교육은 수평관계, 환경해설은 수직관계</button>
+  <button class="option q24 optD" onclick="checkAnswer(24,'D','C')">(D) 환경교육은 지식 전달 강조, 환경해설은 자극·메시지 전달 강조</button>
+  <div class="explanation" id="exp24">💡 환경교육 =수직관계(교사-학생), 환경해설 =수평관계(친근감 있는 호칭). 핵심 함정!</div>
+</div>
+<div class="question q25">
+  <div class="q-header"><span class="q-num">Q25</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">숲 활동의 패턴 전환 방향으로 옳은 것은?</p>
+  <button class="option q25 optA" onclick="checkAnswer(25,'A','B')">(A) Orgasmic Experiences → Sensitive Experiences</button>
+  <button class="option q25 optB" onclick="checkAnswer(25,'B','B')">(B) 속도·완주·인증적 활동 → 여유 있게 즐기는 활동</button>
+  <button class="option q25 optC" onclick="checkAnswer(25,'C','B')">(C) Extreme Experiences를 강화</button>
+  <button class="option q25 optD" onclick="checkAnswer(25,'D','B')">(D) 정상통과 산행으로 회귀</button>
+  <div class="explanation" id="exp25">💡 Sensitive(감각) + Extreme(극단경험) →Orgasmic Experiences(정서적 정상경험, 극도의 즐거움)으로 전환.</div>
+</div>
+<div class="question q26">
+  <div class="q-header"><span class="q-num">Q26</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">해설 현장에서 사용해야 할참여자와 강사의 관계는?</p>
+  <button class="option q26 optA" onclick="checkAnswer(26,'A','B')">(A) 수직관계 (선생-학생)</button>
+  <button class="option q26 optB" onclick="checkAnswer(26,'B','B')">(B) 수평관계 (친근감 있는 호칭: 삼촌·이모·아줌마 등)</button>
+  <button class="option q26 optC" onclick="checkAnswer(26,'C','B')">(C) 상하 위계 관계</button>
+  <button class="option q26 optD" onclick="checkAnswer(26,'D','B')">(D) 거리감 있는 공적 관계</button>
+  <div class="explanation" id="exp26">💡 강사 구술: "선생님이라고 부르지 마세요. 어린이·청소년에겐 삼촌·이모·아줌마 같은 편한 호칭이 좋아요."</div>
+</div>
+<div class="question q27">
+  <div class="q-header"><span class="q-num">Q27</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">자율적 대상자의 특징이아닌것은?</p>
+  <button class="option q27 optA" onclick="checkAnswer(27,'A','C')">(A) 자발적 참여</button>
+  <button class="option q27 optB" onclick="checkAnswer(27,'B','C')">(B) 의무 시간 없음</button>
+  <button class="option q27 optC" onclick="checkAnswer(27,'C','C')">(C) 외적 평가/보상 중시</button>
+  <button class="option q27 optD" onclick="checkAnswer(27,'D','C')">(D) 흥미·여가 생활·자아성취 동기</button>
+  <div class="explanation" id="exp27">💡 이건 의무적 대상자 특징. 자율적 대상자는내재적 자기만족중시.</div>
+</div>
+<div class="question q28">
+  <div class="q-header"><span class="q-num">Q28</span><span class="q-cat">제2강 — 숲 해설 이론</span></div>
+  <p class="q-text">다음 중환경해설의 전달목표가 아닌 것은?</p>
+  <button class="option q28 optA" onclick="checkAnswer(28,'A','D')">(A) 대상지의 적절한 이용 도모</button>
+  <button class="option q28 optB" onclick="checkAnswer(28,'B','D')">(B) 관리 주체의 이해 증진</button>
+  <button class="option q28 optC" onclick="checkAnswer(28,'C','D')">(C) 참여자의 경험 만족 제공</button>
+  <button class="option q28 optD" onclick="checkAnswer(28,'D','D')">(D) 환경문제 해결 기술 제공</button>
+  <div class="explanation" id="exp28">💡 이건 환경교육의 전달목표. 환경해설은 직접 참여 유도와 만족 제공이 핵심.</div>
+</div>
+<div class="question q29">
+  <div class="q-header"><span class="q-num">Q29</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">숲해설에서 활용하는이론적 배경은?</p>
+  <button class="option q29 optA" onclick="checkAnswer(29,'A','B')">(A) 백지이론</button>
+  <button class="option q29 optB" onclick="checkAnswer(29,'B','B')">(B) 넛지(Nudge) 이론</button>
+  <button class="option q29 optC" onclick="checkAnswer(29,'C','B')">(C) 던지기이론</button>
+  <button class="option q29 optD" onclick="checkAnswer(29,'D','B')">(D) 공감이론</button>
+  <div class="explanation" id="exp29">💡 ★★ 빈출 핵심. 직접 강요하지 않고 부드러운 개입으로 선택 기회 제공. 경제학·마케팅에서 온 개념.</div>
+</div>
+<div class="question q30">
+  <div class="q-header"><span class="q-num">Q30</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">『넛지(Nudge)』의 저자로 옳은 조합은?</p>
+  <button class="option q30 optA" onclick="checkAnswer(30,'A','C')">(A) 프리먼 틸든 + 존 뮤어</button>
+  <button class="option q30 optB" onclick="checkAnswer(30,'B','C')">(B) 칼 융 + 대니얼 골만</button>
+  <button class="option q30 optC" onclick="checkAnswer(30,'C','C')">(C) 리처드 탈러 + 캐스 선스타인</button>
+  <button class="option q30 optD" onclick="checkAnswer(30,'D','C')">(D) 안창호 + 정약용</button>
+  <div class="explanation" id="exp30">💡 리처드 탈러는 행동경제학자, 캐스 선스타인은 법학자. 두 사람이 함께 『Nudge』 출간.</div>
+</div>
+<div class="question q31">
+  <div class="q-header"><span class="q-num">Q31</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">"진정한 예술은 감동을 일으키되 강요하지 않는다"를 말한 인물은?</p>
+  <button class="option q31 optA" onclick="checkAnswer(31,'A','B')">(A) 알베르 까뮈</button>
+  <button class="option q31 optB" onclick="checkAnswer(31,'B','B')">(B) 프리드리히 실러 (Friedrich Schiller)</button>
+  <button class="option q31 optC" onclick="checkAnswer(31,'C','B')">(C) 칼 융</button>
+  <button class="option q31 optD" onclick="checkAnswer(31,'D','B')">(D) 톨스토이</button>
+  <div class="explanation" id="exp31">💡 독일의 시인·극작가. 넛지 이론의 정신을 잘 표현한 인용.</div>
+</div>
+<div class="question q32">
+  <div class="q-header"><span class="q-num">Q32</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">강사가 강조한해설의 본질은?</p>
+  <button class="option q32 optA" onclick="checkAnswer(32,'A','B')">(A) 머리에 지식을 집어넣는 것</button>
+  <button class="option q32 optB" onclick="checkAnswer(32,'B','B')">(B) 가슴을 두드려서 재미와 흥미를 느끼게 하는 것</button>
+  <button class="option q32 optC" onclick="checkAnswer(32,'C','B')">(C) 학술적 평가를 통과시키는 것</button>
+  <button class="option q32 optD" onclick="checkAnswer(32,'D','B')">(D) 백과사전식 정보 전달</button>
+  <div class="explanation" id="exp32">💡 강사 구술: "해설은 머리를 두드리는 것이 아니다. 가슴을 두드리는 것이다."</div>
+</div>
+<div class="question q33">
+  <div class="q-header"><span class="q-num">Q33</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">숲해설가의 필요성에 해당하지않는것은?</p>
+  <button class="option q33 optA" onclick="checkAnswer(33,'A','D')">(A) 숲을 활용하는 방식에의 접근수단 안내</button>
+  <button class="option q33 optB" onclick="checkAnswer(33,'B','D')">(B) 자연/문화 복합 자원의 적극적 소개 (종 다양성)</button>
+  <button class="option q33 optC" onclick="checkAnswer(33,'C','D')">(C) 생태맹 극복을 위한 자연과의 교감방법 안내</button>
+  <button class="option q33 optD" onclick="checkAnswer(33,'D','D')">(D) 산림자원의 경제적 수익 극대화</button>
+  <div class="explanation" id="exp33">💡 숲해설가의 4가지 필요성에 경제적 수익은 포함되지 않음. 보호·관리 유도가 4번째.</div>
+</div>
+<div class="question q34">
+  <div class="q-header"><span class="q-num">Q34</span><span class="q-cat">제3강 — 숲 해설가</span></div>
+  <p class="q-text">"먼저 안 사람으로 하여금 나중에 아는 사람을 깨우쳐주도록 한다"는 한문 구절의 출처는?</p>
+  <button class="option q34 optA" onclick="checkAnswer(34,'A','C')">(A) 노자 도덕경</button>
+  <button class="option q34 optB" onclick="checkAnswer(34,'B','C')">(B) 논어</button>
+  <button class="option q34 optC" onclick="checkAnswer(34,'C','C')">(C) 맹자 (만장 上)</button>
+  <button class="option q34 optD" onclick="checkAnswer(34,'D','C')">(D) 정약용 목민심서</button>
+  <div class="explanation" id="exp34">💡 天降下民 作之君師 使先知覺後知 使先覺覺後覺 — 가르치는 자와 배우는 자가 함께 성장한다는 의미. 숲해설가의 고전적 해석.</div>
+</div>
+<div class="question q35">
+  <div class="q-header"><span class="q-num">Q35</span><span class="q-cat">제4강 — 해설의 준비</span></div>
+  <p class="q-text">명대 문인이 말한인생 3가지 경험이 아닌 것은?</p>
+  <button class="option q35 optA" onclick="checkAnswer(35,'A','D')">(A) 만 권의 책을 읽기</button>
+  <button class="option q35 optB" onclick="checkAnswer(35,'B','D')">(B) 만 리를 여행하기</button>
+  <button class="option q35 optC" onclick="checkAnswer(35,'C','D')">(C) 만 명의 친구를 사귀기</button>
+  <button class="option q35 optD" onclick="checkAnswer(35,'D','D')">(D) 만 가지 음식을 맛보기</button>
+  <div class="explanation" id="exp35">💡 동기창(董其昌) 말씀. 인생을 제대로 알려면 만권의 책·만리 여행·만명의 친구가 필요하다.</div>
+</div>
+<div class="question q36">
+  <div class="q-header"><span class="q-num">Q36</span><span class="q-cat">제4강 — 해설의 준비</span></div>
+  <p class="q-text">"수불석권(手不釋卷)"의 뜻으로 옳은 것은?</p>
+  <button class="option q36 optA" onclick="checkAnswer(36,'A','B')">(A) 책을 빨리 읽는다</button>
+  <button class="option q36 optB" onclick="checkAnswer(36,'B','B')">(B) 손에서 항상 책을 놓지 말아야 한다</button>
+  <button class="option q36 optC" onclick="checkAnswer(36,'C','B')">(C) 책을 많이 빌려본다</button>
+  <button class="option q36 optD" onclick="checkAnswer(36,'D','B')">(D) 책을 가까이서 본다</button>
+  <div class="explanation" id="exp36">💡 숲해설가는 평생 공부해야 함을 강조하는 사자성어.</div>
+</div>
+<div class="question q37">
+  <div class="q-header"><span class="q-num">Q37</span><span class="q-cat">제4강 — 해설의 준비</span></div>
+  <p class="q-text">숲해설 코스 개발의기본 원칙은?</p>
+  <button class="option q37 optA" onclick="checkAnswer(37,'A','B')">(A) 출발 지점과 도착 지점이 멀어야 한다</button>
+  <button class="option q37 optB" onclick="checkAnswer(37,'B','B')">(B) 처음 출발 지점과 돌아와 끝나는 지점이 같도록 설계</button>
+  <button class="option q37 optC" onclick="checkAnswer(37,'C','B')">(C) 가장 긴 코스를 우선 개발한다</button>
+  <button class="option q37 optD" onclick="checkAnswer(37,'D','B')">(D) 표지판이 없는 길을 선호한다</button>
+  <div class="explanation" id="exp37">💡 국립공원·박물관·자연휴양림 등 탐방안내소에서 시작하여 원점 회귀하는 형태.</div>
+</div>
+<div class="question q38">
+  <div class="q-header"><span class="q-num">Q38</span><span class="q-cat">제4강 — 해설의 준비</span></div>
+  <p class="q-text">다음 중숲 해설의 기본 도구 10가지에 해당하지않는것은?</p>
+  <button class="option q38 optA" onclick="checkAnswer(38,'A','D')">(A) 쌍안경과 망원경</button>
+  <button class="option q38 optB" onclick="checkAnswer(38,'B','D')">(B) 돋보기</button>
+  <button class="option q38 optC" onclick="checkAnswer(38,'C','D')">(C) 구급용 키트</button>
+  <button class="option q38 optD" onclick="checkAnswer(38,'D','D')">(D) 회중전등 (손전등)</button>
+  <div class="explanation" id="exp38">💡 회중전등은'깊은 이해를 위한 도구'8개 중 하나. 기본 10가지 = 쌍안경·과제카드·카메라·끈·돋보기·소비닐·방수노트·대비닐·안내서·구급킷.</div>
+</div>
+<div class="question q39">
+  <div class="q-header"><span class="q-num">Q39</span><span class="q-cat">제4강 — 해설의 준비</span></div>
+  <p class="q-text">"닭을 치는 일에만 골몰하여 정취를 잊으면 안 된다"는 누구의 편지에서 나온 말인가?</p>
+  <button class="option q39 optA" onclick="checkAnswer(39,'A','B')">(A) 정조</button>
+  <button class="option q39 optB" onclick="checkAnswer(39,'B','B')">(B) 정약용 (둘째아들 학유에게)</button>
+  <button class="option q39 optC" onclick="checkAnswer(39,'C','B')">(C) 안창호</button>
+  <button class="option q39 optD" onclick="checkAnswer(39,'D','B')">(D) 박지원</button>
+  <div class="explanation" id="exp39">💡 실용성에만 집중하면 정취(문화·재미)를 잃는다는 경계. 숲해설은 실용+정취 모두 필요.</div>
+</div>
+<div class="question q40">
+  <div class="q-header"><span class="q-num">Q40</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">Tilden 해설 10원리중 다음 설명에 해당하는 것은?"한 장의 그림은 백 마디 말보다 가치가 있을 수 있다"</p>
+  <button class="option q40 optA" onclick="checkAnswer(40,'A','C')">(A) 단순화와 조직화 원리</button>
+  <button class="option q40 optB" onclick="checkAnswer(40,'B','C')">(B) 첫인상 원리</button>
+  <button class="option q40 optC" onclick="checkAnswer(40,'C','C')">(C) 시각자료 우선 원리 (한 장의 그림)</button>
+  <button class="option q40 optD" onclick="checkAnswer(40,'D','C')">(D) 피드백(되새김) 원리</button>
+  <div class="explanation" id="exp40">💡 Tilden 10원리의 마지막 원리. 시각 자료의 강력함을 강조.</div>
+</div>
+<div class="question q41">
+  <div class="q-header"><span class="q-num">Q41</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">강사가 강조한"30% 법칙"의 의미는?</p>
+  <button class="option q41 optA" onclick="checkAnswer(41,'A','B')">(A) 30%의 사람만 해설에 만족한다</button>
+  <button class="option q41 optB" onclick="checkAnswer(41,'B','B')">(B) 모든 집단에서 30%는 딴짓 — 거기 신경 쓰지 말고 자기 해설에 집중</button>
+  <button class="option q41 optC" onclick="checkAnswer(41,'C','B')">(C) 해설 시간의 30%를 휴식에 쓴다</button>
+  <button class="option q41 optD" onclick="checkAnswer(41,'D','B')">(D) 30% 이상 정답률이 좋다</button>
+  <div class="explanation" id="exp41">💡 "모든 사람을 만족시킬 수는 없다" 원칙의 구체적 표현. 30%에 휘둘리면 70%에 대한 집중력이 떨어짐.</div>
+</div>
+<div class="question q42">
+  <div class="q-header"><span class="q-num">Q42</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">숲해설 활동에서'절대로 잊지 말아야 할 것'이아닌것은?</p>
+  <button class="option q42 optA" onclick="checkAnswer(42,'A','D')">(A) 기본복장 갖추기 (모자·조끼·신발·명찰)</button>
+  <button class="option q42 optB" onclick="checkAnswer(42,'B','D')">(B) 사전답사 반드시 하기</button>
+  <button class="option q42 optC" onclick="checkAnswer(42,'C','D')">(C) 모르는 것은 솔직하게 모른다고 답하기</button>
+  <button class="option q42 optD" onclick="checkAnswer(42,'D','D')">(D) 약리작용으로 어디에 좋다는 내용을 적극 강조하기</button>
+  <div class="explanation" id="exp42">💡 오히려 약리작용 강조는가능한 하지 않는 것이 좋다고 명시. 검증되지 않은 약효 주장은 위험.</div>
+</div>
+<div class="question q43">
+  <div class="q-header"><span class="q-num">Q43</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">노자의"知不知尚矣 不知知病"의 뜻으로 옳은 것은?</p>
+  <button class="option q43 optA" onclick="checkAnswer(43,'A','B')">(A) 많이 아는 것이 최고다</button>
+  <button class="option q43 optB" onclick="checkAnswer(43,'B','B')">(B) 모른다는 것을 아는 것이 최고이며, 모르면서 안다고 하는 것은 병이다</button>
+  <button class="option q43 optC" onclick="checkAnswer(43,'C','B')">(C) 모르는 것이 약이다</button>
+  <button class="option q43 optD" onclick="checkAnswer(43,'D','B')">(D) 지식은 끝이 없다</button>
+  <div class="explanation" id="exp43">💡 숲해설가의지적 정직성을 뒷받침하는 노자 구절. "확실하게 모르면 모른다고 솔직하게 답하라."</div>
+</div>
+<div class="question q44">
+  <div class="q-header"><span class="q-num">Q44</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">산림교육[해설]의 두 가지 축중내재적 요소에 해당하는 것은?</p>
+  <button class="option q44 optA" onclick="checkAnswer(44,'A','D')">(A) 물질계 / 가시적</button>
+  <button class="option q44 optB" onclick="checkAnswer(44,'B','D')">(B) 지식축적·성취</button>
+  <button class="option q44 optC" onclick="checkAnswer(44,'C','D')">(C) 학구적 (머리)</button>
+  <button class="option q44 optD" onclick="checkAnswer(44,'D','D')">(D) 호기심·상상력 / 정서적·심미적 (가슴)</button>
+  <div class="explanation" id="exp44">💡 외재적(머리) = 학구적·지식축적·발전 견인. 내재적(가슴) = 문화성·호기심·정서적·변화 유도.</div>
+</div>
+<div class="question q45">
+  <div class="q-header"><span class="q-num">Q45</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">강사가 강조한어린이·청소년 해설 시 호칭으로 옳은 것은?</p>
+  <button class="option q45 optA" onclick="checkAnswer(45,'A','C')">(A) 선생님</button>
+  <button class="option q45 optB" onclick="checkAnswer(45,'B','C')">(B) 교수님</button>
+  <button class="option q45 optC" onclick="checkAnswer(45,'C','C')">(C) 삼촌·이모·아줌마</button>
+  <button class="option q45 optD" onclick="checkAnswer(45,'D','C')">(D) 회장님</button>
+  <div class="explanation" id="exp45">💡 "선생님"은 수직관계가 되어버림. 친근감 있는 편한 호칭이 수평관계 유지에 좋음.</div>
+</div>
+<div class="question q46">
+  <div class="q-header"><span class="q-num">Q46</span><span class="q-cat">제5강 — 숲 해설 기법</span></div>
+  <p class="q-text">Tilden의 해설 10원리 중"유연성"과 가장 가까운 원리는?</p>
+  <button class="option q46 optA" onclick="checkAnswer(46,'A','B')">(A) 모든 것은 과거에서 시작하여 현재에 이른다</button>
+  <button class="option q46 optB" onclick="checkAnswer(46,'B','B')">(B) 특정한 범주를 설정하는 것은 우리를 맹목적이게 한다</button>
+  <button class="option q46 optC" onclick="checkAnswer(46,'C','B')">(C) 첫 인상이 매우 중요하다</button>
+  <button class="option q46 optD" onclick="checkAnswer(46,'D','B')">(D) 단순화와 조직화는 의미 전달을 분명하게 한다</button>
+  <div class="explanation" id="exp46">💡 2번 원리(범주 설정의 위험) = 유연성. 현장 상황(꽃이 졌거나 길이 막힘 등)에 맞게 대처해야 함.</div>
+</div>
+<div class="question q47">
+  <div class="q-header"><span class="q-num">Q47</span><span class="q-cat">평가 + 종합 인물·인용</span></div>
+  <p class="q-text">숲해설가의평가 방법 3가지가 아닌 것은?</p>
+  <button class="option q47 optA" onclick="checkAnswer(47,'A','D')">(A) 자기 진단 (자기 스스로 평가)</button>
+  <button class="option q47 optB" onclick="checkAnswer(47,'B','D')">(B) 동료 해설가에 의한 평가</button>
+  <button class="option q47 optC" onclick="checkAnswer(47,'C','D')">(C) 프로그램 참가자에 의한 평가 (설문)</button>
+  <button class="option q47 optD" onclick="checkAnswer(47,'D','D')">(D) 상급기관(산림청)에 의한 의무 감사</button>
+  <div class="explanation" id="exp47">💡 평가 3방법 = 자기진단 + 동료평가 + 참가자평가(설문). 상급기관 감사는 평가 방식 ✕.</div>
+</div>
+<div class="question q48">
+  <div class="q-header"><span class="q-num">Q48</span><span class="q-cat">평가 + 종합 인물·인용</span></div>
+  <p class="q-text">동료에 의한 숲해설 평가 시 유념할 점에 해당하지않는것은?</p>
+  <button class="option q48 optA" onclick="checkAnswer(48,'A','C')">(A) 예고 없이 갑자기 나타나지 않기</button>
+  <button class="option q48 optB" onclick="checkAnswer(48,'B','C')">(B) 프로그램의 좋은 점을 찾아 살리도록 함</button>
+  <button class="option q48 optC" onclick="checkAnswer(48,'C','C')">(C) 가능한 한 많은 문제점을 한꺼번에 제시</button>
+  <button class="option q48 optD" onclick="checkAnswer(48,'D','C')">(D) 프로그램 종료 후 빠른 시간 안에 평가</button>
+  <div class="explanation" id="exp48">💡 오히려"문제점의 수를 제한"해야 함. 건설적·긍정적 제안이 핵심.</div>
+</div>
+<div class="question q49">
+  <div class="q-header"><span class="q-num">Q49</span><span class="q-cat">평가 + 종합 인물·인용</span></div>
+  <p class="q-text">강의 마무리에 인용된 다음 말의 출처는?"나 자신의 삶은 물론 다른 사람의 삶을 삶답게 만들기 위해 끊임없이 정성을 다하고 마음을 다하는 것처럼 아름다운 것은 없다."</p>
+  <button class="option q49 optA" onclick="checkAnswer(49,'A','B')">(A) 도스토예프스키</button>
+  <button class="option q49 optB" onclick="checkAnswer(49,'B','B')">(B) 톨스토이</button>
+  <button class="option q49 optC" onclick="checkAnswer(49,'C','B')">(C) 칸트</button>
+  <button class="option q49 optD" onclick="checkAnswer(49,'D','B')">(D) 니체</button>
+  <div class="explanation" id="exp49">💡 음성정리본에 "포르스포이"로 음역되었으나톨스토이의 발음 오인. PDF에 명확히 표기.</div>
+</div>
+<div class="question q50">
+  <div class="q-header"><span class="q-num">Q50</span><span class="q-cat">평가 + 종합 인물·인용</span></div>
+  <p class="q-text">다음 인물과 핵심 키워드 연결로잘못된것은?</p>
+  <button class="option q50 optA" onclick="checkAnswer(50,'A','D')">(A) John Muir — 국립공원의 아버지</button>
+  <button class="option q50 optB" onclick="checkAnswer(50,'B','D')">(B) Freeman Tilden — 해설 정의 + 10원리</button>
+  <button class="option q50 optC" onclick="checkAnswer(50,'C','D')">(C) Daniel Goleman — 에코지능(Ecological Intelligence)</button>
+  <button class="option q50 optD" onclick="checkAnswer(50,'D','D')">(D) Carl Jung — 행동경제학 + 넛지이론</button>
+  <div class="explanation" id="exp50">💡 Carl Jung =집단무의식(Collective Unconscious). 행동경제학·넛지이론은 리처드 탈러·캐스 선스타인.</div>
+</div>
+
+<hr>
+<p style="text-align:center; color:#888; font-size:0.85em">숲해설개론 기출문제집 50문항 | 생성: 2026-06-19</p>
+</body>
+</html>

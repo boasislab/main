@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0421 산림생태학 기출문제집 (50문항)</title>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f7f5; color: #333; line-height: 1.7; }
+  h1 { background: #2d6a4f; color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 8px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 0.95em; }
+  .progress-bar-wrap { background: #ddd; border-radius: 8px; height: 12px; margin: 10px 0 24px; }
+  .progress-bar { background: #2d6a4f; height: 12px; border-radius: 8px; width: 0%; transition: width 0.4s; }
+  #score-display { font-weight: bold; color: #2d6a4f; font-size: 1.1em; margin-bottom: 20px; }
+  .question { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 18px 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+  .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .q-num { background: #2d6a4f; color: white; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85em; flex-shrink: 0; }
+  .q-cat { background: #e8f4f0; color: #2d6a4f; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+  .q-text { margin: 0 0 12px 0; font-size: 1em; }
+  .option { display: block; width: 100%; padding: 10px 14px; margin: 6px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: background 0.15s; background: white; color: #333; font-family: inherit; font-size: 1em; text-align: left; -webkit-appearance: none; appearance: none; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+  .option:hover:not(.correct):not(.wrong) { background: #f0f4f0; }
+  .option.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+  .option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; text-decoration: line-through; }
+  .option.disabled { pointer-events: none; }
+  .explanation { display: none; background: #e8f4f8; padding: 10px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8; }
+  .explanation.show { display: block; }
+  .answered-correct .q-num { background: #28a745; }
+  .answered-wrong .q-num { background: #dc3545; }
+  .cat-filter { margin-bottom: 20px; }
+  .cat-btn { padding: 6px 12px; margin: 4px; border: 1px solid #2d6a4f; border-radius: 16px; cursor: pointer; background: white; color: #2d6a4f; font-size: 0.85em; }
+  .cat-btn.active { background: #2d6a4f; color: white; }
+</style>
+<script>
+var answered = 0, correct_count = 0, total = 50;
+function checkAnswer(qNum, selected, correctLetter) {
+  var opts = document.querySelectorAll('.q' + qNum + ' .option');
+  opts.forEach(function(o) { o.classList.add('disabled'); });
+  var selectedEl = document.querySelector('.q' + qNum + ' .opt' + selected);
+  var isCorrect = selected === correctLetter;
+  if (isCorrect) {
+    selectedEl.classList.add('correct');
+    selectedEl.style.background = '#d4edda';
+    selectedEl.style.borderColor = '#28a745';
+    selectedEl.style.color = '#155724';
+    selectedEl.style.fontWeight = 'bold';
+  } else {
+    selectedEl.classList.add('wrong');
+    selectedEl.style.background = '#f8d7da';
+    selectedEl.style.borderColor = '#dc3545';
+    selectedEl.style.color = '#721c24';
+    selectedEl.style.textDecoration = 'line-through';
+    var correctEl = document.querySelector('.q' + qNum + ' .opt' + correctLetter);
+    correctEl.classList.add('correct');
+    correctEl.style.background = '#d4edda';
+    correctEl.style.borderColor = '#28a745';
+    correctEl.style.color = '#155724';
+    correctEl.style.fontWeight = 'bold';
+  }
+  var expEl = document.getElementById('exp' + qNum);
+  expEl.classList.add('show');
+  expEl.style.display = 'block';
+  var qEl = document.querySelector('.q' + qNum + '.question');
+  qEl.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  answered++;
+  if (isCorrect) correct_count++;
+  var pct = Math.round(answered / total * 100);
+  document.querySelector('.progress-bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+}
+</script>
+</head>
+<body>
+<h1>📝 산림생태학 기출문제집</h1>
+<p class="subtitle">강의일: 2025년 4월 21일 | 총 50문항 | 클릭하여 정답 확인</p>
+<div id="score-display">진행: 0/50</div>
+<div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+<div class="question q1">
+  <div class="q-header"><span class="q-num">Q1</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">다음 중 <strong>자생식물</strong>의 정의로 가장 적절한 것은?</p>
+  <button class="option q1 optA" onclick="checkAnswer(1,'A','C')">(A) 인간이 인위적으로 번식시킨 식물</button>
+<button class="option q1 optB" onclick="checkAnswer(1,'B','C')">(B) 외국에서 자연스럽게 들어와 정착한 식물</button>
+<button class="option q1 optC" onclick="checkAnswer(1,'C','C')">(C) 스스로 우리나라 환경에 오래전부터 뿌리 내려 자라는 식물</button>
+<button class="option q1 optD" onclick="checkAnswer(1,'D','C')">(D) 약용 목적으로 재배하는 모든 식물</button>
+
+  <div class="explanation" id="exp1">💡 자생식물(自生植物)은 우리나라 환경에 아주 오래전부터 자연 그대로 뿌리 내려 번식·생육하는 식물입니다.</div>
+</div>
+<div class="question q2">
+  <div class="q-header"><span class="q-num">Q2</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">황금소나무, 뱀소나무처럼 육종가들이 소나무를 변형해 만든 식물은 어떤 범주에 속하는가?</p>
+  <button class="option q2 optA" onclick="checkAnswer(2,'A','C')">(A) 자생식물</button>
+<button class="option q2 optB" onclick="checkAnswer(2,'B','C')">(B) 귀화식물</button>
+<button class="option q2 optC" onclick="checkAnswer(2,'C','C')">(C) 재배식물</button>
+<button class="option q2 optD" onclick="checkAnswer(2,'D','C')">(D) 특산식물</button>
+
+  <div class="explanation" id="exp2">💡 황금소나무, 뱀소나무는 인간의 필요에 의해 인위적으로 육종·재배한 재배식물입니다.</div>
+</div>
+<div class="question q3">
+  <div class="q-header"><span class="q-num">Q3</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">다음 중 우리나라 대표적인 <strong>생태계교란 귀화식물</strong>이 아닌 것은?</p>
+  <button class="option q3 optA" onclick="checkAnswer(3,'A','D')">(A) 양미역취</button>
+<button class="option q3 optB" onclick="checkAnswer(3,'B','D')">(B) 단풍잎 돼지풀</button>
+<button class="option q3 optC" onclick="checkAnswer(3,'C','D')">(C) 가시박</button>
+<button class="option q3 optD" onclick="checkAnswer(3,'D','D')">(D) 서어나무</button>
+
+  <div class="explanation" id="exp3">💡 서어나무는 우리나라 자생식물(음수성 식물)입니다. 양미역취, 단풍잎 돼지풀, 가시박은 생태계교란 귀화식물입니다.</div>
+</div>
+<div class="question q4">
+  <div class="q-header"><span class="q-num">Q4</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">귀화식물이 해외에서 유입되는 가장 흔한 경로는?</p>
+  <button class="option q4 optA" onclick="checkAnswer(4,'A','B')">(A) 철새 이동 경로를 통해</button>
+<button class="option q4 optB" onclick="checkAnswer(4,'B','B')">(B) 식량·물품 수입 시 뿌리에 묻어 유입</button>
+<button class="option q4 optC" onclick="checkAnswer(4,'C','B')">(C) 관상 목적으로 수입</button>
+<button class="option q4 optD" onclick="checkAnswer(4,'D','B')">(D) 연구 목적 반입</button>
+
+  <div class="explanation" id="exp4">💡 해외에서 식량이나 물품을 들여올 때 뿌리에 다른 나라의 씨앗이 묻어 함께 유입되는 경우가 가장 흔합니다. 유럽에서는 신발 검사로 통제합니다.</div>
+</div>
+<div class="question q5">
+  <div class="q-header"><span class="q-num">Q5</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">우리나라 <strong>자생식물</strong> 종수는 몇 종인가?</p>
+  <button class="option q5 optA" onclick="checkAnswer(5,'A','C')">(A) 1,200종</button>
+<button class="option q5 optB" onclick="checkAnswer(5,'B','C')">(B) 2,500종</button>
+<button class="option q5 optC" onclick="checkAnswer(5,'C','C')">(C) 4,176종</button>
+<button class="option q5 optD" onclick="checkAnswer(5,'D','C')">(D) 9,940종</button>
+
+  <div class="explanation" id="exp5">💡 우리나라 자생식물은 4,176종이며, 재배식물은 9,940종입니다.</div>
+</div>
+<div class="question q6">
+  <div class="q-header"><span class="q-num">Q6</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">귀화식물이 자생식물보다 경쟁력이 강한 이유로 가장 적절한 것은?</p>
+  <button class="option q6 optA" onclick="checkAnswer(6,'A','B')">(A) 크기가 자생식물보다 작아 자원 소비가 적기 때문</button>
+<button class="option q6 optB" onclick="checkAnswer(6,'B','B')">(B) 새로운 환경에서 천적 없이 빠르게 증식하기 때문</button>
+<button class="option q6 optC" onclick="checkAnswer(6,'C','B')">(C) 자생식물보다 광합성 효율이 낮기 때문</button>
+<button class="option q6 optD" onclick="checkAnswer(6,'D','B')">(D) 토양 미생물과 공생하지 않기 때문</button>
+
+  <div class="explanation" id="exp6">💡 귀화식물은 새로운 환경에서 천적이나 경쟁자가 없어 빠르게 번식하며, 자생식물을 밀어내는 경쟁력을 가집니다.</div>
+</div>
+<div class="question q7">
+  <div class="q-header"><span class="q-num">Q7</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">숲 해설가로서 식물을 분류할 때 필요한 '분류 열쇠(Key)'의 핵심 3가지는?</p>
+  <button class="option q7 optA" onclick="checkAnswer(7,'A','B')">(A) 크기, 색깔, 냄새</button>
+<button class="option q7 optB" onclick="checkAnswer(7,'B','B')">(B) 자생식물·귀화식물·재배식물 구분</button>
+<button class="option q7 optC" onclick="checkAnswer(7,'C','B')">(C) 양수성·음수성·중간성 구분</button>
+<button class="option q7 optD" onclick="checkAnswer(7,'D','B')">(D) 초본·목본·덩굴성 구분</button>
+
+  <div class="explanation" id="exp7">💡 숲 해설가는 자생식물·귀화식물·재배식물을 정확히 구분하는 분류 열쇠를 가져야 합니다. 이것이 해설의 출발점입니다.</div>
+</div>
+<div class="question q8">
+  <div class="q-header"><span class="q-num">Q8</span><span class="q-cat">자생/귀화/재배식물</span></div>
+  <p class="q-text">우리나라에 자생식물 종수가 많은 이유와 관련이 없는 것은?</p>
+  <button class="option q8 optA" onclick="checkAnswer(8,'A','D')">(A) 백두대간 동고서저 지형의 다양성</button>
+<button class="option q8 optB" onclick="checkAnswer(8,'B','D')">(B) 강원도~제주도까지 다양한 기후대</button>
+<button class="option q8 optC" onclick="checkAnswer(8,'C','D')">(C) 늪지·석회암·수변 등 다양한 환경</button>
+<button class="option q8 optD" onclick="checkAnswer(8,'D','D')">(D) 국토 면적이 독일보다 넓음</button>
+
+  <div class="explanation" id="exp8">💡 한국의 국토 면적은 독일이나 몽골보다 작음에도 더 많은 자생식물을 보유합니다. 비결은 지형·기후대·환경의 다양성입니다.</div>
+</div>
+<div class="question q9">
+  <div class="q-header"><span class="q-num">Q9</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">천이(遷移)의 정의로 가장 적절한 것은?</p>
+  <button class="option q9 optA" onclick="checkAnswer(9,'A','B')">(A) 뿌리가 죽고 새로운 식물이 들어오는 현상</button>
+<button class="option q9 optB" onclick="checkAnswer(9,'B','B')">(B) 양지(양수성 식물)에서 음지(음수성 식물)로 변화해 가는 과정</button>
+<button class="option q9 optC" onclick="checkAnswer(9,'C','B')">(C) 귀화식물이 자생식물을 대체하는 과정</button>
+<button class="option q9 optD" onclick="checkAnswer(9,'D','B')">(D) 기온 변화에 따라 식물대가 이동하는 현상</button>
+
+  <div class="explanation" id="exp9">💡 천이는 양수성 식물에서 음수성 식물로 변화해 가는 과정으로, 약 50~100년이 소요됩니다.</div>
+</div>
+<div class="question q10">
+  <div class="q-header"><span class="q-num">Q10</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">천이 과정에서 <strong>가장 마지막 단계</strong>에 나타나는 식물은?</p>
+  <button class="option q10 optA" onclick="checkAnswer(10,'A','C')">(A) 소나무</button>
+<button class="option q10 optB" onclick="checkAnswer(10,'B','C')">(B) 초본류</button>
+<button class="option q10 optC" onclick="checkAnswer(10,'C','C')">(C) 서어나무·까치박달나무</button>
+<button class="option q10 optD" onclick="checkAnswer(10,'D','C')">(D) 참나무</button>
+
+  <div class="explanation" id="exp10">💡 천이의 마지막 단계(극상)에는 음수성 식물인 서어나무·까치박달나무가 안정적으로 자리잡습니다. 이들이 보이면 '안정된 숲'입니다.</div>
+</div>
+<div class="question q11">
+  <div class="q-header"><span class="q-num">Q11</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">천이 과정의 순서로 올바른 것은?</p>
+  <button class="option q11 optA" onclick="checkAnswer(11,'A','A')">(A) 초본류 → 소나무 → 참나무 → 서어나무</button>
+<button class="option q11 optB" onclick="checkAnswer(11,'B','A')">(B) 소나무 → 초본류 → 참나무 → 서어나무</button>
+<button class="option q11 optC" onclick="checkAnswer(11,'C','A')">(C) 참나무 → 소나무 → 초본류 → 서어나무</button>
+<button class="option q11 optD" onclick="checkAnswer(11,'D','A')">(D) 서어나무 → 참나무 → 소나무 → 초본류</button>
+
+  <div class="explanation" id="exp11">💡 천이 순서: 수관 열림 → 양수성 초본류 → 소나무 유입 → 참나무·소나무 경쟁 → 참나무 승리 → 서어나무·까치박달 안정화.</div>
+</div>
+<div class="question q12">
+  <div class="q-header"><span class="q-num">Q12</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">천이가 완료되는 데 걸리는 시간은?</p>
+  <button class="option q12 optA" onclick="checkAnswer(12,'A','B')">(A) 10~20년</button>
+<button class="option q12 optB" onclick="checkAnswer(12,'B','B')">(B) 약 50~100년</button>
+<button class="option q12 optC" onclick="checkAnswer(12,'C','B')">(C) 약 200~300년</button>
+<button class="option q12 optD" onclick="checkAnswer(12,'D','B')">(D) 약 500년 이상</button>
+
+  <div class="explanation" id="exp12">💡 천이 기간은 약 50~100년 소요됩니다.</div>
+</div>
+<div class="question q13">
+  <div class="q-header"><span class="q-num">Q13</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">귀화식물이 가장 많이 자라는 곳은?</p>
+  <button class="option q13 optA" onclick="checkAnswer(13,'A','C')">(A) 숲 속 깊은 그늘진 곳</button>
+<button class="option q13 optB" onclick="checkAnswer(13,'B','C')">(B) 계곡 주변 습지</button>
+<button class="option q13 optC" onclick="checkAnswer(13,'C','C')">(C) 수관이 열려 빛이 들어오는 산책로</button>
+<button class="option q13 optD" onclick="checkAnswer(13,'D','C')">(D) 능선의 건조한 지역</button>
+
+  <div class="explanation" id="exp13">💡 수관이 열린 산책로는 빛이 들어오고 경쟁자가 없어 귀화식물이 가장 잘 자랍니다. 생물다양성도 이곳이 가장 높습니다.</div>
+</div>
+<div class="question q14">
+  <div class="q-header"><span class="q-num">Q14</span><span class="q-cat">천이(遷移)</span></div>
+  <p class="q-text">북사면과 남사면의 식물 특성 비교로 올바른 것은?</p>
+  <button class="option q14 optA" onclick="checkAnswer(14,'A','B')">(A) 북사면: 건조, 양수성 / 남사면: 습윤, 음수성</button>
+<button class="option q14 optB" onclick="checkAnswer(14,'B','B')">(B) 북사면: 습윤·음수성·종다양성 풍부 / 남사면: 양수성 위주</button>
+<button class="option q14 optC" onclick="checkAnswer(14,'C','B')">(C) 북사면과 남사면의 식물 종류는 동일</button>
+<button class="option q14 optD" onclick="checkAnswer(14,'D','B')">(D) 남사면: 습윤·음수성 / 북사면: 양수성 위주</button>
+
+  <div class="explanation" id="exp14">💡 북사면은 습도 높고 빛이 적어 음수성 식물과 종다양성이 풍부합니다. 해설 이야깃거리가 많은 곳입니다.</div>
+</div>
+<div class="question q15">
+  <div class="q-header"><span class="q-num">Q15</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">우리나라 기후대 중 <strong>아열대</strong>에 해당하는 지역은?</p>
+  <button class="option q15 optA" onclick="checkAnswer(15,'A','D')">(A) 강원도</button>
+<button class="option q15 optB" onclick="checkAnswer(15,'B','D')">(B) 충청도</button>
+<button class="option q15 optC" onclick="checkAnswer(15,'C','D')">(C) 전주</button>
+<button class="option q15 optD" onclick="checkAnswer(15,'D','D')">(D) 제주도</button>
+
+  <div class="explanation" id="exp15">💡 제주도는 아열대, 부산·해남은 난대, 전주는 온대 남부, 충청도는 온대 중부, 강원도는 온대 북부입니다.</div>
+</div>
+<div class="question q16">
+  <div class="q-header"><span class="q-num">Q16</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">전 세계 식물 종수는 약 몇 종인가?</p>
+  <button class="option q16 optA" onclick="checkAnswer(16,'A','B')">(A) 약 10만 종</button>
+<button class="option q16 optB" onclick="checkAnswer(16,'B','B')">(B) 약 31만 종</button>
+<button class="option q16 optC" onclick="checkAnswer(16,'C','B')">(C) 약 50만 종</button>
+<button class="option q16 optD" onclick="checkAnswer(16,'D','B')">(D) 약 100만 종</button>
+
+  <div class="explanation" id="exp16">💡 전 세계 식물은 약 31만 종입니다. 우리나라 자생식물 4,176종은 그 중 상당한 비율을 차지합니다.</div>
+</div>
+<div class="question q17">
+  <div class="q-header"><span class="q-num">Q17</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">우리나라 재배식물 종수는?</p>
+  <button class="option q17 optA" onclick="checkAnswer(17,'A','C')">(A) 2,300종</button>
+<button class="option q17 optB" onclick="checkAnswer(17,'B','C')">(B) 4,176종</button>
+<button class="option q17 optC" onclick="checkAnswer(17,'C','C')">(C) 9,940종</button>
+<button class="option q17 optD" onclick="checkAnswer(17,'D','C')">(D) 12,000종</button>
+
+  <div class="explanation" id="exp17">💡 우리나라 재배식물은 9,940종으로, 자생식물 4,176종보다 훨씬 많습니다.</div>
+</div>
+<div class="question q18">
+  <div class="q-header"><span class="q-num">Q18</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">백두대간의 지형적 특성은?</p>
+  <button class="option q18 optA" onclick="checkAnswer(18,'A','B')">(A) 서고동저(西高東低)</button>
+<button class="option q18 optB" onclick="checkAnswer(18,'B','B')">(B) 동고서저(東高西低)</button>
+<button class="option q18 optC" onclick="checkAnswer(18,'C','B')">(C) 남고북저</button>
+<button class="option q18 optD" onclick="checkAnswer(18,'D','B')">(D) 분지형 지형</button>
+
+  <div class="explanation" id="exp18">💡 백두대간은 동고서저(東高西低) 지형으로, 이 독특한 지형이 다양한 식물 서식지를 만들어 냅니다.</div>
+</div>
+<div class="question q19">
+  <div class="q-header"><span class="q-num">Q19</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">강원도의 기후대 구분은?</p>
+  <button class="option q19 optA" onclick="checkAnswer(19,'A','D')">(A) 아열대</button>
+<button class="option q19 optB" onclick="checkAnswer(19,'B','D')">(B) 난대</button>
+<button class="option q19 optC" onclick="checkAnswer(19,'C','D')">(C) 온대 남부</button>
+<button class="option q19 optD" onclick="checkAnswer(19,'D','D')">(D) 온대 북부</button>
+
+  <div class="explanation" id="exp19">💡 강원도는 온대 북부에 해당하며, 제주도(아열대)부터 강원도(온대 북부)까지 다양한 기후대가 우리나라의 식물 다양성을 만듭니다.</div>
+</div>
+<div class="question q20">
+  <div class="q-header"><span class="q-num">Q20</span><span class="q-cat">자생식물 현황</span></div>
+  <p class="q-text">우리나라에 4,000종 이상의 자생식물이 분포하는 이유와 가장 거리가 먼 것은?</p>
+  <button class="option q20 optA" onclick="checkAnswer(20,'A','D')">(A) 백두대간 동고서저 지형</button>
+<button class="option q20 optB" onclick="checkAnswer(20,'B','D')">(B) 늪지·석회암·수변 등 다양한 환경</button>
+<button class="option q20 optC" onclick="checkAnswer(20,'C','D')">(C) 강원도~제주도까지 다양한 기후대</button>
+<button class="option q20 optD" onclick="checkAnswer(20,'D','D')">(D) 여름철 집중 강수로 인한 단순화된 토양</button>
+
+  <div class="explanation" id="exp20">💡 단순화된 토양은 다양성의 이유가 아닙니다. 다양한 지형(동고서저), 환경(늪지·석회암 등), 기후대가 자생식물 다양성의 원인입니다.</div>
+</div>
+<div class="question q21">
+  <div class="q-header"><span class="q-num">Q21</span><span class="q-cat">숲의 가치·기능</span></div>
+  <p class="q-text">숲이 집중호우 시 물을 머금었다가 천천히 방류하는 기능을 무엇에 비유하는가?</p>
+  <button class="option q21 optA" onclick="checkAnswer(21,'A','A')">(A) 스펀지·낙타 허리 기능</button>
+<button class="option q21 optB" onclick="checkAnswer(21,'B','A')">(B) 댐 기능</button>
+<button class="option q21 optC" onclick="checkAnswer(21,'C','A')">(C) 저수지 기능</button>
+<button class="option q21 optD" onclick="checkAnswer(21,'D','A')">(D) 여과기 기능</button>
+
+  <div class="explanation" id="exp21">💡 숲은 스펀지처럼 물을 머금었다가 천천히 방류하는 '낙타 허리 기능'을 합니다. 옥상 정원도 같은 원리입니다.</div>
+</div>
+<div class="question q22">
+  <div class="q-header"><span class="q-num">Q22</span><span class="q-cat">숲의 가치·기능</span></div>
+  <p class="q-text">숲을 공공재(公共財)로 표현하는 이유로 가장 적절한 것은?</p>
+  <button class="option q22 optA" onclick="checkAnswer(22,'A','B')">(A) 국가 소유이기 때문</button>
+<button class="option q22 optB" onclick="checkAnswer(22,'B','B')">(B) 우리 모두의 것이며 후손에게 물려줄 소중한 자산이기 때문</button>
+<button class="option q22 optC" onclick="checkAnswer(22,'C','B')">(C) 입장료 없이 이용할 수 있기 때문</button>
+<button class="option q22 optD" onclick="checkAnswer(22,'D','B')">(D) 관리 비용이 없기 때문</button>
+
+  <div class="explanation" id="exp22">💡 숲은 공공재로서 우리 모두의 것이며 후손에게 물려줄 소중한 자산입니다. 이것이 숲 해설의 철학적 기반입니다.</div>
+</div>
+<div class="question q23">
+  <div class="q-header"><span class="q-num">Q23</span><span class="q-cat">숲의 가치·기능</span></div>
+  <p class="q-text">숲(식물)의 기후변화 대응 역할로 가장 중요한 것은?</p>
+  <button class="option q23 optA" onclick="checkAnswer(23,'A','B')">(A) 산소 생산</button>
+<button class="option q23 optB" onclick="checkAnswer(23,'B','B')">(B) 이산화탄소 흡수</button>
+<button class="option q23 optC" onclick="checkAnswer(23,'C','B')">(C) 질소 고정</button>
+<button class="option q23 optD" onclick="checkAnswer(23,'D','B')">(D) 수분 증발</button>
+
+  <div class="explanation" id="exp23">💡 식물은 이산화탄소를 흡수하여 기후변화를 막는 마지막 도구입니다.</div>
+</div>
+<div class="question q24">
+  <div class="q-header"><span class="q-num">Q24</span><span class="q-cat">숲의 가치·기능</span></div>
+  <p class="q-text">옥상 정원이 도시 침수 완충에 효과적인 이유는?</p>
+  <button class="option q24 optA" onclick="checkAnswer(24,'A','B')">(A) 토양이 단단해 물 흐름을 막기 때문</button>
+<button class="option q24 optB" onclick="checkAnswer(24,'B','B')">(B) 숲의 스펀지 역할과 같은 원리로 빗물을 흡수·방류하기 때문</button>
+<button class="option q24 optC" onclick="checkAnswer(24,'C','B')">(C) 증발을 촉진해 강수량을 줄이기 때문</button>
+<button class="option q24 optD" onclick="checkAnswer(24,'D','B')">(D) 배수관 역할을 하기 때문</button>
+
+  <div class="explanation" id="exp24">💡 옥상 정원은 숲의 스펀지 기능(낙타 허리 기능)과 같은 원리로 집중호우 시 빗물을 흡수했다가 서서히 방류합니다.</div>
+</div>
+<div class="question q25">
+  <div class="q-header"><span class="q-num">Q25</span><span class="q-cat">숲의 가치·기능</span></div>
+  <p class="q-text">숲 해설의 철학적 의미로 가장 적절한 것은?</p>
+  <button class="option q25 optA" onclick="checkAnswer(25,'A','B')">(A) 희귀식물 보전만이 목적</button>
+<button class="option q25 optB" onclick="checkAnswer(25,'B','B')">(B) 공공재인 숲을 후손에게 물려주는 것</button>
+<button class="option q25 optC" onclick="checkAnswer(25,'C','B')">(C) 식물 이름 암기</button>
+<button class="option q25 optD" onclick="checkAnswer(25,'D','B')">(D) 외래식물 제거</button>
+
+  <div class="explanation" id="exp25">💡 식물 이름을 알고 → 생육 특성, 유래, 이야깃거리를 전달하는 것이 숲 해설의 시작이며, 공공재인 숲을 후손에게 물려주는 철학입니다.</div>
+</div>
+<div class="question q26">
+  <div class="q-header"><span class="q-num">Q26</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">버드나무 껍질에서 유래한 약품은?</p>
+  <button class="option q26 optA" onclick="checkAnswer(26,'A','C')">(A) 타미플루</button>
+<button class="option q26 optB" onclick="checkAnswer(26,'B','C')">(B) 레가론</button>
+<button class="option q26 optC" onclick="checkAnswer(26,'C','C')">(C) 아스피린</button>
+<button class="option q26 optD" onclick="checkAnswer(26,'D','C')">(D) 페니실린</button>
+
+  <div class="explanation" id="exp26">💡 버드나무 껍질 → 아스피린, 주목 열매 → 타미플루, 엉겅퀴 종자 → 레가론(간염 치료제).</div>
+</div>
+<div class="question q27">
+  <div class="q-header"><span class="q-num">Q27</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">주목 열매를 원료로 하는 약품은?</p>
+  <button class="option q27 optA" onclick="checkAnswer(27,'A','B')">(A) 아스피린</button>
+<button class="option q27 optB" onclick="checkAnswer(27,'B','B')">(B) 타미플루</button>
+<button class="option q27 optC" onclick="checkAnswer(27,'C','B')">(C) 레가론</button>
+<button class="option q27 optD" onclick="checkAnswer(27,'D','B')">(D) 인슐린</button>
+
+  <div class="explanation" id="exp27">💡 주목 열매는 타미플루(항인플루엔자 약재)의 원료입니다.</div>
+</div>
+<div class="question q28">
+  <div class="q-header"><span class="q-num">Q28</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">엉겅퀴 종자를 원료로 한 약품은?</p>
+  <button class="option q28 optA" onclick="checkAnswer(28,'A','C')">(A) 타미플루</button>
+<button class="option q28 optB" onclick="checkAnswer(28,'B','C')">(B) 아스피린</button>
+<button class="option q28 optC" onclick="checkAnswer(28,'C','C')">(C) 레가론(간염 치료제)</button>
+<button class="option q28 optD" onclick="checkAnswer(28,'D','C')">(D) 항생제</button>
+
+  <div class="explanation" id="exp28">💡 엉겅퀴 종자 → 레가론(간염 치료제). 버드나무→아스피린, 주목→타미플루.</div>
+</div>
+<div class="question q29">
+  <div class="q-header"><span class="q-num">Q29</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">전 세계 식물 중 약재로 활용 중인 비율은?</p>
+  <button class="option q29 optA" onclick="checkAnswer(29,'A','B')">(A) 1~5%</button>
+<button class="option q29 optB" onclick="checkAnswer(29,'B','B')">(B) 10~15%</button>
+<button class="option q29 optC" onclick="checkAnswer(29,'C','B')">(C) 30~40%</button>
+<button class="option q29 optD" onclick="checkAnswer(29,'D','B')">(D) 50% 이상</button>
+
+  <div class="explanation" id="exp29">💡 전 세계 31만 종 중 약재로 활용 중인 것은 10~15%. 나머지 85%는 앞으로 밝혀내야 할 블루오션 분야입니다.</div>
+</div>
+<div class="question q30">
+  <div class="q-header"><span class="q-num">Q30</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">한지 원료로 사용되는 식물은?</p>
+  <button class="option q30 optA" onclick="checkAnswer(30,'A','B')">(A) 황벽나무</button>
+<button class="option q30 optB" onclick="checkAnswer(30,'B','B')">(B) 닥나무</button>
+<button class="option q30 optC" onclick="checkAnswer(30,'C','B')">(C) 치자나무</button>
+<button class="option q30 optD" onclick="checkAnswer(30,'D','B')">(D) 대나무</button>
+
+  <div class="explanation" id="exp30">💡 닥나무는 한지 원료입니다. 황벽나무·치자나무는 노란 염료, 대나무는 취병·울타리용입니다.</div>
+</div>
+<div class="question q31">
+  <div class="q-header"><span class="q-num">Q31</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">꿀벌이 꿀을 채취하는 밀원식물(蜜源植物)이 아닌 것은?</p>
+  <button class="option q31 optA" onclick="checkAnswer(31,'A','D')">(A) 광나무</button>
+<button class="option q31 optB" onclick="checkAnswer(31,'B','D')">(B) 아카시아</button>
+<button class="option q31 optC" onclick="checkAnswer(31,'C','D')">(C) 피나무</button>
+<button class="option q31 optD" onclick="checkAnswer(31,'D','D')">(D) 옻나무</button>
+
+  <div class="explanation" id="exp31">💡 밀원식물: 광나무, 아카시아, 피나무. 옻나무는 칠기 도료용입니다.</div>
+</div>
+<div class="question q32">
+  <div class="q-header"><span class="q-num">Q32</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">전 세계 꿀벌이 사라지면 식물의 몇 %가 사라지는가?</p>
+  <button class="option q32 optA" onclick="checkAnswer(32,'A','C')">(A) 20%</button>
+<button class="option q32 optB" onclick="checkAnswer(32,'B','C')">(B) 35%</button>
+<button class="option q32 optC" onclick="checkAnswer(32,'C','C')">(C) 57%</button>
+<button class="option q32 optD" onclick="checkAnswer(32,'D','C')">(D) 80%</button>
+
+  <div class="explanation" id="exp32">💡 전 세계 꿀벌이 사라지면 식물의 57%가 사라집니다. 꿀벌 감소 원인: 드론 방제 + 봄철 온도 불안정.</div>
+</div>
+<div class="question q33">
+  <div class="q-header"><span class="q-num">Q33</span><span class="q-cat">자생식물 활용</span></div>
+  <p class="q-text">경북 봉화 <strong>시드볼트(종자 보관소)</strong>의 설립 목적은?</p>
+  <button class="option q33 optA" onclick="checkAnswer(33,'A','B')">(A) 관광 명소 개발</button>
+<button class="option q33 optB" onclick="checkAnswer(33,'B','B')">(B) 세계적 재난 시 식물 자원 복원 목적으로 종자 보관</button>
+<button class="option q33 optC" onclick="checkAnswer(33,'C','B')">(C) 귀화식물 연구</button>
+<button class="option q33 optD" onclick="checkAnswer(33,'D','B')">(D) 기후변화 관측</button>
+
+  <div class="explanation" id="exp33">💡 경북 봉화 시드볼트는 세계적 재난 시 식물 자원 복원을 목적으로 종자를 보관하는 곳입니다.</div>
+</div>
+<div class="question q34">
+  <div class="q-header"><span class="q-num">Q34</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">지구 온도 1도 상승 시 예상되는 생물 소멸 비율은?</p>
+  <button class="option q34 optA" onclick="checkAnswer(34,'A','C')">(A) 5%</button>
+<button class="option q34 optB" onclick="checkAnswer(34,'B','C')">(B) 10%</button>
+<button class="option q34 optC" onclick="checkAnswer(34,'C','C')">(C) 17%</button>
+<button class="option q34 optD" onclick="checkAnswer(34,'D','C')">(D) 30%</button>
+
+  <div class="explanation" id="exp34">💡 지구 온도 1도 상승 → 생물 17% 소멸 예상. 현재도 우리나라는 4월 중순 30도 초과 도시가 출현하고 있습니다.</div>
+</div>
+<div class="question q35">
+  <div class="q-header"><span class="q-num">Q35</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">소나무 재선충병 감염 진단 1단계: 꽃대(송순)를 꺾었을 때 건강한 소나무의 단면은?</p>
+  <button class="option q35 optA" onclick="checkAnswer(35,'A','B')">(A) 갈색 단면</button>
+<button class="option q35 optB" onclick="checkAnswer(35,'B','B')">(B) 초록색 진이 나옴</button>
+<button class="option q35 optC" onclick="checkAnswer(35,'C','B')">(C) 하얀 수액이 나옴</button>
+<button class="option q35 optD" onclick="checkAnswer(35,'D','B')">(D) 단면이 말라 있음</button>
+
+  <div class="explanation" id="exp35">💡 꽃대 단면이 초록색 진 → 건강. 갈변되면 충분한 감염 의심.</div>
+</div>
+<div class="question q36">
+  <div class="q-header"><span class="q-num">Q36</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">소나무 재선충병 감염 진단 2단계: 꽃대가 '과자처럼 부스러지면'?</p>
+  <button class="option q36 optA" onclick="checkAnswer(36,'A','C')">(A) 건강한 상태</button>
+<button class="option q36 optB" onclick="checkAnswer(36,'B','C')">(B) 수분 부족 상태</button>
+<button class="option q36 optC" onclick="checkAnswer(36,'C','C')">(C) 소나무 사망</button>
+<button class="option q36 optD" onclick="checkAnswer(36,'D','C')">(D) 경미한 감염</button>
+
+  <div class="explanation" id="exp36">💡 꽃대가 말랑말랑 → 건강. 과자처럼 부스러지면 → 소나무 사망 상태.</div>
+</div>
+<div class="question q37">
+  <div class="q-header"><span class="q-num">Q37</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">소나무 잎 끝부분이 붉게 변색되었다면?</p>
+  <button class="option q37 optA" onclick="checkAnswer(37,'A','C')">(A) 수분 부족으로 인한 생리적 현상</button>
+<button class="option q37 optB" onclick="checkAnswer(37,'B','C')">(B) 가을 단풍 현상</button>
+<button class="option q37 optC" onclick="checkAnswer(37,'C','C')">(C) 재선충병 100% 감염 확정</button>
+<button class="option q37 optD" onclick="checkAnswer(37,'D','C')">(D) 내한성이 강해지는 적응 현상</button>
+
+  <div class="explanation" id="exp37">💡 소나무 잎 끝이 붉게 변색 = 재선충병 100% 감염 확정.</div>
+</div>
+<div class="question q38">
+  <div class="q-header"><span class="q-num">Q38</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">소나무 재선충의 매개충(전파 곤충)은?</p>
+  <button class="option q38 optA" onclick="checkAnswer(38,'A','B')">(A) 솔나방</button>
+<button class="option q38 optB" onclick="checkAnswer(38,'B','B')">(B) 솔수염하늘소</button>
+<button class="option q38 optC" onclick="checkAnswer(38,'C','B')">(C) 소나무잎혹파리</button>
+<button class="option q38 optD" onclick="checkAnswer(38,'D','B')">(D) 솔바구미</button>
+
+  <div class="explanation" id="exp38">💡 소나무 재선충(선충)은 솔수염하늘소(매개충)를 통해 전파됩니다.</div>
+</div>
+<div class="question q39">
+  <div class="q-header"><span class="q-num">Q39</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">소나무 재선충병 방제 방법 중 현재 가장 현실적인 방법은?</p>
+  <button class="option q39 optA" onclick="checkAnswer(39,'A','B')">(A) 생물학적 방제(천적 이용)</button>
+<button class="option q39 optB" onclick="checkAnswer(39,'B','B')">(B) 화학적 방제(살충제)</button>
+<button class="option q39 optC" onclick="checkAnswer(39,'C','B')">(C) 기계적 방제(벌채·훈증)</button>
+<button class="option q39 optD" onclick="checkAnswer(39,'D','B')">(D) 자연 치유</button>
+
+  <div class="explanation" id="exp39">💡 화학적 방제(살충제 흩뿌림)가 현재 가장 현실적입니다. 생물학적 방제는 솔수염하늘소 천적이 미발견, 기계적 방제는 예산 부담.</div>
+</div>
+<div class="question q40">
+  <div class="q-header"><span class="q-num">Q40</span><span class="q-cat">기후변화·재선충</span></div>
+  <p class="q-text">산불 후 자연복원이 합리적인 지역은?</p>
+  <button class="option q40 optA" onclick="checkAnswer(40,'A','B')">(A) 경사지 등 인명·재산 피해 직결 지역</button>
+<button class="option q40 optB" onclick="checkAnswer(40,'B','B')">(B) 인명·재산 피해와 무관한 일반 산림 지역</button>
+<button class="option q40 optC" onclick="checkAnswer(40,'C','B')">(C) 도심 근처 모든 지역</button>
+<button class="option q40 optD" onclick="checkAnswer(40,'D','B')">(D) 소나무 군락 지역</button>
+
+  <div class="explanation" id="exp40">💡 인명·재산 피해 지역 → 인공복원 필수. 그 외 지역 → 자연복원이 합리적. 참나무는 맹아 재생 가능, 소나무는 뿌리까지 타면 불가.</div>
+</div>
+<div class="question q41">
+  <div class="q-header"><span class="q-num">Q41</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">생강나무와 산수유의 가장 간단한 구별법은?</p>
+  <button class="option q41 optA" onclick="checkAnswer(41,'A','C')">(A) 꽃 색깔</button>
+<button class="option q41 optB" onclick="checkAnswer(41,'B','C')">(B) 잎 모양</button>
+<button class="option q41 optC" onclick="checkAnswer(41,'C','C')">(C) 가지를 꺾으면 생강 냄새 유무</button>
+<button class="option q41 optD" onclick="checkAnswer(41,'D','C')">(D) 열매 색깔</button>
+
+  <div class="explanation" id="exp41">💡 생강나무: 가지를 꺾으면 생강 냄새 → 생강나무. 산수유: 냄새 없음.</div>
+</div>
+<div class="question q42">
+  <div class="q-header"><span class="q-num">Q42</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">황매화와 죽단화의 구별 포인트는?</p>
+  <button class="option q42 optA" onclick="checkAnswer(42,'A','B')">(A) 황매화 = 겹꽃, 죽단화 = 홑꽃</button>
+<button class="option q42 optB" onclick="checkAnswer(42,'B','B')">(B) 황매화 = 홑꽃(꽃잎 한 장), 죽단화 = 겹꽃(여러 장)</button>
+<button class="option q42 optC" onclick="checkAnswer(42,'C','B')">(C) 황매화 = 흰색 꽃, 죽단화 = 노란색 꽃</button>
+<button class="option q42 optD" onclick="checkAnswer(42,'D','B')">(D) 잎 모양으로 구별</button>
+
+  <div class="explanation" id="exp42">💡 황매화 = 홑꽃(히어로꽃). 죽단화 = 겹꽃(여러 장). 간단 암기: '히어로꽃=황매화, 겹꽃=죽단화'.</div>
+</div>
+<div class="question q43">
+  <div class="q-header"><span class="q-num">Q43</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">산초나무와 초피나무의 구별 포인트는?</p>
+  <button class="option q43 optA" onclick="checkAnswer(43,'A','B')">(A) 초피나무: 잎 어긋나기 / 산초나무: 잎 마주나기</button>
+<button class="option q43 optB" onclick="checkAnswer(43,'B','B')">(B) 초피나무: 잎 마주나기(대생) + 가시 마주붙음 / 산초나무: 어긋나기</button>
+<button class="option q43 optC" onclick="checkAnswer(43,'C','B')">(C) 둘 다 잎이 마주난다</button>
+<button class="option q43 optD" onclick="checkAnswer(43,'D','B')">(D) 냄새로만 구별 가능</button>
+
+  <div class="explanation" id="exp43">💡 초피나무 = 대생(잎 마주남) + 가시 서로 마주 붙음. 산초나무 = 잎 어긋나기.</div>
+</div>
+<div class="question q44">
+  <div class="q-header"><span class="q-num">Q44</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">잎을 위아래로 잡아당기면 명주실처럼 실이 연결되는 나무로 맞는 것은?</p>
+  <button class="option q44 optA" onclick="checkAnswer(44,'A','B')">(A) 진달래, 철쭉</button>
+<button class="option q44 optB" onclick="checkAnswer(44,'B','B')">(B) 산딸나무, 말채나무, 층층나무, 산수유</button>
+<button class="option q44 optC" onclick="checkAnswer(44,'C','B')">(C) 서어나무, 까치박달나무</button>
+<button class="option q44 optD" onclick="checkAnswer(44,'D','B')">(D) 소나무, 참나무</button>
+
+  <div class="explanation" id="exp44">💡 산딸나무, 말채나무, 층층나무, 산수유는 침맥이 발달해 잎을 당기면 명주실처럼 실이 연결됩니다. 아이들 마술쇼 활동에 활용.</div>
+</div>
+<div class="question q45">
+  <div class="q-header"><span class="q-num">Q45</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">목련 꽃잎을 이용한 체험 활동은?</p>
+  <button class="option q45 optA" onclick="checkAnswer(45,'A','B')">(A) 꽃잎 염색 체험</button>
+<button class="option q45 optB" onclick="checkAnswer(45,'B','B')">(B) 꽃잎 끝 구멍에 공기 불어넣어 풍선처럼 부풀리기</button>
+<button class="option q45 optC" onclick="checkAnswer(45,'C','B')">(C) 꽃잎 찢어 잎맥 관찰</button>
+<button class="option q45 optD" onclick="checkAnswer(45,'D','B')">(D) 꽃잎 물에 담가 향기 감상</button>
+
+  <div class="explanation" id="exp45">💡 목련 꽃잎 끝에 구멍 → 공기를 불어 넣으면 풍선처럼 부풀어 오릅니다. 아이들 체험 활동으로 인기.</div>
+</div>
+<div class="question q46">
+  <div class="q-header"><span class="q-num">Q46</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">함박꽃나무의 분류(과)는?</p>
+  <button class="option q46 optA" onclick="checkAnswer(46,'A','C')">(A) 장미과</button>
+<button class="option q46 optB" onclick="checkAnswer(46,'B','C')">(B) 국화과</button>
+<button class="option q46 optC" onclick="checkAnswer(46,'C','C')">(C) 목련과(Magnoliaceae)</button>
+<button class="option q46 optD" onclick="checkAnswer(46,'D','C')">(D) 콩과</button>
+
+  <div class="explanation" id="exp46">💡 함박꽃나무는 목련과(Magnoliaceae) 식물입니다. 5월 중순~말 꽃봉오리를 미용수에 담그면 향기가 납니다.</div>
+</div>
+<div class="question q47">
+  <div class="q-header"><span class="q-num">Q47</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">우리나라 특산식물(한국 고유종)이 아닌 것은?</p>
+  <button class="option q47 optA" onclick="checkAnswer(47,'A','D')">(A) 미선나무</button>
+<button class="option q47 optB" onclick="checkAnswer(47,'B','D')">(B) 산개나리</button>
+<button class="option q47 optC" onclick="checkAnswer(47,'C','D')">(C) 병꽃나무</button>
+<button class="option q47 optD" onclick="checkAnswer(47,'D','D')">(D) 아카시아</button>
+
+  <div class="explanation" id="exp47">💡 아카시아는 북미 원산 귀화식물입니다. 미선나무, 산개나리, 병꽃나무, 수수꽃다리(미스킴 라일락)가 한국 특산식물입니다.</div>
+</div>
+<div class="question q48">
+  <div class="q-header"><span class="q-num">Q48</span><span class="q-cat">식물 식별</span></div>
+  <p class="q-text">한국 자생 수수꽃다리를 미국에서 육종한 <strong>미스킴 라일락</strong>의 특징이 아닌 것은?</p>
+  <button class="option q48 optA" onclick="checkAnswer(48,'A','D')">(A) 1m 이하로 자람</button>
+<button class="option q48 optB" onclick="checkAnswer(48,'B','D')">(B) 일반 수수꽃다리보다 꽃이 많음</button>
+<button class="option q48 optC" onclick="checkAnswer(48,'C','D')">(C) 창가 빛을 가리지 않음</button>
+<button class="option q48 optD" onclick="checkAnswer(48,'D','D')">(D) 잎이 황금색으로 변함</button>
+
+  <div class="explanation" id="exp48">💡 미스킴 라일락: 1m 이하 소형, 꽃이 많음, 창가 빛 가리지 않음. 황금색 잎은 황금소나무의 특징입니다.</div>
+</div>
+<div class="question q49">
+  <div class="q-header"><span class="q-num">Q49</span><span class="q-cat">현장 안전</span></div>
+  <p class="q-text">숲 해설 현장에서 <strong>가장 위험한 상황</strong>으로 꼽히는 것은?</p>
+  <button class="option q49 optA" onclick="checkAnswer(49,'A','B')">(A) 독사와 마주침</button>
+<button class="option q49 optB" onclick="checkAnswer(49,'B','B')">(B) 말벌집 건드림</button>
+<button class="option q49 optC" onclick="checkAnswer(49,'C','B')">(C) 독버섯 섭취</button>
+<button class="option q49 optD" onclick="checkAnswer(49,'D','B')">(D) 일사병</button>
+
+  <div class="explanation" id="exp49">💡 독이 있는 뱀보다 말벌이 더 위험한 경우가 많습니다. 특히 가을철 낙엽 쌓인 곳의 말벌집을 조심해야 합니다.</div>
+</div>
+<div class="question q50">
+  <div class="q-header"><span class="q-num">Q50</span><span class="q-cat">현장 안전·추천 도서</span></div>
+  <p class="q-text">숲 해설가 추천 도서 중 우리나라 자생 나무 전체를 소개하는 책의 저자는?</p>
+  <button class="option q50 optA" onclick="checkAnswer(50,'A','B')">(A) 전의식</button>
+<button class="option q50 optB" onclick="checkAnswer(50,'B','B')">(B) 김진석</button>
+<button class="option q50 optC" onclick="checkAnswer(50,'C','B')">(C) 이유미</button>
+<button class="option q50 optD" onclick="checkAnswer(50,'D','B')">(D) 윤주복</button>
+
+  <div class="explanation" id="exp50">💡 한국의 나무(저: 김진석) — 우리나라 자생 나무 전체 소개. 식물 도감(저: 전의식) — 세밀화 수록.</div>
+</div>
+
+<hr>
+<p style="text-align:center; color:#888; font-size:0.85em">0421 산림생태학 기출문제집 50문항 | 강의일: 2025년 4월 21일 | 생성: 2026-06-18</p>
+</body>
+</html>

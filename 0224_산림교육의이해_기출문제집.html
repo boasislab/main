@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산림교육의이해 기출문제집 (50문항)</title>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f7f5; color: #333; line-height: 1.7; }
+  h1 { background: #6f4e37; color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 8px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 0.95em; }
+  .progress-bar-wrap { background: #ddd; border-radius: 8px; height: 12px; margin: 10px 0 24px; }
+  .progress-bar { background: #6f4e37; height: 12px; border-radius: 8px; width: 0%; transition: width 0.4s; }
+  #score-display { font-weight: bold; color: #6f4e37; font-size: 1.1em; margin-bottom: 20px; }
+  .question { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 18px 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+  .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .q-num { background: #6f4e37; color: white; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85em; flex-shrink: 0; }
+  .q-cat { background: #f5deb3; color: #6f4e37; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+  .q-text { margin: 0 0 12px 0; font-size: 1em; }
+  .option { display: block; width: 100%; padding: 10px 14px; margin: 6px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: background 0.15s; background: white; color: #333; font-family: inherit; font-size: 1em; text-align: left; -webkit-appearance: none; appearance: none; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+  .option:hover:not(.correct):not(.wrong) { background: rgba(111,78,55,0.08); }
+  .option.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+  .option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; text-decoration: line-through; }
+  .option.disabled { pointer-events: none; }
+  .explanation { display: none; background: #e8f4f8; padding: 10px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8; }
+  .explanation.show { display: block; }
+  .answered-correct .q-num { background: #28a745; }
+  .answered-wrong .q-num { background: #dc3545; }
+</style>
+<script>
+var answered = 0, correct_count = 0, total = 50;
+function checkAnswer(qNum, selected, correctLetter) {
+  var opts = document.querySelectorAll('.q' + qNum + ' .option');
+  opts.forEach(function(o) { o.classList.add('disabled'); o.style.pointerEvents = 'none'; });
+  var selectedEl = document.querySelector('.q' + qNum + ' .opt' + selected);
+  var isCorrect = selected === correctLetter;
+  if (isCorrect) {
+    selectedEl.classList.add('correct');
+    selectedEl.style.background = '#d4edda';
+    selectedEl.style.borderColor = '#28a745';
+    selectedEl.style.color = '#155724';
+    selectedEl.style.fontWeight = 'bold';
+  } else {
+    selectedEl.classList.add('wrong');
+    selectedEl.style.background = '#f8d7da';
+    selectedEl.style.borderColor = '#dc3545';
+    selectedEl.style.color = '#721c24';
+    selectedEl.style.textDecoration = 'line-through';
+    var correctEl = document.querySelector('.q' + qNum + ' .opt' + correctLetter);
+    correctEl.classList.add('correct');
+    correctEl.style.background = '#d4edda';
+    correctEl.style.borderColor = '#28a745';
+    correctEl.style.color = '#155724';
+    correctEl.style.fontWeight = 'bold';
+  }
+  var expEl = document.getElementById('exp' + qNum);
+  expEl.classList.add('show');
+  expEl.style.display = 'block';
+  var qEl = document.querySelector('.q' + qNum + '.question');
+  qEl.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  answered++;
+  if (isCorrect) correct_count++;
+  var pct = Math.round(answered / total * 100);
+  document.querySelector('.progress-bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+}
+</script>
+</head>
+<body>
+<h1>📝 산림교육의이해 기출문제집</h1>
+<p class="subtitle">강의일: 2026년 2월 24일 | 총 50문항 | 클릭하여 정답 확인</p>
+<div id="score-display">진행: 0/50</div>
+<div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+<div class="question q1">
+  <div class="q-header"><span class="q-num">Q1</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">'산림교육 활성화에 관한 법률'에서 정하는 산림교육 전문가에 해당하지 <strong>않는</strong> 사람은?</p>
+  <button class="option q1 optA" onclick="checkAnswer(1,'A','D')">(A) 숲해설가</button>
+  <button class="option q1 optB" onclick="checkAnswer(1,'B','D')">(B) 유아숲지도사</button>
+  <button class="option q1 optC" onclick="checkAnswer(1,'C','D')">(C) 숲길등산지도사</button>
+  <button class="option q1 optD" onclick="checkAnswer(1,'D','D')">(D) 산림치유지도사</button>
+  <div class="explanation" id="exp1">💡 산림치유지도사는 '산림문화·휴양에 관한 법률'(또는 '산림복지 진흥에 관한 법률')에 근거하며, 산림교육법상의 전문가에 포함되지 않는다.</div>
+</div>
+<div class="question q2">
+  <div class="q-header"><span class="q-num">Q2</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">산림교육 전문가를 양성하는 근거 법률은?</p>
+  <button class="option q2 optA" onclick="checkAnswer(2,'A','D')">(A) 산림문화·휴양에 관한 법률</button>
+  <button class="option q2 optB" onclick="checkAnswer(2,'B','D')">(B) 산림자원 조성 및 관리에 관한 법률</button>
+  <button class="option q2 optC" onclick="checkAnswer(2,'C','D')">(C) 산림기본법</button>
+  <button class="option q2 optD" onclick="checkAnswer(2,'D','D')">(D) 산림교육 활성화에 관한 법률</button>
+  <div class="explanation" id="exp2">💡 </div>
+</div>
+<div class="question q3">
+  <div class="q-header"><span class="q-num">Q3</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">산림교육 활성화에 관한 법률 제2조에 따른 '산림교육'의 정의로 가장 적절한 것은?</p>
+  <button class="option q3 optA" onclick="checkAnswer(3,'A','A')">(A) 산림의 다양한 기능을 체계적으로 체험·탐방·학습함으로써 산림의 중요성을 이해하고 산림의 지식을 가지도록 하는 교육</button>
+  <button class="option q3 optB" onclick="checkAnswer(3,'B','A')">(B) 산림에서 진행되는 모든 형태의 야외 활동</button>
+  <button class="option q3 optC" onclick="checkAnswer(3,'C','A')">(C) 산림복지서비스의 일환으로 진행되는 치유 프로그램</button>
+  <button class="option q3 optD" onclick="checkAnswer(3,'D','A')">(D) 임업 관련 기능사 자격 취득을 위한 전문 양성과정</button>
+  <div class="explanation" id="exp3">💡 법 제2조 1호 정의.</div>
+</div>
+<div class="question q4">
+  <div class="q-header"><span class="q-num">Q4</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">'산림교육 일반분야'에 대한 설명으로 가장 적절하지 <strong>않은</strong> 것은?</p>
+  <button class="option q4 optA" onclick="checkAnswer(4,'A','C')">(A) 대학 또는 산림청 유관기관에서 모집한다.</button>
+  <button class="option q4 optB" onclick="checkAnswer(4,'B','C')">(B) 환경보호 및 산림정책에 관심 있는 일반인을 대상으로 한다.</button>
+  <button class="option q4 optC" onclick="checkAnswer(4,'C','C')">(C) 기능사 자격 취득을 위한 전문 교육과정이다.</button>
+  <button class="option q4 optD" onclick="checkAnswer(4,'D','C')">(D) 정서적 복지 서비스 및 교양교육의 성격을 띤다.</button>
+  <div class="explanation" id="exp4">💡 기능사 자격 취득은 '전문분야' 교육에 해당.</div>
+</div>
+<div class="question q5">
+  <div class="q-header"><span class="q-num">Q5</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">'산림교육 활성화에 관한 법률' 제2조에 따른 <strong>유아숲지도사</strong>의 정의에 포함되는 핵심 개념은?</p>
+  <button class="option q5 optA" onclick="checkAnswer(5,'A','C')">(A) 등산 안전 가이드</button>
+  <button class="option q5 optB" onclick="checkAnswer(5,'B','C')">(B) 산림복지 치유 인자</button>
+  <button class="option q5 optC" onclick="checkAnswer(5,'C','C')">(C) 유아의 정서 함양과 전인적 성장</button>
+  <button class="option q5 optD" onclick="checkAnswer(5,'D','C')">(D) 산림문화·휴양 지식의 해설</button>
+  <div class="explanation" id="exp5">💡 법조문: "유아가 산림교육을 통하여 정서를 함양하고 전인적 성장을 할 수 있도록 지도·교육하는 사람"</div>
+</div>
+<div class="question q6">
+  <div class="q-header"><span class="q-num">Q6</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">산림교육법 제2조에서 <strong>'트레킹'</strong>의 법적 정의로 가장 적절한 것은?</p>
+  <button class="option q6 optA" onclick="checkAnswer(6,'A','C')">(A) 산악 자전거 활동</button>
+  <button class="option q6 optB" onclick="checkAnswer(6,'B','C')">(B) 단순한 등산 활동</button>
+  <button class="option q6 optC" onclick="checkAnswer(6,'C','C')">(C) 길을 걸으면서 지역의 역사·문화를 체험하고 경관을 즐기며 건강을 증진하는 활동</button>
+  <button class="option q6 optD" onclick="checkAnswer(6,'D','C')">(D) 산림의 식물 채집을 통한 학습 활동</button>
+  <div class="explanation" id="exp6">💡 숲길등산지도사 정의 안에서 명시된 트레킹 정의.</div>
+</div>
+<div class="question q7">
+  <div class="q-header"><span class="q-num">Q7</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">'산림복지전문가'에 포함되는 사람은?</p>
+  <button class="option q7 optA" onclick="checkAnswer(7,'A','B')">(A) 숲해설가, 유아숲지도사, 숲길등산지도사만</button>
+  <button class="option q7 optB" onclick="checkAnswer(7,'B','B')">(B) 산림교육전문가 + 산림치유지도사 등 산림복지 서비스 제공자 전체</button>
+  <button class="option q7 optC" onclick="checkAnswer(7,'C','B')">(C) 산림청 공무원 전원</button>
+  <button class="option q7 optD" onclick="checkAnswer(7,'D','B')">(D) 산림 관련 기능사 자격 보유자</button>
+  <div class="explanation" id="exp7">💡 산림복지 진흥에 관한 법률에 따른 분류.</div>
+</div>
+<div class="question q8">
+  <div class="q-header"><span class="q-num">Q8</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">숲해설가 양성교육 전체 이수 시간으로 옳은 것은?</p>
+  <button class="option q8 optA" onclick="checkAnswer(8,'A','C')">(A) 100시간 이상</button>
+  <button class="option q8 optB" onclick="checkAnswer(8,'B','C')">(B) 150시간 이상</button>
+  <button class="option q8 optC" onclick="checkAnswer(8,'C','C')">(C) 197시간 이상</button>
+  <button class="option q8 optD" onclick="checkAnswer(8,'D','C')">(D) 250시간 이상</button>
+  <div class="explanation" id="exp8">💡 전북생명의숲 기준 숲해설가 양성교육 총 197시간.</div>
+</div>
+<div class="question q9">
+  <div class="q-header"><span class="q-num">Q9</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text">숲해설가 양성교육 7개 과목 중 <strong>가장 시수가 많은</strong> 과목은?</p>
+  <button class="option q9 optA" onclick="checkAnswer(9,'A','B')">(A) 산림교육론 (15시간)</button>
+  <button class="option q9 optB" onclick="checkAnswer(9,'B','B')">(B) 산림생태계 (45시간)</button>
+  <button class="option q9 optC" onclick="checkAnswer(9,'C','B')">(C) 교육실습 (30시간)</button>
+  <button class="option q9 optD" onclick="checkAnswer(9,'D','B')">(D) 선택과정 (25시간)</button>
+  <div class="explanation" id="exp9">💡 산림생태계 45시간 — 가장 많은 비중.</div>
+</div>
+<div class="question q10">
+  <div class="q-header"><span class="q-num">Q10</span><span class="q-cat">산림교육 분류·전문가·법률</span></div>
+  <p class="q-text"><strong>함박꽃나무</strong>에 대한 설명으로 옳지 <strong>않은</strong> 것은?</p>
+  <button class="option q10 optA" onclick="checkAnswer(10,'A','D')">(A) 목련과에 속한다.</button>
+  <button class="option q10 optB" onclick="checkAnswer(10,'B','D')">(B) 다른 목련들과 달리 잎이 먼저 나고 꽃이 핀다.</button>
+  <button class="option q10 optC" onclick="checkAnswer(10,'C','D')">(C) 꽃이 아래를 향해 핀다.</button>
+  <button class="option q10 optD" onclick="checkAnswer(10,'D','D')">(D) 대한민국의 국화이다.</button>
+  <div class="explanation" id="exp10">💡 함박꽃나무(목란)는북한의 국화이다. 대한민국 국화는 무궁화.</div>
+</div>
+<div class="question q11">
+  <div class="q-header"><span class="q-num">Q11</span><span class="q-cat">환경윤리와 3대 환경철학</span></div>
+  <p class="q-text">환경윤리에 대한 설명으로 가장 적절하지 <strong>않은</strong> 것은?</p>
+  <button class="option q11 optA" onclick="checkAnswer(11,'A','A')">(A) 환경문제는 고도로 발달한 과학기술만 있으면 모두 해결할 수 있다.</button>
+  <button class="option q11 optB" onclick="checkAnswer(11,'B','A')">(B) 윤리학 없는 과학은 환경문제를 해결하는 데 불완전하다.</button>
+  <button class="option q11 optC" onclick="checkAnswer(11,'C','A')">(C) 과학 없는 윤리학으로는 환경문제를 실질적으로 해결할 수 없다.</button>
+  <button class="option q11 optD" onclick="checkAnswer(11,'D','A')">(D) 환경오염 및 파괴 문제는 과학과 윤리학의 조화가 필요하다.</button>
+  <div class="explanation" id="exp11">💡 강의 핵심 명제: "윤리학 없는 과학, 과학 없는 윤리학으로 환경문제를 해결할 수 없다."</div>
+</div>
+<div class="question q12">
+  <div class="q-header"><span class="q-num">Q12</span><span class="q-cat">환경윤리와 3대 환경철학</span></div>
+  <p class="q-text">자연 파괴의 근본 원인을 인간 사회의 '위계질서와 지배 구조'에서 찾는 환경철학은?</p>
+  <button class="option q12 optA" onclick="checkAnswer(12,'A','B')">(A) 근본생태주의 (Deep Ecology)</button>
+  <button class="option q12 optB" onclick="checkAnswer(12,'B','B')">(B) 사회생태주의 (Social Ecology)</button>
+  <button class="option q12 optC" onclick="checkAnswer(12,'C','B')">(C) 생태여성주의 (Ecofeminism)</button>
+  <button class="option q12 optD" onclick="checkAnswer(12,'D','B')">(D) 인간중심주의 (Anthropocentrism)</button>
+  <div class="explanation" id="exp12">💡 </div>
+</div>
+<div class="question q13">
+  <div class="q-header"><span class="q-num">Q13</span><span class="q-cat">환경윤리와 3대 환경철학</span></div>
+  <p class="q-text"><strong>전일주의(Holism)</strong>를 원칙으로 하여 인간을 자연의 일부로 보고 생태계 전체의 가치를 최우선시하는 환경철학은?</p>
+  <button class="option q13 optA" onclick="checkAnswer(13,'A','A')">(A) 근본생태주의 (Deep Ecology)</button>
+  <button class="option q13 optB" onclick="checkAnswer(13,'B','A')">(B) 사회생태주의 (Social Ecology)</button>
+  <button class="option q13 optC" onclick="checkAnswer(13,'C','A')">(C) 생태여성주의 (Ecofeminism)</button>
+  <button class="option q13 optD" onclick="checkAnswer(13,'D','A')">(D) 환경실용주의</button>
+  <div class="explanation" id="exp13">💡 </div>
+</div>
+<div class="question q14">
+  <div class="q-header"><span class="q-num">Q14</span><span class="q-cat">환경윤리와 3대 환경철학</span></div>
+  <p class="q-text">'가부장제와 남성 중심주의가 자연과 여성을 동시에 억압한다'고 주장하는 환경철학은?</p>
+  <button class="option q14 optA" onclick="checkAnswer(14,'A','C')">(A) 근본생태주의</button>
+  <button class="option q14 optB" onclick="checkAnswer(14,'B','C')">(B) 사회생태주의</button>
+  <button class="option q14 optC" onclick="checkAnswer(14,'C','C')">(C) 생태여성주의 (Ecofeminism)</button>
+  <button class="option q14 optD" onclick="checkAnswer(14,'D','C')">(D) 인간중심주의</button>
+  <div class="explanation" id="exp14">💡 </div>
+</div>
+<div class="question q15">
+  <div class="q-header"><span class="q-num">Q15</span><span class="q-cat">환경윤리와 3대 환경철학</span></div>
+  <p class="q-text">강의 핵심 명제 <em>"○○ 없는 과학, 과학 없는 ○○으로 환경문제를 해결할 수 없다"</em>의 빈칸에 공통으로 들어갈 단어는?</p>
+  <button class="option q15 optA" onclick="checkAnswer(15,'A','B')">(A) 정책</button>
+  <button class="option q15 optB" onclick="checkAnswer(15,'B','B')">(B) 윤리학</button>
+  <button class="option q15 optC" onclick="checkAnswer(15,'C','B')">(C) 기술</button>
+  <button class="option q15 optD" onclick="checkAnswer(15,'D','B')">(D) 종교</button>
+  <div class="explanation" id="exp15">💡 "윤리학 없는 과학, 과학 없는 윤리학으로 환경문제를 해결할 수 없다."</div>
+</div>
+<div class="question q16">
+  <div class="q-header"><span class="q-num">Q16</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">서양에서 'Forest'의 어원이 되는 라틴어와 그 의미로 옳은 것은?</p>
+  <button class="option q16 optA" onclick="checkAnswer(16,'A','B')">(A) Silva — 신성한 숲</button>
+  <button class="option q16 optB" onclick="checkAnswer(16,'B','B')">(B) Foresta — 안에 들이지 않는다, 제한하다 (왕실 사냥터 보호구역)</button>
+  <button class="option q16 optC" onclick="checkAnswer(16,'C','B')">(C) Saltus — 야생의 땅</button>
+  <button class="option q16 optD" onclick="checkAnswer(16,'D','B')">(D) Nemus — 신성한 작은 숲</button>
+  <div class="explanation" id="exp16">💡 강의 P.23 — Foresta는 '안에 들이지 않는다, 제한하다'는 뜻으로 왕실 사냥터 보호구역을 의미.</div>
+</div>
+<div class="question q17">
+  <div class="q-header"><span class="q-num">Q17</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">서양에서 forest가 왕실 사냥터로 보호되었다는 역사적 배경과 관련된 문학적 인물은?</p>
+  <button class="option q17 optA" onclick="checkAnswer(17,'A','B')">(A) 햄릿</button>
+  <button class="option q17 optB" onclick="checkAnswer(17,'B','B')">(B) 로빈 후드 (Robin Hood)</button>
+  <button class="option q17 optC" onclick="checkAnswer(17,'C','B')">(C) 돈키호테</button>
+  <button class="option q17 optD" onclick="checkAnswer(17,'D','B')">(D) 아서 왕</button>
+  <div class="explanation" id="exp17">💡 중세 왕족의 forest 보호 정책의 결과 — 로빈 후드 전설 탄생 배경.</div>
+</div>
+<div class="question q18">
+  <div class="q-header"><span class="q-num">Q18</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">강의에서 제시한 山(산)의 의미 3분류에 <strong>해당하지 않는</strong> 것은?</p>
+  <button class="option q18 optA" onclick="checkAnswer(18,'A','D')">(A) 물리적 — 평지보다 높은 땅의 형상</button>
+  <button class="option q18 optB" onclick="checkAnswer(18,'B','D')">(B) 생태적 — 만물을 양육하는 곳, 생물다양성</button>
+  <button class="option q18 optC" onclick="checkAnswer(18,'C','D')">(C) 정서적 — 신앙과 명상의 대상</button>
+  <button class="option q18 optD" onclick="checkAnswer(18,'D','D')">(D) 경제적 — 임산자원 채취의 공급지</button>
+  <div class="explanation" id="exp18">💡 강의 필기상 山의 의미는 물리적/생태적/정서적 3가지로 분류.</div>
+</div>
+<div class="question q19">
+  <div class="q-header"><span class="q-num">Q19</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">강의에서 강조한 <strong>생물 다양성의 위계 구조</strong>로 올바른 것은?</p>
+  <button class="option q19 optA" onclick="checkAnswer(19,'A','B')">(A) 상위포식자 > 곤충 > 식물</button>
+  <button class="option q19 optB" onclick="checkAnswer(19,'B','B')">(B) 식물의 다양성 > 곤충의 다양성 > 상위포식자의 다양성</button>
+  <button class="option q19 optC" onclick="checkAnswer(19,'C','B')">(C) 식물 = 곤충 = 상위포식자 (모두 동등)</button>
+  <button class="option q19 optD" onclick="checkAnswer(19,'D','B')">(D) 곤충 > 식물 > 상위포식자</button>
+  <div class="explanation" id="exp19">💡 </div>
+</div>
+<div class="question q20">
+  <div class="q-header"><span class="q-num">Q20</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">강의에서 다룬 <strong>여가의 역사적 변천사</strong>로 올바른 순서는?</p>
+  <button class="option q20 optA" onclick="checkAnswer(20,'A','B')">(A) Social → Leisure → 신앙중심</button>
+  <button class="option q20 optB" onclick="checkAnswer(20,'B','B')">(B) 신앙중심 → Leisure → Social</button>
+  <button class="option q20 optC" onclick="checkAnswer(20,'C','B')">(C) Leisure → 신앙중심 → Social</button>
+  <button class="option q20 optD" onclick="checkAnswer(20,'D','B')">(D) 신앙중심 → Social → Leisure</button>
+  <div class="explanation" id="exp20">💡 강의 필기상 여가 변천: 신앙중심 → Leisure → Social.</div>
+</div>
+<div class="question q21">
+  <div class="q-header"><span class="q-num">Q21</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">강의에서 정의한 <strong>Recreation (Re-creation)</strong>의 의미로 가장 적절한 것은?</p>
+  <button class="option q21 optA" onclick="checkAnswer(21,'A','C')">(A) 직업적 운동 활동</button>
+  <button class="option q21 optB" onclick="checkAnswer(21,'B','C')">(B) 자연 보호 활동</button>
+  <button class="option q21 optC" onclick="checkAnswer(21,'C','C')">(C) 자유시간에 개인이 행하는 활동</button>
+  <button class="option q21 optD" onclick="checkAnswer(21,'D','C')">(D) 의무적인 사회 봉사 활동</button>
+  <div class="explanation" id="exp21">💡 </div>
+</div>
+<div class="question q22">
+  <div class="q-header"><span class="q-num">Q22</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">강의에서 제시한 여가-숲-휴양 관계 도식에서 <strong>가장 큰 울타리(상위 개념)</strong>는?</p>
+  <button class="option q22 optA" onclick="checkAnswer(22,'A','C')">(A) 숲</button>
+  <button class="option q22 optB" onclick="checkAnswer(22,'B','C')">(B) 휴양</button>
+  <button class="option q22 optC" onclick="checkAnswer(22,'C','C')">(C) 여가</button>
+  <button class="option q22 optD" onclick="checkAnswer(22,'D','C')">(D) Recreation</button>
+  <div class="explanation" id="exp22">💡 강의 도식: "여가"라는 큰 원 안에 숲과 휴양이 포함됨. 여가의 정의는 "남겨진 빈시간".</div>
+</div>
+<div class="question q23">
+  <div class="q-header"><span class="q-num">Q23</span><span class="q-cat">산림 정의·여가·山의 의미·Forest 어원</span></div>
+  <p class="q-text">조선시대 왕의 권위와 자연의 조화를 상징하며 해·달·봉우리·소나무·파도 등을 그린 그림은?</p>
+  <button class="option q23 optA" onclick="checkAnswer(23,'A','C')">(A) 십장생도</button>
+  <button class="option q23 optB" onclick="checkAnswer(23,'B','C')">(B) 신선도</button>
+  <button class="option q23 optC" onclick="checkAnswer(23,'C','C')">(C) 일월오악도</button>
+  <button class="option q23 optD" onclick="checkAnswer(23,'D','C')">(D) 산수화</button>
+  <div class="explanation" id="exp23">💡 일월오악도 — 왕의 권위와 자연의 조화 상징.</div>
+</div>
+<div class="question q24">
+  <div class="q-header"><span class="q-num">Q24</span><span class="q-cat">산림 정책 역사·문명과 숲</span></div>
+  <p class="q-text">한국의 치산녹화와 관련된 연혁으로 가장 올바른 것은?</p>
+  <button class="option q24 optA" onclick="checkAnswer(24,'A','B')">(A) 1960년 산림청 신설</button>
+  <button class="option q24 optB" onclick="checkAnswer(24,'B','B')">(B) 1973년 제1차 치산녹화 10개년 계획 수립</button>
+  <button class="option q24 optC" onclick="checkAnswer(24,'C','B')">(C) 1980년 새마을 운동 시작</button>
+  <button class="option q24 optD" onclick="checkAnswer(24,'D','B')">(D) 1990년 녹화 완료 및 국민 동원령 해제</button>
+  <div class="explanation" id="exp24">💡 </div>
+</div>
+<div class="question q25">
+  <div class="q-header"><span class="q-num">Q25</span><span class="q-cat">산림 정책 역사·문명과 숲</span></div>
+  <p class="q-text">산림청이 신설된 해는?</p>
+  <button class="option q25 optA" onclick="checkAnswer(25,'A','B')">(A) 1960년</button>
+  <button class="option q25 optB" onclick="checkAnswer(25,'B','B')">(B) 1967년</button>
+  <button class="option q25 optC" onclick="checkAnswer(25,'C','B')">(C) 1971년</button>
+  <button class="option q25 optD" onclick="checkAnswer(25,'D','B')">(D) 1973년</button>
+  <div class="explanation" id="exp25">💡 1967년 산림청 신설 (내무부 소속).</div>
+</div>
+<div class="question q26">
+  <div class="q-header"><span class="q-num">Q26</span><span class="q-cat">산림 정책 역사·문명과 숲</span></div>
+  <p class="q-text">강의에서 다룬 <strong>문명과 숲의 특성 — 학자별 분류</strong>에 <strong>해당하지 않는</strong> 학자는?</p>
+  <button class="option q26 optA" onclick="checkAnswer(26,'A','D')">(A) J.P. Kimmins (1987)</button>
+  <button class="option q26 optB" onclick="checkAnswer(26,'B','D')">(B) Westoby (1988)</button>
+  <button class="option q26 optC" onclick="checkAnswer(26,'C','D')">(C) 마상규 (1996)</button>
+  <button class="option q26 optD" onclick="checkAnswer(26,'D','D')">(D) 알도 레오폴드 (Aldo Leopold)</button>
+  <div class="explanation" id="exp26">💡 강의 P.14의 4가지 분류는 J.P. Kimmins, Westoby, 마상규, 전영우.</div>
+</div>
+<div class="question q27">
+  <div class="q-header"><span class="q-num">Q27</span><span class="q-cat">산림 정책 역사·문명과 숲</span></div>
+  <p class="q-text">"문명 앞에 숲이 있었고, 문명 뒤에 사막이 남는다"라고 말한 역사평론가는?</p>
+  <button class="option q27 optA" onclick="checkAnswer(27,'A','C')">(A) 법정 스님</button>
+  <button class="option q27 optB" onclick="checkAnswer(27,'B','C')">(B) 박종민 교수</button>
+  <button class="option q27 optC" onclick="checkAnswer(27,'C','C')">(C) 샤또브리앙 (Chateaubriand)</button>
+  <button class="option q27 optD" onclick="checkAnswer(27,'D','C')">(D) 김구 선생</button>
+  <div class="explanation" id="exp27">💡 </div>
+</div>
+<div class="question q28">
+  <div class="q-header"><span class="q-num">Q28</span><span class="q-cat">산림 정책 역사·문명과 숲</span></div>
+  <p class="q-text">숲과 인류 문명의 관계에 대한 설명으로 옳은 것은?</p>
+  <button class="option q28 optA" onclick="checkAnswer(28,'A','B')">(A) 문명은 숲이 없는 비옥한 사막 지대에서 시작되었다.</button>
+  <button class="option q28 optB" onclick="checkAnswer(28,'B','B')">(B) 인류 문명의 발상지는 강 상류의 울창한 숲에서 비옥한 토양이 공급된 곳이다.</button>
+  <button class="option q28 optC" onclick="checkAnswer(28,'C','B')">(C) 산림의 무분별한 파괴는 문명의 영구적인 번영을 가져왔다.</button>
+  <button class="option q28 optD" onclick="checkAnswer(28,'D','B')">(D) 사막화 현상은 문명의 탄생을 촉진시키는 주요 요인이었다.</button>
+  <div class="explanation" id="exp28">💡 </div>
+</div>
+<div class="question q29">
+  <div class="q-header"><span class="q-num">Q29</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">강의에서 강조한 <strong>산림의 공익적(환경) 기능 평가</strong>가 시작된 연도는?</p>
+  <button class="option q29 optA" onclick="checkAnswer(29,'A','C')">(A) 1990년</button>
+  <button class="option q29 optB" onclick="checkAnswer(29,'B','C')">(B) 2000년</button>
+  <button class="option q29 optC" onclick="checkAnswer(29,'C','C')">(C) 2008년</button>
+  <button class="option q29 optD" onclick="checkAnswer(29,'D','C')">(D) 2015년</button>
+  <div class="explanation" id="exp29">💡 강의 P.29 — 2008년부터 공익적 기능 평가 시작, 평가항목 증가 중.</div>
+</div>
+<div class="question q30">
+  <div class="q-header"><span class="q-num">Q30</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">강의 필기상 산림의 기능 3분류에서 <strong>'평가 불가능'</strong>으로 표시된 기능은?</p>
+  <button class="option q30 optA" onclick="checkAnswer(30,'A','C')">(A) 물질 (채취)</button>
+  <button class="option q30 optB" onclick="checkAnswer(30,'B','C')">(B) 환경 (공익적)</button>
+  <button class="option q30 optC" onclick="checkAnswer(30,'C','C')">(C) 문화</button>
+  <button class="option q30 optD" onclick="checkAnswer(30,'D','C')">(D) 정책</button>
+  <div class="explanation" id="exp30">💡 문화 기능은 평가 불가능으로 강조됨.</div>
+</div>
+<div class="question q31">
+  <div class="q-header"><span class="q-num">Q31</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">산림의 환경·공익적 기능에 <strong>해당하지 않는</strong> 것은?</p>
+  <button class="option q31 optA" onclick="checkAnswer(31,'A','D')">(A) 토양 보전</button>
+  <button class="option q31 optB" onclick="checkAnswer(31,'B','D')">(B) 수자원 함양</button>
+  <button class="option q31 optC" onclick="checkAnswer(31,'C','D')">(C) 대기 정화 / 탄소 흡수</button>
+  <button class="option q31 optD" onclick="checkAnswer(31,'D','D')">(D) 목재·임산물 생산</button>
+  <div class="explanation" id="exp31">💡 목재·임산물 생산은 '경제재 생산(생물자원)' 기능에 해당.</div>
+</div>
+<div class="question q32">
+  <div class="q-header"><span class="q-num">Q32</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">숲의 천이(Succession)에 대한 설명으로 옳지 <strong>않은</strong> 것은?</p>
+  <button class="option q32 optA" onclick="checkAnswer(32,'A','D')">(A) 황무지에서 시작해 한해살이풀, 여러해살이풀, 관목으로 진행된다.</button>
+  <button class="option q32 optB" onclick="checkAnswer(32,'B','D')">(B) 양수(소나무) 다음에 음수(참나무) 단계로 이어진다.</button>
+  <button class="option q32 optC" onclick="checkAnswer(32,'C','D')">(C) 마지막 단계는 극상림(Climax)이다.</button>
+  <button class="option q32 optD" onclick="checkAnswer(32,'D','D')">(D) 완성까지 약 50~80년이 소요된다.</button>
+  <div class="explanation" id="exp32">💡 천이 완성까지 약150~200년소요.</div>
+</div>
+<div class="question q33">
+  <div class="q-header"><span class="q-num">Q33</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">숲의 층위 구조에서 <strong>"낙엽·낙지 등이 덮고 있는 숲의 바닥 층"</strong>을 가리키는 용어는?</p>
+  <button class="option q33 optA" onclick="checkAnswer(33,'A','D')">(A) 초본층</button>
+  <button class="option q33 optB" onclick="checkAnswer(33,'B','D')">(B) 관목층</button>
+  <button class="option q33 optC" onclick="checkAnswer(33,'C','D')">(C) 아교목층</button>
+  <button class="option q33 optD" onclick="checkAnswer(33,'D','D')">(D) 임상</button>
+  <div class="explanation" id="exp33">💡 </div>
+</div>
+<div class="question q34">
+  <div class="q-header"><span class="q-num">Q34</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">숲의 층위 구조에서 위에서 아래로의 순서가 올바른 것은?</p>
+  <button class="option q34 optA" onclick="checkAnswer(34,'A','B')">(A) 초본층 → 관목층 → 아교목층 → 교목층 → 임상</button>
+  <button class="option q34 optB" onclick="checkAnswer(34,'B','B')">(B) 교목층 → 아교목층 → 관목층 → 초본층 → 임상</button>
+  <button class="option q34 optC" onclick="checkAnswer(34,'C','B')">(C) 임상 → 초본층 → 관목층 → 교목층 → 아교목층</button>
+  <button class="option q34 optD" onclick="checkAnswer(34,'D','B')">(D) 아교목층 → 교목층 → 관목층 → 초본층 → 임상</button>
+  <div class="explanation" id="exp34">💡 </div>
+</div>
+<div class="question q35">
+  <div class="q-header"><span class="q-num">Q35</span><span class="q-cat">산림 기능·천이·층위 구조</span></div>
+  <p class="q-text">현대 산림 정책의 트렌드 변화 방향으로 가장 적절한 것은?</p>
+  <button class="option q35 optA" onclick="checkAnswer(35,'A','B')">(A) 휴양 기능 중심 → 생산 기능 중심</button>
+  <button class="option q35 optB" onclick="checkAnswer(35,'B','B')">(B) 생산 기능 중심 → 공익+휴양 기능 확대</button>
+  <button class="option q35 optC" onclick="checkAnswer(35,'C','B')">(C) 공익 기능 중심 → 산업화 중심</button>
+  <button class="option q35 optD" onclick="checkAnswer(35,'D','B')">(D) 보전 중심 → 채취 중심</button>
+  <div class="explanation" id="exp35">💡 </div>
+</div>
+<div class="question q36">
+  <div class="q-header"><span class="q-num">Q36</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">강의에서 다룬 <strong>산림문화의 5가지 유형</strong>에 <strong>해당하지 않는</strong> 것은?</p>
+  <button class="option q36 optA" onclick="checkAnswer(36,'A','D')">(A) 공간문화</button>
+  <button class="option q36 optB" onclick="checkAnswer(36,'B','D')">(B) 신앙문화</button>
+  <button class="option q36 optC" onclick="checkAnswer(36,'C','D')">(C) 정신문화</button>
+  <button class="option q36 optD" onclick="checkAnswer(36,'D','D')">(D) 정치문화</button>
+  <div class="explanation" id="exp36">💡 강의 5유형: 공간문화 / 신앙문화 / 정신문화 / 물질문화 / 생활문화.</div>
+</div>
+<div class="question q37">
+  <div class="q-header"><span class="q-num">Q37</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">"숲의 주인은 누구인가?"라는 질문에 대해 <strong>법정 스님</strong>이 한 말로 옳은 것은?</p>
+  <button class="option q37 optA" onclick="checkAnswer(37,'A','C')">(A) "산은 산이요, 물은 물이로다."</button>
+  <button class="option q37 optB" onclick="checkAnswer(37,'B','C')">(B) "산을 사랑하는 자가 산의 주인이다."</button>
+  <button class="option q37 optC" onclick="checkAnswer(37,'C','C')">(C) "강과 산에는 주인이 따로 있는 것이 아니다. 자주 찾고 즐기는 사람이 곧 주인이다."</button>
+  <button class="option q37 optD" onclick="checkAnswer(37,'D','C')">(D) "산은 모든 생명체의 어머니다."</button>
+  <div class="explanation" id="exp37">💡 </div>
+</div>
+<div class="question q38">
+  <div class="q-header"><span class="q-num">Q38</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">21세기 인간상 <strong>BOBOS</strong>는 무엇의 결합인가?</p>
+  <button class="option q38 optA" onclick="checkAnswer(38,'A','B')">(A) Bourgeois + Buddhist</button>
+  <button class="option q38 optB" onclick="checkAnswer(38,'B','B')">(B) Bourgeois + Bohemian</button>
+  <button class="option q38 optC" onclick="checkAnswer(38,'C','B')">(C) Buddhist + Bohemian</button>
+  <button class="option q38 optD" onclick="checkAnswer(38,'D','B')">(D) Botanic + Bohemian</button>
+  <div class="explanation" id="exp38">💡 </div>
+</div>
+<div class="question q39">
+  <div class="q-header"><span class="q-num">Q39</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">BOBOS의 구성 요소 중 <strong>Bohemian</strong>이 대표하는 특성은?</p>
+  <button class="option q39 optA" onclick="checkAnswer(39,'A','B')">(A) 물질적 자본력, 전문적 지성, 사회적 책임성</button>
+  <button class="option q39 optB" onclick="checkAnswer(39,'B','B')">(B) 정신적 자유성, 문화 예술적 감성, 친자연성</button>
+  <button class="option q39 optC" onclick="checkAnswer(39,'C','B')">(C) 종교적 신앙, 명상, 자기수련</button>
+  <button class="option q39 optD" onclick="checkAnswer(39,'D','B')">(D) 등산, 레포츠, 신체적 강건함</button>
+  <div class="explanation" id="exp39">💡 </div>
+</div>
+<div class="question q40">
+  <div class="q-header"><span class="q-num">Q40</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">BOBOS형 지도자에게 요구되는 <strong>핵심 역량 2가지</strong>로 적절한 것은?</p>
+  <button class="option q40 optA" onclick="checkAnswer(40,'A','C')">(A) 권위성과 효율성</button>
+  <button class="option q40 optB" onclick="checkAnswer(40,'B','C')">(B) 자본력과 인맥</button>
+  <button class="option q40 optC" onclick="checkAnswer(40,'C','C')">(C) 유연성과 창조성</button>
+  <button class="option q40 optD" onclick="checkAnswer(40,'D','C')">(D) 충성심과 협동심</button>
+  <div class="explanation" id="exp40">💡 부르주아적 지성 + 보헤미안적 감성이 산림문화를 통해 결합 → 유연성·창조성을 갖춘 인재.</div>
+</div>
+<div class="question q41">
+  <div class="q-header"><span class="q-num">Q41</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">백범 김구 선생이 백범일지에서 강조한 <strong>"한없이 가지고 싶은 것"</strong>은?</p>
+  <button class="option q41 optA" onclick="checkAnswer(41,'A','C')">(A) 높은 경제력</button>
+  <button class="option q41 optB" onclick="checkAnswer(41,'B','C')">(B) 강한 군사력</button>
+  <button class="option q41 optC" onclick="checkAnswer(41,'C','C')">(C) 높은 문화의 힘</button>
+  <button class="option q41 optD" onclick="checkAnswer(41,'D','C')">(D) 넓은 영토</button>
+  <div class="explanation" id="exp41">💡 "오직 한없이 가지고 싶은 것은 높은 문화의 힘이다."</div>
+</div>
+<div class="question q42">
+  <div class="q-header"><span class="q-num">Q42</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">강의에서 정의한 <strong>문화의 특성</strong>으로 옳은 것은?</p>
+  <button class="option q42 optA" onclick="checkAnswer(42,'A','B')">(A) 보편성과 동질성</button>
+  <button class="option q42 optB" onclick="checkAnswer(42,'B','B')">(B) 차별성과 독창성</button>
+  <button class="option q42 optC" onclick="checkAnswer(42,'C','B')">(C) 객관성과 일관성</button>
+  <button class="option q42 optD" onclick="checkAnswer(42,'D','B')">(D) 동일성과 표준화</button>
+  <div class="explanation" id="exp42">💡 </div>
+</div>
+<div class="question q43">
+  <div class="q-header"><span class="q-num">Q43</span><span class="q-cat">산림문화·BOBOS·김구</span></div>
+  <p class="q-text">강의에서 산림교육의 두 가지 측을 비교한 표에서, <strong>"문화" 영역</strong>은 다음 중 어떤 측면에 해당하는가?</p>
+  <button class="option q43 optA" onclick="checkAnswer(43,'A','B')">(A) 외래성 · 물질적 · 가시적</button>
+  <button class="option q43 optB" onclick="checkAnswer(43,'B','B')">(B) 내재성+외재성 · 비물질 · 비가시</button>
+  <button class="option q43 optC" onclick="checkAnswer(43,'C','B')">(C) 외래성 · 비물질 · 가시적</button>
+  <button class="option q43 optD" onclick="checkAnswer(43,'D','B')">(D) 내재성+외재성 · 물질적 · 가시적</button>
+  <div class="explanation" id="exp43">💡 강의 필기 비교표: 나무/숲/생태계환경 ↔ 문화. 문화는 비물질·비가시·내재성+외재성 측면.</div>
+</div>
+<div class="question q44">
+  <div class="q-header"><span class="q-num">Q44</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">'생태맹(Ecological Illiteracy)'에 대한 설명으로 옳은 것은?</p>
+  <button class="option q44 optA" onclick="checkAnswer(44,'A','A')">(A) 자연에 대한 관심과 지식이 없는 상태를 말한다.</button>
+  <button class="option q44 optB" onclick="checkAnswer(44,'B','A')">(B) 생태계의 원리를 완벽하게 이해하고 활용하는 능력이다.</button>
+  <button class="option q44 optC" onclick="checkAnswer(44,'C','A')">(C) 산림교육 전문가가 갖추어야 할 필수 덕목이다.</button>
+  <button class="option q44 optD" onclick="checkAnswer(44,'D','A')">(D) 도시 생활에 완벽하게 적응한 지적인 상태를 의미한다.</button>
+  <div class="explanation" id="exp44">💡 </div>
+</div>
+<div class="question q45">
+  <div class="q-header"><span class="q-num">Q45</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">생태맹의 발생 원인에 <strong>해당하지 않는</strong> 것은?</p>
+  <button class="option q45 optA" onclick="checkAnswer(45,'A','D')">(A) 도시화 — 자연과의 접촉 감소</button>
+  <button class="option q45 optB" onclick="checkAnswer(45,'B','D')">(B) 산업화 — 환경 파괴 심화</button>
+  <button class="option q45 optC" onclick="checkAnswer(45,'C','D')">(C) 교육 체계 — 자연 친화적 교육 부족</button>
+  <button class="option q45 optD" onclick="checkAnswer(45,'D','D')">(D) 인구 감소 — 자연 공간 증가</button>
+  <div class="explanation" id="exp45">💡 </div>
+</div>
+<div class="question q46">
+  <div class="q-header"><span class="q-num">Q46</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">강의에서 강조한 <strong>생태맹의 가장 핵심적인 극복 방법</strong>은?</p>
+  <button class="option q46 optA" onclick="checkAnswer(46,'A','C')">(A) 과학 기술의 발달</button>
+  <button class="option q46 optB" onclick="checkAnswer(46,'B','C')">(B) 환경 관련 법규 강화</button>
+  <button class="option q46 optC" onclick="checkAnswer(46,'C','C')">(C) 자연과의 빈번한 접촉을 통해 정서적 유대감 회복</button>
+  <button class="option q46 optD" onclick="checkAnswer(46,'D','C')">(D) 디지털 환경 교육의 확대</button>
+  <div class="explanation" id="exp46">💡 </div>
+</div>
+<div class="question q47">
+  <div class="q-header"><span class="q-num">Q47</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">생애주기별 산림복지 서비스 중 <strong>'출생기'</strong>에 해당하는 것은?</p>
+  <button class="option q47 optA" onclick="checkAnswer(47,'A','B')">(A) 유아숲체험</button>
+  <button class="option q47 optB" onclick="checkAnswer(47,'B','B')">(B) 숲태교</button>
+  <button class="option q47 optC" onclick="checkAnswer(47,'C','B')">(C) 산림교육</button>
+  <button class="option q47 optD" onclick="checkAnswer(47,'D','B')">(D) 수목장림</button>
+  <div class="explanation" id="exp47">💡 출생기 = 숲태교 (안정, 스트레스 완화, 태아와의 교감).</div>
+</div>
+<div class="question q48">
+  <div class="q-header"><span class="q-num">Q48</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">생애주기별 산림복지 서비스의 짝으로 옳지 <strong>않은</strong> 것은?</p>
+  <button class="option q48 optA" onclick="checkAnswer(48,'A','C')">(A) 유아기 — 유아숲체험</button>
+  <button class="option q48 optB" onclick="checkAnswer(48,'B','C')">(B) 청소년기 — 산림교육</button>
+  <button class="option q48 optC" onclick="checkAnswer(48,'C','C')">(C) 청년기 — 산림치유</button>
+  <button class="option q48 optD" onclick="checkAnswer(48,'D','C')">(D) 회년기 — 수목장림</button>
+  <div class="explanation" id="exp48">💡 청년기 = 산림레포츠. 산림치유는 노년기에 해당.</div>
+</div>
+<div class="question q49">
+  <div class="q-header"><span class="q-num">Q49</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">강의에서 다룬 <strong>"자연을 다루는 세 가지 문화 매체"</strong>가 아닌 것은?</p>
+  <button class="option q49 optA" onclick="checkAnswer(49,'A','D')">(A) 그림</button>
+  <button class="option q49 optB" onclick="checkAnswer(49,'B','D')">(B) 시</button>
+  <button class="option q49 optC" onclick="checkAnswer(49,'C','D')">(C) 솔담</button>
+  <button class="option q49 optD" onclick="checkAnswer(49,'D','D')">(D) 영화</button>
+  <div class="explanation" id="exp49">💡 강의 필기: 그림, 시, 솔담 (P.46~P.68 공자의 시론 강의 흐름 안에서).</div>
+</div>
+<div class="question q50">
+  <div class="q-header"><span class="q-num">Q50</span><span class="q-cat">생애주기·생태맹·공자의 시론</span></div>
+  <p class="q-text">강의에서 자연을 그린 한국 화백으로 언급된 인물은?</p>
+  <button class="option q50 optA" onclick="checkAnswer(50,'A','C')">(A) 김홍도</button>
+  <button class="option q50 optB" onclick="checkAnswer(50,'B','C')">(B) 신윤복</button>
+  <button class="option q50 optC" onclick="checkAnswer(50,'C','C')">(C) 박수근</button>
+  <button class="option q50 optD" onclick="checkAnswer(50,'D','C')">(D) 이중섭</button>
+  <div class="explanation" id="exp50">💡 강의 P.46~ 박수근 화백 언급 (자연 표현). 구체 작품은 강의자료 확인 필요.</div>
+</div>
+
+<hr>
+<p style="text-align:center; color:#888; font-size:0.85em">산림교육의이해 기출문제집 50문항 | 생성: 2026-06-19</p>
+</body>
+</html>

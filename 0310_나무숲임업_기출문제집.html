@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나무숲임업 기출문제집 (50문항)</title>
+<style>
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f7f5; color: #333; line-height: 1.7; }
+  h1 { background: #1b5e20; color: white; padding: 20px 24px; border-radius: 8px; margin-bottom: 8px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 0.95em; }
+  .progress-bar-wrap { background: #ddd; border-radius: 8px; height: 12px; margin: 10px 0 24px; }
+  .progress-bar { background: #1b5e20; height: 12px; border-radius: 8px; width: 0%; transition: width 0.4s; }
+  #score-display { font-weight: bold; color: #1b5e20; font-size: 1.1em; margin-bottom: 20px; }
+  .question { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 18px 20px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+  .q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .q-num { background: #1b5e20; color: white; border-radius: 50%; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85em; flex-shrink: 0; }
+  .q-cat { background: #e8f5e9; color: #1b5e20; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+  .q-text { margin: 0 0 12px 0; font-size: 1em; }
+  .option { display: block; width: 100%; padding: 10px 14px; margin: 6px 0; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; transition: background 0.15s; background: white; color: #333; font-family: inherit; font-size: 1em; text-align: left; -webkit-appearance: none; appearance: none; touch-action: manipulation; -webkit-tap-highlight-color: rgba(0,0,0,0.1); }
+  .option:hover:not(.correct):not(.wrong) { background: rgba(27,94,32,0.08); }
+  .option.correct { background: #d4edda; border-color: #28a745; color: #155724; font-weight: bold; }
+  .option.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; text-decoration: line-through; }
+  .option.disabled { pointer-events: none; }
+  .explanation { display: none; background: #e8f4f8; padding: 10px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.9em; border-left: 3px solid #17a2b8; }
+  .explanation.show { display: block; }
+  .answered-correct .q-num { background: #28a745; }
+  .answered-wrong .q-num { background: #dc3545; }
+</style>
+<script>
+var answered = 0, correct_count = 0, total = 50;
+function checkAnswer(qNum, selected, correctLetter) {
+  var opts = document.querySelectorAll('.q' + qNum + ' .option');
+  opts.forEach(function(o) { o.classList.add('disabled'); o.style.pointerEvents = 'none'; });
+  var selectedEl = document.querySelector('.q' + qNum + ' .opt' + selected);
+  var isCorrect = selected === correctLetter;
+  if (isCorrect) {
+    selectedEl.classList.add('correct');
+    selectedEl.style.background = '#d4edda';
+    selectedEl.style.borderColor = '#28a745';
+    selectedEl.style.color = '#155724';
+    selectedEl.style.fontWeight = 'bold';
+  } else {
+    selectedEl.classList.add('wrong');
+    selectedEl.style.background = '#f8d7da';
+    selectedEl.style.borderColor = '#dc3545';
+    selectedEl.style.color = '#721c24';
+    selectedEl.style.textDecoration = 'line-through';
+    var correctEl = document.querySelector('.q' + qNum + ' .opt' + correctLetter);
+    correctEl.classList.add('correct');
+    correctEl.style.background = '#d4edda';
+    correctEl.style.borderColor = '#28a745';
+    correctEl.style.color = '#155724';
+    correctEl.style.fontWeight = 'bold';
+  }
+  var expEl = document.getElementById('exp' + qNum);
+  expEl.classList.add('show');
+  expEl.style.display = 'block';
+  var qEl = document.querySelector('.q' + qNum + '.question');
+  qEl.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  answered++;
+  if (isCorrect) correct_count++;
+  var pct = Math.round(answered / total * 100);
+  document.querySelector('.progress-bar').style.width = pct + '%';
+  document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+}
+</script>
+</head>
+<body>
+<h1>📝 나무숲임업 기출문제집</h1>
+<p class="subtitle">강의일: 2026년 3월 10일 | 총 50문항 | 클릭하여 정답 확인</p>
+<div id="score-display">진행: 0/50</div>
+<div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+<div class="question q1">
+  <div class="q-header"><span class="q-num">Q1</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">목본(나무)과 초본(풀)을 구분하는 가장 핵심적인 기준은?</p>
+  <button class="option q1 optA" onclick="checkAnswer(1,'A','B')">(A) 잎의 크기와 모양</button>
+  <button class="option q1 optB" onclick="checkAnswer(1,'B','B')">(B) 줄기에 형성층이 있어 비대생장(2차 생장)을 하느냐 여부</button>
+  <button class="option q1 optC" onclick="checkAnswer(1,'C','B')">(C) 한해살이인지 여러해살이인지</button>
+  <button class="option q1 optD" onclick="checkAnswer(1,'D','B')">(D) 꽃이 피는 시기</button>
+  <div class="explanation" id="exp1">💡 나무는 형성층의 비대생장으로 매년 줄기가 굵어지고 목질부가 발달함. 풀은 형성층이 없어 비대생장이 없음.</div>
+</div>
+<div class="question q2">
+  <div class="q-header"><span class="q-num">Q2</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">교목(喬木)과 관목(灌木)을 구분하는 일반적 기준으로 옳은 것은?</p>
+  <button class="option q2 optA" onclick="checkAnswer(2,'A','C')">(A) 잎이 넓냐 좁냐</button>
+  <button class="option q2 optB" onclick="checkAnswer(2,'B','C')">(B) 상록인지 낙엽인지</button>
+  <button class="option q2 optC" onclick="checkAnswer(2,'C','C')">(C) 한 줄기가 곧고 높이 자라면 교목, 밑에서 여러 줄기가 갈라지며 낮게 자라면 관목</button>
+  <button class="option q2 optD" onclick="checkAnswer(2,'D','C')">(D) 꽃이 화려한지 여부</button>
+  <div class="explanation" id="exp2">💡 교목은 단일 줄기로 8m 이상, 관목은 여러 줄기로 갈라져 8m 이하가 일반적 구분.</div>
+</div>
+<div class="question q3">
+  <div class="q-header"><span class="q-num">Q3</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">상록수와 낙엽수에 대한 설명으로 옳지 <strong>않은</strong> 것은?</p>
+  <button class="option q3 optA" onclick="checkAnswer(3,'A','C')">(A) 상록수는 잎이 1년 이상 가지에 붙어 있다.</button>
+  <button class="option q3 optB" onclick="checkAnswer(3,'B','C')">(B) 낙엽수는 가을·겨울에 모든 잎이 떨어진다.</button>
+  <button class="option q3 optC" onclick="checkAnswer(3,'C','C')">(C) 상록수는 잎이 한 번도 떨어지지 않는다.</button>
+  <button class="option q3 optD" onclick="checkAnswer(3,'D','C')">(D) 침엽수 대부분(소나무·잣나무 등)은 상록수이다.</button>
+  <div class="explanation" id="exp3">💡 상록수도 잎이 떨어지지만 1년 이상 가지에 머무르고 일부씩 순차적으로 교체됨. "한 번도 떨어지지 않는다"는 오답.</div>
+</div>
+<div class="question q4">
+  <div class="q-header"><span class="q-num">Q4</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">알뿌리(구근) 식물의 예로 옳은 것은?</p>
+  <button class="option q4 optA" onclick="checkAnswer(4,'A','A')">(A) 튤립·수선화·백합</button>
+  <button class="option q4 optB" onclick="checkAnswer(4,'B','A')">(B) 소나무·전나무·잣나무</button>
+  <button class="option q4 optC" onclick="checkAnswer(4,'C','A')">(C) 단풍나무·은행나무·느티나무</button>
+  <button class="option q4 optD" onclick="checkAnswer(4,'D','A')">(D) 진달래·철쭉·개나리</button>
+  <div class="explanation" id="exp4">💡 알뿌리(구근) = 비늘줄기·덩이뿌리 등 변형 줄기·뿌리 영양저장기관. 튤립·수선화·백합 등이 대표 예.</div>
+</div>
+<div class="question q5">
+  <div class="q-header"><span class="q-num">Q5</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">"3회 우상복엽(三回羽狀複葉, tripinnate)"의 대표적 예시 식물은?</p>
+  <button class="option q5 optA" onclick="checkAnswer(5,'A','B')">(A) 으아리</button>
+  <button class="option q5 optB" onclick="checkAnswer(5,'B','B')">(B) 남천(Nandina domestica)</button>
+  <button class="option q5 optC" onclick="checkAnswer(5,'C','B')">(C) 단풍나무</button>
+  <button class="option q5 optD" onclick="checkAnswer(5,'D','B')">(D) 칡</button>
+  <div class="explanation" id="exp5">💡 남천은 매 단계마다 깃 모양으로 3번 거듭 갈라지는 3회우상복엽. 으아리는 3회3출엽(triternate)으로 다름.도감·시험 단골 함정!</div>
+</div>
+<div class="question q6">
+  <div class="q-header"><span class="q-num">Q6</span><span class="q-cat">나무의 정의·분류</span></div>
+  <p class="q-text">단엽(單葉)과 복엽(複葉)의 가장 큰 차이는?</p>
+  <button class="option q6 optA" onclick="checkAnswer(6,'A','C')">(A) 잎의 크기</button>
+  <button class="option q6 optB" onclick="checkAnswer(6,'B','C')">(B) 잎의 색깔</button>
+  <button class="option q6 optC" onclick="checkAnswer(6,'C','C')">(C) 하나의 잎자루에 잎몸이 1개인지(단엽) 여러 개의 소엽으로 이루어졌는지(복엽)</button>
+  <button class="option q6 optD" onclick="checkAnswer(6,'D','C')">(D) 잎의 두께</button>
+  <div class="explanation" id="exp6">💡 복엽은 소엽이 여러 개여도 한꺼번에 떨어진다는 점이 핵심. 잎자루에 잎몸이 1개면 단엽, 소엽 여러 개면 복엽.</div>
+</div>
+<div class="question q7">
+  <div class="q-header"><span class="q-num">Q7</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">잎의 주요 부위 명칭이 잘못 짝지어진 것은?</p>
+  <button class="option q7 optA" onclick="checkAnswer(7,'A','C')">(A) 엽신(葉身) — Blade (잎몸)</button>
+  <button class="option q7 optB" onclick="checkAnswer(7,'B','C')">(B) 엽병(葉柄) — Petiole (잎자루)</button>
+  <button class="option q7 optC" onclick="checkAnswer(7,'C','C')">(C) 엽맥(葉脈) — Stipule (턱잎)</button>
+  <button class="option q7 optD" onclick="checkAnswer(7,'D','C')">(D) 엽저(葉底) — Base (잎의 밑부분)</button>
+  <div class="explanation" id="exp7">💡 엽맥 = Vein. Stipule은 탁엽(턱잎)임. 용어 짝짓기 함정.</div>
+</div>
+<div class="question q8">
+  <div class="q-header"><span class="q-num">Q8</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">"기수우상복엽(奇數羽狀複葉, odd pinnate)"에 대한 설명으로 옳은 것은?</p>
+  <button class="option q8 optA" onclick="checkAnswer(8,'A','B')">(A) 소엽의 수가 짝수인 복엽</button>
+  <button class="option q8 optB" onclick="checkAnswer(8,'B','B')">(B) 소엽의 수가 홀수인 복엽 (끝에 잎이 1개)</button>
+  <button class="option q8 optC" onclick="checkAnswer(8,'C','B')">(C) 한 마디에 3개의 소엽이 있는 복엽</button>
+  <button class="option q8 optD" onclick="checkAnswer(8,'D','B')">(D) 3번 갈라진 복엽</button>
+  <div class="explanation" id="exp8">💡 기수(奇數) = 홀수. 끝에 잎 1개가 더 붙어 홀수가 됨. 우수(偶數) = 짝수.</div>
+</div>
+<div class="question q9">
+  <div class="q-header"><span class="q-num">Q9</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">잎차례(엽서, Phyllotaxis) 4종 중 "한 마디에 잎이 2개씩 마주 달리는 것"은?</p>
+  <button class="option q9 optA" onclick="checkAnswer(9,'A','B')">(A) 호생(alternate)</button>
+  <button class="option q9 optB" onclick="checkAnswer(9,'B','B')">(B) 대생(opposite)</button>
+  <button class="option q9 optC" onclick="checkAnswer(9,'C','B')">(C) 속생(continuously grow)</button>
+  <button class="option q9 optD" onclick="checkAnswer(9,'D','B')">(D) 윤생(whorled/verticillate)</button>
+  <div class="explanation" id="exp9">💡 대생 = 마주나기. 호생=어긋나기, 속생=뭉쳐나기(소나무 등), 윤생=돌려나기.</div>
+</div>
+<div class="question q10">
+  <div class="q-header"><span class="q-num">Q10</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">소나무·잣나무처럼 한 마디에 잎이 여러 개씩 뭉쳐 계속해서 나는 잎차례는?</p>
+  <button class="option q10 optA" onclick="checkAnswer(10,'A','C')">(A) 호생</button>
+  <button class="option q10 optB" onclick="checkAnswer(10,'B','C')">(B) 대생</button>
+  <button class="option q10 optC" onclick="checkAnswer(10,'C','C')">(C) 속생</button>
+  <button class="option q10 optD" onclick="checkAnswer(10,'D','C')">(D) 윤생</button>
+  <div class="explanation" id="exp10">💡 속생(束生, continuously grow) = 뭉쳐나기. 소나무 2개·잣나무 5개·리기다소나무 3개씩 뭉친 형태가 대표.</div>
+</div>
+<div class="question q11">
+  <div class="q-header"><span class="q-num">Q11</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">5출엽(五出葉)에 대한 설명으로 가장 적절한 것은?</p>
+  <button class="option q11 optA" onclick="checkAnswer(11,'A','B')">(A) 잎이 5장 핀 식물</button>
+  <button class="option q11 optB" onclick="checkAnswer(11,'B','B')">(B) 한 마디에 잎이 5개의 쪽잎(소엽)으로 된 복엽</button>
+  <button class="option q11 optC" onclick="checkAnswer(11,'C','B')">(C) 잎의 길이가 5cm 이상인 잎</button>
+  <button class="option q11 optD" onclick="checkAnswer(11,'D','B')">(D) 1년에 5번 잎갈이를 하는 잎</button>
+  <div class="explanation" id="exp11">💡 5출엽 = 한 잎자루에 5개의 소엽. 3출엽(소엽 3개)과 함께 자주 출제됨.</div>
+</div>
+<div class="question q12">
+  <div class="q-header"><span class="q-num">Q12</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">"3회3출엽(triternate)"과 "3회우상복엽(tripinnate)"의 차이로 옳은 것은?</p>
+  <button class="option q12 optA" onclick="checkAnswer(12,'A','B')">(A) 두 용어는 동의어이다.</button>
+  <button class="option q12 optB" onclick="checkAnswer(12,'B','B')">(B) 3회3출엽은 매 단계 3개씩 갈라지고, 3회우상복엽은 깃 모양으로 갈라진다.</button>
+  <button class="option q12 optC" onclick="checkAnswer(12,'C','B')">(C) 3회3출엽이 더 큰 잎이다.</button>
+  <button class="option q12 optD" onclick="checkAnswer(12,'D','B')">(D) 둘 다 남천의 잎 모양이다.</button>
+  <div class="explanation" id="exp12">💡 남천은3회우상복엽(○), 3회3출엽(✗). 으아리 등이 3회3출엽. 단계별 갈라지는 패턴(3개 vs 깃 모양)이 핵심 차이.</div>
+</div>
+<div class="question q13">
+  <div class="q-header"><span class="q-num">Q13</span><span class="q-cat">잎의 부위·복엽의 종류·잎차례</span></div>
+  <p class="q-text">"우수우상복엽(偶數羽狀複葉, even pinnate)"의 정의로 옳은 것은?</p>
+  <button class="option q13 optA" onclick="checkAnswer(13,'A','A')">(A) 소엽의 수가 짝수인 우상 복엽 (끝에 잎이 없음)</button>
+  <button class="option q13 optB" onclick="checkAnswer(13,'B','A')">(B) 소엽의 수가 홀수인 복엽</button>
+  <button class="option q13 optC" onclick="checkAnswer(13,'C','A')">(C) 우산처럼 펼쳐진 복엽</button>
+  <button class="option q13 optD" onclick="checkAnswer(13,'D','A')">(D) 잎맥이 평행한 복엽</button>
+  <div class="explanation" id="exp13">💡 우수(偶數) = 짝수. 끝에 잎이 없어 짝수가 됨. 기수(홀수)와 짝(짝수)을 한자로 외울 것.</div>
+</div>
+<div class="question q14">
+  <div class="q-header"><span class="q-num">Q14</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎 끝(엽두) 중 "점점 길게 뾰족해진 잎 끝"을 가리키는 용어와 영문이 바르게 짝지어진 것은?</p>
+  <button class="option q14 optA" onclick="checkAnswer(14,'A','A')">(A) 점첨두(漸尖頭) — acuminate</button>
+  <button class="option q14 optB" onclick="checkAnswer(14,'B','A')">(B) 급첨두(急尖頭) — mucronate</button>
+  <button class="option q14 optC" onclick="checkAnswer(14,'C','A')">(C) 첨두(尖頭) — acute</button>
+  <button class="option q14 optD" onclick="checkAnswer(14,'D','A')">(D) 원두(圓頭) — rounded</button>
+  <div class="explanation" id="exp14">💡 점첨두 = 점진적으로 뾰족(acuminate). 급첨두는 잎맥만 자라서 가시처럼 뾰족(mucronate). 미묘한 차이 주의.</div>
+</div>
+<div class="question q15">
+  <div class="q-header"><span class="q-num">Q15</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">"잎 끝이 자른 것처럼 밋밋한" 엽두 형태는?</p>
+  <button class="option q15 optA" onclick="checkAnswer(15,'A','B')">(A) 둔두(obtuse)</button>
+  <button class="option q15 optB" onclick="checkAnswer(15,'B','B')">(B) 평두(truncate)</button>
+  <button class="option q15 optC" onclick="checkAnswer(15,'C','B')">(C) 예두(acute)</button>
+  <button class="option q15 optD" onclick="checkAnswer(15,'D','B')">(D) 원두(rounded)</button>
+  <div class="explanation" id="exp15">💡 평두(平頭, truncate) = 잘라낸 듯 평평한 잎 끝. 백합나무(튤립나무) 잎 끝이 대표 예.</div>
+</div>
+<div class="question q16">
+  <div class="q-header"><span class="q-num">Q16</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎 기부(엽저) 9종 중 "쐐기 모양으로 점점 좁아져 뾰족하게 된 엽저"는?</p>
+  <button class="option q16 optA" onclick="checkAnswer(16,'A','B')">(A) 유저(pubescent)</button>
+  <button class="option q16 optB" onclick="checkAnswer(16,'B','B')">(B) 설저(cuneate)</button>
+  <button class="option q16 optC" onclick="checkAnswer(16,'C','B')">(C) 원저(rounded)</button>
+  <button class="option q16 optD" onclick="checkAnswer(16,'D','B')">(D) 심장저(reniform)</button>
+  <div class="explanation" id="exp16">💡 설저(楔底, cuneate, wedge-shaped) = 쐐기형. 영문 wedge로도 자주 출제.</div>
+</div>
+<div class="question q17">
+  <div class="q-header"><span class="q-num">Q17</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">"엽신의 양쪽 가장자리 밑이 합쳐지지 않고, 잎자루의 날개처럼 된" 엽저는?</p>
+  <button class="option q17 optA" onclick="checkAnswer(17,'A','A')">(A) 유저(pubescent)</button>
+  <button class="option q17 optB" onclick="checkAnswer(17,'B','A')">(B) 설저(cuneate)</button>
+  <button class="option q17 optC" onclick="checkAnswer(17,'C','A')">(C) 이저(auriculate)</button>
+  <button class="option q17 optD" onclick="checkAnswer(17,'D','A')">(D) 왜저(oblique)</button>
+  <div class="explanation" id="exp17">💡 유저 = 잎자루를 따라 날개처럼 흘러내린 엽저. 이저는 귀밑형, 왜저는 이그러진 비대칭 엽저.</div>
+</div>
+<div class="question q18">
+  <div class="q-header"><span class="q-num">Q18</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎 가장자리(엽연) 중 "톱니가 없어 밋밋한 잎 가장자리"는?</p>
+  <button class="option q18 optA" onclick="checkAnswer(18,'A','C')">(A) 둔거치(crenate)</button>
+  <button class="option q18 optB" onclick="checkAnswer(18,'B','C')">(B) 파상거치(repand)</button>
+  <button class="option q18 optC" onclick="checkAnswer(18,'C','C')">(C) 전연(entire)</button>
+  <button class="option q18 optD" onclick="checkAnswer(18,'D','C')">(D) 반곡(revolute)</button>
+  <div class="explanation" id="exp18">💡 전연(全緣, entire) = 가장자리가 완전히 매끈함. 동백·목련 잎이 대표.</div>
+</div>
+<div class="question q19">
+  <div class="q-header"><span class="q-num">Q19</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎 가장자리가 "주맥까지 또는 완전히 갈라진" 형태는?</p>
+  <button class="option q19 optA" onclick="checkAnswer(19,'A','B')">(A) 천열(lobed)</button>
+  <button class="option q19 optB" onclick="checkAnswer(19,'B','B')">(B) 전열(parted)</button>
+  <button class="option q19 optC" onclick="checkAnswer(19,'C','B')">(C) 장상열</button>
+  <button class="option q19 optD" onclick="checkAnswer(19,'D','B')">(D) 반곡(revolute)</button>
+  <div class="explanation" id="exp19">💡 전열(全裂, parted) = 주맥까지 완전 갈라짐. 천열(淺裂, lobed)은 주맥의 1/2 이하만 갈라진 얕은 갈라짐.</div>
+</div>
+<div class="question q20">
+  <div class="q-header"><span class="q-num">Q20</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎맥(葉脈, Vein)의 4가지 종류 중 "엽저에서 잎 끝까지 거의 평행한 잎맥"은?</p>
+  <button class="option q20 optA" onclick="checkAnswer(20,'A','B')">(A) 우상맥(pinnately vein)</button>
+  <button class="option q20 optB" onclick="checkAnswer(20,'B','B')">(B) 평행맥(parallel vein)</button>
+  <button class="option q20 optC" onclick="checkAnswer(20,'C','B')">(C) 출맥(3出脈)</button>
+  <button class="option q20 optD" onclick="checkAnswer(20,'D','B')">(D) 장상맥(palmately vein)</button>
+  <div class="explanation" id="exp20">💡 평행맥 = 외떡잎식물(벼·옥수수·대나무 등)의 전형. 우상맥은 깃 모양, 장상맥은 손바닥 모양.</div>
+</div>
+<div class="question q21">
+  <div class="q-header"><span class="q-num">Q21</span><span class="q-cat">잎의 모양·엽두·엽저·엽연·잎맥</span></div>
+  <p class="q-text">잎의 모양 중 "달걀처럼 생겼고, 아랫부분이 가장 넓은 잎"의 명칭은?</p>
+  <button class="option q21 optA" onclick="checkAnswer(21,'A','B')">(A) 도란형(obovate)</button>
+  <button class="option q21 optB" onclick="checkAnswer(21,'B','B')">(B) 난형(ovate)</button>
+  <button class="option q21 optC" onclick="checkAnswer(21,'C','B')">(C) 피침형(lanceolate)</button>
+  <button class="option q21 optD" onclick="checkAnswer(21,'D','B')">(D) 타원형(elliptical)</button>
+  <div class="explanation" id="exp21">💡 난형 = 달걀형, 아랫부분이 넓음. 도란형(倒卵形, obovate)은 거꾸로 선 달걀형(끝이 더 넓음).</div>
+</div>
+<div class="question q22">
+  <div class="q-header"><span class="q-num">Q22</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">화서(花序) 중 "꼬리처럼 늘어지고 꽃잎이 없는 단성화"로 자작나무·버드나무·밤나무가 대표 예인 화서는?</p>
+  <button class="option q22 optA" onclick="checkAnswer(22,'A','C')">(A) 총상화서(raceme)</button>
+  <button class="option q22 optB" onclick="checkAnswer(22,'B','C')">(B) 수상화서(spike)</button>
+  <button class="option q22 optC" onclick="checkAnswer(22,'C','C')">(C) 미상화서(catkin / ament)</button>
+  <button class="option q22 optD" onclick="checkAnswer(22,'D','C')">(D) 취산화서(cyme)</button>
+  <div class="explanation" id="exp22">💡 미상화서(尾狀花序) = 유이화서. 풍매화의 전형으로 시험 단골.</div>
+</div>
+<div class="question q23">
+  <div class="q-header"><span class="q-num">Q23</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">"화축 끝에 달린 꽃 밑에서 1쌍의 꽃자루가 나와 그 끝에 꽃이 1개씩 달리는" 유한화서는?</p>
+  <button class="option q23 optA" onclick="checkAnswer(23,'A','D')">(A) 산형화서(umbel)</button>
+  <button class="option q23 optB" onclick="checkAnswer(23,'B','D')">(B) 총상화서(raceme)</button>
+  <button class="option q23 optC" onclick="checkAnswer(23,'C','D')">(C) 산방화서(corymb)</button>
+  <button class="option q23 optD" onclick="checkAnswer(23,'D','D')">(D) 취산화서(cyme)</button>
+  <div class="explanation" id="exp23">💡 취산화서 = 유한화서의 대표. 중앙·꼭대기 꽃이 먼저 핌. 무한화서는 밑에서부터 위로 핌.</div>
+</div>
+<div class="question q24">
+  <div class="q-header"><span class="q-num">Q24</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">유한화서와 무한화서를 구분하는 핵심 기준은?</p>
+  <button class="option q24 optA" onclick="checkAnswer(24,'A','B')">(A) 꽃의 색깔</button>
+  <button class="option q24 optB" onclick="checkAnswer(24,'B','B')">(B) 어디서부터 꽃이 피기 시작하는지 (중앙·꼭대기 우선 = 유한 / 밑·바깥쪽 우선 = 무한)</button>
+  <button class="option q24 optC" onclick="checkAnswer(24,'C','B')">(C) 꽃자루의 길이</button>
+  <button class="option q24 optD" onclick="checkAnswer(24,'D','B')">(D) 꽃의 향기</button>
+  <div class="explanation" id="exp24">💡 유한화서: 취산화서 / 무한화서: 총상·산방·산형·수상·미상. 개화 순서가 핵심 식별 기준.</div>
+</div>
+<div class="question q25">
+  <div class="q-header"><span class="q-num">Q25</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">단풍나무·물푸레나무에서 흔히 보이는, "날개 모양 부속물이 달려 바람에 의해 흩어지는" 열매는?</p>
+  <button class="option q25 optA" onclick="checkAnswer(25,'A','C')">(A) 견과(nut)</button>
+  <button class="option q25 optB" onclick="checkAnswer(25,'B','C')">(B) 핵과(drupe)</button>
+  <button class="option q25 optC" onclick="checkAnswer(25,'C','C')">(C) 시과(samara)</button>
+  <button class="option q25 optD" onclick="checkAnswer(25,'D','C')">(D) 영과(caryopsis)</button>
+  <div class="explanation" id="exp25">💡 시과(翅果, samara) = 날개열매. 바람에 의한 산포(풍산포)에 적합. 단풍·물푸레·느릅나무 등.</div>
+</div>
+<div class="question q26">
+  <div class="q-header"><span class="q-num">Q26</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">소나무·잣나무 등 침엽수에서 볼 수 있는 "씨앗을 품은 솔방울 모양 열매"는?</p>
+  <button class="option q26 optA" onclick="checkAnswer(26,'A','B')">(A) 핵과</button>
+  <button class="option q26 optB" onclick="checkAnswer(26,'B','B')">(B) 구과(cone)</button>
+  <button class="option q26 optC" onclick="checkAnswer(26,'C','B')">(C) 견과</button>
+  <button class="option q26 optD" onclick="checkAnswer(26,'D','B')">(D) 이과</button>
+  <div class="explanation" id="exp26">💡 구과(球果, cone) = 솔방울 형태의 열매. 침엽수(나자식물)의 전형. 영문 strobile / cone.</div>
+</div>
+<div class="question q27">
+  <div class="q-header"><span class="q-num">Q27</span><span class="q-cat">화서·열매의 종류</span></div>
+  <p class="q-text">"단단한 껍데기 안에 보통 1개의 종자가 들어 있는 열매"로 도토리·밤이 대표인 것은?</p>
+  <button class="option q27 optA" onclick="checkAnswer(27,'A','B')">(A) 시과</button>
+  <button class="option q27 optB" onclick="checkAnswer(27,'B','B')">(B) 견과(nut)</button>
+  <button class="option q27 optC" onclick="checkAnswer(27,'C','B')">(C) 영과</button>
+  <button class="option q27 optD" onclick="checkAnswer(27,'D','B')">(D) 핵과</button>
+  <div class="explanation" id="exp27">💡 견과(堅果, nut) = 굳은 열매. 도토리(상수리·신갈·떡갈)·밤·개암 등이 대표.</div>
+</div>
+<div class="question q28">
+  <div class="q-header"><span class="q-num">Q28</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">나무의 생장 6대 조건이 <strong>아닌</strong> 것은?</p>
+  <button class="option q28 optA" onclick="checkAnswer(28,'A','D')">(A) 햇빛</button>
+  <button class="option q28 optB" onclick="checkAnswer(28,'B','D')">(B) 물</button>
+  <button class="option q28 optC" onclick="checkAnswer(28,'C','D')">(C) 온도</button>
+  <button class="option q28 optD" onclick="checkAnswer(28,'D','D')">(D) 미세먼지</button>
+  <div class="explanation" id="exp28">💡 생장 6대 조건: 햇빛·물·온도·토양·양분·공기. 미세먼지는 해당 ✗.</div>
+</div>
+<div class="question q29">
+  <div class="q-header"><span class="q-num">Q29</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">"늦서리(만상)"와 "이른서리(조상)"에 대한 설명으로 옳은 것은?</p>
+  <button class="option q29 optA" onclick="checkAnswer(29,'A','B')">(A) 둘 다 가을철에 발생한다.</button>
+  <button class="option q29 optB" onclick="checkAnswer(29,'B','B')">(B) 만상(晩霜)은 봄철 새싹·꽃에 피해, 조상(早霜)은 가을 일찍 와 미숙한 가지·열매에 피해를 준다.</button>
+  <button class="option q29 optC" onclick="checkAnswer(29,'C','B')">(C) 만상이 식물에 더 유리하다.</button>
+  <button class="option q29 optD" onclick="checkAnswer(29,'D','B')">(D) 조상은 겨울에 발생한다.</button>
+  <div class="explanation" id="exp29">💡 만상(늦서리) = 봄철에 너무 늦게 온 서리, 조상(이른서리) = 가을에 너무 일찍 온 서리. 둘 다 피해 유발.</div>
+</div>
+<div class="question q30">
+  <div class="q-header"><span class="q-num">Q30</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">비료의 3요소(N·P·K)가 바르게 짝지어진 것은?</p>
+  <button class="option q30 optA" onclick="checkAnswer(30,'A','A')">(A) 질소(N) — 잎·줄기 생장 / 인(P) — 꽃·열매·뿌리 발달 / 칼륨(K) — 광합성·뿌리 강화·내병성</button>
+  <button class="option q30 optB" onclick="checkAnswer(30,'B','A')">(B) N — 뿌리, P — 잎, K — 열매</button>
+  <button class="option q30 optC" onclick="checkAnswer(30,'C','A')">(C) N — 꽃, P — 뿌리, K — 잎</button>
+  <button class="option q30 optD" onclick="checkAnswer(30,'D','A')">(D) N — 광합성, P — 잎, K — 줄기</button>
+  <div class="explanation" id="exp30">💡 N: 잎비료, P: 꽃·열매비료, K: 뿌리·내병성비료. 시험 빈출 기본 정리.</div>
+</div>
+<div class="question q31">
+  <div class="q-header"><span class="q-num">Q31</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">뿌리돌림(이식 전 단근 작업)의 주요 목적은?</p>
+  <button class="option q31 optA" onclick="checkAnswer(31,'A','B')">(A) 나무를 빨리 죽이기 위해</button>
+  <button class="option q31 optB" onclick="checkAnswer(31,'B','B')">(B) 이식 시 활착률을 높이기 위해 잔뿌리 발생을 유도</button>
+  <button class="option q31 optC" onclick="checkAnswer(31,'C','B')">(C) 잎의 색을 진하게 하기 위해</button>
+  <button class="option q31 optD" onclick="checkAnswer(31,'D','B')">(D) 열매를 더 많이 맺게 하기 위해</button>
+  <div class="explanation" id="exp31">💡 뿌리돌림 = 굵은 뿌리를 미리 잘라 잔뿌리를 유도 → 이식 후 활착(뿌리내림) 성공률 향상. 큰 나무 이식 시 필수.</div>
+</div>
+<div class="question q32">
+  <div class="q-header"><span class="q-num">Q32</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">증산작용(transpiration)에 대한 설명으로 옳지 <strong>않은</strong> 것은?</p>
+  <button class="option q32 optA" onclick="checkAnswer(32,'A','D')">(A) 잎의 기공을 통해 수증기를 배출하는 현상이다.</button>
+  <button class="option q32 optB" onclick="checkAnswer(32,'B','D')">(B) 뿌리에서 빨아올린 물을 잎까지 끌어올리는 동력이 된다.</button>
+  <button class="option q32 optC" onclick="checkAnswer(32,'C','D')">(C) 식물체 온도조절 기능을 한다.</button>
+  <button class="option q32 optD" onclick="checkAnswer(32,'D','D')">(D) 광합성과 무관한 단순 수분 배출 작용이다.</button>
+  <div class="explanation" id="exp32">💡 증산은 광합성을 위한 수분 공급, 양분 운반, 온도조절 등 다양한 기능을 함. "무관"은 오답.</div>
+</div>
+<div class="question q33">
+  <div class="q-header"><span class="q-num">Q33</span><span class="q-cat">뿌리·줄기·생장 6대 조건·서리·토양</span></div>
+  <p class="q-text">로제트 식물(Rosette plant)의 특징으로 가장 적절한 것은?</p>
+  <button class="option q33 optA" onclick="checkAnswer(33,'A','B')">(A) 한해살이 풀이다.</button>
+  <button class="option q33 optB" onclick="checkAnswer(33,'B','B')">(B) 다년생 초본으로 잎이 지표면에 방사상으로 깔려 겨울철 지열을 활용한다.</button>
+  <button class="option q33 optC" onclick="checkAnswer(33,'C','B')">(C) 줄기가 길고 곧게 자란다.</button>
+  <button class="option q33 optD" onclick="checkAnswer(33,'D','B')">(D) 침엽수의 일종이다.</button>
+  <div class="explanation" id="exp33">💡 로제트 = 다년생 초본 + 겨울철 생존전략. 민들레·냉이·달맞이꽃 등이 대표. "한해살이"는 함정.</div>
+</div>
+<div class="question q34">
+  <div class="q-header"><span class="q-num">Q34</span><span class="q-cat">숲의 정의·다층구조·산림 기능·탄소중립</span></div>
+  <p class="q-text">숲의 다층구조 4계층에 해당하지 <strong>않는</strong> 것은?</p>
+  <button class="option q34 optA" onclick="checkAnswer(34,'A','D')">(A) 교목층</button>
+  <button class="option q34 optB" onclick="checkAnswer(34,'B','D')">(B) 아교목층(소교목층)</button>
+  <button class="option q34 optC" onclick="checkAnswer(34,'C','D')">(C) 관목층</button>
+  <button class="option q34 optD" onclick="checkAnswer(34,'D','D')">(D) 표층수층</button>
+  <div class="explanation" id="exp34">💡 숲의 다층: 교목층 → 아교목층 → 관목층 → 초본층(지피층). "표층수층"은 호수·바다 용어로 함정.</div>
+</div>
+<div class="question q35">
+  <div class="q-header"><span class="q-num">Q35</span><span class="q-cat">숲의 정의·다층구조·산림 기능·탄소중립</span></div>
+  <p class="q-text">산림의 공익적 가치(연간 1인당 환산액)로 자주 인용되는 수치는?</p>
+  <button class="option q35 optA" onclick="checkAnswer(35,'A','C')">(A) 약 42만 원</button>
+  <button class="option q35 optB" onclick="checkAnswer(35,'B','C')">(B) 약 142만 원</button>
+  <button class="option q35 optC" onclick="checkAnswer(35,'C','C')">(C) 약 428만 원</button>
+  <button class="option q35 optD" onclick="checkAnswer(35,'D','C')">(D) 약 4,280만 원</button>
+  <div class="explanation" id="exp35">💡 국립산림과학원 발표: 산림의 공익기능 평가액 약 259조 원, 국민 1인당 약 428만 원(2020 기준). 시험 빈출 수치.</div>
+</div>
+<div class="question q36">
+  <div class="q-header"><span class="q-num">Q36</span><span class="q-cat">숲의 정의·다층구조·산림 기능·탄소중립</span></div>
+  <p class="q-text">탄소중립(Carbon Neutrality)의 정의로 가장 적절한 것은?</p>
+  <button class="option q36 optA" onclick="checkAnswer(36,'A','B')">(A) 탄소를 완전히 사용하지 않는 것</button>
+  <button class="option q36 optB" onclick="checkAnswer(36,'B','B')">(B) 인간 활동으로 배출되는 온실가스의 양만큼 흡수·제거하여 실질 배출량을 0으로 만드는 것</button>
+  <button class="option q36 optC" onclick="checkAnswer(36,'C','B')">(C) 모든 탄소를 식물에 저장하는 것</button>
+  <button class="option q36 optD" onclick="checkAnswer(36,'D','B')">(D) 화석연료만 사용하지 않는 것</button>
+  <div class="explanation" id="exp36">💡 탄소중립 = Net Zero. 배출 - 흡수 = 0. 우리나라는 2050년 탄소중립 목표.</div>
+</div>
+<div class="question q37">
+  <div class="q-header"><span class="q-num">Q37</span><span class="q-cat">숲의 정의·다층구조·산림 기능·탄소중립</span></div>
+  <p class="q-text">기후(Climate)와 날씨(Weather)의 차이로 옳은 것은?</p>
+  <button class="option q37 optA" onclick="checkAnswer(37,'A','B')">(A) 기후는 단기, 날씨는 장기 기상상태</button>
+  <button class="option q37 optB" onclick="checkAnswer(37,'B','B')">(B) 기후는 30년 이상의 평균적·장기적 기상상태, 날씨는 단기적·일시적 대기상태</button>
+  <button class="option q37 optC" onclick="checkAnswer(37,'C','B')">(C) 둘은 동의어이다.</button>
+  <button class="option q37 optD" onclick="checkAnswer(37,'D','B')">(D) 기후는 도시, 날씨는 농촌에서 쓰는 용어</button>
+  <div class="explanation" id="exp37">💡 기후 = 30년 이상 평균. 날씨 = 단기. 기후위기는 장기 패턴이 비정상이 된 상태.</div>
+</div>
+<div class="question q38">
+  <div class="q-header"><span class="q-num">Q38</span><span class="q-cat">숲의 정의·다층구조·산림 기능·탄소중립</span></div>
+  <p class="q-text">"기후위기 미스매치"의 사례로 가장 적절한 것은?</p>
+  <button class="option q38 optA" onclick="checkAnswer(38,'A','B')">(A) 가을에 단풍이 드는 현상</button>
+  <button class="option q38 optB" onclick="checkAnswer(38,'B','B')">(B) 봄꽃 개화시기와 벌·나비 출현시기가 어긋나 수분 실패</button>
+  <button class="option q38 optC" onclick="checkAnswer(38,'C','B')">(C) 비가 와서 우산을 쓰는 것</button>
+  <button class="option q38 optD" onclick="checkAnswer(38,'D','B')">(D) 태풍이 여름에 발생하는 것</button>
+  <div class="explanation" id="exp38">💡 미스매치 = 동·식물의 생활사 동조화 깨짐. 개화·산란·먹이 시기 어긋남이 대표적 현상.</div>
+</div>
+<div class="question q39">
+  <div class="q-header"><span class="q-num">Q39</span><span class="q-cat">숲의 유형·특산식물·법적 산림</span></div>
+  <p class="q-text">"가장 안정된 숲"의 형태는?</p>
+  <button class="option q39 optA" onclick="checkAnswer(39,'A','C')">(A) 단순림(단일 수종)</button>
+  <button class="option q39 optB" onclick="checkAnswer(39,'B','C')">(B) 인공림</button>
+  <button class="option q39 optC" onclick="checkAnswer(39,'C','C')">(C) 혼효림(침엽수 + 활엽수 혼합)</button>
+  <button class="option q39 optD" onclick="checkAnswer(39,'D','C')">(D) 동령림</button>
+  <div class="explanation" id="exp39">💡 혼효림 = 침엽수·활엽수 혼합 + 다양한 수령. 병충해 저항성·생태적 안정성 최고. 시험 빈출 ★.</div>
+</div>
+<div class="question q40">
+  <div class="q-header"><span class="q-num">Q40</span><span class="q-cat">숲의 유형·특산식물·법적 산림</span></div>
+  <p class="q-text">우리나라 특산식물(Endemic Plants)의 대표적 예가 <strong>아닌</strong> 것은?</p>
+  <button class="option q40 optA" onclick="checkAnswer(40,'A','D')">(A) 구상나무</button>
+  <button class="option q40 optB" onclick="checkAnswer(40,'B','D')">(B) 개나리</button>
+  <button class="option q40 optC" onclick="checkAnswer(40,'C','D')">(C) 미선나무</button>
+  <button class="option q40 optD" onclick="checkAnswer(40,'D','D')">(D) 은행나무</button>
+  <div class="explanation" id="exp40">💡 은행나무는 중국 원산. 특산식물 = 특정 지역에서만 자생. 구상나무(한라산), 개나리, 미선나무가 대표 한국 특산.</div>
+</div>
+<div class="question q41">
+  <div class="q-header"><span class="q-num">Q41</span><span class="q-cat">숲의 유형·특산식물·법적 산림</span></div>
+  <p class="q-text">「산림자원의 조성 및 관리에 관한 법률」 제2조에 따른 '산림'의 범위에 포함되지 <strong>않는</strong> 것은?</p>
+  <button class="option q41 optA" onclick="checkAnswer(41,'A','D')">(A) 집단적으로 자라고 있는 입목(立木)·죽(竹)과 그 토지</button>
+  <button class="option q41 optB" onclick="checkAnswer(41,'B','D')">(B) 일시적으로 입목·죽이 없어진 토지</button>
+  <button class="option q41 optC" onclick="checkAnswer(41,'C','D')">(C) 산림 내의 암석지·소택지</button>
+  <button class="option q41 optD" onclick="checkAnswer(41,'D','D')">(D) 산림 인근의 농경지와 주택지</button>
+  <div class="explanation" id="exp41">💡 농경지·주택지는 산림 ✗. 단, 산림 내 암석지·소택지는 포함됨. 시험 단골 함정.</div>
+</div>
+<div class="question q42">
+  <div class="q-header"><span class="q-num">Q42</span><span class="q-cat">숲의 유형·특산식물·법적 산림</span></div>
+  <p class="q-text">숲의 유형 분류 중 "기후대별 분류"에 해당하는 것은?</p>
+  <button class="option q42 optA" onclick="checkAnswer(42,'A','B')">(A) 침엽수림·활엽수림</button>
+  <button class="option q42 optB" onclick="checkAnswer(42,'B','B')">(B) 열대림·온대림·한대림</button>
+  <button class="option q42 optC" onclick="checkAnswer(42,'C','B')">(C) 천연림·인공림</button>
+  <button class="option q42 optD" onclick="checkAnswer(42,'D','B')">(D) 보호림·생산림</button>
+  <div class="explanation" id="exp42">💡 기후대 = 열대·아열대·온대·한대. 수종 분류는 침엽수·활엽수, 형성 분류는 천연·인공, 기능 분류는 보호림·생산림.</div>
+</div>
+<div class="question q43">
+  <div class="q-header"><span class="q-num">Q43</span><span class="q-cat">숲의 유형·특산식물·법적 산림</span></div>
+  <p class="q-text">"잎의 형태"로 숲을 분류하면?</p>
+  <button class="option q43 optA" onclick="checkAnswer(43,'A','B')">(A) 열대림·온대림·한대림</button>
+  <button class="option q43 optB" onclick="checkAnswer(43,'B','B')">(B) 침엽수림·활엽수림·혼효림</button>
+  <button class="option q43 optC" onclick="checkAnswer(43,'C','B')">(C) 천연림·인공림</button>
+  <button class="option q43 optD" onclick="checkAnswer(43,'D','B')">(D) 보호림·휴양림</button>
+  <div class="explanation" id="exp43">💡 잎 형태 분류 = 침엽수림(바늘잎)·활엽수림(넓은잎)·혼효림(섞임). 기후 분류와 혼동 주의.</div>
+</div>
+<div class="question q44">
+  <div class="q-header"><span class="q-num">Q44</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">지속가능한 산림경영(Sustainable Forest Management, SFM)의 핵심 가치가 <strong>아닌</strong> 것은?</p>
+  <button class="option q44 optA" onclick="checkAnswer(44,'A','D')">(A) 생태적 건전성</button>
+  <button class="option q44 optB" onclick="checkAnswer(44,'B','D')">(B) 경제적 효율성</button>
+  <button class="option q44 optC" onclick="checkAnswer(44,'C','D')">(C) 사회·문화적 형평성</button>
+  <button class="option q44 optD" onclick="checkAnswer(44,'D','D')">(D) 단기 수익 극대화</button>
+  <div class="explanation" id="exp44">💡 SFM 3대 축: 생태·경제·사회. "단기 수익 극대화"는 SFM과 정면 반대. 함정 선택지.</div>
+</div>
+<div class="question q45">
+  <div class="q-header"><span class="q-num">Q45</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">산림 작업 중 "어린 나무를 일정 간격으로 솎아 베어 남은 나무의 생장을 촉진"하는 작업은?</p>
+  <button class="option q45 optA" onclick="checkAnswer(45,'A','C')">(A) 조림</button>
+  <button class="option q45 optB" onclick="checkAnswer(45,'B','C')">(B) 육림</button>
+  <button class="option q45 optC" onclick="checkAnswer(45,'C','C')">(C) 간벌(間伐, thinning)</button>
+  <button class="option q45 optD" onclick="checkAnswer(45,'D','C')">(D) 갱신</button>
+  <div class="explanation" id="exp45">💡 간벌 = 솎아베기. 잔존목의 생장 촉진 + 광·양분 분배 개선. 육림의 핵심 작업.</div>
+</div>
+<div class="question q46">
+  <div class="q-header"><span class="q-num">Q46</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">"임지의 모든 나무를 한꺼번에 벌채하는 방법"은?</p>
+  <button class="option q46 optA" onclick="checkAnswer(46,'A','A')">(A) 개벌(皆伐, clear cutting)</button>
+  <button class="option q46 optB" onclick="checkAnswer(46,'B','A')">(B) 택벌(擇伐, selection cutting)</button>
+  <button class="option q46 optC" onclick="checkAnswer(46,'C','A')">(C) 산벌(傘伐, shelterwood)</button>
+  <button class="option q46 optD" onclick="checkAnswer(46,'D','A')">(D) 간벌</button>
+  <div class="explanation" id="exp46">💡 개벌 = 모두베기. 택벌 = 골라베기(생태적), 산벌 = 모수(母樹) 남기고 단계적 벌채. 갱신 방식 차이 외울 것.</div>
+</div>
+<div class="question q47">
+  <div class="q-header"><span class="q-num">Q47</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">"내화수종(耐火樹種)"으로 가장 적합한 것은?</p>
+  <button class="option q47 optA" onclick="checkAnswer(47,'A','B')">(A) 소나무</button>
+  <button class="option q47 optB" onclick="checkAnswer(47,'B','B')">(B) 굴참나무·은행나무·동백나무</button>
+  <button class="option q47 optC" onclick="checkAnswer(47,'C','B')">(C) 잣나무</button>
+  <button class="option q47 optD" onclick="checkAnswer(47,'D','B')">(D) 리기다소나무</button>
+  <div class="explanation" id="exp47">💡 내화수종 = 불에 잘 안 타는 활엽수 위주. 굴참나무·은행나무·동백·녹나무 등. 침엽수(소나무 등)는 송진 때문에 가연성 높음.</div>
+</div>
+<div class="question q48">
+  <div class="q-header"><span class="q-num">Q48</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">숲해설가의 5대 역할이 <strong>아닌</strong> 것은?</p>
+  <button class="option q48 optA" onclick="checkAnswer(48,'A','D')">(A) 안내자(Guide)</button>
+  <button class="option q48 optB" onclick="checkAnswer(48,'B','D')">(B) 교육자(Educator)</button>
+  <button class="option q48 optC" onclick="checkAnswer(48,'C','D')">(C) 통역자(Interpreter)</button>
+  <button class="option q48 optD" onclick="checkAnswer(48,'D','D')">(D) 판매원(Salesperson)</button>
+  <div class="explanation" id="exp48">💡 5대 역할: 안내자·교육자·통역자·환경운동가·치유자. "판매원"은 함정.</div>
+</div>
+<div class="question q49">
+  <div class="q-header"><span class="q-num">Q49</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">숲해설 방식 중 "정해진 거점(stop point)에서 해설"하는 방식은?</p>
+  <button class="option q49 optA" onclick="checkAnswer(49,'A','B')">(A) 동반해설</button>
+  <button class="option q49 optB" onclick="checkAnswer(49,'B','B')">(B) 거점해설</button>
+  <button class="option q49 optC" onclick="checkAnswer(49,'C','B')">(C) 자유관찰</button>
+  <button class="option q49 optD" onclick="checkAnswer(49,'D','B')">(D) 토론해설</button>
+  <div class="explanation" id="exp49">💡 거점해설 = 특정 장소에서 머물러 해설(예: 큰 나무·전망대). 동반해설은 함께 걸으며 해설.</div>
+</div>
+<div class="question q50">
+  <div class="q-header"><span class="q-num">Q50</span><span class="q-cat">임업·SFM·산림작업·벌채·보호·숲해설가</span></div>
+  <p class="q-text">숲해설가의 현장 실무에서 "사전답사"의 가장 중요한 목적은?</p>
+  <button class="option q50 optA" onclick="checkAnswer(50,'A','B')">(A) 사진 촬영용 명소 발견</button>
+  <button class="option q50 optB" onclick="checkAnswer(50,'B','B')">(B) 코스 안전·해설 자원·시간 배분 등을 실제 확인하여 본 해설의 완성도·안전성 확보</button>
+  <button class="option q50 optC" onclick="checkAnswer(50,'C','B')">(C) 다른 해설가 활동 감시</button>
+  <button class="option q50 optD" onclick="checkAnswer(50,'D','B')">(D) 관광객 수 파악</button>
+  <div class="explanation" id="exp50">💡 사전답사 = 안전·자원·동선·시간을 미리 확인하는 필수 절차. 안전수칙·재료준비와 함께 3대 실무.</div>
+</div>
+
+<hr>
+<p style="text-align:center; color:#888; font-size:0.85em">나무숲임업 기출문제집 50문항 | 생성: 2026-06-19</p>
+</body>
+</html>
