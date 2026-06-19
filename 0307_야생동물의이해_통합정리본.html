@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>야생동물의 이해 (조류·포유류) 통합정리본</title>
+<style>
+  :root {
+    --bird-color: #1a6b3c;
+    --mammal-color: #6b3a1a;
+    --accent-bird: #e8f5ee;
+    --accent-mammal: #f5ede8;
+    --highlight-red: #dc143c;
+    --highlight-blue: #0055aa;
+    --star-color: #b8860b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #222;
+    background: #fafafa;
+  }
+  .page-header {
+    background: linear-gradient(135deg, #1a6b3c 0%, #2a4a1a 50%, #6b3a1a 100%);
+    color: #fff;
+    padding: 2rem 2rem 1.5rem;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .page-header p { font-size: 0.9rem; opacity: 0.85; }
+  .source-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    margin: 0 3px;
+  }
+
+  .toc {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem auto;
+    max-width: 900px;
+  }
+  .toc h2 { font-size: 1rem; color: #555; margin-bottom: 0.8rem; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 2rem; }
+  .toc a { text-decoration: none; color: #333; font-size: 0.88rem; }
+  .toc a:hover { color: var(--bird-color); }
+  .toc .bird-link { color: var(--bird-color); }
+  .toc .mammal-link { color: var(--mammal-color); }
+
+  .part-header {
+    padding: 1rem 2rem;
+    margin: 1.5rem 0 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .part-bird { background: var(--bird-color); }
+  .part-mammal { background: var(--mammal-color); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1rem 2rem; }
+
+  section {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-top: 1.2rem;
+    padding: 1.4rem 1.6rem;
+  }
+  section.bird-section { border-left: 4px solid var(--bird-color); }
+  section.mammal-section { border-left: 4px solid var(--mammal-color); }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid #eee;
+  }
+  .bird-section h2 { color: var(--bird-color); border-bottom-color: var(--accent-bird); }
+  .mammal-section h2 { color: var(--mammal-color); border-bottom-color: var(--accent-mammal); }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 1.2rem 0 0.5rem;
+    padding-left: 0.7rem;
+    border-left: 3px solid #ccc;
+  }
+  .bird-section h3 { border-left-color: var(--bird-color); }
+  .mammal-section h3 { border-left-color: var(--mammal-color); }
+
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #444;
+    margin: 0.9rem 0 0.3rem;
+  }
+
+  p { margin: 0.4rem 0; }
+
+  ul, ol { padding-left: 1.4rem; margin: 0.4rem 0; }
+  li { margin: 0.25rem 0; }
+
+  .star-box {
+    background: #fffbea;
+    border: 1.5px solid var(--star-color);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    margin: 0.7rem 0;
+  }
+  .star-box::before {
+    content: "★ ";
+    color: var(--star-color);
+    font-weight: 700;
+  }
+
+  .highlight-red { color: var(--highlight-red); font-weight: 700; }
+  .highlight-blue { color: var(--highlight-blue); font-weight: 700; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.7rem 0;
+    font-size: 0.9rem;
+  }
+  thead th {
+    background: #f0f0f0;
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    border: 1px solid #ccc;
+    font-weight: 700;
+  }
+  td {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #ddd;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  .bird-section thead th { background: var(--accent-bird); }
+  .mammal-section thead th { background: var(--accent-mammal); }
+
+  .tip-box {
+    background: #f0f7ff;
+    border: 1px solid #b0c8e8;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+  .warn-box {
+    background: #fff3f3;
+    border: 1px solid #e8b0b0;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    margin: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .badge-danger { background: #dc143c; color: #fff; }
+  .badge-star { background: var(--star-color); color: #fff; }
+  .badge-info { background: #0055aa; color: #fff; }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #999;
+    font-size: 0.82rem;
+    border-top: 1px solid #eee;
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🦅 야생동물의 이해 (조류·포유류) 통합정리본 🦡</h1>
+  <p>숲해설가 자격증 시험 준비 | 강의일: 2026-03-07(조류), 2026-03-09(포유류)</p>
+  <p>
+    <span class="source-badge">16기 조류 요점정리</span>
+    <span class="source-badge">20260307 강의록</span>
+    <span class="source-badge">조류 음성정리</span>
+    <span class="source-badge">포유류 음성정리</span>
+    <span class="source-badge">0309 Gnote OCR</span>
+  </p>
+</div>
+
+<div class="container">
+
+  <!-- 목차 -->
+  <div class="toc">
+    <h2>📋 목차</h2>
+    <div class="toc-grid">
+      <div>
+        <strong style="color:var(--bird-color)">🦅 Part 1 — 조류</strong><br>
+        <a class="bird-link" href="#b1">1. 조류의 특징</a><br>
+        <a class="bird-link" href="#b2">2. 조류 신체 구조 명칭</a><br>
+        <a class="bird-link" href="#b3">3. 관찰 장비 및 방법</a><br>
+        <a class="bird-link" href="#b4">4. 조류 관찰 포인트</a><br>
+        <a class="bird-link" href="#b5">5. 철새의 구분</a><br>
+        <a class="bird-link" href="#b6">6. 번식깃</a><br>
+        <a class="bird-link" href="#b7">7. 도요새의 생태와 서식지 분화</a><br>
+        <a class="bird-link" href="#b8">8. 도요새 부리 형태와 먹이 행동</a><br>
+        <a class="bird-link" href="#b9">9. 군집 형태와 먹이의 관계</a><br>
+        <a class="bird-link" href="#b10">10. 밴딩(Banding) 조사</a><br>
+        <a class="bird-link" href="#b11">11. 새 이름의 원리와 관습</a><br>
+        <a class="bird-link" href="#b12">12. 주요 조류 생태 특성</a><br>
+        <a class="bird-link" href="#b13">13. 새와 사람의 공존</a><br>
+        <a class="bird-link" href="#b14">14. 새만금·순천만 교훈</a><br>
+        <a class="bird-link" href="#b15">15. 생태계 자정 능력</a><br>
+        <a class="bird-link" href="#b16">16. 조류 충돌 문제</a>
+      </div>
+      <div>
+        <strong style="color:var(--mammal-color)">🦡 Part 2 — 포유류</strong><br>
+        <a class="mammal-link" href="#m1">1. 포유류 발가락 수 분류 체계</a><br>
+        <a class="mammal-link" href="#m2">2. 발자국으로 동물 구분하기</a><br>
+        <a class="mammal-link" href="#m3">3. 족제비과(Mustelidae) 생태</a><br>
+        <a class="mammal-link" href="#m4">4. 야외 활동 안전교육</a><br>
+        <a class="mammal-link" href="#m5">5. 배설물로 동물 구분하기</a><br>
+        <a class="mammal-link" href="#m6">6. 먹이 흔적으로 동물 구분하기</a><br>
+        <a class="mammal-link" href="#m7">7. 주요 포유류 생태 특성</a><br>
+        <a class="mammal-link" href="#m8">8. 흔적 관찰 현장 팁</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ PART 1: 조류 ══════════════════════════════ -->
+  <div class="part-header part-bird" id="part-bird">🦅 Part 1 — 조류 (Birds)</div>
+
+  <!-- 1. 조류의 특징 -->
+  <section class="bird-section" id="b1">
+    <h2>1. 조류의 특징</h2>
+    <ul>
+      <li>척추동물</li>
+      <li>몸은 머리, 몸통, 날개, 다리로 구성 — <strong>가벼운 골격</strong> 보유</li>
+      <li>날기에 적합한 <strong>깃털</strong>을 가지고 있으며 온몸에 비해 크다</li>
+      <li><strong>항온동물</strong> — 체온이 일정(42~43℃)</li>
+      <li>알을 낳음 (<strong>난생</strong>)</li>
+      <li><strong>허파</strong>로 숨을 쉬며, 비행 시 산소 공급을 위해 <strong>기낭(기관주머니)</strong>이 있다</li>
+      <li>딱딱한 부리와 비늘로 덮인 다리</li>
+      <li>먹이를 소화하는 <strong>모래주머니(사낭)</strong>가 있다</li>
+      <li>가슴 근육이 몸무게의 절반을 차지 (강한 비행 근육)</li>
+    </ul>
+  </section>
+
+  <!-- 2. 신체 구조 명칭 -->
+  <section class="bird-section" id="b2">
+    <h2>2. 조류 신체 구조 명칭</h2>
+
+    <h3>다리 구조 명칭</h3>
+    <table>
+      <thead>
+        <tr><th>명칭</th><th>위치</th><th>특징</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>경부(脛部)</strong></td>
+          <td>다리가 접히는 중간 ~ 배 밑까지</td>
+          <td>통상 눈에 보이는 다리 윗부분</td>
+        </tr>
+        <tr>
+          <td><strong>부척(跗蹠)</strong></td>
+          <td>다리가 접히는 중간 ~ 발가락 위</td>
+          <td>사람의 발바닥에 해당. 가늘고 길며 깃털 없이 비늘로 덮여 있다. 밴딩 조사 시 금속링 부착 위치.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>※ 교재 348p 참고 (사진 출처: 국가유산청 궁능유적본부)</p>
+
+    <h3>날개 명칭</h3>
+    <table>
+      <thead>
+        <tr><th>날개깃 종류</th><th>위치 / 기능</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>첫째 날개깃</strong></td>
+          <td>날개의 바깥 부분 — 앞으로 나아가는 <strong>추진력</strong>을 줌</td>
+        </tr>
+        <tr>
+          <td><strong>첫째 날개덮깃</strong></td>
+          <td>체내 온도 유지, 공기가 날개 위로 미끄러지게 함</td>
+        </tr>
+        <tr>
+          <td><strong>둘째 날개깃</strong></td>
+          <td>상하운동으로 비상하는 <strong>부력</strong>을 줌</td>
+        </tr>
+        <tr>
+          <td><strong>작은 날개깃</strong></td>
+          <td>새의 엄지발가락에 삽입된 짧은 날개깃 — 느리게 비행할 때 <strong>안정감</strong>을 줌</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>날아가는 방법</h3>
+    <ul>
+      <li><strong>파상형</strong>: 비둘기 등 — 날갯짓과 활강을 반복하며 물결 모양으로 비행</li>
+    </ul>
+  </section>
+
+  <!-- 3. 관찰 장비 및 방법 -->
+  <section class="bird-section" id="b3">
+    <h2>3. 조류 관찰 장비 및 방법</h2>
+
+    <h3>관찰 장비</h3>
+    <table>
+      <thead>
+        <tr><th>장비</th><th>용도 / 배율</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>쌍안경</strong></td>
+          <td>산림지역 새 관찰 시 주로 사용. 산림: <strong>7~8배율</strong>, 물새: <strong>10배율</strong><br>표기: 앞 숫자=배율, 뒤 숫자=대물렌즈 직경(mm) (예: 8×30, 7×45)</td>
+        </tr>
+        <tr>
+          <td><strong>망원경</strong></td>
+          <td>물새 등 원거리 새 관찰 시 용이 (산림보다 개활지에서 활용)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>관찰 방법</h3>
+    <ul>
+      <li>가장 중요한 것은 <strong>교감</strong> — 보여주거나 은밀하거나</li>
+      <li><strong>눈과 귀</strong>를 동시에 활용</li>
+      <li>새들이 즐겨 찾는 장소 살펴보기:</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>장소</th><th>특징</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>먹이 먹는 장소</td><td>열매가 열리는 나무</td></tr>
+        <tr><td>물 먹는·목욕하는 장소</td><td>물이 고여 있는 곳, 샘 근처, 냇물 등</td></tr>
+        <tr><td>쉬는 장소·조망하는 곳</td><td>전선·전신주, 나무 그루터기, 나뭇가지, 철탑, 지붕</td></tr>
+        <tr><td>하늘 (개활지·농경지)</td><td>먹이 사냥하는 맹금류 관찰</td></tr>
+        <tr><td>소리와 흔적</td><td>깃털, 배설물, 사체 등 (낮과 밤 이용 장소가 다른 올빼미류)</td></tr>
+      </tbody>
+    </table>
+    <div class="star-box">조류의 서식지 3가지: <strong>먹이터·쉼터 / 잠자리 터 / 번식지</strong></div>
+  </section>
+
+  <!-- 4. 조류 관찰 포인트 -->
+  <section class="bird-section" id="b4">
+    <h2>4. 조류 관찰 포인트</h2>
+    <p>교재 354~357p 사진 참고</p>
+
+    <h3>크기와 형태</h3>
+    <ul>
+      <li>몸의 크기·형태, 깃털, 부리, 발의 색 등 외견상 특징 파악</li>
+      <li><strong>Field mark</strong>: 조류의 외견상 특징 중에서도 특히 눈에 띄는 특징</li>
+    </ul>
+
+    <h3>부리의 크기와 생김새</h3>
+    <ul>
+      <li>짧은지/긴지, 굵은지/가는지, 곧은지/굽었는지 구분</li>
+      <li>바닷가 도요물떼새류는 부리의 길이가 중요한 식별 포인트</li>
+      <li><strong>부리의 머리 대비 비율</strong>로 멀리서도 종 구분 가능</li>
+    </ul>
+
+    <h3>날개짓에 의한 유사종 구분</h3>
+    <table>
+      <thead>
+        <tr><th>새 종류</th><th>날개짓 특징</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>기러기류</strong></td><td>날개가 크고 날갯짓이 눈에 잘 보임 — 큰 날갯짓</td></tr>
+        <tr><td><strong>오리류</strong></td><td>날개가 짧고 날갯짓이 빠르고 작아 거의 안 보임</td></tr>
+        <tr><td><strong>백로·저어새</strong></td><td>넓은 날개로 천천히 날갯짓</td></tr>
+        <tr><td><strong>큰고니</strong></td><td>고니와 날갯짓 차이로 구분 가능</td></tr>
+      </tbody>
+    </table>
+
+    <h3>백로류 구분</h3>
+    <table>
+      <thead>
+        <tr><th>종류</th><th>계절 구분</th><th>특징</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>중대백로</strong></td><td>여름</td><td>여름철새 (번식 후 이동)</td></tr>
+        <tr><td><strong>대백로</strong></td><td>겨울</td><td>겨울철새 (경부 회색빛)</td></tr>
+        <tr><td><strong>황백로</strong></td><td>-</td><td>비교적 드물게 관찰</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5. 철새의 구분 -->
+  <section class="bird-section" id="b5">
+    <h2>5. 철새의 구분</h2>
+    <div class="star-box">철새 분류는 반드시 <strong>우리나라 기준</strong>으로 한다. | <span class="highlight-red">나그네새(통과새) = 실제 체류 6개월 → 겨울철새보다 우리나라 체류 기간이 더 길다!</span></div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>설명</th><th>예시</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>여름철새</strong></td>
+          <td>봄~여름에 와서 번식 후 남쪽으로 이동</td>
+          <td>중대백로, 제비</td>
+        </tr>
+        <tr>
+          <td><strong>겨울철새</strong></td>
+          <td>가을~겨울에 와서 월동</td>
+          <td>대백로, 큰기러기, 쇠기러기</td>
+        </tr>
+        <tr>
+          <td><strong>나그네새(통과새)</strong></td>
+          <td>봄·가을에 잠시 들렀다 이동<br><span class="highlight-red">실제로 6개월 체류 → 겨울철새보다 길다!</span></td>
+          <td>도요새류 일부</td>
+        </tr>
+        <tr>
+          <td><strong>텃새</strong></td>
+          <td>우리나라에서 번식하고 연중 머무는 새</td>
+          <td>참새, 까치, 원앙</td>
+        </tr>
+        <tr>
+          <td><strong>국지적 이동 철새</strong></td>
+          <td>나라 안에서 계절에 따라 이동</td>
+          <td>중대백로(북한↔남한)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip-box">
+      <strong>핵심 포인트:</strong> 우리나라의 겨울철새는 북쪽(러시아·시베리아)에서 보면 <strong>여름철새</strong>입니다. 철새 명칭은 순전히 관찰자 나라 기준으로 부르는 것.<br>
+      중대백로가 북한↔남한 이동 시 텃새처럼 보이지만 실제 이동 여부는 <strong>밴딩 조사로만 확인 가능</strong>.
+    </div>
+  </section>
+
+  <!-- 6. 번식깃 -->
+  <section class="bird-section" id="b6">
+    <h2>6. 번식깃 (번식기 깃털)</h2>
+    <ul>
+      <li>새들은 번식철에 <strong>화려한 번식깃</strong>을 가짐 (수컷 중심)</li>
+      <li>번식이 끝나면 천적에게 덜 눈에 띄도록 빠르게 번식깃을 벗음 → 암·수가 비슷해짐</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>종류</th><th>번식깃 시기</th><th>특이사항</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>오리·기러기류</td>
+          <td>12월 말부터 수컷이 번식깃으로 변화 시작</td>
+          <td>이동 전에 짝 찾기 위함 — 겨울에 찾아올 때는 암수 깃 비슷</td>
+        </tr>
+        <tr>
+          <td>도요새</td>
+          <td>봄에 올 때 번식깃 보유</td>
+          <td>8~9월 돌아올 때 60~70%가 이미 번식깃 벗은 상태</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>도요새는 봄·가을에 겉모습(색상)이 다름 → 번식깃 유무로 계절 파악 가능</p>
+  </section>
+
+  <!-- 7. 도요새의 생태와 서식지 분화 -->
+  <section class="bird-section" id="b7">
+    <h2>7. 도요새의 생태와 서식지 분화</h2>
+
+    <h3>갯벌에서의 먹이 활동 방식</h3>
+    <p>간조(썰물) 때 갯벌에 나가보면 새마다 자기 자리와 방식이 다름:</p>
+    <ul>
+      <li>개지렁이가 나오기를 <strong>기다리는 새</strong></li>
+      <li>칠게가 나올 곳을 <strong>파는 새</strong> → 마도요 (칠게 먹음)</li>
+      <li>갯벌 표면의 유기물을 <strong>쪼아 먹는 새</strong></li>
+      <li>바위 주변 자갈·조개껍데기를 <strong>뒤집으며 먹이 찾는 새</strong> → 꼬까도요(돌조개도요) (돌 뒤집는 습성)</li>
+    </ul>
+    <p>만조 때 사진 찍는 것도 좋지만, <strong>간조 때 걸어다니며 먹이 행동·장소 파악</strong>이 더 중요 → 생활사를 자연스럽게 알 수 있음</p>
+
+    <h3>큰뒷부리도요와 장거리 이동</h3>
+    <ul>
+      <li>호주·뉴질랜드 → 황해 → 시베리아·알래스카 장거리 이동</li>
+      <li>비행 거리 <strong>1만 km 이상</strong></li>
+    </ul>
+
+    <h3>군집 밀도와 먹이 종류</h3>
+    <div class="star-box">군집 형태를 보면 먹이 종류를 약 90% 파악 가능</div>
+    <table>
+      <thead>
+        <tr><th>먹이 특성</th><th>군집 형태</th><th>예시 새</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>동적인 먹이 (게·갑각류)</td>
+          <td>서로 <strong>10m 이상 간격</strong>, 느슨한 군집</td>
+          <td>마도요·알락꼬리마도요</td>
+        </tr>
+        <tr>
+          <td>정적인 먹이 (조개 등)</td>
+          <td><strong>밀집 군집</strong></td>
+          <td>붉은어깨도요</td>
+        </tr>
+        <tr>
+          <td>검은머리물떼새</td>
+          <td>조개 먹이 특화</td>
+          <td>밀집 군집 형성</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 8. 도요새 부리 형태와 먹이 행동 -->
+  <section class="bird-section" id="b8">
+    <h2>8. 도요새 부리 형태와 먹이 행동</h2>
+
+    <h3>부리 형태별 먹이 행동</h3>
+    <table>
+      <thead>
+        <tr><th>종</th><th>부리 형태</th><th>먹이 행동 자세</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>흑꼬리도요</strong></td>
+          <td>직선 (곧은 부리)</td>
+          <td>고개를 숙이면 몸 전체가 앞으로 기울고 엉덩이가 가만히 있음. 무리 지어 앞으로 전진하며 쪼아 먹음</td>
+        </tr>
+        <tr>
+          <td><strong>꼬리도요</strong></td>
+          <td>위로 휘어짐</td>
+          <td>먹이 찾을 때 몸이 틀어짐. 엉덩이 부분이 움직이며 전진</td>
+        </tr>
+        <tr>
+          <td><strong>종도요(Dunlin)</strong></td>
+          <td>아래로 휨</td>
+          <td>진흙에 부리를 꽂아 아래 먹이 섭취 → 엉덩이를 들고 고개를 바닥에 박는 자세</td>
+        </tr>
+        <tr>
+          <td><strong>넓적부리도요</strong></td>
+          <td>끝이 넓적함</td>
+          <td>진흙 표면을 <strong>좌우로 훑으며</strong> 저서생물 걸러 먹음 → <strong>옆으로 이동</strong>하는 독특한 행동</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>부리의 감각 기관</h3>
+    <ul>
+      <li>도요새 부리 끝에 <strong>신경이 집중</strong>되어 있음 → 지렁이 움직임을 감지하면 즉시 찍음 (사람 잇몸처럼 예민)</li>
+      <li><strong>민물도요(Snipe·스나이퍼)</strong>: 영명 Snipe는 '저격수' 뜻 — 긴 부리 끝부분에 신경 밀집, 계곡 주변 지렁이 등을 정밀하게 잡음</li>
+    </ul>
+
+    <h3>넓적부리도요 — 멸종위기종</h3>
+    <div class="star-box">넓적부리도요 <span class="badge badge-danger">멸종위기</span> — 부리가 넓적하여 갯벌 표면을 좌우로 훑으며 섭식. 옆으로 이동하는 독특한 행동이 특징.</div>
+  </section>
+
+  <!-- 9. 군집 형태와 먹이의 관계 -->
+  <section class="bird-section" id="b9">
+    <h2>9. 군집 형태와 먹이의 관계</h2>
+    <p>갯벌에서 멀리 있는 도요새 무리의 군집 형태를 보면, 어떤 먹이를 먹는지 약 <strong>90% 파악</strong> 가능.</p>
+    <ul>
+      <li><strong>느슨한 군집(10m 이상 간격)</strong> → 동적인 먹이(게·갑각류) 사냥 — 마도요·알락꼬리마도요</li>
+      <li><strong>밀집 군집</strong> → 정적인 먹이(조개 등) — 붉은어깨도요</li>
+    </ul>
+    <p>습지의 정의: 수심 60cm 이하, 주서생물(저서동물)의 다양성이 높은 곳 → 생물 다양성의 보고</p>
+  </section>
+
+  <!-- 10. 밴딩 조사 -->
+  <section class="bird-section" id="b10">
+    <h2>10. 밴딩(Banding) 조사</h2>
+
+    <h3>밴딩 방법</h3>
+    <table>
+      <thead>
+        <tr><th>부위</th><th>부착물</th><th>용도</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>경부</strong></td>
+          <td>금속링</td>
+          <td>기관명·국가 정보(KOREA, JAPAN, AUSTRALIA 등) 새겨짐. 링 번호로 이동 경로·나이 파악</td>
+        </tr>
+        <tr>
+          <td><strong>부척</strong></td>
+          <td>색깔 플래그(flag)</td>
+          <td>초기: 색깔 조합으로 개체 구분 → 현재: 알파벳·숫자 새겨 개체식별</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>GPS 추적기</h3>
+    <ul>
+      <li>태양광 GPS 추적기를 <strong>체중의 3% 이하</strong>로 제작·부착</li>
+      <li>기술 발전으로 소형화 → 작은 도요새에도 부착 가능</li>
+      <li>실시간 이동 경로 모니터링 가능</li>
+      <li>예: 알래스카에서 부착된 개체가 우리나라 해안에서 관찰</li>
+    </ul>
+
+    <h3>포획 방법</h3>
+    <ul>
+      <li><strong>마취총 사용 금지</strong> — 새에게 치명적</li>
+      <li><strong>미스트넷(안 보이는 그물)</strong>: 높이 4m, 폭 25m 3~4개 사용</li>
+      <li><strong>호주식 폭발 캐논넷</strong>: 대규모 포획 시 그물을 공중으로 발사</li>
+      <li>포획 중 쇼크사 발생 가능 → 최소한의 안전한 방법으로 진행</li>
+    </ul>
+  </section>
+
+  <!-- 11. 새 이름의 원리와 관습 -->
+  <section class="bird-section" id="b11">
+    <h2>11. 새 이름의 원리와 관습</h2>
+
+    <h3>의성어 이름</h3>
+    <p>문자 이전 가장 효과적인 소통 수단인 음성에서 유래 — 새 이름에 의성어가 많음</p>
+    <table>
+      <thead>
+        <tr><th>새 이름</th><th>유래</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>두루미</strong></td><td>'두루루' 우는 소리에서 유래</td></tr>
+        <tr><td><strong>딱새</strong></td><td>꼬리를 위아래로 흔들 때 '딱딱' 소리에서 유래</td></tr>
+        <tr><td><strong>뻐꾸기</strong></td><td>'뻐꾹뻐꾹' 울음소리에서 유래</td></tr>
+        <tr><td><strong>왜가리</strong></td><td>급하게 날아갈 때 '왜-' 하고 날아오르는 소리에서 유래</td></tr>
+      </tbody>
+    </table>
+
+    <h3>행동 이름</h3>
+    <table>
+      <thead>
+        <tr><th>새 이름</th><th>유래</th><th>영명</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>저어새</strong></td><td>물에 부리를 넣고 좌우로 젓는 행동</td><td>Spoonbill</td></tr>
+        <tr><td><strong>꼬까도요</strong></td><td>알록달록한 색상에서 유래 / 돌 뒤집는 습성</td><td>Turnstone</td></tr>
+        <tr><td><strong>물레새</strong></td><td>물레 돌리듯 몸을 흔드는 행동</td><td>-</td></tr>
+      </tbody>
+    </table>
+
+    <h3>명명 관습</h3>
+    <ul>
+      <li><strong>'사촌'</strong>: 비슷한 외형의 별개 종임을 나타냄 (반드시 같은 분류군 아님)
+        <ul>
+          <li>청다리도요 / 청다리도요<strong>사촌</strong></li>
+          <li>원앙 / 원앙<strong>사촌</strong></li>
+          <li>할미새 / 할미새<strong>사촌</strong></li>
+          <li>개개비 / 개개비<strong>사촌</strong></li>
+        </ul>
+      </li>
+      <li><strong>'개-'</strong> 접두사: 원종과 비슷하지만 다른 종임을 나타냄 (예: 개꿩) — 나쁜 의미 아님</li>
+      <li>학명에서 <strong>'commn'(Common)</strong>: 대표하는 유형을 의미</li>
+      <li>영명은 주로 <strong>겉모습</strong>을 기준으로 명명, 수컷의 번식깃을 기준으로 하는 경우가 많음</li>
+    </ul>
+  </section>
+
+  <!-- 12. 주요 조류 생태 특성 -->
+  <section class="bird-section" id="b12">
+    <h2>12. 주요 조류 생태 특성</h2>
+
+    <h3>가창오리 — 군무(群舞)의 경이</h3>
+    <ul>
+      <li>우리나라에 약 <strong>40~50만 마리</strong> 찾아옴 (추정)</li>
+      <li>러시아 캄차카 툰드라 지역에서 번식 — 현지에서는 큰 호수에 한두 쌍밖에 없어 군무를 상상 못함</li>
+      <li>90년대 초 러시아 연구자들이 한국의 가창오리 군무를 보고 깜짝 놀란 일화</li>
+      <li>사람이 해치지 않으면 바로 옆까지도 와서 생활</li>
+    </ul>
+
+    <h3>기러기류 — 큰기러기 vs 쇠기러기</h3>
+    <div class="star-box">큰기러기 vs 쇠기러기 서식 환경 구분 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>종류</th><th>서식 환경</th><th>식별 특징</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>큰기러기</strong></td>
+          <td>해안가·습지 선호</td>
+          <td>부리 기부(뿌리 부분)의 <strong>흰색</strong>이 멀리서도 뚜렷하게 보임</td>
+        </tr>
+        <tr>
+          <td><strong>쇠기러기</strong></td>
+          <td><strong>농경지</strong> 선호 (논)</td>
+          <td>넓은 논에 무리 지어 있으면 쇠기러기일 가능성 높음. 중저음 울음소리.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>잿빛개구리매</h3>
+    <ul>
+      <li>낮게(약 2~3m) 천천히 날아다니며 꿩·비둘기·도요새 등이 갑자기 튀어오를 때 잡음</li>
+      <li>성공률 매우 낮지만 넓은 면적을 관할하여 동작이 느린 개체를 잡음</li>
+      <li>우리나라에서 <strong>겨울</strong>을 남 (개구리가 없는 계절이므로 주로 새를 먹음)</li>
+      <li><strong>허리 부분이 하얀 것</strong>이 특징</li>
+    </ul>
+
+    <h3>원앙</h3>
+    <ul>
+      <li>오리류이자 우리나라 <strong>텃새</strong></li>
+      <li>남원 광한루 주변에서는 손으로 쓰다듬을 수 있을 정도로 가까이 접근</li>
+    </ul>
+  </section>
+
+  <!-- 13. 새와 사람의 공존 -->
+  <section class="bird-section" id="b13">
+    <h2>13. 새와 사람의 공존</h2>
+    <p>새와 사람이 공존하는 방식은 지역마다 다름. 오랜 학습과 신뢰 관계가 필요함.</p>
+    <ul>
+      <li>외국 공원에서 오리에게 먹이를 주는 것처럼, 우리나라도 훈련되면 가능</li>
+      <li>남원 광한루 원앙 사례 — 상호 신뢰로 인간과 야생동물 공존 가능</li>
+    </ul>
+  </section>
+
+  <!-- 14. 새만금·순천만 -->
+  <section class="bird-section" id="b14">
+    <h2>14. 새만금·순천만 교훈</h2>
+
+    <h3>새만금 갯벌과 도요새 감소</h3>
+    <ul>
+      <li>새만금 갯벌: 여의도의 약 <strong>150배</strong> 크기</li>
+      <li>2004년 새만금 방조제 완공 → 갯벌 소실 → 도요새 개체수 급감</li>
+      <li>2004년 가을: 한 무리에서 약 <strong>8만 마리</strong> 도요새 관찰 가능했음 → 이후 사라짐</li>
+      <li>호주에서 <strong>10만 마리 규모의 도요새</strong>가 사라졌다는 보고 이어짐 (새만금과 직접 연결)</li>
+      <li>어선 3천 척, 종사자 약 2만 명, 연간 약 8,000억 원 경제 가치 소실</li>
+    </ul>
+
+    <h3>순천만의 교훈 — 흑두루미와 지역 공동체</h3>
+    <ul>
+      <li>20여 년 전 순천만 모래톱 준설 계획 → 연구자들이 흑두루미 서식지 조사·보존 활동</li>
+      <li>준설 계획 철회 → 순천만이 생태 관광지로 발전 → 현재 연간 <strong>800만 명 이상</strong> 방문</li>
+      <li>"자연이 먼저다라는 곳에는 사람이 산다" — 공동체적 문화와 적응</li>
+      <li>멸종위기종 보호를 통해 인간 공동체가 보호받을 수 있는 개념 통일</li>
+    </ul>
+  </section>
+
+  <!-- 15. 생태계 자정 능력 -->
+  <section class="bird-section" id="b15">
+    <h2>15. 생태계의 자정 능력</h2>
+    <ul>
+      <li>외래종 배스 도입 → 토종 어류 감소 → 5~10년 후 자연스럽게 균형 회복</li>
+      <li>황소개구리, 뉴트리아도 처음에는 폭발적 증가 → 먹이원에 맞게 자연 조절</li>
+      <li><strong>생태계는 어느 한 생물이 무한정 번성하지 않음</strong> — 먹이 충분 시 번성 → 먹이 감소 시 개체수 자연 조절</li>
+      <li>모기가 많은 지역 = 습기도 많고 생물 다양성이 높은 곳 → 불편한 존재도 생태계에서 역할이 있음</li>
+    </ul>
+  </section>
+
+  <!-- 16. 조류 충돌 문제 -->
+  <section class="bird-section" id="b16">
+    <h2>16. 조류 충돌 문제</h2>
+    <ul>
+      <li>우리나라에서 조류 충돌로 연간 약 <span class="highlight-red"><strong>800만 마리</strong></span>의 새가 폐사</li>
+      <li>주원인: <strong>유리창·방음벽 충돌</strong> — 새들이 유리를 하늘로 착각하여 돌진</li>
+      <li><strong>풍력발전기 날개</strong>: 끝이 고속 회전(칼날처럼)하여 충돌 시 치명적</li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════ PART 2: 포유류 ══════════════════════════════ -->
+  <div class="part-header part-mammal" id="part-mammal">🦡 Part 2 — 포유류 (Mammals)</div>
+
+  <!-- 1. 발가락 수 분류 체계 -->
+  <section class="mammal-section" id="m1">
+    <h2>1. 포유류 발가락 수 분류 체계</h2>
+
+    <h3>사람·개·고양이의 발가락 수</h3>
+    <ul>
+      <li>사람: 손가락 5개, 발가락 5개</li>
+    </ul>
+    <div class="star-box">
+      <strong>개·고양이 발자국 = 4개 찍힘</strong> (며느리발톱은 퇴화 중)<br>
+      <span class="highlight-red"><strong>너구리는 개과이지만 발가락 5개가 다 찍힘</strong></span> — 개과 동물 중 유일하게 5개 선명
+    </div>
+
+    <h3>우제목(偶蹄目) vs 기제목(奇蹄目)</h3>
+    <div class="star-box">우제목 vs 기제목 — 시험 출제 빈출</div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>발굽 수</th><th>우리나라 종</th><th>특이사항</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>우제목(偶蹄目)</strong> — 짝수 발굽</td>
+          <td>2개 또는 4개</td>
+          <td>멧돼지, 고라니, 노루 (야생)<br>사슴 (현재 야생 개체 없음, 복원 중)</td>
+          <td>발자국에 주발굽 2개 찍힘</td>
+        </tr>
+        <tr>
+          <td><strong>기제목(奇蹄目)</strong> — 홀수 발굽</td>
+          <td>1개 또는 3개</td>
+          <td>말(발굽 1개, 제주도)<br>코뿔소(발굽 3개 — 국내 야생 아님)</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>우제목 발자국 구조</h3>
+    <div class="star-box">멧돼지 vs 고라니·노루 발자국 구분 — 시험 출제</div>
+    <ul>
+      <li>우제목: 주발굽 2개(사람의 중지·약지, 3·4번 손가락에 해당) + 뒤쪽 '며느리발굽(부석지·구속지)' 2개 추가</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>동물</th><th>며느리발굽 방향</th><th>발굽 형태</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>멧돼지</strong></td><td>바깥쪽으로 <strong>벌어짐</strong></td><td>크고 둥근 편</td></tr>
+        <tr><td><strong>고라니</strong></td><td>안쪽으로 향함</td><td>약간 <strong>뾰족함</strong></td></tr>
+        <tr><td><strong>노루</strong></td><td>안쪽으로 향함</td><td>약간 <strong>뭉툭함</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>박쥐·고래의 손가락 수</h3>
+    <ul>
+      <li>박쥐의 날개 — 피부막이지만 내부 뼈 구조는 손가락 <strong>5개</strong></li>
+      <li>고래의 앞지느러미 — 내부 골격은 손가락 5개 구조</li>
+      <li>포유류는 기본적으로 <strong>5지(五指) 구조</strong> 공유</li>
+    </ul>
+  </section>
+
+  <!-- 2. 발자국으로 동물 구분 -->
+  <section class="mammal-section" id="m2">
+    <h2>2. 발자국으로 동물 구분하기</h2>
+
+    <div class="star-box">개과 vs 고양이과 발자국 구분 3원칙 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>구분 포인트</th><th>개과</th><th>고양이과</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>① 발톱 자국</td>
+          <td><strong>발톱 자국 있음</strong></td>
+          <td><strong>없음</strong> (발톱을 집어넣으므로)</td>
+        </tr>
+        <tr>
+          <td>② 대칭 여부</td>
+          <td>발바닥 패드 기준 <strong>좌우 대칭</strong></td>
+          <td><strong>비대칭</strong></td>
+        </tr>
+        <tr>
+          <td>③ 발가락 크기</td>
+          <td>발가락 크기가 비교적 <strong>균일</strong></td>
+          <td>가운데 두 발가락이 크고 양옆이 작아 <strong>크기 차이 큼</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip-box">실전 팁: 발자국 하나만 보지 말고 <strong>연속된 발자국 여러 개</strong>를 함께 확인. 가장 선명한 것 한두 개를 골라 판단.</div>
+
+    <h3>너구리 발자국</h3>
+    <ul>
+      <li>개과이지만 발가락 5개가 모두 찍힘</li>
+      <li>중지·약지(3·4번) 밑부분이 붙어 있어 제대로 찍히면 <strong>하트 모양</strong>처럼 보임</li>
+    </ul>
+
+    <h3>족제비과 발자국</h3>
+    <ul>
+      <li>발가락 5개 (발자국에는 4~5개 찍힘)</li>
+      <li>몸이 길고 다리가 짧아 <strong>앞발과 뒷발이 겹쳐 찍히는</strong> 경우가 많음</li>
+    </ul>
+
+    <h3>고라니 vs 노루 — 발자국 및 서식 환경 구분</h3>
+    <div class="star-box">고라니 vs 노루 서식 환경 구분 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>고라니 (Water Deer)</th><th>노루</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>서식 환경</strong></td>
+          <td>물 매우 좋아함 → <strong>하천·논·습한 야산</strong> 주변에 많음<br>경기도 야산에서 주로 보이면 고라니</td>
+          <td>건조한 환경 선호 → <strong>산 중턱 이상</strong>, 강원도 산간</td>
+        </tr>
+        <tr>
+          <td><strong>외형</strong></td>
+          <td>코 옆에 <strong>흰 수염(코털)</strong>, 수컷 <strong>송곳니</strong> 입 밖 돌출, <strong>뿔 없음</strong></td>
+          <td><strong>엉덩이가 하얀 것</strong>이 특징, 수컷에만 뿔 있음, 암컷은 뿔 없음</td>
+        </tr>
+        <tr>
+          <td><strong>마킹 방법</strong></td>
+          <td><strong>이빨(송곳니)</strong>로 나무껍질을 물어 긁음 — 낮은 위치</td>
+          <td><strong>뿔</strong>로 나무를 문질러 마킹 — 고라니보다 높은 위치</td>
+        </tr>
+        <tr>
+          <td><strong>발굽</strong></td>
+          <td>약간 뾰족함</td>
+          <td>약간 뭉툭함</td>
+        </tr>
+        <tr>
+          <td><strong>쉰 자리</strong></td>
+          <td colspan="2">체온으로 눈·낙엽을 헤치고 맨땅에 누움 → 눈 위·낙엽 위에 자리 확인</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. 족제비과 생태 -->
+  <section class="mammal-section" id="m3">
+    <h2>3. 족제비과(Mustelidae) 동물 생태</h2>
+
+    <h3>족제비과 공통 특징</h3>
+    <ul>
+      <li>발가락 5개</li>
+      <li>머리 형태: <strong>납작하고 길쭉함</strong> (동그랗지 않음) — 좁은 굴 속 사냥 적응</li>
+      <li><strong>냄새샘(향선)</strong>: 항문 옆에 있어 영역 표시 및 위협 시 강한 냄새 분비</li>
+    </ul>
+
+    <div class="star-box">족제비과 배설물(똥) 특징 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>동물</th><th>배설물 특징</th><th>키워드</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>족제비·담비·수달</td><td><strong>돌 위</strong> 등 높은 곳에 쌈</td><td><strong>똥돌</strong></td></tr>
+        <tr><td>오소리</td><td>굴 앞에 <strong>구덩이</strong>(똥굴)를 파고 그 앞에 쌈</td><td><strong>똥굴</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>주요 족제비과 동물</h3>
+
+    <h4>족제비</h4>
+    <ul>
+      <li>족제비과 중 가장 <strong>소형</strong></li>
+      <li>주로 쥐·양서류·새·벌 애벌레 등 먹는 <strong>육식성</strong></li>
+      <li>서식: 돌 틈·다리 밑·논두렁 주변</li>
+      <li>겨울에 북방 개체는 털이 <strong>흰색</strong>으로 바뀌는 경우도 있음</li>
+    </ul>
+
+    <h4>담비 <span class="badge badge-info">잡식성</span></h4>
+    <div class="star-box">담비 외형 기억법 — 노란 목도리 담비</div>
+    <ul>
+      <li>머리·몸통 위쪽: 검정색 또는 갈색</li>
+      <li>목 아랫부분(턱·가슴): <strong>노란색(황금색)</strong> → '노란 목도리'</li>
+      <li>네 다리와 꼬리: 검정색</li>
+      <li>잡식성: 청설모·다람쥐 같은 설치류 + 열매(달래·홍시 등)</li>
+      <li>똥 색깔: 먹은 것에 따라 다양 — 붉은 열매 먹으면 빨갛게, 달래 먹으면 초록빛</li>
+    </ul>
+
+    <h4>수달 <span class="badge badge-danger">법정 보호종</span></h4>
+    <ul>
+      <li>물고기 주식 — 입으로 물속을 헤엄치며 잡음 (발로 잡는 것 아님)</li>
+      <li>보기는 어렵지 않지만 개체 수 정확히 세기 어려움 (같은 개체 여러 지점 중복 관찰)</li>
+      <li>발자국(5개, 물갈퀴 흔적) + 배설물로 서식 여부 확인</li>
+      <li>전주: 전주천·삼천 일대에 서식 — 다리 위에서 아침·저녁 1시간씩 관찰이 효과적</li>
+    </ul>
+
+    <h4>오소리</h4>
+    <ul>
+      <li>발톱이 강해 <strong>땅을 잘 팜</strong></li>
+      <li>'똥굴' 습성 — 굴(오솔길 옆 경사면) 앞에 배설물 모아놓음</li>
+      <li>잡식성: 지렁이·곤충·뿌리·열매 등</li>
+    </ul>
+
+    <h4>세족제비 <span class="badge badge-danger">야생동물 1급</span></h4>
+    <div class="star-box">세족제비 — 법정 보호종 (야생동물 1급) — 예전 2급에서 1급으로 상향</div>
+    <ul>
+      <li>족제비과 중 가장 소형 — 매우 보기 드문 종</li>
+      <li>꼬리가 족제비보다 훨씬 짧음 (거의 없는 수준)</li>
+      <li>외형이 족제비와 비슷해 전문가도 구분이 어려움</li>
+    </ul>
+  </section>
+
+  <!-- 4. 야외 활동 안전교육 -->
+  <section class="mammal-section" id="m4">
+    <h2>4. 야외 활동과 안전교육</h2>
+    <p>숲 교육 전 조류·식물·양서파충류 등과 함께 <strong>안전교육이 반드시 필요</strong>. 산에서 실제 조사 시 가장 현실적인 위험은 <strong>벌·진드기·멧돼지</strong>.</p>
+
+    <h3>멧돼지</h3>
+    <ul>
+      <li>대부분 사람을 피해 먼저 도망</li>
+      <li><span class="highlight-red"><strong>새끼를 데리고 있는 어미 멧돼지가 가장 위험</strong></span></li>
+      <li>땅을 2~30cm 깊이로 파서 낙엽 등을 덮은 <strong>보금자리</strong> 만듦 → 새끼 낳은 뒤 약 1주일 사용 후 버림</li>
+      <li>소나무 껍질을 넓게 벗겨 <strong>송진을 핥음</strong> → 나무 아래쪽에 넓은 흔적 남김</li>
+    </ul>
+
+    <h3>벌 — 가장 주의해야 할 위험 생물</h3>
+    <div class="star-box">야외 활동 중 가장 주의할 생물 = 벌 (특히 말벌류·땅벌)</div>
+    <table>
+      <thead>
+        <tr><th>종류</th><th>특성</th><th>처치</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>꿀벌</strong></td>
+          <td>침이 살에 박힘</td>
+          <td>카드로 밀어서 제거 — 손톱으로 눌러 짜면 안 됨</td>
+        </tr>
+        <tr>
+          <td><strong>말벌·쌍살벌·땅벌</strong></td>
+          <td>침이 박히지 않음 → 계속 쏠 수 있음</td>
+          <td>냉찜질(아이스팩) → 1~2일 내 가라앉음. 여러 군데 쏘이면 병원.</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>벌은 <strong>검정색 머리</strong>에 반응 → 야외 활동 시 <strong>흰색·밝은색 모자</strong> 권장</li>
+      <li>벌집 건드렸을 때: 즉시 반대 방향으로 <strong>10m 이상</strong> 달아나기</li>
+    </ul>
+
+    <h3>진드기</h3>
+    <div class="star-box">야외 활동 후 진드기 확인 필수</div>
+    <ul>
+      <li>무는 순간 잘 모름 → <strong>귀 뒤, 두피, 겨드랑이</strong> 등 꼼꼼히 확인</li>
+      <li>물렸을 때: 핀셋으로 조심스럽게 <strong>수직으로 제거</strong> (무리하게 잡아당기면 머리 남음)</li>
+      <li>제거 후 <strong>한 달 이상</strong> 발열·두통 등 이상 증상 모니터링</li>
+      <li>기저질환 있거나 면역력 낮은 분은 특히 주의</li>
+    </ul>
+  </section>
+
+  <!-- 5. 배설물로 동물 구분 -->
+  <section class="mammal-section" id="m5">
+    <h2>5. 배설물(똥)로 동물 구분하기</h2>
+    <div class="star-box">배설물 위치·형태별 동물 기억법 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>동물</th><th>배설물 특징</th><th>키워드</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>너구리</strong></td>
+          <td>한 장소에 여러 마리가 쌓음</td>
+          <td><strong>분장(糞場) — 공동 화장실</strong></td>
+        </tr>
+        <tr>
+          <td><strong>족제비·담비·수달</strong></td>
+          <td>돌 위 등 높은 곳에 쌈</td>
+          <td><strong>똥돌</strong></td>
+        </tr>
+        <tr>
+          <td><strong>오소리</strong></td>
+          <td>굴 앞에 구덩이 파고 쌈</td>
+          <td><strong>똥굴</strong></td>
+        </tr>
+        <tr>
+          <td><strong>고라니·노루</strong></td>
+          <td>검은 콩알 모양 (노루가 약간 더 길쭉)</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>토끼(산토끼)</strong></td>
+          <td>동그란 알갱이(1차변) / 시커멓고 말랑한 맹장변(2차변) — 2차변은 <strong>다시 먹음</strong></td>
+          <td>맹장변 재섭취(소화 효율)</td>
+        </tr>
+        <tr>
+          <td><strong>살쾡이</strong></td>
+          <td>등산로 <strong>가운데</strong>에 똥을 누는 습성</td>
+          <td>길 한가운데 놓인 똥 = 살쾡이 의심</td>
+        </tr>
+        <tr>
+          <td><strong>족제비과</strong></td>
+          <td>길고 꼬인 형태, 털·뼈 조각 포함</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong>담비</strong></td>
+          <td>먹이에 따라 색 다양 — 붉은 열매→빨강, 달래→초록, 청설모→털·뼈 섞임</td>
+          <td>색깔 변화</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="warn-box">⚠️ 배설물을 손으로 만지지 마세요 — 기생충·바이러스 감염 위험</div>
+  </section>
+
+  <!-- 6. 먹이 흔적으로 동물 구분 -->
+  <section class="mammal-section" id="m6">
+    <h2>6. 먹이 흔적으로 동물 구분하기</h2>
+
+    <h3>솔방울·잣 흔적 — 청설모 vs 다람쥐</h3>
+    <div class="star-box">솔방울·잣 흔적 구분법 — 시험 출제</div>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>청설모</th><th>다람쥐</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>먹는 방식</td>
+          <td>솔방울 껍질을 <strong>깔끔하게 완전히 벗겨냄</strong> → 심만 남음</td>
+          <td>껍질을 앞에서 뜯어 씨앗만 꺼내 먹음 → <strong>불규칙한 흔적</strong></td>
+        </tr>
+        <tr>
+          <td>먹는 장소</td>
+          <td><strong>높은 곳</strong> (나무 위·통나무 위)</td>
+          <td><strong>낮은 곳</strong> (돌 위·땅 위)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>나무껍질 벗긴 흔적</h3>
+    <table>
+      <thead>
+        <tr><th>동물</th><th>흔적 특징</th><th>위치</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>멧돼지</strong></td><td>소나무 껍질을 <strong>넓게 벗겨</strong> 송진을 핥음</td><td>나무 <strong>아래쪽</strong></td></tr>
+        <tr><td><strong>살쾡이</strong></td><td>나무에 발톱 긁은 자국 (영역 표시)</td><td>발톱 자국이 선명</td></tr>
+        <tr><td><strong>고라니</strong></td><td>이빨(송곳니)로 나무껍질을 물어 긁음</td><td><strong>낮은 위치</strong></td></tr>
+        <tr><td><strong>노루</strong></td><td>뿔로 나무를 문질러 마킹</td><td>고라니보다 <strong>높은 위치</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>씨앗 묻기 — 청설모의 파종 역할</h3>
+    <ul>
+      <li>청설모가 잣·도토리를 땅에 묻어 저장 → 일부를 잊어버림</li>
+      <li>잊혀진 씨앗 → 봄에 싹 → 여러 개가 올라오다 자연 도태 → 한 그루만 남아 나무로 자람</li>
+      <li><span class="highlight-blue"><strong>청설모 = 숲의 씨앗을 퍼뜨리는 역할</strong></span></li>
+    </ul>
+  </section>
+
+  <!-- 7. 주요 포유류 생태 특성 -->
+  <section class="mammal-section" id="m7">
+    <h2>7. 주요 포유류 생태 특성</h2>
+
+    <h3>청설모</h3>
+    <ul>
+      <li>사계절 활동 — <strong>겨울잠 안 잠</strong></li>
+      <li>주로 나무 위에서 생활</li>
+      <li>먹이: 잣·도토리·나무껍질 속 등</li>
+      <li>겨울에 발견되는 솔방울·잣 흔적은 청설모 것 (다람쥐는 겨울잠)</li>
+    </ul>
+
+    <h3>다람쥐</h3>
+    <div class="star-box">다람쥐는 겨울잠을 잠 / 청설모는 겨울잠 안 잠 — 시험 출제</div>
+    <ul>
+      <li><strong>겨울잠을 잠</strong> — 땅속 굴에서 겨울을 남</li>
+      <li>잡식성: 씨앗·곤충·애벌레·개구리 등도 먹음</li>
+      <li>낮은 곳(돌 위·땅 위)에서 먹이 활동</li>
+    </ul>
+
+    <h3>하늘다람쥐</h3>
+    <ul>
+      <li>딱따구리가 파놓은 나무 구멍 등을 둥지로 활용</li>
+      <li>둥지 아래에 배설물이 많이 쌓이는 것이 특징</li>
+      <li>나무 사이를 <strong>활강</strong>하여 이동</li>
+    </ul>
+
+    <h3>너구리</h3>
+    <ul>
+      <li>한번 짝을 이루면 오래 함께 삶</li>
+      <li><strong>개선충(옴)</strong> 감염이 잦아 털이 빠진 개체 종종 목격</li>
+      <li>청소동물로서 가리지 않고 먹음 (잡식성)</li>
+      <li>발가락 5개 찍히는 발자국 — 개과 중 유일</li>
+    </ul>
+
+    <h3>산토끼</h3>
+    <div class="star-box">산토끼 개체 수 감소 원인 = 산림 녹화(숲이 울창해짐)</div>
+    <ul>
+      <li><strong>관목지대</strong>(하늘이 보이고 키 낮은 나무)가 필요</li>
+      <li><strong>2차변(맹장변)</strong>을 다시 먹는 습성 — 소화 효율을 높이기 위함</li>
+    </ul>
+
+    <h3>살쾡이</h3>
+    <ul>
+      <li>고양이과, 고양이와 유사하지만 야생종</li>
+      <li>등산로 가운데에 똥을 누는 습성 → 산에서 <strong>길 한가운데 놓인 똥 = 살쾡이 의심</strong></li>
+      <li>발톱을 집어넣으므로 발자국에 발톱 자국 없음</li>
+    </ul>
+  </section>
+
+  <!-- 8. 흔적 관찰 현장 팁 -->
+  <section class="mammal-section" id="m8">
+    <h2>8. 흔적 관찰 현장 팁</h2>
+
+    <h3>무인센서카메라(트랩카메라) 활용</h3>
+    <ul>
+      <li>야간 적외선 촬영으로 서식 종 확인 가능</li>
+      <li>단, 카메라만으로는 동일 개체 여부 구별 어려움</li>
+      <li><strong>발자국·배설물 조사와 병행</strong>해야 함</li>
+    </ul>
+
+    <h3>청설모·다람쥐 활동 장소 찾기</h3>
+    <ul>
+      <li>배설물이 있는 장소 주변에서 먹이 활동 흔적(까진 솔방울·잣 껍질) 함께 확인</li>
+      <li>그 길을 따라가면 청설모·다람쥐 만날 확률 높음</li>
+    </ul>
+
+    <h3>눈 위·흙길 발자국 활용</h3>
+    <ul>
+      <li>겨울철 눈 위 발자국 — 매우 선명하여 종 구분에 유리</li>
+      <li>경운기 다니는 길, 하천변 흙길, 논두렁 옆 물가 등 — 발자국과 배설물이 잘 남음</li>
+    </ul>
+
+    <div class="star-box">흔적 관찰 시 주의사항</div>
+    <ul>
+      <li>배설물·털은 <strong>절대 맨손으로 만지지 말 것</strong> (기생충·바이러스)</li>
+      <li>사진 촬영 시 <strong>크기 기준(동전·자 등)을 함께</strong> 찍어둘 것</li>
+      <li>발견 장소·날짜·주변 환경을 메모 → 생태 파악에 유리</li>
+      <li>벌집·진드기 서식지 근처에서는 <strong>긴 소매·긴 바지</strong> 착용</li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  야생동물의 이해 (조류·포유류) 통합정리본 | 숲해설가 자격증 시험 준비<br>
+  강의: 20260307(조류, 오동필), 20260309(포유류, 오동필) | 정리: 2026-06-19<br>
+  출처: 16기 조류 요점정리 · 강의록(20260307) · 조류 음성정리 · 포유류 음성정리 · 0309 Gnote OCR
+</footer>
+
+</body>
+</html>
