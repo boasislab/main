@@ -12,6 +12,7 @@
   #login-screen { text-align: center; padding: 40px 20px; }
   .login-card { background: white; border-radius: 20px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); max-width: 380px; width: 100%; }
   .login-card .icon { font-size: 3.5em; margin-bottom: 12px; }
+  .login-card .icon img { width: 80px; height: 80px; object-fit: contain; }
   .login-card h1 { color: #2d6a4f; font-size: 1.4em; margin-bottom: 6px; }
   .login-card p { color: #777; font-size: 0.9em; margin-bottom: 28px; }
   .pw-input { width: 100%; padding: 14px 16px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.1em; text-align: center; letter-spacing: 3px; outline: none; transition: border-color 0.2s; }
@@ -53,7 +54,7 @@
 <div id="login-screen">
   <div style="margin-bottom:16px;"><a href="index.html" style="color:#666;font-size:0.85em;text-decoration:none;">← 메인으로</a></div>
   <div class="login-card">
-    <div class="icon">🌿</div>
+    <div class="icon"><img src="forest-icon.jpg" alt="숲해설"></div>
     <h1>숲해설가 18기 강의자료</h1>
     <p>접속 비밀번호를 입력해주세요</p>
     <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="20"
@@ -66,7 +67,7 @@
 <!-- 메인 화면 -->
 <div id="main-screen">
   <div class="site-header">
-    <h1>🌿 숲해설가 18기 강의자료</h1>
+    <h1><img src="forest-icon.jpg" alt="숲해설" style="height:1.2em;vertical-align:middle;margin-right:8px;">숲해설가 18기 강의자료</h1>
     <p>각 과목의 정리본과 기출문제집을 클릭하면 바로 열립니다</p>
   </div>
 
