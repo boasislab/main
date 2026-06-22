@@ -133,18 +133,19 @@
         <table class="error-table">
           <thead>
             <tr>
-              <th style="width:130px">발생일시</th>
-              <th style="width:52px">번호</th>
-              <th style="width:50px">등급</th>
-              <th style="width:18%">현상</th>
-              <th style="width:18%">원인</th>
-              <th style="width:14%">대상</th>
-              <th style="width:22%">조치</th>
-              <th style="width:66px">상태</th>
+              <th style="width:120px">발생일시</th>
+              <th style="width:48px">번호</th>
+              <th style="width:46px">등급</th>
+              <th style="width:16%">현상</th>
+              <th style="width:16%">원인</th>
+              <th style="width:12%">대상</th>
+              <th style="width:18%">조치</th>
+              <th style="width:62px">상태</th>
+              <th style="width:16%">미조치 사유</th>
             </tr>
           </thead>
           <tbody id="error-tbody">
-            <tr class="empty-row"><td colspan="8">등록된 오류가 없습니다.</td></tr>
+            <tr class="empty-row"><td colspan="9">등록된 오류가 없습니다.</td></tr>
           </tbody>
         </table>
       </div>
@@ -203,6 +204,11 @@
               <span class="badge badge-orange">진행중</span> &nbsp;
               <span class="badge badge-green">조치완료</span>
             </td>
+          </tr>
+          <tr>
+            <td><strong>미조치 사유</strong></td>
+            <td>상태가 <span class="badge badge-red">미조치</span>일 때만 표시 — 아직 처리 못 한 이유</td>
+            <td>담당자 부재 / 원인 분석 중 / 일정 협의 필요</td>
           </tr>
         </tbody>
       </table>
@@ -275,7 +281,8 @@
     //   cause: '필수 파라미터 누락',
     //   target: '수탁계좌 조회',
     //   action: '파라미터 기본값 설정 후 재배포',
-    //   status: 'done'
+    //   status: 'done',
+    //   reason: ''        ← 미조치 사유 (status:'open'일 때만 표시)
     // },
   ];
   // ─────────────────────────────────────────────────────────────
@@ -293,6 +300,9 @@
     } else {
       tbody.innerHTML = visible.map(e => {
         const lv = e.level || 1;
+        const reasonCell = e.status === 'open'
+          ? `<td style="color:#c0392b;font-size:0.88em;">${e.reason || '—'}</td>`
+          : `<td style="color:#ccc;">—</td>`;
         return `<tr>
           <td class="date">${e.datetime || '-'}</td>
           <td class="no">${e.no}</td>
@@ -302,6 +312,7 @@
           <td>${e.target}</td>
           <td>${e.action}</td>
           <td><span class="badge ${STATUS_CLS[e.status]}">${STATUS_LABEL[e.status]}</span></td>
+          ${reasonCell}
         </tr>`;
       }).join('');
     }
