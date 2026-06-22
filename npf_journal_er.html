@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPF 분개모형 추출과정 ER 다이어그램</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f8; padding: 24px 16px; }
+  h1 { text-align: center; color: #1a3a5c; font-size: 1.4em; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #888; font-size: 0.88em; margin-bottom: 24px; }
+  .diagram-wrap { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow-x: auto; margin-bottom: 24px; }
+  .legend { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.82em; color: #555; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
+  .flow-section { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; }
+  .flow-section h2 { color: #1a3a5c; font-size: 1.05em; margin-bottom: 16px; border-bottom: 2px solid #e8f0f7; padding-bottom: 8px; }
+  .flow-steps { display: flex; gap: 0; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .flow-step { background: #e8f0f7; border-radius: 10px; padding: 10px 16px; text-align: center; font-size: 0.85em; min-width: 110px; }
+  .flow-step strong { display: block; color: #1a3a5c; font-size: 0.95em; margin-bottom: 3px; }
+  .flow-step span { color: #666; font-size: 0.82em; }
+  .flow-arrow { color: #2c5f8a; font-size: 1.4em; padding: 0 6px; }
+  .table-section { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .table-section h2 { color: #1a3a5c; font-size: 1.05em; margin-bottom: 16px; border-bottom: 2px solid #e8f0f7; padding-bottom: 8px; }
+  table.ref { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+  table.ref th { background: #1a3a5c; color: white; padding: 9px 12px; text-align: left; }
+  table.ref td { padding: 9px 12px; border-bottom: 1px solid #eef2f7; }
+  table.ref tr:hover td { background: #f7fafd; }
+  .role-main { background: #fef3e2; color: #b85c00; font-size: 0.78em; font-weight: bold; padding: 2px 7px; border-radius: 8px; }
+  .role-lookup { background: #dce8f5; color: #1a5fa8; font-size: 0.78em; font-weight: bold; padding: 2px 7px; border-radius: 8px; }
+  .role-ref { background: #f0f0f0; color: #555; font-size: 0.78em; font-weight: bold; padding: 2px 7px; border-radius: 8px; }
+  .footer { text-align: center; color: #aaa; font-size: 0.78em; padding: 20px 0 8px; border-top: 1px solid #e0e0e0; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<h1>📊 NPF 분개모형 추출과정 ER 다이어그램</h1>
+<p class="subtitle">기금운용본부 백오피스 — 분개정의(FAMCD0036NTA) 중심 테이블 연관 구조</p>
+
+<!-- 범례 -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#c0392b;"></div> 핵심(분개정의)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1a3a5c;"></div> 코드마스터</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2c5f8a;"></div> 연결/매핑</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#5a7fa0;"></div> 공통참조</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#888;border:1px dashed #888;background:white;"></div> → JOIN 관계</div>
+</div>
+
+<!-- ER SVG 다이어그램 -->
+<div class="diagram-wrap">
+<svg viewBox="0 0 1140 760" width="100%" style="min-width:760px;display:block;">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L8,3.5 L0,7 Z" fill="#2c5f8a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L8,3.5 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L8,3.5 L0,7 Z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- ══════════ CONNECTORS (drawn first, behind boxes) ══════════ -->
+
+  <!-- FBCCD0009NTA → FAMCD0036NTA : TR_CD -->
+  <path d="M 272,240 L 420,310" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="315" y="264" font-size="10" fill="#2c5f8a" font-family="monospace">TR_CD</text>
+
+  <!-- FAMCD0036NTA → FAMCD0132CDA : ACCT_ATRB_CD -->
+  <path d="M 555,440 L 650,530" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="575" y="474" font-size="10" fill="#2c5f8a" font-family="monospace">ACCT_ATRB_CD</text>
+
+  <!-- FAMCD0036NTA → FAMCD0135NTA : (매핑) -->
+  <path d="M 670,320 L 760,330" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+  <text x="685" y="313" font-size="10" fill="#2c5f8a" font-family="monospace">매핑</text>
+
+  <!-- FAMCD0135NTA → FAMCD0130CDA : ACCT_CD -->
+  <path d="M 965,355 Q 1010,400 975,460" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="988" y="415" font-size="10" fill="#2c5f8a" font-family="monospace">ACCT_CD</text>
+
+  <!-- FAMCD0036NTA → FAMCD0136NTA : 상품-투자목적 -->
+  <path d="M 600,270 Q 660,160 760,150" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="666" y="192" font-size="10" fill="#2c5f8a" font-family="monospace">INV_PUPS/LSTRM</text>
+
+  <!-- FAMCD0136NTA → FBCCD0016CDA : PRD_CD -->
+  <path d="M 865,210 L 865,330" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="872" y="278" font-size="10" fill="#2c5f8a" font-family="monospace">PRD_CD</text>
+
+  <!-- FBCCD0021NTA → FAMCD0036NTA : 공통코드 참조 -->
+  <path d="M 272,520 Q 340,490 420,430" stroke="#888" stroke-width="1.5" fill="none" marker-end="url(#arr-gray)" stroke-dasharray="4,4"/>
+  <text x="295" y="465" font-size="10" fill="#888">공통코드 참조</text>
+
+  <!-- FAMCD0130CDA (계정마스터) join label -->
+  <path d="M 760,510 L 670,490" stroke="#2c5f8a" stroke-width="1.8" fill="none" marker-end="url(#arr)" stroke-dasharray="6,3"/>
+  <text x="688" y="508" font-size="10" fill="#2c5f8a" font-family="monospace">ACCT_HAN_NM</text>
+
+  <!-- ══════════ ENTITIES ══════════ -->
+
+  <!-- ① FAMCD0036NTA — 분개정의 (핵심, 중앙) -->
+  <rect x="420" y="220" width="250" height="280" rx="10" fill="#fdf3f0" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="420" y="220" width="250" height="36" rx="10" fill="#c0392b"/>
+  <rect x="420" y="244" width="250" height="12" rx="0" fill="#c0392b"/>
+  <text x="545" y="243" font-size="12" font-weight="bold" fill="white" text-anchor="middle">FAMCD0036NTA</text>
+  <text x="545" y="256" font-size="10" fill="#ffd0c0" text-anchor="middle">분개정의 (핵심)</text>
+  <!-- 컬럼 목록 -->
+  <text x="436" y="280" font-size="10.5" fill="#c0392b" font-weight="bold" font-family="monospace">🔑 TR_CD</text>
+  <text x="436" y="280" font-size="9" fill="#888" x="640" text-anchor="end" font-family="monospace">거래코드 FK</text>
+  <text x="436" y="296" font-size="10.5" fill="#333" font-family="monospace">  JRN_CONF_SEQ</text>
+  <text x="436" y="312" font-size="10.5" fill="#333" font-family="monospace">  DRCR_DS_CD</text>
+  <text x="436" y="312" font-size="9" fill="#888" x="665" text-anchor="end">L=차변 R=대변</text>
+  <text x="436" y="328" font-size="10.5" fill="#333" font-family="monospace">  ACCT_ATRB_CD</text>
+  <text x="436" y="344" font-size="10.5" fill="#333" font-family="monospace">  JRN_CONF_NM</text>
+  <text x="436" y="360" font-size="10.5" fill="#333" font-family="monospace">  ALW_SIGL_CD</text>
+  <text x="436" y="376" font-size="10.5" fill="#333" font-family="monospace">  SIGL_ADJ_CD</text>
+  <line x1="430" y1="385" x2="660" y2="385" stroke="#f0c0b0" stroke-width="1"/>
+  <text x="436" y="400" font-size="9.5" fill="#b85c00" font-family="monospace">💰 TBL_NM / COL_NM1,2</text>
+  <text x="436" y="415" font-size="9.5" fill="#b85c00" font-family="monospace">💰 OVS_COL_NM1,2</text>
+  <text x="436" y="430" font-size="9.5" fill="#b85c00" font-family="monospace">💰 OPTR_CD</text>
+  <text x="436" y="450" font-size="9" fill="#999" font-style="italic">← 금액산출 참조 컬럼</text>
+  <text x="436" y="464" font-size="9" fill="#999" font-style="italic">  (동적 테이블·컬럼 지시)</text>
+  <text x="436" y="490" font-size="9" fill="#aaa">적용기간: APLD_ST_DT ~ APLD_END_DT</text>
+
+  <!-- ② FBCCD0009NTA — 거래코드마스터 -->
+  <rect x="60" y="170" width="210" height="140" rx="10" fill="#eaf1f8" stroke="#1a3a5c" stroke-width="1.8"/>
+  <rect x="60" y="170" width="210" height="32" rx="10" fill="#1a3a5c"/>
+  <rect x="60" y="190" width="210" height="12" rx="0" fill="#1a3a5c"/>
+  <text x="165" y="191" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FBCCD0009NTA</text>
+  <text x="165" y="203" font-size="9.5" fill="#aad0f0" text-anchor="middle">거래코드 마스터</text>
+  <text x="76" y="225" font-size="10.5" fill="#1a3a5c" font-weight="bold" font-family="monospace">🔑 TR_CD</text>
+  <text x="76" y="241" font-size="10.5" fill="#333" font-family="monospace">  TR_HAN_NM</text>
+  <text x="76" y="257" font-size="9" fill="#888">거래 한글명</text>
+  <text x="76" y="275" font-size="9" fill="#888">TR_CD LIKE :tr_cd||'%'</text>
+  <text x="76" y="291" font-size="9" fill="#888">조건 필터링 지원</text>
+
+  <!-- ③ FAMCD0136NTA — 상품-투자목적 -->
+  <rect x="760" y="60" width="220" height="150" rx="10" fill="#eaf1f8" stroke="#2c5f8a" stroke-width="1.8"/>
+  <rect x="760" y="60" width="220" height="32" rx="10" fill="#2c5f8a"/>
+  <rect x="760" y="80" width="220" height="12" rx="0" fill="#2c5f8a"/>
+  <text x="870" y="81" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FAMCD0136NTA</text>
+  <text x="870" y="93" font-size="9.5" fill="#b0d0f0" text-anchor="middle">상품-투자목적 연결</text>
+  <text x="776" y="118" font-size="10.5" fill="#2c5f8a" font-weight="bold" font-family="monospace">🔑 PRD_CD</text>
+  <text x="776" y="134" font-size="10.5" fill="#333" font-family="monospace">  INV_PUPS_DS_CD</text>
+  <text x="776" y="150" font-size="9" fill="#888">투자목적구분</text>
+  <text x="776" y="165" font-size="10.5" fill="#333" font-family="monospace">  LSTRM_DS_CD</text>
+  <text x="776" y="181" font-size="9" fill="#888">장단기구분</text>
+  <text x="776" y="197" font-size="9" fill="#888">LIKE 필터 지원</text>
+
+  <!-- ④ FAMCD0135NTA — 계정-상품 연결 -->
+  <rect x="760" y="290" width="220" height="130" rx="10" fill="#eaf1f8" stroke="#2c5f8a" stroke-width="1.8"/>
+  <rect x="760" y="290" width="220" height="32" rx="10" fill="#2c5f8a"/>
+  <rect x="760" y="310" width="220" height="12" rx="0" fill="#2c5f8a"/>
+  <text x="870" y="311" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FAMCD0135NTA</text>
+  <text x="870" y="323" font-size="9.5" fill="#b0d0f0" text-anchor="middle">계정-상품 연결</text>
+  <text x="776" y="348" font-size="10.5" fill="#2c5f8a" font-weight="bold" font-family="monospace">🔑 ACCT_CD</text>
+  <text x="776" y="364" font-size="10.5" fill="#333" font-family="monospace">  ACCT_PRD_CD</text>
+  <text x="776" y="380" font-size="9" fill="#888">계정상품코드</text>
+  <text x="776" y="396" font-size="10.5" fill="#333" font-family="monospace">  PRD_CD</text>
+  <text x="776" y="408" font-size="9" fill="#888">상품코드 참조</text>
+
+  <!-- ⑤ FBCCD0016CDA — 상품마스터 -->
+  <rect x="760" y="490" width="220" height="140" rx="10" fill="#eaf1f8" stroke="#1a3a5c" stroke-width="1.8"/>
+  <rect x="760" y="490" width="220" height="32" rx="10" fill="#1a3a5c"/>
+  <rect x="760" y="510" width="220" height="12" rx="0" fill="#1a3a5c"/>
+  <text x="870" y="511" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FBCCD0016CDA</text>
+  <text x="870" y="523" font-size="9.5" fill="#aad0f0" text-anchor="middle">상품 마스터</text>
+  <text x="776" y="548" font-size="10.5" fill="#1a3a5c" font-weight="bold" font-family="monospace">🔑 PRD_CD</text>
+  <text x="776" y="564" font-size="10.5" fill="#333" font-family="monospace">  PRD_HAN_NM</text>
+  <text x="776" y="580" font-size="9" fill="#888">상품명</text>
+  <text x="776" y="596" font-size="10.5" fill="#333" font-family="monospace">  APLD_ST_DT</text>
+  <text x="776" y="612" font-size="9" fill="#888">적용시작일 (최신 1건)</text>
+  <text x="776" y="620" font-size="9" fill="#888">ACNT_USAG_YN='Y' 필터</text>
+
+  <!-- ⑥ FAMCD0132CDA — 계정속성 -->
+  <rect x="640" y="520" width="210" height="120" rx="10" fill="#eaf1f8" stroke="#2c5f8a" stroke-width="1.8"/>
+  <rect x="640" y="520" width="210" height="32" rx="10" fill="#2c5f8a"/>
+  <rect x="640" y="540" width="210" height="12" rx="0" fill="#2c5f8a"/>
+  <text x="745" y="541" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FAMCD0132CDA</text>
+  <text x="745" y="553" font-size="9.5" fill="#b0d0f0" text-anchor="middle">계정속성 마스터</text>
+  <text x="656" y="578" font-size="10.5" fill="#2c5f8a" font-weight="bold" font-family="monospace">🔑 ACCT_ATRB_CD</text>
+  <text x="656" y="594" font-size="10.5" fill="#333" font-family="monospace">  ACCT_ATRB_HAN_NM</text>
+  <text x="656" y="610" font-size="9" fill="#888">계정속성 한글명</text>
+  <text x="656" y="626" font-size="9" fill="#888">차/대변별 속성 구분</text>
+
+  <!-- ⑦ FAMCD0130CDA — 계정마스터 -->
+  <rect x="420" y="440" width="210" height="120" rx="10" fill="#eaf1f8" stroke="#1a3a5c" stroke-width="1.8"/>
+  <rect x="420" y="440" width="210" height="32" rx="10" fill="#1a3a5c"/>
+  <rect x="420" y="460" width="210" height="12" rx="0" fill="#1a3a5c"/>
+  <text x="525" y="461" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FAMCD0130CDA</text>
+  <text x="525" y="473" font-size="9.5" fill="#aad0f0" text-anchor="middle">계정 마스터</text>
+  <text x="436" y="498" font-size="10.5" fill="#1a3a5c" font-weight="bold" font-family="monospace">🔑 ACCT_CD</text>
+  <text x="436" y="514" font-size="10.5" fill="#333" font-family="monospace">  ACCT_HAN_NM</text>
+  <text x="436" y="530" font-size="9" fill="#888">계정 한글명</text>
+  <text x="436" y="546" font-size="9" fill="#888">차/대변 계정명 조회</text>
+
+  <!-- ⑧ FBCCD0021NTA — 공통코드 -->
+  <rect x="60" y="500" width="220" height="190" rx="10" fill="#f5f5f5" stroke="#888" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <rect x="60" y="500" width="220" height="32" rx="10" fill="#888"/>
+  <rect x="60" y="520" width="220" height="12" rx="0" fill="#888"/>
+  <text x="170" y="521" font-size="11" font-weight="bold" fill="white" text-anchor="middle">FBCCD0021NTA</text>
+  <text x="170" y="533" font-size="9.5" fill="#ddd" text-anchor="middle">공통 코드 마스터</text>
+  <text x="76" y="558" font-size="10.5" fill="#555" font-family="monospace">🔑 COM_CD_TP_CD</text>
+  <text x="76" y="574" font-size="10.5" fill="#555" font-family="monospace">  COM_CD_VAL</text>
+  <text x="76" y="590" font-size="10.5" fill="#555" font-family="monospace">  CD_HAN_NM</text>
+  <line x1="70" y1="598" x2="270" y2="598" stroke="#ccc" stroke-width="1"/>
+  <text x="76" y="613" font-size="9" fill="#888">참조 유형 (H):</text>
+  <text x="76" y="627" font-size="9" fill="#b85c00" font-family="monospace">  INVEST_KIND%</text>
+  <text x="76" y="641" font-size="9" fill="#888">참조 유형 (I):</text>
+  <text x="76" y="655" font-size="9" fill="#b85c00" font-family="monospace">  PERIOD_TYPE%</text>
+  <text x="76" y="669" font-size="9" fill="#888">참조 유형 (J):</text>
+  <text x="76" y="683" font-size="9" fill="#b85c00" font-family="monospace">  TR_CATEGORY%</text>
+
+  <!-- 추출흐름 안내 박스 -->
+  <rect x="60" y="380" width="220" height="100" rx="10" fill="#fff8e8" stroke="#d4720c" stroke-width="1.5"/>
+  <text x="170" y="402" font-size="10.5" fill="#b85c00" font-weight="bold" text-anchor="middle">📋 분개모형 추출 조건</text>
+  <text x="76" y="422" font-size="9.5" fill="#555" font-family="monospace">:WRK_DT BETWEEN</text>
+  <text x="76" y="437" font-size="9.5" fill="#555" font-family="monospace">  APLD_ST_DT ~ APLD_END_DT</text>
+  <text x="76" y="452" font-size="9.5" fill="#555" font-family="monospace">TR_CD, PRD_CD LIKE '%'</text>
+  <text x="76" y="467" font-size="9.5" fill="#555" font-family="monospace">INV_PUPS_DS_CD LIKE '%'</text>
+
+  <!-- FAMCD0036NTA → FAMCD0130CDA 조인 화살표 -->
+  <path d="M 525,500 L 525,500" stroke="#2c5f8a" stroke-width="0" fill="none"/>
+
+  <!-- 우측 FAMCD0135NTA → FAMCD0130CDA 연결 추가 설명 -->
+  <text x="870" y="460" font-size="9.5" fill="#2c5f8a" text-anchor="middle" font-family="monospace">ACCT_CD JOIN</text>
+
+</svg>
+</div>
+
+<!-- 추출 흐름 설명 -->
+<div class="flow-section">
+  <h2>🔄 분개모형 추출 흐름 (Step-by-Step)</h2>
+  <div class="flow-steps">
+    <div class="flow-step">
+      <strong>① 거래코드 식별</strong>
+      <span>FBCCD0009NTA<br>TR_CD → 거래명</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="background:#fdf3f0; border: 2px solid #c0392b;">
+      <strong style="color:#c0392b;">② 분개정의 조회</strong>
+      <span>FAMCD0036NTA<br>차/대변 분개구성 추출</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <strong>③ 계정코드 해석</strong>
+      <span>FAMCD0130CDA<br>계정명 매핑</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <strong>④ 상품 매핑</strong>
+      <span>FAMCD0136NTA<br>투자목적·장단기 확인</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <strong>⑤ 금액산출</strong>
+      <span>TBL_NM + COL_NM<br>동적 컬럼 참조</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step" style="background:#e9f7ee;">
+      <strong style="color:#1e7e45;">⑥ 분개 생성</strong>
+      <span>차변(L) / 대변(R)<br>분개 확정</span>
+    </div>
+  </div>
+</div>
+
+<!-- 테이블 참조표 -->
+<div class="table-section">
+  <h2>📋 참조 테이블 요약</h2>
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>테이블명</th>
+        <th>역할</th>
+        <th>주요 키 컬럼</th>
+        <th>구분</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>FAMCD0036NTA</strong></td>
+        <td>분개정의 — 거래별 차/대변 분개구성 및 금액산출 참조 정의</td>
+        <td>TR_CD + JRN_CONF_SEQ + APLD_ST_DT</td>
+        <td><span class="role-main">핵심</span></td>
+      </tr>
+      <tr>
+        <td><strong>FBCCD0009NTA</strong></td>
+        <td>거래코드 마스터 — TR_CD → 거래 한글명 변환</td>
+        <td>TR_CD</td>
+        <td><span class="role-lookup">코드마스터</span></td>
+      </tr>
+      <tr>
+        <td><strong>FAMCD0136NTA</strong></td>
+        <td>상품-투자목적 연결 — 상품코드별 투자목적·장단기 구분 관리</td>
+        <td>PRD_CD + INV_PUPS_DS_CD + LSTRM_DS_CD</td>
+        <td><span class="role-lookup">연결</span></td>
+      </tr>
+      <tr>
+        <td><strong>FAMCD0135NTA</strong></td>
+        <td>계정-상품 연결 — 계정코드와 상품코드를 연결하는 매핑 테이블</td>
+        <td>ACCT_CD + ACCT_PRD_CD</td>
+        <td><span class="role-lookup">연결</span></td>
+      </tr>
+      <tr>
+        <td><strong>FBCCD0016CDA</strong></td>
+        <td>상품 마스터 — PRD_CD → 상품 한글명 (최신 적용 기준)</td>
+        <td>PRD_CD + APLD_ST_DT</td>
+        <td><span class="role-lookup">코드마스터</span></td>
+      </tr>
+      <tr>
+        <td><strong>FAMCD0132CDA</strong></td>
+        <td>계정속성 마스터 — ACCT_ATRB_CD → 계정속성 한글명 변환</td>
+        <td>ACCT_ATRB_CD</td>
+        <td><span class="role-lookup">코드마스터</span></td>
+      </tr>
+      <tr>
+        <td><strong>FAMCD0130CDA</strong></td>
+        <td>계정 마스터 — ACCT_CD → 계정 한글명 변환 (차/대변 공통)</td>
+        <td>ACCT_CD</td>
+        <td><span class="role-lookup">코드마스터</span></td>
+      </tr>
+      <tr>
+        <td><strong>FBCCD0021NTA</strong></td>
+        <td>공통코드 마스터 — 투자목적(INVEST_KIND), 장단기(PERIOD_TYPE), 거래분류(TR_CATEGORY) 코드값 관리</td>
+        <td>COM_CD_TP_CD + COM_CD_VAL</td>
+        <td><span class="role-ref">공통참조</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">- boasis_lab.(yyj assistant) &nbsp;|&nbsp; LV3 — 외부 공개 금지</div>
+
+</body>
+</html>
