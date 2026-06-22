@@ -7,6 +7,8 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; }
+
+  /* ── 로그인 ── */
   #login-screen { text-align: center; width: 100%; }
   .back-link { color: #888; font-size: 0.85em; text-decoration: none; display: inline-block; margin-bottom: 16px; }
   .back-link:hover { color: #555; }
@@ -20,17 +22,23 @@
   @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
   .login-btn { width: 100%; margin-top: 14px; padding: 14px; background: #2c5f8a; color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; transition: background 0.2s; }
   .login-btn:hover { background: #1e4468; }
-  .error-msg { color: #dc3545; font-size: 0.88em; margin-top: 10px; min-height: 20px; }
+  .err-msg { color: #dc3545; font-size: 0.88em; margin-top: 10px; min-height: 20px; }
+  .level-hint { margin-top: 20px; border-top: 1px solid #f0f0f0; padding-top: 16px; }
+  .level-hint p { color: #aaa; font-size: 0.8em; margin-bottom: 8px; }
+  .level-pills { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .lv-pill { padding: 3px 10px; border-radius: 10px; font-size: 0.75em; font-weight: bold; }
 
-  #main-screen { display: none; width: 100%; max-width: 1080px; }
-  .page-header { text-align: center; margin-bottom: 28px; }
+  /* ── 메인 ── */
+  #main-screen { display: none; width: 100%; max-width: 1100px; }
+  .page-header { text-align: center; margin-bottom: 24px; }
   .page-header h1 { color: #2c5f8a; font-size: 1.6em; margin-bottom: 6px; }
   .page-header p { color: #888; font-size: 0.9em; }
+  .access-banner { display: inline-flex; align-items: center; gap: 8px; background: white; border-radius: 20px; padding: 6px 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); margin-bottom: 20px; font-size: 0.88em; color: #555; }
   .footer { text-align: center; margin-top: 24px; }
   .footer a { color: #aaa; font-size: 0.82em; text-decoration: none; }
   .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
 
-  /* 탭 */
+  /* ── 탭 ── */
   .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .tab-btn { padding: 8px 20px; border: 2px solid #2c5f8a; border-radius: 20px; background: white; color: #2c5f8a; font-size: 0.9em; font-weight: bold; cursor: pointer; transition: all 0.2s; }
   .tab-btn.active { background: #2c5f8a; color: white; }
@@ -38,13 +46,13 @@
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* 오류 목록 */
+  /* ── 오류 목록 ── */
   .section-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 20px; }
   .section-card h2 { color: #2c5f8a; font-size: 1.1em; margin-bottom: 16px; border-bottom: 2px solid #e8f0f7; padding-bottom: 10px; }
   .stats-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
   .stat-chip { background: #e8f0f7; border-radius: 10px; padding: 8px 16px; font-size: 0.88em; color: #2c5f8a; font-weight: bold; }
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table.error-table { width: 100%; border-collapse: collapse; font-size: 0.9em; min-width: 680px; }
+  table.error-table { width: 100%; border-collapse: collapse; font-size: 0.9em; min-width: 720px; }
   table.error-table thead th { background: #2c5f8a; color: white; padding: 12px 14px; text-align: left; font-size: 0.88em; white-space: nowrap; }
   table.error-table thead th:first-child { border-radius: 8px 0 0 0; }
   table.error-table thead th:last-child { border-radius: 0 8px 0 0; }
@@ -53,16 +61,24 @@
   table.error-table tbody td { padding: 12px 14px; color: #333; vertical-align: top; line-height: 1.5; }
   table.error-table tbody td.no { color: #888; font-size: 0.85em; white-space: nowrap; text-align: center; }
   table.error-table tbody td.date { color: #aaa; font-size: 0.82em; white-space: nowrap; }
-  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 0.78em; font-weight: bold; }
-  .badge-red { background: #fdecea; color: #c0392b; }
-  .badge-orange { background: #fef3e2; color: #d4720c; }
-  .badge-blue { background: #e8f0f7; color: #2c5f8a; }
-  .badge-green { background: #e9f7ee; color: #1e7e45; }
   .empty-row td { text-align: center; color: #bbb; padding: 40px; font-size: 0.9em; }
+
+  /* ── 배지 ── */
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 0.78em; font-weight: bold; }
+  .badge-red    { background: #fdecea; color: #c0392b; }
+  .badge-orange { background: #fef3e2; color: #d4720c; }
+  .badge-blue   { background: #e8f0f7; color: #2c5f8a; }
+  .badge-green  { background: #e9f7ee; color: #1e7e45; }
+  /* 레벨 배지 */
+  .lv1 { background: #f0f0f0; color: #666; }
+  .lv2 { background: #dce8f5; color: #1a5fa8; }
+  .lv3 { background: #fff0e0; color: #b85c00; }
+  .lv4 { background: #fde8e8; color: #b80000; }
 </style>
 </head>
 <body>
 
+<!-- ── 로그인 화면 ── -->
 <div id="login-screen">
   <a class="back-link" href="index.html">← 메인으로</a>
   <div class="login-card">
@@ -72,14 +88,31 @@
     <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="30"
       onkeydown="if(event.key==='Enter') tryLogin()">
     <button class="login-btn" onclick="tryLogin()">입장하기</button>
-    <div class="error-msg" id="err-msg"></div>
+    <div class="err-msg" id="err-msg"></div>
+    <div class="level-hint">
+      <p>접근 레벨에 따라 열람 범위가 다릅니다</p>
+      <div class="level-pills">
+        <span class="lv-pill lv1">LV1 일반</span>
+        <span class="lv-pill lv2">LV2 상세</span>
+        <span class="lv-pill lv3">LV3 민감</span>
+        <span class="lv-pill lv4">LV4 극비</span>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- ── 메인 화면 ── -->
 <div id="main-screen">
   <div class="page-header">
     <h1>💹 NPS Event Log</h1>
     <p>기금운용본부 마큰활용 &nbsp;|&nbsp; 오류 관리 대장</p>
+  </div>
+  <div style="text-align:center; margin-bottom:20px;">
+    <div class="access-banner">
+      🔐 현재 접근 레벨: <strong id="cur-level-label">-</strong>
+      <span id="cur-level-badge" class="badge lv1">-</span>
+      <span id="cur-level-desc" style="color:#aaa;font-size:0.9em;"></span>
+    </div>
   </div>
 
   <div class="tab-bar">
@@ -97,20 +130,21 @@
     <div class="section-card">
       <h2>오류 목록</h2>
       <div class="table-wrap">
-        <table class="error-table" id="error-table">
+        <table class="error-table">
           <thead>
             <tr>
               <th style="width:52px">번호</th>
-              <th style="width:22%">현상</th>
-              <th style="width:22%">원인</th>
-              <th style="width:18%">대상</th>
-              <th style="width:26%">조치</th>
-              <th style="width:80px">등록일</th>
-              <th style="width:70px">상태</th>
+              <th style="width:50px">등급</th>
+              <th style="width:20%">현상</th>
+              <th style="width:20%">원인</th>
+              <th style="width:16%">대상</th>
+              <th style="width:24%">조치</th>
+              <th style="width:76px">등록일</th>
+              <th style="width:66px">상태</th>
             </tr>
           </thead>
           <tbody id="error-tbody">
-            <tr class="empty-row"><td colspan="7">등록된 오류가 없습니다.</td></tr>
+            <tr class="empty-row"><td colspan="8">등록된 오류가 없습니다.</td></tr>
           </tbody>
         </table>
       </div>
@@ -147,9 +181,53 @@
             <td>파라미터 기본값 설정 / DBA 협조 요청 / 패치 적용</td>
           </tr>
           <tr>
+            <td><strong>등급</strong></td>
+            <td>오류 민감도에 따른 보안 레벨</td>
+            <td>
+              <span class="badge lv1">LV1</span> 일반 업무 &nbsp;
+              <span class="badge lv2">LV2</span> 상세 업무 &nbsp;
+              <span class="badge lv3">LV3</span> 민감 정보 &nbsp;
+              <span class="badge lv4">LV4</span> 극비
+            </td>
+          </tr>
+          <tr>
             <td><strong>상태</strong></td>
             <td>현재 처리 상태</td>
-            <td><span class="badge badge-red">미조치</span> &nbsp; <span class="badge badge-orange">진행중</span> &nbsp; <span class="badge badge-green">조치완료</span></td>
+            <td>
+              <span class="badge badge-red">미조치</span> &nbsp;
+              <span class="badge badge-orange">진행중</span> &nbsp;
+              <span class="badge badge-green">조치완료</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-card">
+      <h2>접근 레벨 안내</h2>
+      <table class="error-table">
+        <thead>
+          <tr><th>레벨</th><th>명칭</th><th>열람 범위</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge lv1">LV1</span></td>
+            <td>일반 업무</td>
+            <td>시스템 개요, 일반적 업무 절차, 공통 기술 스택 관련 오류</td>
+          </tr>
+          <tr>
+            <td><span class="badge lv2">LV2</span></td>
+            <td>상세 업무</td>
+            <td>LV1 + 세부 비즈니스 로직, 데이터 흐름, 유관기관 연계 관련 오류</td>
+          </tr>
+          <tr>
+            <td><span class="badge lv3">LV3</span></td>
+            <td>민감 정보</td>
+            <td>LV1~2 + 특정 장애 복구 내역, 내부 설정값, 쿼리문 관련 오류</td>
+          </tr>
+          <tr>
+            <td><span class="badge lv4">LV4</span></td>
+            <td>극비</td>
+            <td>전체 — 보안상 민감한 코드, 핵심 알고리즘, 대외비 관련 오류</td>
           </tr>
         </tbody>
       </table>
@@ -163,16 +241,30 @@
 </div>
 
 <script>
-  const PW = 'yoon1201@@';
-  const KEY = 'auth_nps';
+  // ── 비밀번호 → 접근 레벨 매핑 ────────────────────────────────
+  // 변경 시 이 객체만 수정하세요.
+  const PW_MAP = {
+    'nps2026lv1': 1,   // LV1 일반
+    'nps2026lv2': 2,   // LV2 상세
+    'nps2026lv3': 3,   // LV3 민감
+    'nps2026lv4': 4,   // LV4 극비
+  };
+  const LEVEL_INFO = {
+    1: { label: 'LV1 일반',   cls: 'lv1', desc: '일반 업무' },
+    2: { label: 'LV2 상세',   cls: 'lv2', desc: '상세 업무' },
+    3: { label: 'LV3 민감',   cls: 'lv3', desc: '민감 정보' },
+    4: { label: 'LV4 극비',   cls: 'lv4', desc: '전체 열람' },
+  };
+  const KEY = 'auth_nps_level';
 
-  // ── 오류 데이터 ──────────────────────────────────────────────
+  // ── 오류 데이터 ───────────────────────────────────────────────
   // 새 오류 추가 시 이 배열에 항목을 추가하세요.
-  // status: 'open' | 'progress' | 'done'
+  // level: 1|2|3|4  /  status: 'open'|'progress'|'done'
   const ERRORS = [
-    // 예시 (실제 오류 입력 전 삭제하거나 수정하세요)
+    // 예시 (실제 입력 전 삭제하거나 수정하세요)
     // {
     //   no: 'E001',
+    //   level: 1,
     //   symptom: '수탁계좌 조회 화면 오류',
     //   cause: '필수 파라미터 누락',
     //   target: '수탁계좌 조회',
@@ -184,29 +276,73 @@
   // ─────────────────────────────────────────────────────────────
 
   const STATUS_LABEL = { open: '미조치', progress: '진행중', done: '조치완료' };
-  const STATUS_CLASS = { open: 'badge-red', progress: 'badge-orange', done: 'badge-green' };
+  const STATUS_CLS   = { open: 'badge-red', progress: 'badge-orange', done: 'badge-green' };
+
+  let currentLevel = 0;
 
   function renderErrors() {
+    const visible = ERRORS.filter(e => (e.level || 1) <= currentLevel);
     const tbody = document.getElementById('error-tbody');
-    if (ERRORS.length === 0) {
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">등록된 오류가 없습니다.</td></tr>';
+    if (visible.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="8">열람 가능한 오류가 없습니다.</td></tr>';
     } else {
-      tbody.innerHTML = ERRORS.map(e => `
-        <tr>
+      tbody.innerHTML = visible.map(e => {
+        const lv = e.level || 1;
+        return `<tr>
           <td class="no">${e.no}</td>
+          <td><span class="badge ${LEVEL_INFO[lv].cls}">LV${lv}</span></td>
           <td>${e.symptom}</td>
           <td>${e.cause}</td>
           <td>${e.target}</td>
           <td>${e.action}</td>
           <td class="date">${e.date}</td>
-          <td><span class="badge ${STATUS_CLASS[e.status]}">${STATUS_LABEL[e.status]}</span></td>
-        </tr>`).join('');
+          <td><span class="badge ${STATUS_CLS[e.status]}">${STATUS_LABEL[e.status]}</span></td>
+        </tr>`;
+      }).join('');
     }
-    const open = ERRORS.filter(e => e.status === 'open').length;
-    const done = ERRORS.filter(e => e.status === 'done').length;
-    document.getElementById('stat-total').textContent = `전체 ${ERRORS.length}건`;
-    document.getElementById('stat-open').textContent = `미조치 ${open}건`;
-    document.getElementById('stat-done').textContent = `조치완료 ${done}건`;
+    const open = visible.filter(e => e.status === 'open').length;
+    const done = visible.filter(e => e.status === 'done').length;
+    document.getElementById('stat-total').textContent = `열람 ${visible.length}건`;
+    document.getElementById('stat-open').textContent  = `미조치 ${open}건`;
+    document.getElementById('stat-done').textContent  = `조치완료 ${done}건`;
+
+    const info = LEVEL_INFO[currentLevel];
+    document.getElementById('cur-level-label').textContent = info.label;
+    const badge = document.getElementById('cur-level-badge');
+    badge.textContent = `LV${currentLevel}`;
+    badge.className = `badge ${info.cls}`;
+    document.getElementById('cur-level-desc').textContent = `(${info.desc})`;
+  }
+
+  function enterMain(level) {
+    currentLevel = level;
+    sessionStorage.setItem(KEY, String(level));
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display  = 'block';
+    renderErrors();
+  }
+
+  function tryLogin() {
+    const val = document.getElementById('pw').value.trim();
+    const inp = document.getElementById('pw');
+    const level = PW_MAP[val];
+    if (level) {
+      enterMain(level);
+    } else {
+      inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
+      document.getElementById('err-msg').textContent = '비밀번호가 틀렸습니다.';
+      inp.value = '';
+      setTimeout(() => inp.classList.remove('shake'), 400);
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem(KEY);
+    currentLevel = 0;
+    document.getElementById('main-screen').style.display  = 'none';
+    document.getElementById('login-screen').style.display = 'block';
+    document.getElementById('pw').value = '';
+    document.getElementById('err-msg').textContent = '';
   }
 
   function switchTab(tabId, btn) {
@@ -216,32 +352,9 @@
     btn.classList.add('active');
   }
 
-  function tryLogin() {
-    const val = document.getElementById('pw').value;
-    const inp = document.getElementById('pw');
-    if (val === PW) {
-      sessionStorage.setItem(KEY, '1');
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('main-screen').style.display = 'block';
-      renderErrors();
-    } else {
-      inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
-      document.getElementById('err-msg').textContent = '비밀번호가 틀렸습니다.';
-      inp.value = '';
-      setTimeout(() => inp.classList.remove('shake'), 400);
-    }
-  }
-  function logout() {
-    sessionStorage.removeItem(KEY);
-    document.getElementById('main-screen').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'block';
-    document.getElementById('pw').value = '';
-  }
-  if (sessionStorage.getItem(KEY) === '1') {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-screen').style.display = 'block';
-    renderErrors();
-  }
+  // 세션 복원
+  const saved = parseInt(sessionStorage.getItem(KEY), 10);
+  if (saved >= 1 && saved <= 4) { enterMain(saved); }
 </script>
 
 <div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
