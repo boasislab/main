@@ -385,7 +385,7 @@ function cardHTML(p) {
   const typeCls  = p.type === 'food' ? 'tag-food' : 'tag-spot';
   const typeLabel= p.type === 'food' ? '맛집' : '멋집';
   const tags     = (p.tags||[]).map(t => '<span class="tag tag-general">'+t+'</span>').join('');
-  const addr     = p.address ? '<div class="card-addr">📍 ' + p.address + '</div>' : '';
+  const addr     = (p.address && p.type !== 'food') ? '<div class="card-addr">📍 ' + p.address + '</div>' : '';
   const baseRating = p.rating
     ? '<div class="card-base-rating"><span class="star-disp">' + starsStr(p.rating) + '</span><span class="rating-num">' + p.rating + '</span></div>'
     : '';
@@ -393,6 +393,7 @@ function cardHTML(p) {
   let foodInfoHTML = '';
   if (p.type === 'food') {
     const rows = [];
+    if (p.address)   rows.push(['📍 주소', escHtml(p.address)]);
     if (p.contact)   rows.push(['📞 연락처', escHtml(p.contact)]);
     if (p.signature) rows.push(['🍴 시그니쳐', escHtml(p.signature)]);
     if (p.tip)       rows.push(['💡 이용팁', escHtml(p.tip)]);
