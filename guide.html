@@ -148,6 +148,21 @@
   .region-header { font-size: 0.9em; font-weight: 700; color: #888; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #eee; }
   .region-header:first-child { margin-top: 0; }
 
+  /* ── 태그 칩 필터 ── */
+  .tag-filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag-chip { padding: 5px 13px; border: 1.5px solid #e8ddd5; border-radius: 20px; background: #fff; font-size: 0.78em; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .tag-chip:hover { border-color: #c0552a; color: #c0552a; }
+  .tag-chip.active { background: #c0552a; border-color: #c0552a; color: #fff; }
+  .tag-filter-label { font-size: 0.75em; color: #ccc; white-space: nowrap; }
+
+  /* ── 정렬 / 방문완료 ── */
+  .sort-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sort-sel { padding: 7px 12px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.82em; color: #555; background: #fafafa; outline: none; cursor: pointer; }
+  .sort-sel:focus { border-color: #c0552a; }
+  .visited-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82em; color: #888; user-select: none; }
+  .visited-toggle input[type=checkbox] { accent-color: #c0552a; width: 15px; height: 15px; cursor: pointer; }
+  .visited-toggle.on { color: #c0552a; font-weight: 700; }
+
   /* 빈 상태 */
   .empty-state { text-align: center; padding: 60px 24px; color: #bbb; }
   .empty-state .e-icon { font-size: 3em; margin-bottom: 14px; }
@@ -209,7 +224,23 @@
         <button class="type-btn food" onclick="setType('food',this)">🍽️ 맛집</button>
         <button class="type-btn spot" onclick="setType('spot',this)">📸 멋집</button>
       </div>
-      <div class="result-info" id="result-info"></div>
+    </div>
+    <!-- 태그 칩 필터 -->
+    <div class="tag-filter-row" id="tag-chips">
+      <span class="tag-filter-label">태그▸</span>
+    </div>
+    <!-- 정렬 + 방문완료 + 결과수 -->
+    <div class="sort-row">
+      <select class="sort-sel" id="sort-sel" onchange="render()">
+        <option value="default">기본순</option>
+        <option value="rating-desc">별점 높은순</option>
+        <option value="rating-asc">별점 낮은순</option>
+        <option value="name-asc">이름 가나다순</option>
+      </select>
+      <label class="visited-toggle" id="visited-lbl">
+        <input type="checkbox" id="only-visited" onchange="render()"> 방문완료만
+      </label>
+      <div class="result-info" id="result-info" style="margin-left:auto;"></div>
     </div>
   </div>
 
@@ -308,6 +339,29 @@ function initSelectors() {
   provinces.forEach(v => {
     const o = document.createElement('option'); o.value = v; o.textContent = v; selP.appendChild(o);
   });
+  initTagChips();
+}
+
+// ── 태그 칩 필터 ───────────────────────────────────────
+let selectedTags = new Set();
+function initTagChips() {
+  // 모든 장소의 태그를 빈도순으로 정렬
+  const freq = {};
+  PLACES.forEach(p => (p.tags||[]).forEach(t => { freq[t] = (freq[t]||0) + 1; }));
+  const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).map(e => e[0]);
+  const area = document.getElementById('tag-chips');
+  sorted.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-chip';
+    btn.textContent = tag;
+    btn.onclick = () => toggleTag(tag, btn);
+    area.appendChild(btn);
+  });
+}
+function toggleTag(tag, btn) {
+  if (selectedTags.has(tag)) { selectedTags.delete(tag); btn.classList.remove('active'); }
+  else                        { selectedTags.add(tag);    btn.classList.add('active'); }
+  render();
 }
 function onProvinceChange() {
   const pv = document.getElementById('sel-province').value;
@@ -333,16 +387,33 @@ function render() {
   const pv = document.getElementById('sel-province').value;
   const cy = document.getElementById('sel-city').value;
 
+  const onlyVisited = document.getElementById('only-visited').checked;
+  const reviews = loadReviews();
+  const sortBy = document.getElementById('sort-sel').value;
+
+  // 방문완료 토글 라벨 강조
+  document.getElementById('visited-lbl').classList.toggle('on', onlyVisited);
+
   let list = PLACES.filter(p => {
     if (currentType !== 'all' && p.type !== currentType) return false;
     if (pv && p.province !== pv) return false;
     if (cy && p.city !== cy) return false;
+    if (selectedTags.size > 0) {
+      const ptags = new Set(p.tags||[]);
+      if (![...selectedTags].every(t => ptags.has(t))) return false;
+    }
+    if (onlyVisited && !reviews[p.id]) return false;
     if (q) {
       const hay = [p.name, p.province, p.city, p.district, p.address, p.desc, p.contact||'', p.signature||'', p.tip||'', p.holiday||'', ...(p.tags||[])].join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
   });
+
+  // 정렬
+  if (sortBy === 'rating-desc') list.sort((a,b) => (b.rating||0) - (a.rating||0));
+  else if (sortBy === 'rating-asc') list.sort((a,b) => (a.rating||0) - (b.rating||0));
+  else if (sortBy === 'name-asc') list.sort((a,b) => a.name.localeCompare(b.name, 'ko'));
 
   document.getElementById('result-info').textContent = list.length + '건';
   const area = document.getElementById('cards-area');
