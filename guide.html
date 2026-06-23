@@ -3,101 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>윤슬랭가이드</title>
+<title>윤슬랭가이드 · 맛집 & 명소</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f9f4f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; }
-  #login-screen { text-align: center; width: 100%; }
-  .back-link { color: #888; font-size: 0.85em; text-decoration: none; display: inline-block; margin-bottom: 16px; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #faf7f4; min-height: 100vh; }
+
+  /* ── 로그인 ── */
+  #login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+  .back-link { color: #aaa; font-size: 0.85em; text-decoration: none; margin-bottom: 20px; }
   .back-link:hover { color: #555; }
-  .login-card { background: white; border-radius: 20px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); max-width: 380px; width: 100%; margin: 0 auto; }
-  .login-card .icon { font-size: 3.2em; margin-bottom: 12px; }
-  .login-card h1 { color: #c0552a; font-size: 1.35em; margin-bottom: 6px; }
-  .login-card p { color: #777; font-size: 0.9em; margin-bottom: 28px; }
-  .pw-input { width: 100%; padding: 14px 16px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.05em; text-align: center; letter-spacing: 3px; outline: none; transition: border-color 0.2s; }
+  .login-card { background: #fff; border-radius: 24px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); max-width: 360px; width: 100%; text-align: center; }
+  .login-card .icon { font-size: 3em; margin-bottom: 12px; }
+  .login-card h1 { color: #c0552a; font-size: 1.4em; margin-bottom: 6px; }
+  .login-card p { color: #aaa; font-size: 0.88em; margin-bottom: 28px; }
+  .pw-input { width: 100%; padding: 13px 16px; border: 2px solid #eee; border-radius: 12px; font-size: 1em; text-align: center; letter-spacing: 4px; outline: none; transition: border-color 0.2s; }
   .pw-input:focus { border-color: #c0552a; }
   .pw-input.shake { animation: shake 0.4s; border-color: #dc3545; }
   @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
-  .login-btn { width: 100%; margin-top: 14px; padding: 14px; background: #c0552a; color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+  .login-btn { width: 100%; margin-top: 14px; padding: 13px; background: #c0552a; color: #fff; border: none; border-radius: 12px; font-size: 1em; font-weight: 700; cursor: pointer; transition: background 0.2s; }
   .login-btn:hover { background: #9e3f1c; }
-  .error-msg { color: #dc3545; font-size: 0.88em; margin-top: 10px; min-height: 20px; }
+  .err-msg { color: #dc3545; font-size: 0.85em; margin-top: 10px; min-height: 18px; }
 
-  #main-screen { display: none; width: 100%; max-width: 860px; }
-  .page-header { text-align: center; margin-bottom: 32px; }
-  .page-header h1 { color: #c0552a; font-size: 1.6em; margin-bottom: 6px; }
-  .page-header p { color: #888; font-size: 0.9em; }
-  .coming-box { background: white; border-radius: 16px; padding: 60px 40px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
-  .coming-box .big-icon { font-size: 4em; margin-bottom: 16px; }
-  .coming-box h2 { color: #555; font-size: 1.2em; margin-bottom: 10px; }
-  .coming-box p { color: #aaa; font-size: 0.9em; }
-  .footer { text-align: center; margin-top: 24px; }
-  .footer a { color: #aaa; font-size: 0.82em; text-decoration: none; }
-  .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
+  /* ── 메인 ── */
+  #main-screen { display: none; max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+
+  .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .top-bar h1 { font-size: 1.4em; color: #c0552a; font-weight: 800; }
+  .top-bar-right { display: flex; gap: 10px; align-items: center; }
+  .logout-btn { background: none; border: 1px solid #ddd; color: #aaa; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.8em; }
+  .logout-btn:hover { color: #c0552a; border-color: #c0552a; }
+
+  /* 검색·필터 바 */
+  .filter-bar { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 24px; display: flex; flex-direction: column; gap: 14px; }
+  .search-row { display: flex; gap: 10px; }
+  .search-input { flex: 1; padding: 10px 16px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.95em; outline: none; transition: border-color 0.2s; }
+  .search-input:focus { border-color: #c0552a; }
+
+  .region-selects { display: flex; gap: 10px; flex-wrap: wrap; }
+  .region-sel { padding: 9px 14px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.88em; outline: none; background: #fafafa; cursor: pointer; color: #444; transition: border-color 0.2s; }
+  .region-sel:focus { border-color: #c0552a; }
+
+  .type-toggle { display: flex; gap: 8px; }
+  .type-btn { padding: 7px 18px; border: 1.5px solid #ddd; border-radius: 20px; background: #fff; font-size: 0.85em; font-weight: 600; cursor: pointer; color: #888; transition: all 0.15s; }
+  .type-btn.active { color: #fff; border-color: transparent; }
+  .type-btn.all.active  { background: #444; }
+  .type-btn.food.active { background: #e07b39; }
+  .type-btn.spot.active { background: #3a7bd5; }
+
+  .result-info { font-size: 0.82em; color: #aaa; margin-top: 4px; }
+
+  /* 장소 카드 */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .place-card { background: #fff; border-radius: 16px; padding: 22px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 10px; transition: transform 0.15s, box-shadow 0.15s; }
+  .place-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+  .card-head { display: flex; align-items: flex-start; gap: 10px; }
+  .card-type-icon { font-size: 1.6em; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .card-name { font-size: 1.05em; font-weight: 800; color: #1a1a1a; }
+  .card-region { font-size: 0.78em; color: #aaa; margin-top: 2px; }
+
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 0.72em; padding: 3px 9px; border-radius: 10px; font-weight: 600; }
+  .tag-food { background: #fef0e7; color: #c0552a; }
+  .tag-spot { background: #e7f0fe; color: #2a5fa8; }
+  .tag-general { background: #f0f0f0; color: #666; }
+
+  .card-desc { font-size: 0.85em; color: #555; line-height: 1.55; }
+  .card-addr { font-size: 0.78em; color: #aaa; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .card-visited { font-size: 0.75em; color: #ccc; }
+  .card-link { font-size: 0.78em; color: #3a7bd5; text-decoration: none; }
+  .card-link:hover { text-decoration: underline; }
+  .star { color: #f5a623; font-size: 0.85em; }
+
+  /* 별점 */
+  .rating { display: flex; align-items: center; gap: 4px; }
+  .rating-num { font-size: 0.8em; color: #888; }
+
+  /* 빈 상태 */
+  .empty-state { text-align: center; padding: 60px 24px; color: #bbb; }
+  .empty-state .e-icon { font-size: 3em; margin-bottom: 14px; }
+  .empty-state p { font-size: 0.92em; }
+
+  /* 지역 헤더 */
+  .region-header { font-size: 0.9em; font-weight: 700; color: #888; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #eee; letter-spacing: 0.5px; }
+  .region-header:first-child { margin-top: 0; }
+
+  @media (max-width: 480px) {
+    .region-selects { flex-direction: column; }
+    .cards-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
+<!-- 로그인 -->
 <div id="login-screen">
   <a class="back-link" href="index.html">← 메인으로</a>
   <div class="login-card">
     <div class="icon">🗺️</div>
     <h1>윤슬랭가이드</h1>
-    <p>접속 비밀번호를 입력해주세요</p>
+    <p>맛집 &amp; 명소 가이드<br>접속 비밀번호를 입력해주세요</p>
     <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="30"
       onkeydown="if(event.key==='Enter') tryLogin()">
     <button class="login-btn" onclick="tryLogin()">입장하기</button>
-    <div class="error-msg" id="err-msg"></div>
+    <div class="err-msg" id="err-msg"></div>
   </div>
 </div>
 
+<!-- 메인 -->
 <div id="main-screen">
-  <div class="page-header">
+  <div class="top-bar">
     <h1>🗺️ 윤슬랭가이드</h1>
-    <p>맛집 &amp; 멋집 가이드</p>
+    <div class="top-bar-right">
+      <a class="back-link" href="index.html" style="margin:0;">← 메인</a>
+      <button class="logout-btn" onclick="logout()">로그아웃</button>
+    </div>
   </div>
-  <div class="coming-box">
-    <div class="big-icon">🚧</div>
-    <h2>준비 중입니다</h2>
-    <p>콘텐츠가 곧 추가될 예정입니다.</p>
+
+  <!-- 검색·필터 -->
+  <div class="filter-bar">
+    <div class="search-row">
+      <input type="text" class="search-input" id="q" placeholder="🔍  장소명, 지역, 키워드 검색…" oninput="render()">
+    </div>
+    <div class="region-selects">
+      <select class="region-sel" id="sel-province" onchange="onProvinceChange()">
+        <option value="">전체 도/시</option>
+      </select>
+      <select class="region-sel" id="sel-city" onchange="render()">
+        <option value="">전체 시/군/구</option>
+      </select>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+      <div class="type-toggle">
+        <button class="type-btn all active" onclick="setType('all', this)">전체</button>
+        <button class="type-btn food" onclick="setType('food', this)">🍽️ 맛집</button>
+        <button class="type-btn spot" onclick="setType('spot', this)">📸 멋집</button>
+      </div>
+      <div class="result-info" id="result-info"></div>
+    </div>
   </div>
-  <div class="footer">
-    <a href="index.html">← 메인으로</a><br>
-    <button class="logout-btn" onclick="logout()">로그아웃</button>
-  </div>
+
+  <!-- 결과 -->
+  <div id="cards-area"></div>
+</div>
+
+<div style="text-align:center;color:#ddd;font-size:0.75em;padding:16px 0 8px;margin-top:24px;">
+  - boasis_lab.(yyj assistant)
 </div>
 
 <script>
-  const PW = 'yoon1201@@';
-  const KEY = 'auth_food';
-  function tryLogin() {
-    const val = document.getElementById('pw').value;
-    const inp = document.getElementById('pw').value;
-    const input = document.getElementById('pw');
-    if (val === PW) {
-      sessionStorage.setItem(KEY, '1');
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('main-screen').style.display = 'block';
-    } else {
-      input.classList.remove('shake'); void input.offsetWidth; input.classList.add('shake');
-      document.getElementById('err-msg').textContent = '비밀번호가 틀렸습니다.';
-      input.value = '';
-      setTimeout(() => input.classList.remove('shake'), 400);
-    }
-  }
-  function logout() {
-    sessionStorage.removeItem(KEY);
-    document.getElementById('main-screen').style.display = 'none';
-    document.getElementById('login-screen').style.display = 'block';
-    document.getElementById('pw').value = '';
-  }
-  if (sessionStorage.getItem(KEY) === '1') {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-screen').style.display = 'block';
-  }
-</script>
+// ── 데이터 ─────────────────────────────────────────────
+// type: 'food'=맛집, 'spot'=멋집/명소
+// province: 도/광역시/특별시 단위
+// city: 시/군/구 단위
+// district: 동/읍/면 (선택)
+// tags: 키워드 배열
+// rating: 0~5
+// visited: 'YYYY-MM-DD' (선택)
+// url: 링크 (선택)
+const PLACES = [
+  {
+    id: 1,
+    type: 'spot',
+    name: '전주 한옥마을',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '완산구 교동',
+    address: '전북 전주시 완산구 기린대로 99',
+    tags: ['명소', '역사', '한옥', '산책'],
+    rating: 5,
+    desc: '700여 채의 한옥이 밀집한 대한민국 대표 한옥 군락지. 경기전·풍남문·전동성당이 인근에 위치. 당일치기 여행 강추.',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 2,
+    type: 'food',
+    name: '전주 비빔밥 한 그릇',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '완산구 풍남동',
+    address: '전북 전주시 완산구 풍남동 일대',
+    tags: ['한식', '비빔밥', '전주10미', '점심'],
+    rating: 4.5,
+    desc: '전주 한옥마을 일대 비빔밥 골목. 고명·육회·황포묵이 올라간 정통 전주비빔밥을 즐길 수 있음.',
+    visited: '',
+    url: '',
+  },
+];
 
-<div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
-  - boasis_lab.(yyj assistant)
-</div>
+// ── 인증 ───────────────────────────────────────────────
+const PW  = 'yoon1201@@';
+const KEY = 'auth_food';
+function tryLogin() {
+  const input = document.getElementById('pw');
+  if (input.value === PW) {
+    sessionStorage.setItem(KEY, '1');
+    showMain();
+  } else {
+    input.classList.remove('shake'); void input.offsetWidth; input.classList.add('shake');
+    document.getElementById('err-msg').textContent = '비밀번호가 틀렸습니다.';
+    input.value = '';
+    setTimeout(() => input.classList.remove('shake'), 400);
+  }
+}
+function logout() {
+  sessionStorage.removeItem(KEY);
+  document.getElementById('main-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw').value = '';
+}
+function showMain() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('main-screen').style.display = 'block';
+  initSelectors();
+  render();
+}
+
+// ── 지역 셀렉터 초기화 ─────────────────────────────────
+function initSelectors() {
+  const provinces = [...new Set(PLACES.map(p => p.province))].sort();
+  const selP = document.getElementById('sel-province');
+  provinces.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selP.appendChild(o); });
+}
+function onProvinceChange() {
+  const pv = document.getElementById('sel-province').value;
+  const cities = [...new Set(PLACES.filter(p => !pv || p.province === pv).map(p => p.city))].sort();
+  const selC = document.getElementById('sel-city');
+  selC.innerHTML = '<option value="">전체 시/군/구</option>';
+  cities.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selC.appendChild(o); });
+  render();
+}
+
+// ── 필터 상태 ──────────────────────────────────────────
+let currentType = 'all';
+function setType(t, btn) {
+  currentType = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── 렌더 ───────────────────────────────────────────────
+function render() {
+  const q  = document.getElementById('q').value.trim().toLowerCase();
+  const pv = document.getElementById('sel-province').value;
+  const cy = document.getElementById('sel-city').value;
+
+  let list = PLACES.filter(p => {
+    if (currentType !== 'all' && p.type !== currentType) return false;
+    if (pv && p.province !== pv) return false;
+    if (cy && p.city !== cy) return false;
+    if (q) {
+      const haystack = [p.name, p.province, p.city, p.district, p.address, p.desc, ...(p.tags || [])].join(' ').toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('result-info').textContent = `${list.length}건`;
+  const area = document.getElementById('cards-area');
+
+  if (!list.length) {
+    area.innerHTML = `<div class="empty-state"><div class="e-icon">🔍</div><p>등록된 장소가 없습니다.<br>검색어나 필터를 변경해 보세요.</p></div>`;
+    return;
+  }
+
+  // 도/시 단위로 그룹화
+  const grouped = {};
+  list.forEach(p => {
+    const key = pv ? p.city : p.province;
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(p);
+  });
+
+  let html = '';
+  Object.keys(grouped).sort().forEach(gk => {
+    html += `<div class="region-header">📍 ${gk}</div>`;
+    html += `<div class="cards-grid">`;
+    grouped[gk].forEach(p => { html += cardHTML(p); });
+    html += `</div>`;
+  });
+  area.innerHTML = html;
+}
+
+function cardHTML(p) {
+  const icon     = p.type === 'food' ? '🍽️' : '📸';
+  const typeCls  = p.type === 'food' ? 'tag-food' : 'tag-spot';
+  const typeLabel= p.type === 'food' ? '맛집' : '멋집';
+  const stars    = p.rating ? '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 ? '½' : '') : '';
+  const tags     = (p.tags || []).map(t => `<span class="tag tag-general">${t}</span>`).join('');
+  const addr     = p.address ? `<div class="card-addr">📍 ${p.address}</div>` : '';
+  const visited  = p.visited ? `<span class="card-visited">방문 ${p.visited}</span>` : '';
+  const link     = p.url ? `<a class="card-link" href="${p.url}" target="_blank">🔗 링크</a>` : '';
+
+  return `
+  <div class="place-card">
+    <div class="card-head">
+      <div class="card-type-icon">${icon}</div>
+      <div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-region">${p.province} · ${p.city}${p.district ? ' ' + p.district : ''}</div>
+      </div>
+    </div>
+    <div class="card-tags">
+      <span class="tag ${typeCls}">${typeLabel}</span>
+      ${tags}
+    </div>
+    ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
+    ${addr}
+    <div class="card-footer">
+      <div class="rating"><span class="star">${stars}</span><span class="rating-num">${p.rating ? p.rating : ''}</span></div>
+      <div style="display:flex;gap:10px;align-items:center;">${visited}${link}</div>
+    </div>
+  </div>`;
+}
+
+// ── 초기화 ─────────────────────────────────────────────
+if (sessionStorage.getItem(KEY) === '1') showMain();
+</script>
 </body>
 </html>
