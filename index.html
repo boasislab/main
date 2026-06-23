@@ -242,7 +242,7 @@
         </a>
         <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
           📊 코드표 (주제영역·Proc소스)
-          <span class="sm-badge sm-lv2">LV2</span>
+          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
         </a>
         <a href="npf_journal_er.html" id="sm-er" style="display:none;">
           🗂️ 분개모형 ER 다이어그램
@@ -250,7 +250,7 @@
         </a>
         <a href="tbl_simulator.html" id="sm-sim" style="display:none;">
           🔧 테이블명 시뮬레이터
-          <span class="sm-badge sm-lv2">LV2</span>
+          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
         </a>
         <a href="event.html?tab=proc" id="sm-proc" style="display:none;">
           🔍 L_AM Proc 목록 (1,393건)
@@ -290,7 +290,7 @@
     'nps2026lv1': 1,
     'nps2026lv2': 2,
     'nps2026lv3': 3,
-    'nps2026lv4': 4,
+    'yyj123': 4,
   };
   const LEVEL_INFO = {
     1: { label: 'LV1 일반',      cls: 'lv1-pill' },
@@ -323,9 +323,9 @@
     badge.className = 'lv-pill ' + info.cls;
 
     document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
-    document.getElementById('sm-codes').style.display = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
     document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-sim').style.display   = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-sim').style.display   = level >= 4 ? 'flex' : 'none';
     document.getElementById('sm-proc').style.display  = level >= 3 ? 'flex' : 'none';
   }
 

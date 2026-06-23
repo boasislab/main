@@ -117,7 +117,7 @@
 
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('tab-errors', this)">🔴 오류 목록</button>
-    <button class="tab-btn" onclick="switchTab('tab-codes', this)">📊 코드표</button>
+    <button class="tab-btn" id="tab-btn-codes" onclick="switchTab('tab-codes', this)">📊 코드표</button>
     <button class="tab-btn" onclick="switchTab('tab-guide', this)">📋 작성 요령</button>
   </div>
 
@@ -377,7 +377,7 @@
     'nps2026lv1': 1,   // LV1 일반
     'nps2026lv2': 2,   // LV2 상세
     'nps2026lv3': 3,   // LV3 민감
-    'nps2026lv4': 4,   // LV4 극비
+    'yyj123': 4,       // LV4 슈퍼유저
   };
   const LEVEL_INFO = {
     1: { label: 'LV1 일반',       cls: 'lv1', desc: '일반 업무' },
@@ -496,6 +496,9 @@
       procSec.style.display = currentLevel >= 3 ? 'block' : 'none';
       if (currentLevel >= 3 && typeof filterProc !== 'undefined') { filterProc(); }
     }
+    // LV4 전용: 코드표 탭 표시/숨김
+    const codesBtn = document.getElementById('tab-btn-codes');
+    if (codesBtn) codesBtn.style.display = currentLevel >= 4 ? '' : 'none';
   }
 
   function enterMain(level) {
