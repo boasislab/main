@@ -26,7 +26,6 @@
 
   /* ── 메인 ── */
   #main-screen { display: none; max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
-
   .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
   .top-bar h1 { font-size: 1.4em; color: #c0552a; font-weight: 800; }
   .top-bar-right { display: flex; gap: 10px; align-items: center; }
@@ -38,56 +37,120 @@
   .search-row { display: flex; gap: 10px; }
   .search-input { flex: 1; padding: 10px 16px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.95em; outline: none; transition: border-color 0.2s; }
   .search-input:focus { border-color: #c0552a; }
-
   .region-selects { display: flex; gap: 10px; flex-wrap: wrap; }
   .region-sel { padding: 9px 14px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.88em; outline: none; background: #fafafa; cursor: pointer; color: #444; transition: border-color 0.2s; }
   .region-sel:focus { border-color: #c0552a; }
-
   .type-toggle { display: flex; gap: 8px; }
   .type-btn { padding: 7px 18px; border: 1.5px solid #ddd; border-radius: 20px; background: #fff; font-size: 0.85em; font-weight: 600; cursor: pointer; color: #888; transition: all 0.15s; }
   .type-btn.active { color: #fff; border-color: transparent; }
   .type-btn.all.active  { background: #444; }
   .type-btn.food.active { background: #e07b39; }
   .type-btn.spot.active { background: #3a7bd5; }
+  .result-info { font-size: 0.82em; color: #aaa; }
 
-  .result-info { font-size: 0.82em; color: #aaa; margin-top: 4px; }
-
-  /* 장소 카드 */
+  /* ── 장소 카드 ── */
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
-  .place-card { background: #fff; border-radius: 16px; padding: 22px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 10px; transition: transform 0.15s, box-shadow 0.15s; }
+  .place-card { background: #fff; border-radius: 16px; padding: 20px 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 9px; transition: transform 0.15s, box-shadow 0.15s; }
   .place-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
   .card-type-icon { font-size: 1.6em; line-height: 1; flex-shrink: 0; margin-top: 2px; }
-  .card-name { font-size: 1.05em; font-weight: 800; color: #1a1a1a; }
+  .card-name { font-size: 1.04em; font-weight: 800; color: #1a1a1a; }
   .card-region { font-size: 0.78em; color: #aaa; margin-top: 2px; }
-
-  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { font-size: 0.72em; padding: 3px 9px; border-radius: 10px; font-weight: 600; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 0.71em; padding: 3px 9px; border-radius: 10px; font-weight: 600; }
   .tag-food { background: #fef0e7; color: #c0552a; }
   .tag-spot { background: #e7f0fe; color: #2a5fa8; }
   .tag-general { background: #f0f0f0; color: #666; }
+  .card-desc { font-size: 0.84em; color: #555; line-height: 1.55; }
+  .card-addr { font-size: 0.77em; color: #bbb; }
+  .card-base-rating { display: flex; align-items: center; gap: 4px; }
+  .star-disp { color: #f5a623; font-size: 0.9em; letter-spacing: 1px; }
+  .rating-num { font-size: 0.8em; color: #aaa; }
 
-  .card-desc { font-size: 0.85em; color: #555; line-height: 1.55; }
-  .card-addr { font-size: 0.78em; color: #aaa; }
-  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
-  .card-visited { font-size: 0.75em; color: #ccc; }
-  .card-link { font-size: 0.78em; color: #3a7bd5; text-decoration: none; }
-  .card-link:hover { text-decoration: underline; }
-  .star { color: #f5a623; font-size: 0.85em; }
+  /* ── 내 후기 영역 ── */
+  .review-divider { border: none; border-top: 1.5px dashed #f0e8e0; margin: 2px 0; }
 
-  /* 별점 */
-  .rating { display: flex; align-items: center; gap: 4px; }
-  .rating-num { font-size: 0.8em; color: #888; }
+  /* 후기 없을 때 버튼 */
+  .review-add-btn {
+    width: 100%;
+    padding: 8px;
+    border: 1.5px dashed #e8d5c4;
+    border-radius: 10px;
+    background: #fffaf7;
+    color: #c0552a;
+    font-size: 0.82em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-align: center;
+  }
+  .review-add-btn:hover { background: #fef0e7; border-color: #c0552a; }
+
+  /* 후기 입력 폼 */
+  .review-form { background: #fffaf7; border: 1.5px solid #f0e0d0; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .review-form-title { font-size: 0.8em; font-weight: 700; color: #c0552a; }
+
+  /* 별점 인터랙티브 */
+  .star-picker { display: flex; gap: 4px; align-items: center; }
+  .star-picker span { font-size: 1.6em; cursor: pointer; color: #ddd; transition: color 0.1s; line-height: 1; }
+  .star-picker span.on { color: #f5a623; }
+  .star-picker span:hover { color: #f5a623; }
+  .star-val-label { font-size: 0.8em; color: #aaa; margin-left: 4px; }
+
+  .review-comment-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1.5px solid #eee;
+    border-radius: 9px;
+    font-size: 0.85em;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    min-height: 56px;
+  }
+  .review-comment-input:focus { border-color: #c0552a; }
+
+  .review-date-row { display: flex; align-items: center; gap: 8px; }
+  .review-date-row label { font-size: 0.8em; color: #888; white-space: nowrap; }
+  .review-date-input { flex: 1; padding: 7px 10px; border: 1.5px solid #eee; border-radius: 9px; font-size: 0.82em; outline: none; color: #444; }
+  .review-date-input:focus { border-color: #c0552a; }
+
+  .review-btns { display: flex; gap: 8px; }
+  .btn-save { flex: 1; padding: 8px; background: #c0552a; color: #fff; border: none; border-radius: 9px; font-size: 0.85em; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+  .btn-save:hover { background: #9e3f1c; }
+  .btn-cancel { padding: 8px 14px; background: #f0f0f0; color: #888; border: none; border-radius: 9px; font-size: 0.85em; cursor: pointer; }
+  .btn-cancel:hover { background: #e0e0e0; }
+
+  /* 내 후기 표시 */
+  .my-review-box { background: #fffaf7; border: 1.5px solid #f0e0d0; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .my-review-header { display: flex; align-items: center; justify-content: space-between; }
+  .my-review-label { font-size: 0.78em; font-weight: 700; color: #c0552a; }
+  .my-review-actions { display: flex; gap: 8px; }
+  .btn-edit-review, .btn-del-review { background: none; border: none; font-size: 0.75em; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+  .btn-edit-review { color: #888; }
+  .btn-edit-review:hover { background: #eee; }
+  .btn-del-review { color: #dc3545; }
+  .btn-del-review:hover { background: #fde8e8; }
+  .my-review-stars { color: #f5a623; font-size: 1.1em; letter-spacing: 1px; }
+  .my-review-score { font-size: 0.85em; font-weight: 700; color: #c0552a; margin-left: 4px; }
+  .my-review-comment { font-size: 0.84em; color: #555; line-height: 1.5; }
+  .my-review-date { font-size: 0.75em; color: #ccc; }
+
+  /* 지역 헤더 */
+  .region-header { font-size: 0.9em; font-weight: 700; color: #888; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #eee; }
+  .region-header:first-child { margin-top: 0; }
 
   /* 빈 상태 */
   .empty-state { text-align: center; padding: 60px 24px; color: #bbb; }
   .empty-state .e-icon { font-size: 3em; margin-bottom: 14px; }
   .empty-state p { font-size: 0.92em; }
 
-  /* 지역 헤더 */
-  .region-header { font-size: 0.9em; font-weight: 700; color: #888; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #eee; letter-spacing: 0.5px; }
-  .region-header:first-child { margin-top: 0; }
+  /* 링크/방문 */
+  .card-meta { display: flex; align-items: center; justify-content: space-between; }
+  .card-link { font-size: 0.78em; color: #3a7bd5; text-decoration: none; }
+  .card-link:hover { text-decoration: underline; }
+  .card-visited { font-size: 0.75em; color: #ccc; }
 
   @media (max-width: 480px) {
     .region-selects { flex-direction: column; }
@@ -121,7 +184,6 @@
     </div>
   </div>
 
-  <!-- 검색·필터 -->
   <div class="filter-bar">
     <div class="search-row">
       <input type="text" class="search-input" id="q" placeholder="🔍  장소명, 지역, 키워드 검색…" oninput="render()">
@@ -136,15 +198,14 @@
     </div>
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
       <div class="type-toggle">
-        <button class="type-btn all active" onclick="setType('all', this)">전체</button>
-        <button class="type-btn food" onclick="setType('food', this)">🍽️ 맛집</button>
-        <button class="type-btn spot" onclick="setType('spot', this)">📸 멋집</button>
+        <button class="type-btn all active" onclick="setType('all',this)">전체</button>
+        <button class="type-btn food" onclick="setType('food',this)">🍽️ 맛집</button>
+        <button class="type-btn spot" onclick="setType('spot',this)">📸 멋집</button>
       </div>
       <div class="result-info" id="result-info"></div>
     </div>
   </div>
 
-  <!-- 결과 -->
   <div id="cards-area"></div>
 </div>
 
@@ -153,15 +214,12 @@
 </div>
 
 <script>
-// ── 데이터 ─────────────────────────────────────────────
-// type: 'food'=맛집, 'spot'=멋집/명소
-// province: 도/광역시/특별시 단위
-// city: 시/군/구 단위
-// district: 동/읍/면 (선택)
-// tags: 키워드 배열
-// rating: 0~5
+// ── 장소 데이터 ────────────────────────────────────────
+// type: 'food'=맛집 | 'spot'=멋집/명소
+// province: 도/광역시/특별시    city: 시/군/구
+// district: 동/읍/면 (선택)    rating: 기본 별점 (선택, 0~5)
+// tags: 키워드 배열             url: 링크 (선택)
 // visited: 'YYYY-MM-DD' (선택)
-// url: 링크 (선택)
 const PLACES = [
   {
     id: 1,
@@ -193,6 +251,16 @@ const PLACES = [
   },
 ];
 
+// ── 내 후기 저장소 (localStorage) ─────────────────────
+// { [id]: { rating: 1~5, comment: '', visited: 'YYYY-MM-DD' } }
+const REVIEW_KEY = 'guide_my_reviews';
+function loadReviews() {
+  try { return JSON.parse(localStorage.getItem(REVIEW_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveReviews(data) {
+  localStorage.setItem(REVIEW_KEY, JSON.stringify(data));
+}
+
 // ── 인증 ───────────────────────────────────────────────
 const PW  = 'yoon1201@@';
 const KEY = 'auth_food';
@@ -221,11 +289,13 @@ function showMain() {
   render();
 }
 
-// ── 지역 셀렉터 초기화 ─────────────────────────────────
+// ── 지역 셀렉터 ────────────────────────────────────────
 function initSelectors() {
   const provinces = [...new Set(PLACES.map(p => p.province))].sort();
   const selP = document.getElementById('sel-province');
-  provinces.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selP.appendChild(o); });
+  provinces.forEach(v => {
+    const o = document.createElement('option'); o.value = v; o.textContent = v; selP.appendChild(o);
+  });
 }
 function onProvinceChange() {
   const pv = document.getElementById('sel-province').value;
@@ -236,7 +306,7 @@ function onProvinceChange() {
   render();
 }
 
-// ── 필터 상태 ──────────────────────────────────────────
+// ── 필터 ───────────────────────────────────────────────
 let currentType = 'all';
 function setType(t, btn) {
   currentType = t;
@@ -256,68 +326,204 @@ function render() {
     if (pv && p.province !== pv) return false;
     if (cy && p.city !== cy) return false;
     if (q) {
-      const haystack = [p.name, p.province, p.city, p.district, p.address, p.desc, ...(p.tags || [])].join(' ').toLowerCase();
-      if (!haystack.includes(q)) return false;
+      const hay = [p.name, p.province, p.city, p.district, p.address, p.desc, ...(p.tags||[])].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
     }
     return true;
   });
 
-  document.getElementById('result-info').textContent = `${list.length}건`;
+  document.getElementById('result-info').textContent = list.length + '건';
   const area = document.getElementById('cards-area');
 
   if (!list.length) {
-    area.innerHTML = `<div class="empty-state"><div class="e-icon">🔍</div><p>등록된 장소가 없습니다.<br>검색어나 필터를 변경해 보세요.</p></div>`;
+    area.innerHTML = '<div class="empty-state"><div class="e-icon">🔍</div><p>등록된 장소가 없습니다.<br>검색어나 필터를 변경해 보세요.</p></div>';
     return;
   }
 
-  // 도/시 단위로 그룹화
+  // 도/시 단위 그룹화
   const grouped = {};
   list.forEach(p => {
-    const key = pv ? p.city : p.province;
-    if (!grouped[key]) grouped[key] = [];
-    grouped[key].push(p);
+    const gk = pv ? p.city : p.province;
+    if (!grouped[gk]) grouped[gk] = [];
+    grouped[gk].push(p);
   });
 
   let html = '';
   Object.keys(grouped).sort().forEach(gk => {
-    html += `<div class="region-header">📍 ${gk}</div>`;
-    html += `<div class="cards-grid">`;
+    html += '<div class="region-header">📍 ' + gk + '</div>';
+    html += '<div class="cards-grid">';
     grouped[gk].forEach(p => { html += cardHTML(p); });
-    html += `</div>`;
+    html += '</div>';
   });
   area.innerHTML = html;
 }
 
+// ── 별표 문자열 생성 ───────────────────────────────────
+function starsStr(n) {
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? '½' : '';
+  return '★'.repeat(full) + half;
+}
+
+// ── 카드 HTML ──────────────────────────────────────────
 function cardHTML(p) {
+  const reviews = loadReviews();
+  const myRev   = reviews[p.id];
   const icon     = p.type === 'food' ? '🍽️' : '📸';
   const typeCls  = p.type === 'food' ? 'tag-food' : 'tag-spot';
   const typeLabel= p.type === 'food' ? '맛집' : '멋집';
-  const stars    = p.rating ? '★'.repeat(Math.floor(p.rating)) + (p.rating % 1 ? '½' : '') : '';
-  const tags     = (p.tags || []).map(t => `<span class="tag tag-general">${t}</span>`).join('');
-  const addr     = p.address ? `<div class="card-addr">📍 ${p.address}</div>` : '';
-  const visited  = p.visited ? `<span class="card-visited">방문 ${p.visited}</span>` : '';
-  const link     = p.url ? `<a class="card-link" href="${p.url}" target="_blank">🔗 링크</a>` : '';
+  const tags     = (p.tags||[]).map(t => '<span class="tag tag-general">'+t+'</span>').join('');
+  const addr     = p.address ? '<div class="card-addr">📍 ' + p.address + '</div>' : '';
+  const baseRating = p.rating
+    ? '<div class="card-base-rating"><span class="star-disp">' + starsStr(p.rating) + '</span><span class="rating-num">' + p.rating + '</span></div>'
+    : '';
+  const metaItems = [];
+  if (p.visited) metaItems.push('<span class="card-visited">방문 ' + p.visited + '</span>');
+  if (p.url)     metaItems.push('<a class="card-link" href="' + p.url + '" target="_blank">🔗 링크</a>');
+  const meta = metaItems.length ? '<div class="card-meta">' + metaItems.join('') + '</div>' : '';
+
+  // 내 후기 섹션
+  let reviewSection = '';
+  if (myRev) {
+    reviewSection = `
+    <hr class="review-divider">
+    <div class="my-review-box" id="rev-display-${p.id}">
+      <div class="my-review-header">
+        <span class="my-review-label">✏️ 내 후기</span>
+        <div class="my-review-actions">
+          <button class="btn-edit-review" onclick="openForm(${p.id})">수정</button>
+          <button class="btn-del-review" onclick="deleteReview(${p.id})">삭제</button>
+        </div>
+      </div>
+      <div>
+        <span class="my-review-stars">${starsStr(myRev.rating)}</span>
+        <span class="my-review-score">${myRev.rating}점</span>
+      </div>
+      ${myRev.comment ? '<div class="my-review-comment">' + escHtml(myRev.comment) + '</div>' : ''}
+      ${myRev.visited ? '<div class="my-review-date">📅 방문 ' + myRev.visited + '</div>' : ''}
+    </div>
+    <div class="review-form" id="rev-form-${p.id}" style="display:none;">
+      ${reviewFormHTML(p.id, myRev)}
+    </div>`;
+  } else {
+    reviewSection = `
+    <hr class="review-divider">
+    <button class="review-add-btn" id="rev-add-btn-${p.id}" onclick="openForm(${p.id})">✏️ 내 후기 남기기</button>
+    <div class="review-form" id="rev-form-${p.id}" style="display:none;">
+      ${reviewFormHTML(p.id, null)}
+    </div>`;
+  }
 
   return `
   <div class="place-card">
     <div class="card-head">
       <div class="card-type-icon">${icon}</div>
       <div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-region">${p.province} · ${p.city}${p.district ? ' ' + p.district : ''}</div>
+        <div class="card-name">${escHtml(p.name)}</div>
+        <div class="card-region">${escHtml(p.province)} · ${escHtml(p.city)}${p.district ? ' ' + escHtml(p.district) : ''}</div>
       </div>
     </div>
-    <div class="card-tags">
-      <span class="tag ${typeCls}">${typeLabel}</span>
-      ${tags}
-    </div>
-    ${p.desc ? `<div class="card-desc">${p.desc}</div>` : ''}
+    <div class="card-tags"><span class="tag ${typeCls}">${typeLabel}</span>${tags}</div>
+    ${p.desc ? '<div class="card-desc">' + escHtml(p.desc) + '</div>' : ''}
     ${addr}
-    <div class="card-footer">
-      <div class="rating"><span class="star">${stars}</span><span class="rating-num">${p.rating ? p.rating : ''}</span></div>
-      <div style="display:flex;gap:10px;align-items:center;">${visited}${link}</div>
-    </div>
+    ${baseRating}
+    ${meta}
+    ${reviewSection}
   </div>`;
+}
+
+// ── 후기 폼 HTML ───────────────────────────────────────
+function reviewFormHTML(id, existing) {
+  const r = existing ? existing.rating : 0;
+  const c = existing ? (existing.comment || '') : '';
+  const v = existing ? (existing.visited || '') : '';
+  const stars = [1,2,3,4,5].map(i =>
+    '<span id="rs-'+id+'-'+i+'" data-v="'+i+'" class="'+(i<=r?'on':'')+'" onclick="pickStar('+id+','+i+')" onmouseover="hoverStar('+id+','+i+')" onmouseout="unhoverStar('+id+')">★</span>'
+  ).join('');
+  return `
+    <div class="review-form-title">✏️ 내 후기</div>
+    <div class="star-picker" id="sp-${id}">
+      ${stars}
+      <span class="star-val-label" id="sv-${id}">${r ? r+'점' : '별점 선택'}</span>
+    </div>
+    <textarea class="review-comment-input" id="rc-${id}" placeholder="한줄 후기 (선택)">${escHtml(c)}</textarea>
+    <div class="review-date-row">
+      <label>방문일</label>
+      <input type="date" class="review-date-input" id="rd-${id}" value="${v}">
+    </div>
+    <div class="review-btns">
+      <button class="btn-save" onclick="submitReview(${id})">저장</button>
+      <button class="btn-cancel" onclick="closeForm(${id})">취소</button>
+    </div>`;
+}
+
+// ── 별점 인터랙션 ──────────────────────────────────────
+let pickedStars = {};
+function pickStar(id, val) {
+  pickedStars[id] = val;
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.className = i <= val ? 'on' : '';
+  }
+  const sv = document.getElementById('sv-'+id);
+  if (sv) sv.textContent = val + '점';
+}
+function hoverStar(id, val) {
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.style.color = i <= val ? '#f5a623' : '#ddd';
+  }
+}
+function unhoverStar(id) {
+  const cur = pickedStars[id] || 0;
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.style.color = '';
+  }
+}
+
+// ── 폼 열기/닫기 ───────────────────────────────────────
+function openForm(id) {
+  const reviews = loadReviews();
+  pickedStars[id] = reviews[id] ? reviews[id].rating : 0;
+
+  const addBtn = document.getElementById('rev-add-btn-'+id);
+  if (addBtn) addBtn.style.display = 'none';
+  const disp = document.getElementById('rev-display-'+id);
+  if (disp) disp.style.display = 'none';
+  const form = document.getElementById('rev-form-'+id);
+  if (form) form.style.display = 'flex';
+}
+function closeForm(id) {
+  const reviews = loadReviews();
+  const addBtn = document.getElementById('rev-add-btn-'+id);
+  if (addBtn) addBtn.style.display = reviews[id] ? 'none' : 'block';
+  const disp = document.getElementById('rev-display-'+id);
+  if (disp) disp.style.display = reviews[id] ? 'flex' : 'none';
+  const form = document.getElementById('rev-form-'+id);
+  if (form) form.style.display = 'none';
+}
+function submitReview(id) {
+  const rating  = pickedStars[id] || 0;
+  if (!rating) { alert('별점을 선택해주세요.'); return; }
+  const comment = (document.getElementById('rc-'+id) || {}).value || '';
+  const visited = (document.getElementById('rd-'+id) || {}).value || '';
+  const reviews = loadReviews();
+  reviews[id] = { rating, comment, visited };
+  saveReviews(reviews);
+  render();
+}
+function deleteReview(id) {
+  if (!confirm('내 후기를 삭제할까요?')) return;
+  const reviews = loadReviews();
+  delete reviews[id];
+  saveReviews(reviews);
+  render();
+}
+
+// ── 유틸 ───────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 // ── 초기화 ─────────────────────────────────────────────
