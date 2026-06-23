@@ -237,15 +237,19 @@
       </div>
       <div class="submenu">
         <a href="event.html" id="sm-event" style="display:none;">
-          📋 NPS 이벤트 로그
+          📋 오류 목록
           <span class="sm-badge sm-lv1">LV1</span>
         </a>
         <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
-          📊 코드표
+          📊 코드표 (주제영역·Proc소스)
+          <span class="sm-badge sm-lv2">LV2</span>
+        </a>
+        <a href="npf_journal_er.html" id="sm-er" style="display:none;">
+          🗂️ 분개모형 ER 다이어그램
           <span class="sm-badge sm-lv2">LV2</span>
         </a>
         <a href="event.html?tab=proc" id="sm-proc" style="display:none;">
-          🔍 Proc 목록
+          🔍 L_AM Proc 목록 (1,393건)
           <span class="sm-badge sm-lv3">LV3</span>
         </a>
       </div>
@@ -316,6 +320,7 @@
 
     document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
     document.getElementById('sm-codes').style.display = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-proc').style.display  = level >= 3 ? 'flex' : 'none';
   }
 
