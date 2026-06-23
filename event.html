@@ -536,9 +536,25 @@
     btn.classList.add('active');
   }
 
-  // 세션 복원
+  // 세션 복원 + URL 탭 파라미터 처리
   const saved = parseInt(sessionStorage.getItem(KEY), 10);
-  if (saved >= 1 && saved <= 4) { enterMain(saved); }
+  if (saved >= 1 && saved <= 4) {
+    enterMain(saved);
+    // ?tab=codes 또는 ?tab=proc 파라미터로 특정 탭 자동 활성화
+    const tabParam = new URLSearchParams(location.search).get('tab');
+    if (tabParam === 'codes') {
+      const btn = document.querySelector('.tab-btn[onclick*="tab-codes"]');
+      if (btn) switchTab('tab-codes', btn);
+    } else if (tabParam === 'proc') {
+      const btn = document.querySelector('.tab-btn[onclick*="tab-codes"]');
+      if (btn) switchTab('tab-codes', btn);
+      // proc 섹션으로 스크롤
+      setTimeout(() => {
+        const el = document.getElementById('proc-list-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }
 </script>
 
 <div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
