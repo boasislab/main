@@ -63,6 +63,13 @@
   .tag-general { background: #f0f0f0; color: #666; }
   .card-desc { font-size: 0.84em; color: #555; line-height: 1.55; }
   .card-addr { font-size: 0.77em; color: #bbb; }
+
+  /* ── 맛집 전용 정보 ── */
+  .food-info { display: flex; flex-direction: column; gap: 5px; background: #fffbf8; border: 1px solid #f5e6d8; border-radius: 10px; padding: 10px 12px; }
+  .food-info-row { display: flex; gap: 6px; align-items: flex-start; font-size: 0.82em; }
+  .food-info-label { color: #c0552a; font-weight: 700; white-space: nowrap; min-width: 62px; flex-shrink: 0; }
+  .food-info-value { color: #444; line-height: 1.5; }
+
   .card-base-rating { display: flex; align-items: center; gap: 4px; }
   .star-disp { color: #f5a623; font-size: 0.9em; letter-spacing: 1px; }
   .rating-num { font-size: 0.8em; color: #aaa; }
@@ -220,6 +227,7 @@
 // district: 동/읍/면 (선택)    rating: 기본 별점 (선택, 0~5)
 // tags: 키워드 배열             url: 링크 (선택)
 // visited: 'YYYY-MM-DD' (선택)
+// [맛집 전용] contact: 연락처  signature: 시그니쳐메뉴  tip: 이용/예약팁  holiday: 정기휴무일
 const PLACES = [
   {
     id: 1,
@@ -246,6 +254,10 @@ const PLACES = [
     tags: ['한식', '비빔밥', '전주10미', '점심'],
     rating: 4.5,
     desc: '전주 한옥마을 일대 비빔밥 골목. 고명·육회·황포묵이 올라간 정통 전주비빔밥을 즐길 수 있음.',
+    contact: '',
+    signature: '육회비빔밥, 콩나물국밥',
+    tip: '점심 피크타임(12~13시) 대기 있음. 주차는 한옥마을 공영주차장 이용.',
+    holiday: '연중무휴',
     visited: '',
     url: '',
   },
@@ -326,7 +338,7 @@ function render() {
     if (pv && p.province !== pv) return false;
     if (cy && p.city !== cy) return false;
     if (q) {
-      const hay = [p.name, p.province, p.city, p.district, p.address, p.desc, ...(p.tags||[])].join(' ').toLowerCase();
+      const hay = [p.name, p.province, p.city, p.district, p.address, p.desc, p.contact||'', p.signature||'', p.tip||'', p.holiday||'', ...(p.tags||[])].join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -377,6 +389,21 @@ function cardHTML(p) {
   const baseRating = p.rating
     ? '<div class="card-base-rating"><span class="star-disp">' + starsStr(p.rating) + '</span><span class="rating-num">' + p.rating + '</span></div>'
     : '';
+  // 맛집 전용 정보 블록
+  let foodInfoHTML = '';
+  if (p.type === 'food') {
+    const rows = [];
+    if (p.contact)   rows.push(['📞 연락처', escHtml(p.contact)]);
+    if (p.signature) rows.push(['🍴 시그니쳐', escHtml(p.signature)]);
+    if (p.tip)       rows.push(['💡 이용팁', escHtml(p.tip)]);
+    if (p.holiday)   rows.push(['📅 정기휴무', escHtml(p.holiday)]);
+    if (rows.length) {
+      foodInfoHTML = '<div class="food-info">' +
+        rows.map(([l,v]) => '<div class="food-info-row"><span class="food-info-label">'+l+'</span><span class="food-info-value">'+v+'</span></div>').join('') +
+        '</div>';
+    }
+  }
+
   const metaItems = [];
   if (p.visited) metaItems.push('<span class="card-visited">방문 ' + p.visited + '</span>');
   if (p.url)     metaItems.push('<a class="card-link" href="' + p.url + '" target="_blank">🔗 링크</a>');
@@ -426,6 +453,7 @@ function cardHTML(p) {
     <div class="card-tags"><span class="tag ${typeCls}">${typeLabel}</span>${tags}</div>
     ${p.desc ? '<div class="card-desc">' + escHtml(p.desc) + '</div>' : ''}
     ${addr}
+    ${foodInfoHTML}
     ${baseRating}
     ${meta}
     ${reviewSection}
