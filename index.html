@@ -248,6 +248,10 @@
           🗂️ 분개모형 ER 다이어그램
           <span class="sm-badge sm-lv2">LV2</span>
         </a>
+        <a href="tbl_simulator.html" id="sm-sim" style="display:none;">
+          🔧 테이블명 시뮬레이터
+          <span class="sm-badge sm-lv2">LV2</span>
+        </a>
         <a href="event.html?tab=proc" id="sm-proc" style="display:none;">
           🔍 L_AM Proc 목록 (1,393건)
           <span class="sm-badge sm-lv3">LV3</span>
@@ -321,6 +325,7 @@
     document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
     document.getElementById('sm-codes').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-sim').style.display   = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-proc').style.display  = level >= 3 ? 'flex' : 'none';
   }
 
