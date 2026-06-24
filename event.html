@@ -118,6 +118,7 @@
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('tab-errors', this)">🔴 오류 목록</button>
     <button class="tab-btn" id="tab-btn-codes" onclick="switchTab('tab-codes', this)">📊 코드표</button>
+    <button class="tab-btn" id="tab-btn-proc" onclick="switchTab('tab-proc', this)" style="display:none">🔍 Proc 목록</button>
     <button class="tab-btn" onclick="switchTab('tab-guide', this)">📋 작성 요령</button>
   </div>
 
@@ -275,11 +276,12 @@
         </table>
       </div>
     </div>
-    <div id="proc-list-section" style="display:none">
-      <div class="section-card">
-        <h2>L_AM Proc 목록 <span style="color:#aaa;font-weight:normal;font-size:0.85em">(1393건)</span>
-          <span style="font-size:0.78em;background:#fff0e0;color:#b85c00;padding:2px 8px;border-radius:8px;margin-left:8px">LV3</span>
-        </h2>
+  </div>
+
+  <!-- 탭: Proc 목록 -->
+  <div id="tab-proc" class="tab-content">
+    <div class="section-card">
+      <h2>Proc 목록 <span style="color:#aaa;font-weight:normal;font-size:0.85em">(1,393건)</span></h2>
         <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
           <input id="proc-search" type="text" placeholder="파일명 또는 소스영역 검색..."
             style="padding:8px 14px;border:2px solid #ddd;border-radius:8px;font-size:0.9em;width:260px;outline:none"
@@ -344,7 +346,6 @@
           </table>
         </div>
       </div>
-    </div>
   </div>
 
   <script>
@@ -490,12 +491,10 @@
     badge.textContent = `LV${currentLevel}`;
     badge.className = `badge ${info.cls}`;
     document.getElementById('cur-level-desc').textContent = `(${info.desc})`;
-    // LV3+ 이면 Proc 목록 섹션 표시 + 초기 렌더링
-    const procSec = document.getElementById('proc-list-section');
-    if (procSec) {
-      procSec.style.display = currentLevel >= 3 ? 'block' : 'none';
-      if (currentLevel >= 3 && typeof filterProc !== 'undefined') { filterProc(); }
-    }
+    // LV3+ 이면 Proc 목록 탭 버튼 표시
+    const procBtn = document.getElementById('tab-btn-proc');
+    if (procBtn) procBtn.style.display = currentLevel >= 3 ? '' : 'none';
+    if (currentLevel >= 3 && typeof filterProc !== 'undefined') { filterProc(); }
     // LV4 전용: 코드표 탭 표시/숨김
     const codesBtn = document.getElementById('tab-btn-codes');
     if (codesBtn) codesBtn.style.display = currentLevel >= 4 ? '' : 'none';
@@ -549,13 +548,8 @@
       const btn = document.querySelector('.tab-btn[onclick*="tab-codes"]');
       if (btn) switchTab('tab-codes', btn);
     } else if (tabParam === 'proc') {
-      const btn = document.querySelector('.tab-btn[onclick*="tab-codes"]');
-      if (btn) switchTab('tab-codes', btn);
-      // proc 섹션으로 스크롤
-      setTimeout(() => {
-        const el = document.getElementById('proc-list-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
+      const btn = document.getElementById('tab-btn-proc');
+      if (btn) switchTab('tab-proc', btn);
     }
   }
 </script>
