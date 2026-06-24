@@ -114,11 +114,45 @@
   .footer { text-align: center; color: #aaa; font-size: 0.8em; margin-top: 28px; }
   .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
   .logout-btn:hover { border-color: #999; color: #555; }
+
+  /* ── TTS 음성 플레이어 ── */
+  .tts-btn { display:inline-flex; align-items:center; gap:5px; padding:8px 14px; background:#e8f5e9; border:1.5px solid #81c784; border-radius:10px; color:#2d6a4f; font-size:0.82em; font-weight:700; cursor:pointer; text-decoration:none; transition:background 0.15s; margin-top:6px; }
+  .tts-btn:hover { background:#c8e6c9; }
+  .tts-btn.loading { opacity:0.6; pointer-events:none; }
+  #tts-bar { display:none; position:fixed; bottom:0; left:0; right:0; background:#1a2e22; color:#fff; padding:10px 16px; z-index:9999; box-shadow:0 -4px 20px rgba(0,0,0,0.3); }
+  #tts-bar .tts-inner { max-width:860px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  #tts-bar .tts-title { flex:1; font-size:0.88em; font-weight:700; color:#74c69d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+  #tts-bar .tts-controls { display:flex; gap:8px; align-items:center; }
+  #tts-bar button { background:rgba(255,255,255,0.15); border:none; color:#fff; border-radius:8px; padding:6px 12px; font-size:0.88em; cursor:pointer; transition:background 0.15s; }
+  #tts-bar button:hover { background:rgba(255,255,255,0.28); }
+  #tts-bar button.active { background:#52b788; }
+  #tts-bar .tts-progress { font-size:0.78em; color:#aaa; }
+  #tts-bar select { background:#333; border:none; color:#fff; border-radius:6px; padding:4px 8px; font-size:0.82em; }
+  @media(max-width:600px) { #tts-bar .tts-inner { gap:8px; } #tts-bar .tts-title { font-size:0.8em; } }
 </style>
 </head>
 <body>
 
 <!-- 로그인 화면 -->
+<!-- 🔊 TTS 플레이어 바 (고정 하단) -->
+<div id="tts-bar">
+  <div class="tts-inner">
+    <div class="tts-title" id="tts-title">⏳ 로딩 중...</div>
+    <div class="tts-controls">
+      <button id="tts-playpause" onclick="ttsToggle()">⏸ 일시정지</button>
+      <button onclick="ttsStop()">⏹ 정지</button>
+      <select id="tts-rate" onchange="ttsChangeRate(this.value)" title="재생 속도">
+        <option value="0.8">0.8×</option>
+        <option value="1.0" selected>1.0×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+        <option value="2.0">2.0×</option>
+      </select>
+    </div>
+    <div class="tts-progress" id="tts-progress"></div>
+  </div>
+</div>
+
 <!-- 점검중 화면 -->
 <div id="maint-screen">
   <div class="maint-card">
@@ -359,6 +393,104 @@
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { showMain(); }
   else if (sessionStorage.getItem('auth') === '1') { showMain(); }
   else if (sessionStorage.getItem('auth') === 'maint') { showMaint(); }
+
+  // ── TTS 음성 재생 ─────────────────────────────────────────────
+  let ttsChunks = [], ttsIdx = 0, ttsPaused = false, ttsRate = 1.0, ttsCurrentName = '';
+
+  function ttsExtractText(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('script, style, nav, header').forEach(el => el.remove());
+    return (doc.body?.innerText || doc.body?.textContent || '')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  function ttsChunkText(text, maxLen = 200) {
+    const chunks = [];
+    let start = 0;
+    while (start < text.length) {
+      let end = start + maxLen;
+      if (end < text.length) {
+        const cut = text.lastIndexOf('。', end);
+        const cut2 = text.lastIndexOf('. ', end);
+        const cut3 = text.lastIndexOf(' ', end);
+        end = (cut > start + 50) ? cut + 1 : (cut2 > start + 50) ? cut2 + 2 : (cut3 > start + 50) ? cut3 + 1 : end;
+      }
+      chunks.push(text.slice(start, end).trim());
+      start = end;
+    }
+    return chunks.filter(Boolean);
+  }
+
+  function ttsSpeak(idx) {
+    if (idx >= ttsChunks.length) { ttsStop(); return; }
+    ttsIdx = idx;
+    const utter = new SpeechSynthesisUtterance(ttsChunks[idx]);
+    utter.lang = 'ko-KR';
+    utter.rate = ttsRate;
+    utter.onend = () => { if (!ttsPaused) ttsSpeak(ttsIdx + 1); };
+    utter.onerror = () => ttsSpeak(ttsIdx + 1);
+    document.getElementById('tts-progress').textContent = `${idx + 1} / ${ttsChunks.length}`;
+    window.speechSynthesis.speak(utter);
+  }
+
+  async function playTTS(url, name) {
+    ttsStop();
+    const btn = document.querySelector(`.tts-btn[data-url="${CSS.escape(url)}"]`);
+    if (btn) { btn.classList.add('loading'); btn.textContent = '⏳ 로딩...'; }
+    try {
+      const res = await fetch(url);
+      const html = await res.text();
+      const text = ttsExtractText(html);
+      if (!text) { alert('텍스트를 추출할 수 없습니다.'); return; }
+      ttsChunks = ttsChunkText(text);
+      ttsIdx = 0; ttsPaused = false; ttsCurrentName = name;
+      document.getElementById('tts-title').textContent = '🔊 ' + name;
+      document.getElementById('tts-bar').style.display = 'block';
+      document.getElementById('tts-playpause').textContent = '⏸ 일시정지';
+      ttsSpeak(0);
+    } catch(e) {
+      alert('음성 재생 오류: ' + e.message);
+    } finally {
+      if (btn) { btn.classList.remove('loading'); btn.innerHTML = '🔊 듣기'; }
+    }
+  }
+
+  function ttsToggle() {
+    const ss = window.speechSynthesis;
+    if (ss.speaking && !ss.paused) {
+      ss.pause(); ttsPaused = true;
+      document.getElementById('tts-playpause').textContent = '▶ 재생';
+    } else if (ss.paused) {
+      ss.resume(); ttsPaused = false;
+      document.getElementById('tts-playpause').textContent = '⏸ 일시정지';
+    }
+  }
+
+  function ttsStop() {
+    window.speechSynthesis.cancel();
+    ttsChunks = []; ttsIdx = 0; ttsPaused = false;
+    document.getElementById('tts-bar').style.display = 'none';
+  }
+
+  function ttsChangeRate(val) {
+    ttsRate = parseFloat(val);
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      ttsSpeak(ttsIdx);
+    }
+  }
+
+  // 강의내용 정리본 링크에 🔊 듣기 버튼 동적 추가
+  document.querySelectorAll('.file-btn:not(.btn-quiz)').forEach(link => {
+    const url = link.getAttribute('href');
+    const name = link.closest('.subject-block')?.querySelector('.subject-title')?.childNodes[0]?.textContent?.trim() || url;
+    const btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.setAttribute('data-url', url);
+    btn.innerHTML = '🔊 듣기';
+    btn.onclick = (e) => { e.preventDefault(); playTTS(url, name); };
+    link.parentNode.appendChild(btn);
+  });
 </script>
 
 <div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
