@@ -424,27 +424,44 @@
 
   function ttsExtractText(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    // 목차·네비·스크립트 제거
     doc.querySelectorAll('script, style, nav, header, .toc, [class*="toc"], [id*="toc"]').forEach(el => el.remove());
-    let text = (doc.body?.innerText || doc.body?.textContent || '');
-    // 장식 기호·이모지 제거, 공백 정리
-    text = text
+
+    // 인라인 강조 span(.highlight-*, .hl-*)이 있는 부모 블록에 data-imp 마킹
+    doc.querySelectorAll('[class*="highlight-"],[class*="hl-"]').forEach(span => {
+      const block = span.closest('p,li,blockquote,td,dt,dd');
+      if (block) block.dataset.imp = '1';
+    });
+
+    const texts = [];
+    const included = new WeakSet();
+
+    // h1/h2/h3(섹션 제목) + 시험/핵심 박스 + 인라인강조 부모블록 — 문서 순서대로
+    doc.querySelectorAll(
+      'h1,h2,h3,' +
+      '.exam-box,.exam,.exam-tip,.key-box,' +
+      '[data-imp="1"]'
+    ).forEach(el => {
+      if (included.has(el)) return;
+      // 이미 포함된 exam/key 블록 안의 하위 [data-imp] 요소는 스킵
+      if (el.dataset && el.dataset.imp && el.closest('.exam-box,.exam,.exam-tip,.key-box')) return;
+      included.add(el);
+      el.querySelectorAll('*').forEach(c => included.add(c));
+
+      let t = el.textContent.replace(/\s+/g, ' ').trim();
+      if (!t) return;
+      // 헤딩 앞에 구분용 간격
+      if (el.matches('h1,h2,h3')) t = ' ' + t + '.';
+      texts.push(t);
+    });
+
+    let result = texts.join(' ');
+    result = result
       .replace(/[★☆●○◆◇■□▲△▶▷◀◁→←↑↓]/g, ' ')
       .replace(/[\u{1F300}-\u{1FFFF}]/gu, ' ')
-      .replace(/[📋📖📝🌿🦅📘🔊]/g, ' ')
-      .replace(/\t/g, ' ')
-      .replace(/[ ]{2,}/g, ' ')
-      .replace(/\n{3,}/g, '\n\n')
+      .replace(/[📋📖📝🌿🦅📘🔊🔴]/g, ' ')
+      .replace(/\s{2,}/g, ' ')
       .trim();
-    // 중복 줄 제거 (헤더 반복 방지)
-    const lines = text.split('\n');
-    const seen = new Set(); const clean = [];
-    for (const line of lines) {
-      const s = line.trim();
-      if (!s) { clean.push(''); continue; }
-      if (!seen.has(s)) { seen.add(s); clean.push(line); }
-    }
-    return clean.join('\n').replace(/\s+/g, ' ').trim();
+    return result;
   }
 
   // 문장 단위로 끊어 자연스럽게 읽기
