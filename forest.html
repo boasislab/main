@@ -115,6 +115,12 @@
   .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
   .logout-btn:hover { border-color: #999; color: #555; }
 
+  /* ── 고품질 오디오 플레이어 ── */
+  .audio-player { margin-top:8px; background:#f0faf4; border:1.5px solid #81c784; border-radius:12px; padding:10px 14px; }
+  .audio-player .ap-label { font-size:0.78em; font-weight:700; color:#2d6a4f; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+  .audio-player .ap-badge { background:#52b788; color:#fff; font-size:0.7em; padding:1px 7px; border-radius:10px; }
+  .audio-player audio { width:100%; height:36px; }
+
   /* ── TTS 음성 플레이어 ── */
   .tts-btn { display:inline-flex; align-items:center; gap:5px; padding:8px 14px; background:#e8f5e9; border:1.5px solid #81c784; border-radius:10px; color:#2d6a4f; font-size:0.82em; font-weight:700; cursor:pointer; text-decoration:none; transition:background 0.15s; margin-top:6px; }
   .tts-btn:hover { background:#c8e6c9; }
@@ -284,6 +290,10 @@
   <div class="subject-block">
     <div class="subject-title title-select2">산림토양학 <span class="date">2026-03-28</span></div>
     <div class="file-list">
+      <div class="audio-player">
+        <div class="ap-label">🎵 고품질 음성 강의 <span class="ap-badge">ElevenLabs · 샘플</span></div>
+        <audio controls src="audio/0328_산림토양학.mp3" preload="none"></audio>
+      </div>
       <a class="file-btn btn-select2" href="0328_산림토양학_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 34 KB</div></div>
       </a>
@@ -396,28 +406,61 @@
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
   let ttsChunks = [], ttsIdx = 0, ttsPaused = false, ttsRate = 1.0, ttsCurrentName = '';
+  let ttsVoice = null;
+
+  // 한국어 최적 음성 선택 (Yuna > Korean Neural > ko-KR 순)
+  function ttsBestVoice() {
+    if (ttsVoice) return ttsVoice;
+    const voices = window.speechSynthesis.getVoices();
+    const priority = ['Yuna', '유나', 'Korean', 'ko-KR Neural', 'Microsoft Heami'];
+    for (const p of priority) {
+      const v = voices.find(v => v.name.includes(p));
+      if (v) { ttsVoice = v; return v; }
+    }
+    ttsVoice = voices.find(v => v.lang.startsWith('ko')) || null;
+    return ttsVoice;
+  }
+  window.speechSynthesis.onvoiceschanged = () => { ttsVoice = null; ttsBestVoice(); };
 
   function ttsExtractText(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    doc.querySelectorAll('script, style, nav, header').forEach(el => el.remove());
-    return (doc.body?.innerText || doc.body?.textContent || '')
-      .replace(/\s+/g, ' ').trim();
+    // 목차·네비·스크립트 제거
+    doc.querySelectorAll('script, style, nav, header, .toc, [class*="toc"], [id*="toc"]').forEach(el => el.remove());
+    let text = (doc.body?.innerText || doc.body?.textContent || '');
+    // 장식 기호·이모지 제거, 공백 정리
+    text = text
+      .replace(/[★☆●○◆◇■□▲△▶▷◀◁→←↑↓]/g, ' ')
+      .replace(/[\u{1F300}-\u{1FFFF}]/gu, ' ')
+      .replace(/[📋📖📝🌿🦅📘🔊]/g, ' ')
+      .replace(/\t/g, ' ')
+      .replace(/[ ]{2,}/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    // 중복 줄 제거 (헤더 반복 방지)
+    const lines = text.split('\n');
+    const seen = new Set(); const clean = [];
+    for (const line of lines) {
+      const s = line.trim();
+      if (!s) { clean.push(''); continue; }
+      if (!seen.has(s)) { seen.add(s); clean.push(line); }
+    }
+    return clean.join('\n').replace(/\s+/g, ' ').trim();
   }
 
-  function ttsChunkText(text, maxLen = 200) {
-    const chunks = [];
-    let start = 0;
-    while (start < text.length) {
-      let end = start + maxLen;
-      if (end < text.length) {
-        const cut = text.lastIndexOf('。', end);
-        const cut2 = text.lastIndexOf('. ', end);
-        const cut3 = text.lastIndexOf(' ', end);
-        end = (cut > start + 50) ? cut + 1 : (cut2 > start + 50) ? cut2 + 2 : (cut3 > start + 50) ? cut3 + 1 : end;
+  // 문장 단위로 끊어 자연스럽게 읽기
+  function ttsChunkText(text, maxLen = 300) {
+    const sentences = text.split(/(?<=[.!?。])\s+|(?<=다[.。])\s*|(?<=요[.。])\s*/);
+    const chunks = []; let cur = '';
+    for (const s of sentences) {
+      if (!s.trim()) continue;
+      if (cur.length + s.length < maxLen) {
+        cur += (cur ? ' ' : '') + s.trim();
+      } else {
+        if (cur) chunks.push(cur);
+        cur = s.trim();
       }
-      chunks.push(text.slice(start, end).trim());
-      start = end;
     }
+    if (cur) chunks.push(cur);
     return chunks.filter(Boolean);
   }
 
@@ -427,9 +470,13 @@
     const utter = new SpeechSynthesisUtterance(ttsChunks[idx]);
     utter.lang = 'ko-KR';
     utter.rate = ttsRate;
+    utter.pitch = 1.0;
+    const voice = ttsBestVoice();
+    if (voice) utter.voice = voice;
     utter.onend = () => { if (!ttsPaused) ttsSpeak(ttsIdx + 1); };
     utter.onerror = () => ttsSpeak(ttsIdx + 1);
-    document.getElementById('tts-progress').textContent = `${idx + 1} / ${ttsChunks.length}`;
+    const pct = Math.round((idx / ttsChunks.length) * 100);
+    document.getElementById('tts-progress').textContent = `${idx + 1}/${ttsChunks.length} (${pct}%)`;
     window.speechSynthesis.speak(utter);
   }
 
