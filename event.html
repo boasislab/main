@@ -340,8 +340,8 @@
           <span id="proc-count" style="color:#aaa;font-size:0.85em"></span>
         </div>
         <div class="table-wrap" style="max-height:500px;overflow-y:auto">
-          <table class="error-table" style="min-width:460px">
-            <thead><tr><th style="width:80px">소스영역</th><th>Proc 파일명</th></tr></thead>
+          <table class="error-table" style="min-width:600px">
+            <thead><tr><th style="width:80px">소스영역</th><th>Proc 파일명</th><th style="width:100px">메타화</th></tr></thead>
             <tbody id="proc-tbody"></tbody>
           </table>
         </div>
@@ -359,8 +359,11 @@
     );
     const tbody = document.getElementById('proc-tbody');
     tbody.innerHTML = filtered.length
-      ? filtered.map(r => '<tr><td><code>' + r[0] + '</code></td><td style="font-family:monospace;font-size:0.88em">' + r[1] + '</td></tr>').join('')
-      : '<tr class="empty-row"><td colspan="2">검색 결과 없음</td></tr>';
+      ? filtered.map(r => {
+          const procId = r[1].replace(/\.pc$/, '').toUpperCase();
+          return '<tr><td><code>' + r[0] + '</code></td><td style="font-family:monospace;font-size:0.88em">' + r[1] + '</td><td style="text-align:center"><a href="pkm-dashboard.html" style="display:inline-block;padding:5px 12px;background:#667eea;color:#fff;border-radius:6px;text-decoration:none;font-size:0.8em;font-weight:600;transition:all 0.2s" onmouseover="this.style.background=\'#764ba2\'" onmouseout="this.style.background=\'#667eea\'">🚀 메타화</a></td></tr>';
+        }).join('')
+      : '<tr class="empty-row"><td colspan="3">검색 결과 없음</td></tr>';
     document.getElementById('proc-count').textContent = filtered.length.toLocaleString() + '건';
   }
   </script>
