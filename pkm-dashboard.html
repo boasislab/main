@@ -114,6 +114,11 @@ header p {
   transition: all 0.2s;
   font-size: 0.9em;
 }
+.proc-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
 .proc-item:hover {
   background: #eef2f7;
   border-color: #667eea;
@@ -123,19 +128,35 @@ header p {
   color: #fff;
   border-color: transparent;
 }
-.proc-id {
+.proc-checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.proc-info {
+  flex: 1;
+  min-width: 0;
+}
+.proc-name {
   font-family: monospace;
   font-weight: 800;
   font-size: 0.95em;
   letter-spacing: 1px;
 }
-.proc-name {
+.proc-desc {
   font-size: 0.82em;
   opacity: 0.75;
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.proc-meta {
+  font-size: 0.75em;
+  opacity: 0.6;
+  margin-top: 2px;
 }
 
 .proc-total {
@@ -422,35 +443,110 @@ footer {
       <h2>🔍 L_AM Proc 목록</h2>
       <input type="text" class="search-box" id="searchBox" placeholder="프로그램 검색..."
         oninput="filterProcList()">
+      <!-- 배치 선택 UI -->
+      <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e0e7f1; display: flex; gap: 6px; align-items: center;">
+        <input type="checkbox" id="selectAllCheck" onchange="toggleSelectAll()" style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="selectAllCheck" style="font-size: 0.85em; color: #666; flex: 1; cursor: pointer;">전체 선택</label>
+        <span id="selectedCount" style="font-size: 0.8em; color: #aaa; font-weight: 600;">0개</span>
+      </div>
     </div>
     <div class="proc-list" id="procList">
       <!-- 프로그램 목록이 여기 로드됨 -->
     </div>
     <div class="proc-total" id="procTotal">0 / 1,393 programs</div>
+    <!-- 배치 버튼 -->
+    <div style="padding: 12px 16px; border-top: 1px solid #e0e7f1; display: flex; gap: 8px;">
+      <button class="btn-batch" id="batchBtn" onclick="startBatchMetaization()" disabled style="flex: 1; padding: 10px; background: #667eea; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; opacity: 0.5; transition: all 0.2s;">
+        🚀 배치 메타화
+      </button>
+      <button class="btn-download" id="downloadBtn" onclick="downloadResults()" disabled style="padding: 10px 12px; background: #52b788; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; opacity: 0.5;">
+        📥
+      </button>
+    </div>
   </div>
 
-  <!-- 중앙: 메타정보 편집기 -->
+  <!-- 중앙: 메타정보 편집기 / 배치 진행 -->
   <div class="center-panel">
-    <div class="editor-header">
-      <div class="editor-title" id="editorTitle">메타정보 편집</div>
-      <div class="editor-actions">
-        <button class="btn-small" onclick="validateMeta()">✓ 검증</button>
-        <button class="btn-small btn-save" onclick="saveMeta()">💾 저장</button>
+    <!-- 개별 편집 모드 -->
+    <div id="editMode">
+      <div class="editor-header">
+        <div class="editor-title" id="editorTitle">메타정보 편집</div>
+        <div class="editor-actions">
+          <button class="btn-small" onclick="validateMeta()">✓ 검증</button>
+          <button class="btn-small btn-save" onclick="saveMeta()">💾 저장</button>
+        </div>
+      </div>
+
+      <div id="metaForm">
+        <div class="meta-empty">
+          좌측 목록에서 프로그램을 선택하여 메타정보를 편집하세요.
+        </div>
+      </div>
+
+      <!-- SQL 미리보기 (선택 시 표시) -->
+      <div id="sqlContainer" style="display:none;">
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e7f1;">
+          <h3 style="font-size: 0.95em; font-weight: 700; color: #333; margin-bottom: 12px;">📋 SQL INSERT 미리보기</h3>
+          <div class="sql-preview" id="sqlPreview">SELECT * FROM metadata WHERE id = ?</div>
+        </div>
       </div>
     </div>
 
-    <div id="metaForm">
-      <div class="meta-empty">
-        좌측 목록에서 프로그램을 선택하여 메타정보를 편집하세요.
-      </div>
-    </div>
+    <!-- 배치 진행 모드 -->
+    <div id="batchMode" style="display: none; padding: 20px; text-align: center;">
+      <h2 style="font-size: 1.2em; font-weight: 700; color: #333; margin-bottom: 20px;">🚀 배치 메타화 실행 중</h2>
 
-    <!-- SQL 미리보기 (선택 시 표시) -->
-    <div id="sqlContainer" style="display:none;">
-      <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e7f1;">
-        <h3 style="font-size: 0.95em; font-weight: 700; color: #333; margin-bottom: 12px;">📋 SQL INSERT 미리보기</h3>
-        <div class="sql-preview" id="sqlPreview">SELECT * FROM metadata WHERE id = ?</div>
+      <!-- 진행률 바 -->
+      <div style="margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <div style="flex: 1;">
+            <div class="progress-bar" style="width: 100%; height: 24px; background: #e0e7f1; border-radius: 12px; overflow: hidden;">
+              <div class="progress-fill" id="progressFill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75em; font-weight: 700;">
+              </div>
+            </div>
+          </div>
+          <span id="progressPercent" style="font-weight: 700; font-size: 0.95em; color: #333; min-width: 45px;">0%</span>
+        </div>
+        <div style="font-size: 0.85em; color: #666;">
+          <span id="progressText">0 / 10 프로그램 처리 중...</span>
+        </div>
       </div>
+
+      <!-- 현재 처리 중인 프로그램 -->
+      <div style="background: #f5f7fa; border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+        <div style="font-size: 0.8em; color: #aaa; margin-bottom: 4px;">현재 처리 중</div>
+        <div id="currentProc" style="font-size: 0.95em; font-weight: 600; color: #333;">대기 중...</div>
+      </div>
+
+      <!-- 실시간 로그 -->
+      <div style="background: #f5f7fa; border: 1px solid #e0e7f1; border-radius: 10px; padding: 12px; max-height: 200px; overflow-y: auto; margin-bottom: 16px; text-align: left;">
+        <div id="batchLog" style="font-size: 0.8em; color: #666; font-family: 'Courier New', monospace; line-height: 1.4;">
+          <div>📝 배치 메타화 시작...</div>
+        </div>
+      </div>
+
+      <!-- 통계 -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+        <div style="background: #e8f5e9; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 0.8em; color: #4caf50; font-weight: 600;">✅ 성공</div>
+          <div id="successCount" style="font-size: 1.2em; font-weight: 700; color: #2e7d32;">0</div>
+        </div>
+        <div style="background: #ffebee; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 0.8em; color: #f44336; font-weight: 600;">❌ 실패</div>
+          <div id="failCount" style="font-size: 1.2em; font-weight: 700; color: #c62828;">0</div>
+        </div>
+      </div>
+
+      <!-- 소요 시간 & 예상 완료 시간 -->
+      <div style="background: #f5f7fa; border-radius: 8px; padding: 10px; margin-bottom: 16px; font-size: 0.85em; color: #666;">
+        <div>⏱️ <span id="elapsedTime">0</span>초 경과</div>
+        <div>⏳ 예상 완료: <span id="estimatedTime">계산 중...</span>초 후</div>
+      </div>
+
+      <!-- 취소 버튼 -->
+      <button id="cancelBtn" onclick="cancelBatch()" style="padding: 10px 24px; background: #dc3545; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+        ⏹️ 취소
+      </button>
     </div>
   </div>
 
@@ -523,30 +619,22 @@ const META_TEMPLATE = {
 
 // ── 프로그램 목록 초기화 ──
 function initProcList() {
-  const procList = document.getElementById('procList');
-  procList.innerHTML = '';
-  LAM_PROCS.forEach(proc => {
-    const item = document.createElement('div');
-    item.className = 'proc-item';
-    item.innerHTML = `
-      <div class="proc-id">${proc.id}</div>
-      <div class="proc-name">${proc.name}</div>
-    `;
-    item.onclick = () => selectProc(proc);
-    procList.appendChild(item);
-  });
-  updateProcTotal();
+  renderProcList();
 }
 
 // ── 프로그램 선택 ──
-function selectProc(proc) {
+function selectProc(event, proc) {
+  if (event && event.target.type === 'checkbox') return;
+
   currentProc = proc;
 
   // UI 업데이트
   document.querySelectorAll('.proc-item').forEach(item => {
     item.classList.remove('active');
   });
-  event.currentTarget.classList.add('active');
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
 
   // 메타정보 폼 표시
   renderMetaForm(proc);
@@ -692,9 +780,264 @@ function saveMeta() {
   alert(`💾 ${currentProc.id}_metadata.json 저장 준비됨\n\n다음 단계:\n1. 메타정보 JSON 파일 생성\n2. SQL INSERT 생성\n3. DB 적재`);
 }
 
+// ═══════════════════════════════════════════════════════════════
+// ── Phase 8: 배치 메타화 프로세서 (고급 버전) ──
+// ═══════════════════════════════════════════════════════════════
+
+let selectedProcs = new Set();
+let batchInProgress = false;
+let batchStartTime = null;
+
+// 프로그램 목록 렌더링 (체크박스 추가)
+function renderProcList() {
+  const list = document.getElementById('procList');
+  list.innerHTML = LAM_PROCS.map(proc => `
+    <div class="proc-item" onclick="selectProc(event, proc)">
+      <input type="checkbox" class="proc-checkbox" value="${proc.id}"
+        onchange="toggleProc(event, '${proc.id}')"
+        onclick="event.stopPropagation()"
+        ${selectedProcs.has(proc.id) ? 'checked' : ''}>
+      <div class="proc-info">
+        <div class="proc-name">${proc.id}</div>
+        <div class="proc-desc">${proc.name}</div>
+        <div class="proc-meta">${proc.lines} 줄 · ${proc.domain}</div>
+      </div>
+    </div>
+  `).join('');
+  updateProcTotal();
+}
+
+// 개별 프로그램 선택 토글
+function toggleProc(event, procId) {
+  event.stopPropagation();
+  if (selectedProcs.has(procId)) {
+    selectedProcs.delete(procId);
+  } else {
+    selectedProcs.add(procId);
+  }
+  updateBatchUI();
+}
+
+// 전체 선택 토글
+function toggleSelectAll() {
+  const checkbox = document.getElementById('selectAllCheck');
+  if (checkbox.checked) {
+    LAM_PROCS.forEach(proc => selectedProcs.add(proc.id));
+  } else {
+    selectedProcs.clear();
+  }
+  renderProcList();
+  updateBatchUI();
+}
+
+// 배치 UI 업데이트
+function updateBatchUI() {
+  const count = selectedProcs.size;
+  document.getElementById('selectedCount').textContent = `${count}개`;
+  const batchBtn = document.getElementById('batchBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  if (count > 0 && !batchInProgress) {
+    batchBtn.disabled = false;
+    batchBtn.style.opacity = '1';
+    batchBtn.style.cursor = 'pointer';
+  } else {
+    batchBtn.disabled = true;
+    batchBtn.style.opacity = '0.5';
+    batchBtn.style.cursor = 'not-allowed';
+  }
+
+  // 전체 선택 체크박스 상태 동기화
+  const allCheckbox = document.getElementById('selectAllCheck');
+  allCheckbox.checked = selectedProcs.size === LAM_PROCS.length && LAM_PROCS.length > 0;
+}
+
+// 배치 메타화 시작
+async function startBatchMetaization() {
+  if (selectedProcs.size === 0) {
+    alert('최소 1개 이상의 프로그램을 선택하세요.');
+    return;
+  }
+
+  batchInProgress = true;
+  batchStartTime = Date.now();
+  selectedProcs = new Set([...selectedProcs].filter(id => LAM_PROCS.find(p => p.id === id)));
+  const procArray = Array.from(selectedProcs);
+
+  // UI 모드 전환
+  document.getElementById('editMode').style.display = 'none';
+  document.getElementById('batchMode').style.display = 'block';
+  document.getElementById('batchBtn').disabled = true;
+  document.getElementById('batchBtn').style.opacity = '0.5';
+
+  // 로그 초기화
+  const logDiv = document.getElementById('batchLog');
+  logDiv.innerHTML = `<div>📝 배치 메타화 시작... ${procArray.length}개 프로그램</div>`;
+
+  let successCount = 0;
+  let failCount = 0;
+  const results = [];
+
+  // 병렬 처리: 최대 5개씩 동시 처리
+  const chunkSize = 5;
+  const totalChunks = Math.ceil(procArray.length / chunkSize);
+
+  for (let chunkIdx = 0; chunkIdx < totalChunks; chunkIdx++) {
+    const chunk = procArray.slice(chunkIdx * chunkSize, (chunkIdx + 1) * chunkSize);
+    const promises = chunk.map(procId => {
+      const proc = LAM_PROCS.find(p => p.id === procId);
+      return new Promise(resolve => {
+        setTimeout(() => {
+          try {
+            // 메타정보 생성 시뮬레이션
+            const meta = { ...META_TEMPLATE };
+            meta.program.id = proc.id;
+            meta.program.file = proc.id + '_COMPLETE.pc';
+            meta.program.업무명 = proc.name;
+            meta.program.author = proc.author;
+
+            // 로그 추가
+            const index = procArray.indexOf(procId) + 1;
+            const elapsed = Math.round((Date.now() - batchStartTime) / 1000);
+            logDiv.innerHTML += `<div style="color: #4caf50;">✓ ${procId} 메타정보 생성 완료</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+
+            results.push({ procId, meta, status: 'success' });
+            successCount++;
+            updateBatchProgress(index, procArray.length, procId, successCount, failCount);
+            resolve();
+          } catch (e) {
+            failCount++;
+            logDiv.innerHTML += `<div style="color: #f44336;">✗ ${procId} 처리 실패: ${e.message}</div>`;
+            results.push({ procId, status: 'failed', error: e.message });
+            resolve();
+          }
+        }, 300); // 시뮬레이션: 300ms 지연
+      });
+    });
+
+    await Promise.all(promises);
+  }
+
+  // 배치 완료
+  completeBatchMetaization(results, successCount, failCount, procArray.length);
+}
+
+// 배치 진행률 업데이트
+function updateBatchProgress(current, total, procId, successCount, failCount) {
+  const percent = Math.round((current / total) * 100);
+  document.getElementById('progressFill').style.width = percent + '%';
+  document.getElementById('progressPercent').textContent = percent + '%';
+  document.getElementById('progressText').textContent = `${current} / ${total} 프로그램 처리 중...`;
+  document.getElementById('currentProc').textContent = procId;
+  document.getElementById('successCount').textContent = successCount;
+  document.getElementById('failCount').textContent = failCount;
+
+  const elapsed = Math.round((Date.now() - batchStartTime) / 1000);
+  document.getElementById('elapsedTime').textContent = elapsed;
+
+  if (current > 0) {
+    const avgTime = elapsed / current;
+    const remaining = (total - current) * avgTime;
+    document.getElementById('estimatedTime').textContent = Math.round(remaining);
+  }
+}
+
+// 배치 완료
+function completeBatchMetaization(results, successCount, failCount, total) {
+  batchInProgress = false;
+  const elapsed = Math.round((Date.now() - batchStartTime) / 1000);
+
+  // 최종 로그
+  const logDiv = document.getElementById('batchLog');
+  logDiv.innerHTML += `<div style="color: #2e7d32; font-weight: 700; margin-top: 8px;">✅ 배치 메타화 완료!</div>`;
+  logDiv.innerHTML += `<div style="color: #666; font-size: 0.75em; margin-top: 4px;">총 소요시간: ${elapsed}초</div>`;
+
+  // 진행률 완료
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressPercent').textContent = '100%';
+  document.getElementById('progressText').textContent = `${total} / ${total} 프로그램 처리 완료!`;
+
+  // 취소 버튼을 다운로드로 변경
+  const cancelBtn = document.getElementById('cancelBtn');
+  cancelBtn.textContent = '📥 결과 다운로드';
+  cancelBtn.style.background = '#52b788';
+  cancelBtn.onclick = () => downloadResults(results);
+
+  // 우측 패널에 결과 요약 표시
+  document.getElementById('tableMapping').innerHTML = `
+    <div style="padding: 20px; text-align: center;">
+      <h3 style="font-size: 1.1em; font-weight: 700; color: #333; margin-bottom: 16px;">📊 배치 완료 요약</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+        <div style="background: #e8f5e9; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 0.85em; color: #4caf50; font-weight: 600;">✅ 성공</div>
+          <div style="font-size: 1.4em; font-weight: 700; color: #2e7d32;">${successCount}</div>
+        </div>
+        <div style="background: #ffebee; border-radius: 8px; padding: 12px;">
+          <div style="font-size: 0.85em; color: #f44336; font-weight: 600;">❌ 실패</div>
+          <div style="font-size: 1.4em; font-weight: 700; color: #c62828;">${failCount}</div>
+        </div>
+      </div>
+      <div style="background: #f5f7fa; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+        <div style="font-size: 0.8em; color: #666;">⏱️ 총 소요시간</div>
+        <div style="font-size: 1.2em; font-weight: 700; color: #333;">${elapsed}초</div>
+      </div>
+      <div style="background: #f5f7fa; border-radius: 8px; padding: 12px;">
+        <div style="font-size: 0.8em; color: #666;">💾 생성된 메타정보</div>
+        <div style="font-size: 1.2em; font-weight: 700; color: #333;">${successCount}개 JSON</div>
+      </div>
+    </div>
+  `;
+}
+
+// 배치 취소
+function cancelBatch() {
+  if (confirm('배치 메타화를 취소하시겠습니까?\n현재까지 처리된 결과는 저장됩니다.')) {
+    batchInProgress = false;
+    document.getElementById('batchMode').style.display = 'none';
+    document.getElementById('editMode').style.display = 'block';
+    updateBatchUI();
+  }
+}
+
+// 결과 다운로드
+function downloadResults(results = null) {
+  if (!results) {
+    results = Array.from(selectedProcs).map(procId => {
+      const proc = LAM_PROCS.find(p => p.id === procId);
+      const meta = { ...META_TEMPLATE };
+      meta.program.id = proc.id;
+      meta.program.file = proc.id + '_COMPLETE.pc';
+      meta.program.업무명 = proc.name;
+      meta.program.author = proc.author;
+      return { procId, meta, status: 'success' };
+    });
+  }
+
+  // ZIP 파일 생성 (시뮬레이션)
+  let zipContent = '결과 파일 목록:\n\n';
+  results.forEach(r => {
+    zipContent += `✓ ${r.procId}_metadata.json (${JSON.stringify(r.meta).length} bytes)\n`;
+  });
+  zipContent += `\n총 ${results.length}개 파일\n`;
+
+  const blob = new Blob([zipContent], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pkm_batch_results_${new Date().toISOString().slice(0,10)}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  alert('✓ 배치 결과 다운로드 준비 완료!\n\n실제 운영 환경에서는:\n1. 모든 메타정보 JSON 파일\n2. SQL INSERT 스크립트\n3. 결과 요약 CSV\n를 ZIP으로 압축하여 제공합니다.');
+}
+
 // 페이지 로드 시 초기화
 window.addEventListener('DOMContentLoaded', () => {
   initProcList();
+  updateBatchUI();
 });
 </script>
 
