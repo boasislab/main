@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회사업무관리 · PKM 프로그램 엔티티 시스템</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f5f7fa; min-height: 100vh; }
+  
+  /* ── 헤더 ── */
+  header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 32px 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+  header h1 { font-size: 1.8em; margin-bottom: 8px; font-weight: 800; }
+  header p { font-size: 0.95em; opacity: 0.95; }
+  
+  /* ── 메인 컨테이너 ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 16px; }
+  
+  /* ── 탭 네비게이션 ── */
+  .tabs-nav { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab-btn { padding: 11px 20px; background: #fff; border: 2px solid #e0e7f1; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.95em; color: #666; transition: all 0.15s; }
+  .tab-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border-color: transparent; }
+  .tab-btn:hover { border-color: #667eea; }
+  
+  /* ── 탭 컨텐츠 ── */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.2s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  
+  /* ── PKM 섹션 ── */
+  .pkm-section { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .section-title { font-size: 1.4em; font-weight: 800; color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .section-title .icon { font-size: 1.2em; }
+  
+  /* ── PKM 프로그램 카드 ── */
+  .pkm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .pkm-card { background: linear-gradient(135deg, #f5f7fa 0%, #fff 100%); border: 1.5px solid #e0e7f1; border-radius: 14px; padding: 20px; transition: all 0.2s; }
+  .pkm-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1); border-color: #667eea; }
+  
+  .pkm-card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .pkm-program-id { font-family: 'SF Mono', monospace; font-weight: 800; color: #667eea; font-size: 1.1em; }
+  .pkm-status { display: inline-block; font-size: 0.75em; padding: 4px 10px; border-radius: 20px; background: #d4edda; color: #155724; font-weight: 600; }
+  
+  .pkm-name { font-size: 1.15em; font-weight: 700; color: #333; margin-bottom: 8px; }
+  .pkm-desc { font-size: 0.9em; color: #666; margin-bottom: 14px; line-height: 1.5; }
+  
+  /* ── 메타정보 그리드 ── */
+  .pkm-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.85em; margin-bottom: 12px; }
+  .pkm-meta-item { background: #fff; padding: 10px; border-radius: 8px; border-left: 3px solid #667eea; }
+  .pkm-meta-label { color: #667eea; font-weight: 700; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pkm-meta-value { color: #333; font-weight: 600; margin-top: 3px; }
+  
+  /* ── 테이블 목록 ── */
+  .pkm-tables { background: #f9fbfd; border-radius: 10px; padding: 12px; }
+  .pkm-tables-title { font-size: 0.8em; font-weight: 700; color: #667eea; text-transform: uppercase; margin-bottom: 8px; }
+  .pkm-table-list { display: flex; flex-direction: column; gap: 6px; }
+  .pkm-table-item { display: flex; gap: 8px; font-size: 0.82em; padding: 6px 8px; background: #fff; border-radius: 6px; }
+  .pkm-table-icon { color: #764ba2; font-weight: 800; }
+  .pkm-table-name { font-family: monospace; color: #667eea; font-weight: 600; }
+  .pkm-table-desc { color: #888; }
+  
+  /* ── 액션 버튼 ── */
+  .pkm-actions { display: flex; gap: 8px; margin-top: 14px; }
+  .pkm-btn { padding: 8px 14px; border: none; border-radius: 8px; font-size: 0.82em; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .pkm-btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+  .pkm-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+  .pkm-btn-secondary { background: #e8edf7; color: #667eea; }
+  .pkm-btn-secondary:hover { background: #dce5f2; }
+  
+  /* ── 통계 박스 ── */
+  .pkm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat-box { background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border: 1.5px solid #e0e7f1; border-radius: 12px; padding: 16px; text-align: center; }
+  .stat-number { font-size: 2em; font-weight: 800; color: #667eea; }
+  .stat-label { font-size: 0.85em; color: #888; margin-top: 4px; font-weight: 600; }
+  
+  /* ── 리소스 링크 ── */
+  .resources { background: #fff; border-radius: 14px; padding: 20px; margin-top: 20px; border: 1.5px solid #e0e7f1; }
+  .resources h3 { font-size: 1.1em; font-weight: 700; margin-bottom: 14px; color: #333; }
+  .resource-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .resource-item { background: linear-gradient(135deg, #f5f7fa 0%, #fff 100%); border-radius: 10px; padding: 14px; text-decoration: none; color: #667eea; font-weight: 600; text-align: center; transition: all 0.15s; border: 1px solid #e0e7f1; }
+  .resource-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15); border-color: #667eea; }
+  .resource-item .icon { display: block; font-size: 1.6em; margin-bottom: 6px; }
+  
+  /* ── 푸터 ── */
+  footer { background: #fff; border-top: 1px solid #e0e7f1; padding: 20px 24px; text-align: center; color: #aaa; font-size: 0.85em; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 회사업무관리</h1>
+  <p>NPF 프로그램 엔티티화 시스템 (PKM) · 테이블명 관리</p>
+</header>
+
+<div class="container">
+  
+  <!-- 탭 네비게이션 -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('pkm')">🎯 PKM 프로그램</button>
+    <button class="tab-btn" onclick="switchTab('tables')">📋 테이블 정보</button>
+    <button class="tab-btn" onclick="switchTab('tools')">🔧 도구 & 리소스</button>
+  </div>
+  
+  <!-- PKM 프로그램 탭 -->
+  <div id="pkm" class="tab-content active">
+    <div class="pkm-section">
+      <div class="section-title">
+        <span class="icon">🎯</span>
+        프로그램 엔티티화 (PKM)
+      </div>
+      <p style="color:#666; margin-bottom:20px; font-size:0.95em;">Pro*C 레거시 프로그램을 구조화된 메타정보로 변환하는 시스템</p>
+      
+      <!-- 통계 -->
+      <div class="pkm-stats">
+        <div class="stat-box">
+          <div class="stat-number">2</div>
+          <div class="stat-label">분석 프로그램</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">109</div>
+          <div class="stat-label">SQL 문장</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">14</div>
+          <div class="stat-label">정규화 테이블</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">218</div>
+          <div class="stat-label">메타레코드</div>
+        </div>
+      </div>
+      
+      <!-- 프로그램 카드들 -->
+      <div class="pkm-grid">
+        
+        <!-- BNF_010 -->
+        <div class="pkm-card">
+          <div class="pkm-card-head">
+            <div class="pkm-program-id">L_AM_BNF_010</div>
+            <span class="pkm-status">✅ 완료</span>
+          </div>
+          <div class="pkm-name">외화채권 매입처리</div>
+          <div class="pkm-desc">해외채권 운용지시에 따른 매입 거래 처리</div>
+          
+          <div class="pkm-meta-grid">
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">언어</div>
+              <div class="pkm-meta-value">Pro*C</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">라인</div>
+              <div class="pkm-meta-value">1,897줄</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">작성자</div>
+              <div class="pkm-meta-value">2013245</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">버전</div>
+              <div class="pkm-meta-value">1.0</div>
+            </div>
+          </div>
+          
+          <div class="pkm-tables">
+            <div class="pkm-tables-title">📊 입출력 테이블 (9개)</div>
+            <div class="pkm-table-list">
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📥</span>
+                <span class="pkm-table-name">FAMBNO210TRA</span>
+                <span class="pkm-table-desc">운용지시</span>
+              </div>
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📤</span>
+                <span class="pkm-table-name">FAMBN022OMAA</span>
+                <span class="pkm-table-desc">채권원장</span>
+              </div>
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📤</span>
+                <span class="pkm-table-name">FAMBN0221MAA</span>
+                <span class="pkm-table-desc">펀드원장</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pkm-actions">
+            <a href="javascript:void(0)" class="pkm-btn pkm-btn-primary" onclick="alert('📄 L_AM_BNF_010_metadata.json (11KB) 다운로드');">📥 메타정보</a>
+            <a href="javascript:void(0)" class="pkm-btn pkm-btn-secondary" onclick="alert('SQL INSERT 57개 - 트랜잭션 래핑');">💾 SQL</a>
+          </div>
+        </div>
+        
+        <!-- STF_010 -->
+        <div class="pkm-card">
+          <div class="pkm-card-head">
+            <div class="pkm-program-id">L_AM_STF_010</div>
+            <span class="pkm-status">✅ 완료</span>
+          </div>
+          <div class="pkm-name">외화주식 매입처리</div>
+          <div class="pkm-desc">해외주식 매입요청에 따른 매입 거래 처리</div>
+          
+          <div class="pkm-meta-grid">
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">언어</div>
+              <div class="pkm-meta-value">Pro*C</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">라인</div>
+              <div class="pkm-meta-value">775줄</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">작성자</div>
+              <div class="pkm-meta-value">2013403</div>
+            </div>
+            <div class="pkm-meta-item">
+              <div class="pkm-meta-label">버전</div>
+              <div class="pkm-meta-value">1.0</div>
+            </div>
+          </div>
+          
+          <div class="pkm-tables">
+            <div class="pkm-tables-title">📊 입출력 테이블 (7개)</div>
+            <div class="pkm-table-list">
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📥</span>
+                <span class="pkm-table-name">FAMST0210TRA</span>
+                <span class="pkm-table-desc">매입요청</span>
+              </div>
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📤</span>
+                <span class="pkm-table-name">FAMST0220MAA</span>
+                <span class="pkm-table-desc">주식원장</span>
+              </div>
+              <div class="pkm-table-item">
+                <span class="pkm-table-icon">📤</span>
+                <span class="pkm-table-name">FAMST0221MAA</span>
+                <span class="pkm-table-desc">펀드원장</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pkm-actions">
+            <a href="javascript:void(0)" class="pkm-btn pkm-btn-primary" onclick="alert('📄 L_AM_STF_010_metadata.json (10KB) 다운로드');">📥 메타정보</a>
+            <a href="javascript:void(0)" class="pkm-btn pkm-btn-secondary" onclick="alert('SQL INSERT 52개 - 트랜잭션 래핑');">💾 SQL</a>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- 테이블 정보 탭 -->
+  <div id="tables" class="tab-content">
+    <div class="pkm-section">
+      <div class="section-title">
+        <span class="icon">📋</span>
+        테이블 명세 & 관리
+      </div>
+      <p style="color:#666; margin-bottom:20px; font-size:0.95em;">NPF 테이블 구조 및 시뮬레이터 연계</p>
+      
+      <div class="resources">
+        <h3>🔧 테이블명 시뮬레이터</h3>
+        <p style="color:#666; font-size:0.9em; margin-bottom:14px;">NPF 12자리 테이블명의 각 자리 의미를 조합하여 생성하는 도구</p>
+        <a href="tbl_simulator.html" class="resource-item">
+          <span class="icon">🔧</span>
+          테이블명 시뮬레이터
+        </a>
+      </div>
+      
+      <div style="background:#f5f7fa; border-radius:12px; padding:20px; margin-top:20px;">
+        <h3 style="margin-bottom:12px; color:#333;">📊 PKM 테이블 구조 (14개)</h3>
+        <p style="color:#666; font-size:0.9em; margin-bottom:14px;">프로그램 메타정보를 정규화한 데이터베이스 스키마</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px;">
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_PROGRAM</strong><br><span style="color:#666; font-size:0.82em;">프로그램 마스터</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_BUSINESS_STEP</strong><br><span style="color:#666; font-size:0.82em;">비즈니스 단계</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_FUNCTION</strong><br><span style="color:#666; font-size:0.82em;">함수 정의</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_SQL_OPERATION</strong><br><span style="color:#666; font-size:0.82em;">SQL 작업</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_TABLE_REFERENCE</strong><br><span style="color:#666; font-size:0.82em;">테이블 참조</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_STRUCTURE</strong><br><span style="color:#666; font-size:0.82em;">구조체</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_VARIABLE</strong><br><span style="color:#666; font-size:0.82em;">변수</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_ERROR_CODE</strong><br><span style="color:#666; font-size:0.82em;">에러 코드</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_MODIFICATION_HISTORY</strong><br><span style="color:#666; font-size:0.82em;">변경 이력</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_EXTERNAL_CALL</strong><br><span style="color:#666; font-size:0.82em;">외부 호출</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_DOCUMENT_MAPPING</strong><br><span style="color:#666; font-size:0.82em;">산출물 매핑</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_DEPLOYMENT_INFO</strong><br><span style="color:#666; font-size:0.82em;">배포 정보</span></div>
+          <div style="background:#fff; padding:12px; border-radius:8px; border-left:3px solid #667eea;"><strong>PKM_SOURCE_ARTIFACT</strong><br><span style="color:#666; font-size:0.82em;">소스 아티팩트</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 도구 & 리소스 탭 -->
+  <div id="tools" class="tab-content">
+    <div class="pkm-section">
+      <div class="section-title">
+        <span class="icon">🔧</span>
+        도구 & 리소스
+      </div>
+      <p style="color:#666; margin-bottom:20px; font-size:0.95em;">PKM 시스템 관련 문서, 도구, 스크립트</p>
+      
+      <div class="resources">
+        <h3>📖 문서</h3>
+        <div class="resource-list">
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">📘</span>
+            프로그램 엔티티 모델
+          </a>
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">📗</span>
+            정규화 DB 스키마
+          </a>
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">📕</span>
+            공모전 제출 자료
+          </a>
+        </div>
+      </div>
+      
+      <div class="resources">
+        <h3>⚙️ 도구</h3>
+        <div class="resource-list">
+          <a href="tbl_simulator.html" class="resource-item">
+            <span class="icon">🔧</span>
+            테이블명 시뮬레이터
+          </a>
+          <a href="javascript:void(0)" class="resource-item" onclick="alert('JSON → SQL INSERT 자동변환 Python 도구');">
+            <span class="icon">🐍</span>
+            JSON→SQL 변환기
+          </a>
+          <a href="javascript:void(0)" class="resource-item" onclick="alert('메타정보 검증 및 일관성 확인');">
+            <span class="icon">✅</span>
+            메타정보 검증기
+          </a>
+        </div>
+      </div>
+      
+      <div class="resources">
+        <h3>📂 데이터 파일</h3>
+        <div class="resource-list">
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">📄</span>
+            BNF_010 메타정보
+          </a>
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">📄</span>
+            STF_010 메타정보
+          </a>
+          <a href="javascript:void(0)" class="resource-item">
+            <span class="icon">💾</span>
+            SQL INSERT 스크립트
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 NPF 프로그램 엔티티화 시스템 (PKM) · <a href="index.html" style="color:#667eea; text-decoration:none;">메인으로</a>
+</footer>
+
+<script>
+function switchTab(tabName) {
+  // 모든 탭 숨기기
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  
+  // 선택한 탭 보이기
+  document.getElementById(tabName).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
