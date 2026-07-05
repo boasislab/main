@@ -1252,69 +1252,337 @@ function handlePCFileUpload(event) {
   reader.readAsText(file);
 }
 
-// PC 파일에서 메타정보 추출
+// ============================================
+// Phase 2: JavaScript 고도 파서 (Python 포팅)
+// ============================================
+
+// 함수명 정규화
+const FUNCTION_CANONICAL = {
+  'P_DATALINIT': 'P_DATA_INIT',
+  'P_DATA_INIT': 'P_DATA_INIT',
+  'P_BNF_BUY': 'P_BNF_BUY',
+  'P_IBND_BUY': 'P_BNF_BUY',
+  'P_BNF_BUYC': 'P_BNF_BUY',
+  'P_SET_FAMBN0220MAA': 'P_SET_FAMBN0220MAA',
+  'P_SET_FAMBN022OMAA': 'P_SET_FAMBN0220MAA',
+  'P_SET_FAMBN0220NAA': 'P_SET_FAMBN0220MAA',
+  'P_SET_FAMBN0220MAA_FWD': 'P_SET_FAMBN0220MAA_FWD',
+  'P_LOCAL_JOURNAL_SET': 'P_LOCAL_JOURNAL_SET',
+  'P_LOCAL_TOURNAL_SET': 'P_LOCAL_JOURNAL_SET',
+  'P_BNF_BUY_CANCEL': 'P_BNF_BUY_CANCEL',
+};
+
+// 테이블명 정규화
+const TABLE_CANONICAL = {
+  'FAMBNO210TRA': 'FAMBN0210TRA',
+  'FAMBN0210TRA': 'FAMBN0210TRA',
+  'FAMBN022OMAA': 'FAMBN0220MAA',
+  'FAMBN0220MAA': 'FAMBN0220MAA',
+  'FAMBNO221MAA': 'FAMBN0221MAA',
+  'FAMBN0221MAA': 'FAMBN0221MAA',
+  'FAMBN023SNTA': 'FAMBN0235NTA',
+  'FAMBN0233NTA': 'FAMBN0233NTA',
+  'FAMBN0201CDA': 'FAMBN0201CDA',
+  'FAMBN0202NTA': 'FAMBN0202NTA',
+  'FETBMO009NTA': 'FEIBMO009NTA',
+  'FEIBMO009NTA': 'FEIBMO009NTA',
+  'FETOE0003NTA': 'FEIOE0003NTA',
+  'FEIOE0003NTA': 'FEIOE0003NTA',
+  'FBCCD0014NTA': 'FBCCD0014NTA',
+};
+
+// 기호 정규화
+function compactSymbol(value) {
+  value = value.toUpperCase();
+  value = value.replace(/ /g, '_');
+  value = value.replace(/[^A-Z0-9_]/g, '');
+  value = value.replace(/_+/g, '_').replace(/^_|_$/g, '');
+  return value;
+}
+
+// 함수 추출
+function extractFunctions(text) {
+  const found = new Set();
+  const patterns = [
+    /\bP[_\s]+[A-Z0-9_ ]{3,40}/gi,
+    /static\s+int\s+(P[_\s]+[A-Z0-9_ ]{3,40})/gi,
+  ];
+  for (const pattern of patterns) {
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      const symbol = compactSymbol(match[1] || match[0]);
+      for (const [raw, canonical] of Object.entries(FUNCTION_CANONICAL)) {
+        if (symbol.includes(raw)) {
+          found.add(canonical);
+        }
+      }
+    }
+  }
+  return Array.from(found).sort();
+}
+
+// 호출 추출
+function extractCalls(text) {
+  const found = new Set();
+  const pattern = /\bL[_\s]*AM[_\s]+[A-Z0-9_ ]{3,50}/gi;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    let symbol = compactSymbol(match[0]);
+    symbol = symbol.replace(/LAM_/, 'L_AM_');
+    symbol = symbol.replace(/L_AML_/, 'L_AM_');
+    found.add(symbol);
+  }
+  return Array.from(found).sort();
+}
+
+// 테이블 추출
+function extractTables(text) {
+  const found = new Set();
+  const pattern = /\b(?:FAM|FEI|FET|FBC|JOURNAL)[A-Z0-9_]{4,30}\b/gi;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    const symbol = compactSymbol(match[0]);
+    found.add(TABLE_CANONICAL[symbol] || symbol);
+  }
+  return Array.from(found).sort();
+}
+
+// 에러코드 추출
+function extractErrors(text) {
+  const normalized = text.toUpperCase().replace(/\s+/g, '');
+  const codes = new Set([
+    ...normalized.match(/SCME\d{4}/g) || [],
+    ...normalized.match(/NPFE\d{4}/g) || [],
+  ]);
+  return Array.from(codes).sort();
+}
+
+// 프로그램 ID 추출
+function inferProgramId(text, fileName) {
+  const normalized = text.toUpperCase().replace(/ /g, '_');
+  if (/L[_\s]?AM[_\s]?BNF[_\s]?010/.test(normalized)) {
+    return 'L_AM_BNF_010';
+  }
+  return fileName.replace('.pc', '').toUpperCase();
+}
+
+// PC 파일에서 메타정보 추출 (고도 파싱)
 function extractMetadataFromPC(content, programId, fileName) {
   const lines = content.split('\n');
   const metadata = JSON.parse(JSON.stringify(META_TEMPLATE));
 
+  // 기본 정보
   metadata.program.id = programId;
   metadata.program.file = fileName;
 
-  // 주석에서 정보 추출 (간단한 예시)
-  for (let i = 0; i < Math.min(50, lines.length); i++) {
-    const line = lines[i];
-    if (line.includes('프로그램')) metadata.program.업무명 = line.replace(/\/\*|\"|\*\//g, '').trim();
-    if (line.includes('작성')) metadata.program.author = 'Uploaded User';
-  }
+  // 정규화된 ID
+  const inferredId = inferProgramId(content, fileName);
+  metadata.program.id = inferredId;
 
-  if (!metadata.program.업무명) {
-    metadata.program.업무명 = `업로드된 프로그램 (${programId})`;
-  }
+  // 고도 파싱: 함수, 테이블, 호출, 에러코드
+  const functions = extractFunctions(content);
+  const tables = extractTables(content);
+  const calls = extractCalls(content);
+  const errors = extractErrors(content);
+
+  // 함수 엔티티
+  metadata.functions = functions.map(name => ({
+    name,
+    description: 'Extracted from .pc file parsing'
+  }));
+
+  // 호출 엔티티
+  metadata.calls = calls.slice(0, 30).map(name => ({
+    name,
+    purpose: 'External program call extracted from parsing'
+  }));
+
+  // 테이블 엔티티
+  metadata.tables = tables.map(name => ({
+    name,
+    description: 'Table accessed in program'
+  }));
+
+  // 자료구조 엔티티 (테이블에서 매핑)
+  metadata.structures = tables
+    .filter(name => name.startsWith('FAM') || name.startsWith('FEI') || name.startsWith('FBC'))
+    .map(name => ({
+      struct: name,
+      kinds: ['reference'],
+      scope: 'global',
+      access: name === 'FAMBN0210TRA' ? 'RW' : 'R',
+      maps_to_table: name,
+      description: 'Data structure extracted from parsing'
+    }));
+
+  // 에러 엔티티
+  metadata.errors = errors.map(code => ({
+    code,
+    raised_in: 'Extracted from error code pattern matching'
+  }));
+
+  // 메타정보
+  metadata._meta = {
+    source: fileName,
+    confidence: 'high',
+    security_level: 3,
+    extracted_at: new Date().toISOString()
+  };
+
+  // 출처정보
+  metadata.source_artifact = {
+    kind: 'pc_source',
+    path: fileName,
+    loaded_at: new Date().toISOString(),
+    confidence: 'High-confidence parsing from browser',
+    notes: 'Client-side JavaScript parser'
+  };
+
+  // 프로그램 기본정보 추가
+  metadata.program.업무명 = `프로그램 (${inferredId})`;
+  metadata.program.lang = 'Pro*C';
+  metadata.program.kind = 'Batch Program';
+  metadata.program.author = 'Uploaded User';
+  metadata.program.version = '1.0';
+  metadata.program.category = '기타';
+  metadata.program.description = `${fileName}에서 추출된 프로그램`;
 
   return metadata;
 }
 
-// 산출물 생성기용 메타정보 변환
+// 산출물 생성기용 메타정보 변환 (22개 엔티티 완전 매핑)
 function buildGeneratorMetadata(metadata) {
+  // 입력/출력 테이블 분류
+  const inputTables = metadata.tables || [];
+  const outputTables = metadata.tables || [];
+
+  // 처리 단계 생성
+  const businessSteps = (metadata.functions || []).map((fn, idx) => ({
+    step_no: idx + 1,
+    name: fn.name || `Step ${idx + 1}`,
+    description: fn.description || '',
+    function: fn.name,
+    sequence: idx + 1
+  }));
+
   return {
+    // 1. program (프로그램 기본정보)
     program: {
       id: metadata.program.id || 'UNKNOWN',
+      file: metadata.program.file || 'unknown.pc',
       업무명: metadata.program.업무명 || 'Unknown Program',
       name: metadata.program.업무명 || 'Unknown Program',
-      category: '기타',
-      subcategory: '사용자 업로드',
-      type: '배치작업',
-      department: metadata.program.author || 'Unknown',
-      version: metadata.program.version || '1.0',
+      lang: metadata.program.lang || 'Pro*C',
+      kind: metadata.program.kind || 'Batch Program',
       author: metadata.program.author || 'Unknown User',
-      description: `${metadata.program.file || 'Upload'} 파일에서 추출된 프로그램 명세`
+      version: metadata.program.version || '1.0',
+      category: metadata.program.category || '기타',
+      subcategory: '사용자 업로드',
+      type: metadata.program.type || '배치작업',
+      department: metadata.program.author || 'Unknown',
+      description: metadata.program.description || '프로그램 명세',
+      input_parameter: metadata.program.input_parameter || [],
+      output_parameter: metadata.program.output_parameter || '',
+      exit_value: metadata.program.exit_value || [],
+      header: metadata.program.header || {}
     },
-    tables: [
-      { name: 'TBL_INPUT_01', alias: 'in_01', access_type: '입력' },
-      { name: 'TBL_OUTPUT_01', alias: 'out_01', access_type: '출력' }
+
+    // 2. business_steps (처리 단계)
+    business_steps: businessSteps.length > 0 ? businessSteps : [
+      { step_no: 1, name: '데이터 초기화', sequence: 1 },
+      { step_no: 2, name: '비즈니스 로직 처리', sequence: 2 },
+      { step_no: 3, name: '결과 저장', sequence: 3 }
     ],
-    business_steps: [
-      '데이터 초기화 및 입력 검증',
-      '핵심 비즈니스 로직 처리',
-      '결과 테이블에 저장',
-      '처리 완료 및 로깅'
-    ],
+
+    // 3. functions (함수)
+    functions: metadata.functions || [],
+
+    // 4. calls (외부 호출)
+    calls: metadata.calls || [],
+
+    // 5. structures (자료구조)
+    structures: metadata.structures || [],
+
+    // 6. sql (SQL 작업)
+    sql: metadata.sql || [],
+
+    // 7. tables (테이블)
+    tables: metadata.tables || [],
+
+    // 8. variables (변수)
+    variables: metadata.variables || [],
+
+    // 9-10. parameters (입/출력)
+    input_parameter: metadata.program.input_parameter || [],
+    output_parameter: metadata.program.output_parameter || '',
+
+    // 11. history (개정 이력)
     history: [
       {
-        version: '1.0',
+        version: metadata.program.version || '1.0',
         date: new Date().toISOString().split('T')[0],
         author: metadata.program.author || 'Unknown',
-        description: '초기 버전 생성',
+        description: metadata.source_artifact?.kind === 'pc_source' ? 'PC 파일에서 추출' : '초기 버전 생성',
         approver: 'System'
       }
     ],
-    dependencies: [
+
+    // 12. exit_value (종료 코드)
+    exit_value: metadata.program.exit_value || [],
+
+    // 13. source_artifact (출처정보)
+    source_artifact: metadata.source_artifact || {
+      kind: 'pc_source',
+      path: metadata.program.file || '',
+      loaded_at: new Date().toISOString(),
+      confidence: 'High'
+    },
+
+    // 14. errors (예외/에러)
+    errors: metadata.errors || [],
+
+    // 15. drift (무결성 검증)
+    drift: [],
+
+    // 16. patterns_used (패턴 사용 내역)
+    patterns_used: (metadata.functions || []).map(f => f.name),
+
+    // 17. dependencies (프로그램 연결도)
+    dependencies: (metadata.calls || []).slice(0, 5).map(call => ({
+      from: metadata.program.id,
+      to: call.name,
+      description: call.purpose || '프로그램 호출'
+    })),
+
+    // 18. processing_units (처리 단위)
+    processing_units: (metadata.functions || []).map((fn, idx) => ({
+      target: fn.name,
+      beats: [`${idx + 1}. ${fn.name}`],
+      pattern: 'extracted'
+    })),
+
+    // 19. document_mapping (산출물 매핑)
+    document_mapping: [
       {
-        from: metadata.program.id,
-        to: 'DOWNSTREAM_PROC',
-        description: '다운스트림 프로세스 호출'
+        artifact: '배치프로그램 명세서',
+        format: 'PPT',
+        source_entities: ['program', 'history', 'business_steps', 'functions', 'tables'],
+        template: 'pkm_specification'
       }
-    ]
+    ],
+
+    // 20. transaction (트랜잭션)
+    transaction: {
+      commit_on: 'process_complete'
+    },
+
+    // 21-22. metadata & header
+    _meta: metadata._meta || {
+      source: metadata.program.file || '',
+      confidence: 'high',
+      security_level: 3
+    },
+    header: metadata.program.header || {}
   };
 }
 
