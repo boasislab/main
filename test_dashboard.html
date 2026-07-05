@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>대시보드 테스트</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 20px; background: #f5f7fa; }
+.test-box { background: #fff; padding: 20px; border-radius: 10px; margin: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+h2 { color: #667eea; }
+.pass { color: #155724; background: #d4edda; padding: 10px; border-radius: 6px; margin: 5px 0; }
+.fail { color: #721c24; background: #f8d7da; padding: 10px; border-radius: 6px; margin: 5px 0; }
+.detail { font-family: monospace; font-size: 0.85em; margin: 5px 0; }
+button { padding: 10px 20px; background: #667eea; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin: 5px; }
+button:hover { background: #764ba2; }
+</style>
+</head>
+<body>
+
+<h1>🧪 PKM 대시보드 테스트</h1>
+
+<div class="test-box">
+  <h2>✓ 파일 존재 확인</h2>
+  <div id="fileCheck"></div>
+</div>
+
+<div class="test-box">
+  <h2>📱 페이지 로드 테스트</h2>
+  <button onclick="testDashboard()">대시보드 로드</button>
+  <button onclick="testMainPage()">메인 페이지</button>
+  <div id="loadTest"></div>
+</div>
+
+<div class="test-box">
+  <h2>🔗 네비게이션 테스트</h2>
+  <button onclick="testNav()">메뉴 체크</button>
+  <div id="navTest"></div>
+</div>
+
+<script>
+// 파일 존재 확인
+async function checkFiles() {
+  const files = [
+    'pkm-dashboard.html',
+    'work-management.html',
+    'index.html'
+  ];
+  
+  const result = document.getElementById('fileCheck');
+  let html = '';
+  
+  for (const file of files) {
+    try {
+      const response = await fetch(file, { method: 'HEAD' });
+      html += response.ok 
+        ? `<div class="pass">✓ ${file} (${response.status})</div>`
+        : `<div class="fail">✗ ${file} (${response.status})</div>`;
+    } catch (e) {
+      html += `<div class="fail">✗ ${file} (로드 실패)</div>`;
+    }
+  }
+  
+  result.innerHTML = html;
+}
+
+// 대시보드 로드 테스트
+async function testDashboard() {
+  const result = document.getElementById('loadTest');
+  try {
+    const response = await fetch('pkm-dashboard.html');
+    const html = await response.text();
+    
+    const checks = [
+      ['3열 레이아웃', html.includes('grid-template-columns')],
+      ['프로그램 목록', html.includes('LAM_PROCS')],
+      ['메타정보 폼', html.includes('meta-form')],
+      ['테이블 매핑', html.includes('tableMapping')],
+      ['SQL 미리보기', html.includes('sqlPreview')],
+      ['검색 기능', html.includes('filterProcList')],
+      ['저장 함수', html.includes('saveMeta')]
+    ];
+    
+    let output = '<strong>대시보드 구성 요소:</strong><br>';
+    checks.forEach(([name, exists]) => {
+      output += exists 
+        ? `<div class="pass">✓ ${name}</div>`
+        : `<div class="fail">✗ ${name}</div>`;
+    });
+    
+    result.innerHTML = output;
+  } catch (e) {
+    result.innerHTML = `<div class="fail">에러: ${e.message}</div>`;
+  }
+}
+
+// 메인 페이지 테스트
+async function testMainPage() {
+  const result = document.getElementById('loadTest');
+  try {
+    const response = await fetch('index.html');
+    const html = await response.text();
+    
+    const checks = [
+      ['회사업무관리 카드', html.includes('work-card')],
+      ['PKM 메뉴', html.includes('sm-pkm')],
+      ['대시보드 메뉴', html.includes('sm-dashboard')],
+      ['비밀번호 로그인', html.includes('workLogin')],
+      ['레벨별 접근제어', html.includes('LEVEL_INFO')]
+    ];
+    
+    let output = '<strong>메인 페이지 구성:</strong><br>';
+    checks.forEach(([name, exists]) => {
+      output += exists 
+        ? `<div class="pass">✓ ${name}</div>`
+        : `<div class="fail">✗ ${name}</div>`;
+    });
+    
+    result.innerHTML = output;
+  } catch (e) {
+    result.innerHTML = `<div class="fail">에러: ${e.message}</div>`;
+  }
+}
+
+// 네비게이션 테스트
+async function testNav() {
+  const result = document.getElementById('navTest');
+  try {
+    const response = await fetch('work-management.html');
+    const html = await response.text();
+    
+    const checks = [
+      ['PKM 탭', html.includes('tab-btn') && html.includes('pkm')],
+      ['메타화 버튼', html.includes('pkm-dashboard')],
+      ['프로세서 배너', html.includes('PKM 메타화 프로세서')],
+      ['3개 탭 구조', (html.match(/tab-btn/g) || []).length >= 3]
+    ];
+    
+    let output = '<strong>네비게이션 구조:</strong><br>';
+    checks.forEach(([name, exists]) => {
+      output += exists 
+        ? `<div class="pass">✓ ${name}</div>`
+        : `<div class="fail">✗ ${name}</div>`;
+    });
+    
+    result.innerHTML = output;
+  } catch (e) {
+    result.innerHTML = `<div class="fail">에러: ${e.message}</div>`;
+  }
+}
+
+// 페이지 로드 시 자동 테스트
+window.addEventListener('load', checkFiles);
+</script>
+
+</body>
+</html>
