@@ -240,6 +240,10 @@
           🎯 PKM 프로그램 엔티티화
           <span class="sm-badge" style="background:#d4edda;color:#155724">✨ 신규</span>
         </a>
+        <a href="pkm-dashboard.html" id="sm-dashboard" style="display:none;">
+          🚀 PKM 메타화 프로세서
+          <span class="sm-badge" style="background:#dce8f5;color:#1a5fa8">LV2</span>
+        </a>
         <a href="event.html" id="sm-event" style="display:none;">
           📋 오류 목록
           <span class="sm-badge sm-lv1">LV1</span>
@@ -327,6 +331,7 @@
     badge.className = 'lv-pill ' + info.cls;
 
     document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
+    document.getElementById('sm-dashboard').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
     document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-sim').style.display   = level >= 4 ? 'flex' : 'none';
