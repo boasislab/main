@@ -604,18 +604,18 @@ footer {
       </div>
     </div>
 
-    <!-- .pc 파일 업로드 영역 -->
+    <!-- 프로그램 업로드 영역 -->
     <div style="padding: 16px; background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); border-radius: 12px; border: 2px solid #667eea; margin-bottom: 16px;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
         <span style="font-size: 1.3em;">📂</span>
         <div>
-          <div style="font-size: 0.95em; font-weight: 700; color: #333;">Pro*C 파일 업로드</div>
-          <div style="font-size: 0.8em; color: #666;">로컬 .pc 파일을 선택하여 메타정보 추출 및 명세서 생성</div>
+          <div style="font-size: 0.95em; font-weight: 700; color: #333;">프로그램 업로드</div>
+          <div style="font-size: 0.8em; color: #666;">프로그램 파일을 선택하여 메타정보 추출 및 명세서 생성</div>
         </div>
       </div>
       <input type="file" id="pcFileInput" accept=".pc" style="display: none;" onchange="handlePCFileUpload(event)">
       <button onclick="document.getElementById('pcFileInput').click()" style="width: 100%; padding: 14px; background: #fff; border: 2px dashed #667eea; border-radius: 10px; text-align: center; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.95em;">
-        + 클릭하여 .pc 파일 선택
+        + 클릭하여 프로그램 파일 선택
       </button>
       <div id="uploadStatus" style="font-size: 0.85em; color: #667eea; margin-top: 10px; text-align: center; font-weight: 500; min-height: 20px;"></div>
     </div>
