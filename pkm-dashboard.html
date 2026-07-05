@@ -490,6 +490,48 @@ footer {
           <div class="sql-preview" id="sqlPreview">SELECT * FROM metadata WHERE id = ?</div>
         </div>
       </div>
+
+      <!-- 산출물 생성 모드 -->
+      <div id="artifactMode" style="display:none;">
+        <div class="editor-header">
+          <div class="editor-title">📄 산출물 생성</div>
+          <div class="editor-actions">
+            <button class="btn-small" onclick="closeArtifactMode()">✕ 닫기</button>
+          </div>
+        </div>
+
+        <div style="padding: 20px;">
+          <div style="background: #e3f2fd; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #2196f3;">
+            <div style="font-size: 0.9em; color: #1565c0; line-height: 1.6;">
+              <strong id="artifactProgramId">L_AM_BNF_010</strong> 프로그램의 배치프로그램 명세서를 생성합니다.<br>
+              PDF, HTML, Markdown 형식으로 다운로드할 수 있습니다.
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <button onclick="generateArtifactPDF()" style="padding: 14px; background: #2196f3; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+              📄 PDF 다운로드
+            </button>
+            <button onclick="generateArtifactHTML()" style="padding: 14px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+              💾 HTML 다운로드
+            </button>
+            <button onclick="generateArtifactMarkdown()" style="padding: 14px; background: #ff9800; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+              📝 Markdown 다운로드
+            </button>
+            <button onclick="openArtifactPreview()" style="padding: 14px; background: #9c27b0; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+              👁️ 미리보기
+            </button>
+          </div>
+
+          <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e7f1;">
+            <div style="background: #fff9e6; border-radius: 8px; padding: 12px; border-left: 4px solid #ffc107;">
+              <div style="font-size: 0.85em; color: #f57f17;">
+                💡 배치 메타화 완료 후 "산출물 생성" 버튼을 클릭하면 자동으로 메타정보가 로드됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 배치 진행 모드 -->
@@ -562,8 +604,11 @@ footer {
       </div>
     </div>
 
-    <!-- 테이블명 시뮬레이터 링크 -->
-    <div style="margin-top: auto; padding-top: 16px; border-top: 2px solid #e0e7f1;">
+    <!-- 산출물 생성 & 테이블명 시뮬레이터 링크 -->
+    <div style="margin-top: auto; padding-top: 16px; border-top: 2px solid #e0e7f1; display: flex; flex-direction: column; gap: 10px;">
+      <button id="generateArtifactBtn" onclick="showArtifactMode()" style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; width: 100%;">
+        📄 산출물 생성
+      </button>
       <a href="tbl_simulator.html" class="mapping-link">
         🔧 테이블명 시뮬레이터 열기
       </a>
@@ -1032,6 +1077,108 @@ function downloadResults(results = null) {
   URL.revokeObjectURL(url);
 
   alert('✓ 배치 결과 다운로드 준비 완료!\n\n실제 운영 환경에서는:\n1. 모든 메타정보 JSON 파일\n2. SQL INSERT 스크립트\n3. 결과 요약 CSV\n를 ZIP으로 압축하여 제공합니다.');
+}
+
+// 산출물 생성 모드 표시
+function showArtifactMode() {
+  if (!currentProc) {
+    alert('프로그램을 먼저 선택해주세요.');
+    return;
+  }
+  document.getElementById('editMode').style.display = 'none';
+  document.getElementById('artifactMode').style.display = 'block';
+  document.getElementById('artifactProgramId').textContent = currentProc.id;
+}
+
+// 산출물 생성 모드 닫기
+function closeArtifactMode() {
+  document.getElementById('artifactMode').style.display = 'none';
+  document.getElementById('editMode').style.display = 'block';
+}
+
+// PDF 다운로드
+function generateArtifactPDF() {
+  alert('📄 PDF 생성 중...\n\noutput-generator.html로 이동하여 PDF를 생성합니다.');
+  window.open('output-generator.html?proc=' + currentProc.id, '_blank');
+}
+
+// HTML 다운로드
+function generateArtifactHTML() {
+  const metadata = { program: { id: currentProc.id, 업무명: currentProc.name } };
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>${currentProc.id} - 배치프로그램 명세서</title>
+</head>
+<body>
+  <h1>${currentProc.name} (${currentProc.id})</h1>
+  <p>프로그램 ID: ${currentProc.id}</p>
+  <p>프로그램명: ${currentProc.name}</p>
+  <p>라인수: ${currentProc.lines}</p>
+  <p>작성자: ${currentProc.author}</p>
+  <p>도메인: ${currentProc.domain}</p>
+  <p style="color: #999; margin-top: 40px; font-size: 0.9em;">
+    이 문서는 output-generator.html에서 완전한 형식으로 생성됩니다.
+  </p>
+</body>
+</html>
+  `;
+
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${currentProc.id}_명세서.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  alert('✓ HTML 다운로드 준비 완료!');
+}
+
+// Markdown 다운로드
+function generateArtifactMarkdown() {
+  const md = `# ${currentProc.name} (${currentProc.id})
+
+**버전**: 1.0
+**작성자**: ${currentProc.author}
+**도메인**: ${currentProc.domain}
+**라인수**: ${currentProc.lines}
+
+## 개요
+
+이 문서는 배치프로그램 명세서입니다.
+
+## 프로그램 정보
+
+- **ID**: ${currentProc.id}
+- **이름**: ${currentProc.name}
+- **도메인**: ${currentProc.domain}
+
+---
+
+이 마크다운 문서는 output-generator.html에서 완전한 형식으로 생성됩니다.
+  `;
+
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${currentProc.id}_명세서.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  alert('✓ Markdown 다운로드 준비 완료!');
+}
+
+// 미리보기 열기
+function openArtifactPreview() {
+  window.open('output-generator.html?proc=' + currentProc.id + '&preview=true', '_blank', 'width=1200,height=800');
 }
 
 // 페이지 로드 시 초기화
