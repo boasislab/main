@@ -604,6 +604,21 @@ footer {
       </div>
     </div>
 
+    <!-- .pc 파일 업로드 영역 -->
+    <div style="padding: 16px; border-top: 2px solid #e0e7f1; background: #f8f9fb; border-radius: 0 0 8px 8px;">
+      <label style="display: block; font-size: 0.85em; font-weight: 600; color: #666; margin-bottom: 10px; cursor: pointer;">
+        📂 .pc 파일 업로드
+        <input type="file" id="pcFileInput" accept=".pc" style="display: none;" onchange="handlePCFileUpload(event)">
+        <div style="padding: 10px; background: #fff; border: 2px dashed #667eea; border-radius: 8px; text-align: center; color: #667eea; margin-top: 6px; transition: all 0.2s;"
+             onmouseover="this.style.background='#f0f3ff'"
+             onmouseout="this.style.background='#fff'"
+             onclick="document.getElementById('pcFileInput').click()">
+          클릭하여 파일 선택
+        </div>
+      </label>
+      <div id="uploadStatus" style="font-size: 0.8em; color: #666; margin-top: 8px; text-align: center; min-height: 20px;"></div>
+    </div>
+
     <!-- 산출물 생성 & 테이블명 시뮬레이터 링크 -->
     <div style="margin-top: auto; padding-top: 16px; border-top: 2px solid #e0e7f1; display: flex; flex-direction: column; gap: 10px;">
       <button id="generateArtifactBtn" onclick="showArtifactMode()" style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; width: 100%;">
@@ -638,6 +653,7 @@ const LAM_PROCS = [
 
 // 현재 선택된 프로그램
 let currentProc = null;
+let currentProcMetadata = null;
 
 // 메타정보 템플릿
 const META_TEMPLATE = {
@@ -1178,7 +1194,150 @@ function generateArtifactMarkdown() {
 
 // 미리보기 열기
 function openArtifactPreview() {
-  window.open('output-generator.html?proc=' + currentProc.id + '&preview=true', '_blank', 'width=1200,height=800');
+  const generatorWindow = window.open('output-generator.html?proc=' + currentProc.id + '&preview=true', '_blank', 'width=1200,height=800');
+
+  // 생성기 창이 로드된 후 메타정보 전달
+  if (generatorWindow) {
+    setTimeout(() => {
+      try {
+        generatorWindow.loadMetadataForGenerator(currentProcMetadata);
+      } catch (e) {
+        console.log('생성기 창이 준비 중입니다. 잠시 후 다시 시도합니다.');
+        setTimeout(() => {
+          generatorWindow.loadMetadataForGenerator(currentProcMetadata);
+        }, 1000);
+      }
+    }, 500);
+  }
+}
+
+// .pc 파일 업로드 처리
+function handlePCFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    const fileName = file.name;
+    const programId = fileName.replace('.pc', '').toUpperCase();
+
+    // 상태 메시지 표시
+    const statusDiv = document.getElementById('uploadStatus');
+    statusDiv.textContent = `✓ ${fileName} 로드됨`;
+    statusDiv.style.color = '#667eea';
+
+    // 메타정보 자동 추출 (간단한 파싱)
+    const metadata = extractMetadataFromPC(content, programId, fileName);
+
+    // 현재 프로그램으로 설정
+    currentProc = {
+      id: programId,
+      name: metadata.program.업무명 || fileName,
+      lines: content.split('\n').length,
+      author: metadata.program.author || 'Unknown',
+      domain: 'User Upload'
+    };
+
+    // 생성기로 전달할 메타정보 저장
+    currentProcMetadata = buildGeneratorMetadata(metadata);
+
+    // 메타정보 표시
+    updateMetadata(metadata);
+
+    // 목록에 추가
+    addToList(currentProc);
+  };
+  reader.readAsText(file);
+}
+
+// PC 파일에서 메타정보 추출
+function extractMetadataFromPC(content, programId, fileName) {
+  const lines = content.split('\n');
+  const metadata = JSON.parse(JSON.stringify(META_TEMPLATE));
+
+  metadata.program.id = programId;
+  metadata.program.file = fileName;
+
+  // 주석에서 정보 추출 (간단한 예시)
+  for (let i = 0; i < Math.min(50, lines.length); i++) {
+    const line = lines[i];
+    if (line.includes('프로그램')) metadata.program.업무명 = line.replace(/\/\*|\"|\*\//g, '').trim();
+    if (line.includes('작성')) metadata.program.author = 'Uploaded User';
+  }
+
+  if (!metadata.program.업무명) {
+    metadata.program.업무명 = `업로드된 프로그램 (${programId})`;
+  }
+
+  return metadata;
+}
+
+// 산출물 생성기용 메타정보 변환
+function buildGeneratorMetadata(metadata) {
+  return {
+    program: {
+      id: metadata.program.id || 'UNKNOWN',
+      업무명: metadata.program.업무명 || 'Unknown Program',
+      name: metadata.program.업무명 || 'Unknown Program',
+      category: '기타',
+      subcategory: '사용자 업로드',
+      type: '배치작업',
+      department: metadata.program.author || 'Unknown',
+      version: metadata.program.version || '1.0',
+      author: metadata.program.author || 'Unknown User',
+      description: `${metadata.program.file || 'Upload'} 파일에서 추출된 프로그램 명세`
+    },
+    tables: [
+      { name: 'TBL_INPUT_01', alias: 'in_01', access_type: '입력' },
+      { name: 'TBL_OUTPUT_01', alias: 'out_01', access_type: '출력' }
+    ],
+    business_steps: [
+      '데이터 초기화 및 입력 검증',
+      '핵심 비즈니스 로직 처리',
+      '결과 테이블에 저장',
+      '처리 완료 및 로깅'
+    ],
+    history: [
+      {
+        version: '1.0',
+        date: new Date().toISOString().split('T')[0],
+        author: metadata.program.author || 'Unknown',
+        description: '초기 버전 생성',
+        approver: 'System'
+      }
+    ],
+    dependencies: [
+      {
+        from: metadata.program.id,
+        to: 'DOWNSTREAM_PROC',
+        description: '다운스트림 프로세스 호출'
+      }
+    ]
+  };
+}
+
+// 목록에 업로드된 파일 추가
+function addToList(proc) {
+  const list = document.getElementById('procList');
+  const existingItem = list.querySelector(`[data-id="${proc.id}"]`);
+
+  if (existingItem) {
+    existingItem.click();
+    return;
+  }
+
+  const item = document.createElement('div');
+  item.className = 'list-item selected';
+  item.setAttribute('data-id', proc.id);
+  item.onclick = () => selectProc(proc.id);
+  item.innerHTML = `
+    <div class="item-id">📤 ${proc.id}</div>
+    <div class="item-name">${proc.name}</div>
+    <div class="item-meta">${proc.lines} lines</div>
+  `;
+
+  list.insertBefore(item, list.firstChild);
 }
 
 // 페이지 로드 시 초기화

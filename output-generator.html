@@ -467,7 +467,7 @@
     </div>
 
     <script>
-        // Sample metadata
+        // Sample metadata (초기값)
         const sampleMetadata = {
             program: {
                 id: "L_AM_BNF_010",
@@ -508,10 +508,29 @@
             ]
         };
 
+        let currentMetadata = { ...sampleMetadata };
+
+        // 다른 탭에서 메타정보 전달받기 (postMessage 방식)
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'LOAD_METADATA') {
+                currentMetadata = event.data.payload;
+                renderSlides(currentMetadata);
+                document.getElementById('status').textContent = `✅ 프로그램 메타정보 로드 완료: ${currentMetadata.program.id}`;
+            }
+        });
+
         function loadSampleData() {
             renderSlides(sampleMetadata);
+            currentMetadata = { ...sampleMetadata };
             document.getElementById('status').textContent = '✅ 샘플 데이터 로드 완료. PDF/HTML/Markdown으로 다운로드할 수 있습니다.';
         }
+
+        // 외부에서 메타정보 설정 (pkm-dashboard.html에서 호출 가능)
+        window.loadMetadataForGenerator = function(metadata) {
+            currentMetadata = metadata;
+            renderSlides(currentMetadata);
+            document.getElementById('status').textContent = `✅ 프로그램 메타정보 로드 완료: ${currentMetadata.program.id}`;
+        };
 
         function renderSlides(data) {
             // Slide 1: Title
@@ -592,7 +611,7 @@
         }
 
         function exportMarkdown() {
-            const data = sampleMetadata;
+            const data = currentMetadata;
             let md = `# ${data.program.name} (${data.program.id})\n\n`;
             md += `**버전**: ${data.program.version}  \n`;
             md += `**작성자**: ${data.program.author}  \n`;
@@ -633,7 +652,7 @@
             const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `배치프로그램명세서_${new Date().getTime()}.md`;
+            link.download = `배치프로그램명세서_${currentMetadata.program.id}_${new Date().toISOString().split('T')[0]}.md`;
             link.click();
         }
 

@@ -1,0 +1,59 @@
+/*
+ * ================================================
+ * L_AM_BNF_010_TEST
+ * 외화채권 매입처리 (테스트용)
+ * ================================================
+ * Author: Test User (2013245)
+ * Version: 1.0
+ * Date: 2026-07-05
+ * ================================================
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <sqlca.h>
+
+EXEC SQL BEGIN DECLARE SECTION;
+  char pgm_id[20];
+  char업무명[100];
+  int result_code;
+  char error_msg[500];
+EXEC SQL END DECLARE SECTION;
+
+int P_DATA_INIT() {
+  printf("데이터 초기화 시작\n");
+  strcpy(pgm_id, "L_AM_BNF_010");
+  strcpy(업무명, "외화채권 매입처리");
+  return 0;
+}
+
+int P_BNF_BUY() {
+  printf("외화채권 매입 처리\n");
+
+  EXEC SQL
+    SELECT COUNT(*) INTO :result_code
+    FROM FAMBN0201CDA
+    WHERE 채권코드 = '001'
+  END-EXEC;
+
+  if (sqlca.sqlcode != 0) {
+    strcpy(error_msg, "채권정보 조회 실패");
+    return -1;
+  }
+
+  return 0;
+}
+
+int P_LOCAL_JOURNAL_SET() {
+  printf("분개항목 생성\n");
+  return 0;
+}
+
+int main() {
+  printf("PKM 테스트 프로그램 시작\n");
+  P_DATA_INIT();
+  P_BNF_BUY();
+  P_LOCAL_JOURNAL_SET();
+  printf("처리 완료\n");
+  return 0;
+}
