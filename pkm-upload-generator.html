@@ -500,13 +500,31 @@ function compactSymbol(value) {
 
 function extractFunctions(text) {
   const found = new Set();
-  const patterns = [/\bP[_\s]+[A-Z0-9_ ]{3,40}/gi, /static\s+int\s+(P[_\s]+[A-Z0-9_ ]{3,40})/gi];
+  // P_로 시작하는 함수 정의 및 선언 모두 포함
+  const patterns = [
+    /\bP_[A-Z0-9_]+\b/gi,  // P_XXXX 형식
+    /\bp[_\s]*[a-zA-Z][a-zA-Z0-9_]*\s*\(/gi,  // p함수명( 형식
+    /static\s+int\s+(P_[A-Z0-9_]+)/gi,  // static int P_XXXX
+    /int\s+(P_[A-Z0-9_]+)\s*\(/gi  // int P_XXXX( 형식
+  ];
+
   for (const pattern of patterns) {
     let match;
     while ((match = pattern.exec(text)) !== null) {
-      const symbol = compactSymbol(match[1] || match[0]);
-      for (const [raw, canonical] of Object.entries(FUNCTION_CANONICAL)) {
-        if (symbol.includes(raw)) { found.add(canonical); }
+      let symbol = match[1] || match[0];
+      symbol = compactSymbol(symbol.replace(/\(.*/, '').trim());
+      if (symbol.startsWith('P_')) {
+        // 정규화 시도
+        for (const [raw, canonical] of Object.entries(FUNCTION_CANONICAL)) {
+          if (symbol.includes(raw)) { found.add(canonical); break; }
+        }
+        // 정규화 실패하면 그대로 추가
+        if (!found.has(symbol)) {
+          for (const [raw, canonical] of Object.entries(FUNCTION_CANONICAL)) {
+            if (canonical === symbol) break;
+          }
+          found.add(symbol);
+        }
       }
     }
   }
@@ -536,6 +554,31 @@ function extractTables(text) {
   return Array.from(found).sort();
 }
 
+function buildCallGraph(content, functions) {
+  const graph = {};
+
+  // 각 함수별 호출 관계 추출
+  for (const func of functions) {
+    const funcPattern = new RegExp(`${func.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\([^)]*\\)\\s*\\{[^}]*\\}`, 's');
+    const funcMatch = content.match(funcPattern);
+
+    if (funcMatch) {
+      const funcBody = funcMatch[0];
+      const callPattern = /\b(P_[A-Z0-9_]+|L_AM_[A-Z0-9_]+)\s*\(/gi;
+      const calls = [];
+      let callMatch;
+      while ((callMatch = callPattern.exec(funcBody)) !== null) {
+        if (callMatch[1] !== func) { // 자기 자신 호출 제외
+          calls.push(callMatch[1]);
+        }
+      }
+      graph[func] = calls.length > 0 ? [...new Set(calls)] : [];
+    }
+  }
+
+  return graph;
+}
+
 function extractMetadataFromPC(content, programId, fileName) {
   const metadata = JSON.parse(JSON.stringify(META_TEMPLATE));
   metadata.program.id = programId;
@@ -544,10 +587,12 @@ function extractMetadataFromPC(content, programId, fileName) {
   const functions = extractFunctions(content);
   const tables = extractTables(content);
   const calls = extractCalls(content);
+  const callGraph = buildCallGraph(content, functions);
 
   metadata.functions = functions.map(name => ({ name, description: 'Extracted from .pc' }));
   metadata.calls = calls.slice(0, 30).map(name => ({ name, purpose: 'Program call' }));
   metadata.tables = tables.map(name => ({ name, description: 'Table accessed' }));
+  metadata.callGraph = callGraph;  // 호출 그래프 추가
 
   return metadata;
 }
@@ -633,6 +678,20 @@ function selectProc(procId) {
 // 메타정보 표시
 function renderMetaInfo(metadata) {
   const container = document.getElementById('metaContainer');
+
+  // 호출 그래프를 텍스트로 시각화
+  const callGraphHTML = metadata.callGraph ? (() => {
+    const entries = Object.entries(metadata.callGraph).filter(([_, calls]) => calls.length > 0);
+    return entries.length > 0 ? entries.map(([caller, callees]) =>
+      `<div style="padding: 6px 0; border-bottom: 1px solid #e0e7f1;">
+        <strong>${caller}</strong> →<br>
+        <span style="margin-left: 12px; color: #667eea; font-size: 0.8em;">
+          ${callees.join(', ')}
+        </span>
+      </div>`
+    ).join('') : '<div style="color: #aaa; padding: 10px;">호출 관계 없음</div>';
+  })() : '';
+
   let html = `
     <div class="meta-info">
       ✓ <strong>${metadata.program.id}</strong> 프로그램 로드됨
@@ -665,18 +724,23 @@ function renderMetaInfo(metadata) {
     </table>
 
     <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 16px; margin-bottom: 8px; color: #333;">🔧 함수 (${metadata.functions.length})</h3>
-    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
-      ${metadata.functions.length > 0 ? metadata.functions.map(f => `<div style="padding: 4px 0;">• ${f.name}</div>`).join('') : '<div style="color: #aaa;">함수 없음</div>'}
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 120px; overflow-y: auto;">
+      ${metadata.functions.length > 0 ? metadata.functions.map(f => `<div style="padding: 3px 0;">• ${f.name}</div>`).join('') : '<div style="color: #aaa;">함수 없음</div>'}
+    </div>
+
+    <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 14px; margin-bottom: 8px; color: #333;">📊 호출 구조</h3>
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.8em; max-height: 150px; overflow-y: auto;">
+      ${callGraphHTML}
     </div>
 
     <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 14px; margin-bottom: 8px; color: #333;">📋 테이블 (${metadata.tables.length})</h3>
-    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
-      ${metadata.tables.length > 0 ? metadata.tables.map(t => `<div style="padding: 4px 0;">• ${t.name}</div>`).join('') : '<div style="color: #aaa;">테이블 없음</div>'}
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 100px; overflow-y: auto;">
+      ${metadata.tables.length > 0 ? metadata.tables.map(t => `<div style="padding: 3px 0;">• ${t.name}</div>`).join('') : '<div style="color: #aaa;">테이블 없음</div>'}
     </div>
 
     <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 14px; margin-bottom: 8px; color: #333;">🔗 호출 프로그램 (${metadata.calls.length})</h3>
-    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
-      ${metadata.calls.length > 0 ? metadata.calls.map(c => `<div style="padding: 4px 0;">• ${c.name}</div>`).join('') : '<div style="color: #aaa;">호출 없음</div>'}
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 100px; overflow-y: auto;">
+      ${metadata.calls.length > 0 ? metadata.calls.map(c => `<div style="padding: 3px 0;">• ${c.name}</div>`).join('') : '<div style="color: #aaa;">호출 없음</div>'}
     </div>
   `;
   container.innerHTML = html;
