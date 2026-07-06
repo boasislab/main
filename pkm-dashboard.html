@@ -501,32 +501,44 @@ footer {
         </div>
 
         <div style="padding: 20px;">
-          <div style="background: #e3f2fd; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #2196f3;">
+          <!-- 프로그램 선택 필수 안내 -->
+          <div id="selectPrompt" style="background: #fff3e0; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #ff6f00; display: none;">
+            <div style="font-size: 0.9em; color: #e65100; line-height: 1.6; text-align: center;">
+              <strong>👈 좌측 목록에서 프로그램을 선택하세요!</strong><br>
+              선택 후 아래 버튼들이 활성화됩니다.
+            </div>
+          </div>
+
+          <!-- 프로그램 선택 완료 안내 -->
+          <div id="selectedInfo" style="background: #e3f2fd; border-radius: 10px; padding: 16px; margin-bottom: 16px; border-left: 4px solid #2196f3; display: none;">
             <div style="font-size: 0.9em; color: #1565c0; line-height: 1.6;">
-              <strong id="artifactProgramId">L_AM_BNF_010</strong> 프로그램의 배치프로그램 명세서를 생성합니다.<br>
-              PDF, HTML, Markdown 형식으로 다운로드할 수 있습니다.
+              <strong id="artifactProgramId">선택됨</strong> 프로그램의 배치프로그램 명세서를 생성합니다.<br>
+              <small>아래 버튼을 클릭하여 산출물을 생성하세요.</small>
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <button onclick="generateArtifactPDF()" style="padding: 14px; background: #2196f3; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+            <button id="btnPDF" onclick="generateArtifactPDF()" disabled style="padding: 14px; background: #ccc; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; transition: background 0.2s;">
               📄 PDF 다운로드
             </button>
-            <button onclick="generateArtifactHTML()" style="padding: 14px; background: #4caf50; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+            <button id="btnHTML" onclick="generateArtifactHTML()" disabled style="padding: 14px; background: #ccc; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; transition: background 0.2s;">
               💾 HTML 다운로드
             </button>
-            <button onclick="generateArtifactMarkdown()" style="padding: 14px; background: #ff9800; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+            <button id="btnMarkdown" onclick="generateArtifactMarkdown()" disabled style="padding: 14px; background: #ccc; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; transition: background 0.2s;">
               📝 Markdown 다운로드
             </button>
-            <button onclick="openArtifactPreview()" style="padding: 14px; background: #9c27b0; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-              👁️ 미리보기
+            <button id="btnPreview" onclick="openArtifactPreview()" disabled style="padding: 14px; background: #ccc; color: #666; border: none; border-radius: 8px; font-weight: 600; cursor: not-allowed; transition: background 0.2s;">
+              👁️ 미리보기 (NPF 명세서)
             </button>
           </div>
 
           <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e7f1;">
-            <div style="background: #fff9e6; border-radius: 8px; padding: 12px; border-left: 4px solid #ffc107;">
-              <div style="font-size: 0.85em; color: #f57f17;">
-                💡 배치 메타화 완료 후 "산출물 생성" 버튼을 클릭하면 자동으로 메타정보가 로드됩니다.
+            <div style="background: #f3e5f5; border-radius: 8px; padding: 12px; border-left: 4px solid #7b1fa2;">
+              <div style="font-size: 0.85em; color: #4a148c;">
+                💡 <strong>사용법:</strong><br>
+                1️⃣ PC 파일 업로드 → 프로그램 목록 표시<br>
+                2️⃣ 좌측 목록에서 프로그램 선택<br>
+                3️⃣ 아래 버튼으로 산출물 생성 (PDF/HTML/미리보기)
               </div>
             </div>
           </div>
@@ -703,6 +715,9 @@ function selectProc(event, proc) {
 
   // 테이블 매핑 표시
   renderTableMapping(proc);
+
+  // 산출물 생성 버튼 활성화
+  enableArtifactButtons(proc);
 
   updateProcTotal();
 }
@@ -1192,6 +1207,43 @@ function generateArtifactMarkdown() {
 
   alert('✓ Markdown 다운로드 준비 완료!');
 }
+
+// 산출물 생성 버튼 활성화/비활성화
+function enableArtifactButtons(proc) {
+  const hasProc = proc && proc.id;
+
+  // 프롬프트 업데이트
+  document.getElementById('selectPrompt').style.display = hasProc ? 'none' : 'block';
+  document.getElementById('selectedInfo').style.display = hasProc ? 'block' : 'none';
+
+  if (hasProc) {
+    document.getElementById('artifactProgramId').textContent = proc.업무명 || proc.id;
+  }
+
+  // 버튼 활성화
+  const buttons = ['btnPDF', 'btnHTML', 'btnMarkdown', 'btnPreview'];
+  buttons.forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    if (hasProc) {
+      btn.disabled = false;
+      btn.style.background = btnId === 'btnPreview' ? '#9c27b0' :
+                             btnId === 'btnMarkdown' ? '#ff9800' :
+                             btnId === 'btnHTML' ? '#4caf50' : '#2196f3';
+      btn.style.color = '#fff';
+      btn.style.cursor = 'pointer';
+    } else {
+      btn.disabled = true;
+      btn.style.background = '#ccc';
+      btn.style.color = '#666';
+      btn.style.cursor = 'not-allowed';
+    }
+  });
+}
+
+// 초기화: 버튼 비활성화
+document.addEventListener('DOMContentLoaded', () => {
+  enableArtifactButtons(null);
+});
 
 // 미리보기 열기
 // 생성기에서 메타정보 조회용 함수
