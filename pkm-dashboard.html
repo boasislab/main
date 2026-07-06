@@ -1194,18 +1194,32 @@ function generateArtifactMarkdown() {
 }
 
 // 미리보기 열기
+// 생성기에서 메타정보 조회용 함수
+function getGeneratorMetadata() {
+  return currentProcMetadata;
+}
+
 function openArtifactPreview() {
-  const generatorWindow = window.open('output-generator.html?proc=' + currentProc.id + '&preview=true', '_blank', 'width=1200,height=800');
+  const generatorWindow = window.open('output-generator-npf.html?proc=' + currentProc.id + '&preview=true', '_blank', 'width=1200,height=900');
 
   // 생성기 창이 로드된 후 메타정보 전달
   if (generatorWindow) {
     setTimeout(() => {
       try {
-        generatorWindow.loadMetadataForGenerator(currentProcMetadata);
+        // 새 생성기는 window.metadata로 메타정보를 받음
+        generatorWindow.metadata = currentProcMetadata;
+        if (generatorWindow.loadMetadata) {
+          generatorWindow.loadMetadata();
+        }
       } catch (e) {
         console.log('생성기 창이 준비 중입니다. 잠시 후 다시 시도합니다.');
         setTimeout(() => {
-          generatorWindow.loadMetadataForGenerator(currentProcMetadata);
+          if (generatorWindow.metadata === undefined) {
+            generatorWindow.metadata = currentProcMetadata;
+          }
+          if (generatorWindow.loadMetadata) {
+            generatorWindow.loadMetadata();
+          }
         }, 1000);
       }
     }, 500);
