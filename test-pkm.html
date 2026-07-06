@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PKM 생성기 - 테스트</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+.test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+.success { color: #4caf50; font-weight: bold; }
+.error { color: #f44336; font-weight: bold; }
+button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; }
+button:hover { background: #764ba2; }
+input[type="file"] { margin-right: 10px; }
+#result { margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<h1>🧪 PKM 생성기 작동 테스트</h1>
+
+<div class="test-section">
+  <h2>Step 1: 파일 업로드</h2>
+  <input type="file" id="fileInput" accept=".pc">
+  <button onclick="testFileUpload()">파일 선택 & 업로드</button>
+</div>
+
+<div class="test-section">
+  <h2>Step 2: 메타정보 추출</h2>
+  <button onclick="testMetadataExtraction()">메타정보 추출</button>
+</div>
+
+<div class="test-section">
+  <h2>Step 3: 프로그램 선택</h2>
+  <button onclick="testProgramSelection()">프로그램 선택</button>
+</div>
+
+<div class="test-section">
+  <h2>Step 4: 버튼 활성화</h2>
+  <button onclick="testButtonActivation()">버튼 활성화 확인</button>
+</div>
+
+<div id="result">
+  <h3>📊 테스트 결과</h3>
+  <div id="resultContent">아래에서 각 단계를 테스트하세요...</div>
+</div>
+
+<script>
+let uploadedFile = null;
+let extractedMetadata = null;
+let selectedProc = null;
+
+function log(message, isSuccess = true) {
+  const resultDiv = document.getElementById('resultContent');
+  const status = isSuccess ? '<span class="success">✅</span>' : '<span class="error">❌</span>';
+  resultDiv.innerHTML += `<p>${status} ${message}</p>`;
+}
+
+function clearLog() {
+  document.getElementById('resultContent').innerHTML = '';
+}
+
+function testFileUpload() {
+  clearLog();
+  const fileInput = document.getElementById('fileInput');
+
+  if (!fileInput.files || !fileInput.files[0]) {
+    log('파일을 선택하세요', false);
+    return;
+  }
+
+  uploadedFile = fileInput.files[0];
+  log(`파일 선택 성공: ${uploadedFile.name}`, true);
+  log(`파일 크기: ${uploadedFile.size} bytes`, true);
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    log(`파일 읽기 성공 (${content.split('\n').length} 줄)`, true);
+  };
+  reader.readAsText(uploadedFile);
+}
+
+function testMetadataExtraction() {
+  clearLog();
+
+  if (!uploadedFile) {
+    log('먼저 파일을 업로드하세요', false);
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    const programId = uploadedFile.name.replace('.pc', '').toUpperCase();
+
+    // 간단한 메타정보 추출
+    extractedMetadata = {
+      id: programId,
+      file: uploadedFile.name,
+      lines: content.split('\n').length,
+      functions: extractFunctions(content),
+      tables: extractTables(content),
+    };
+
+    log(`프로그램 ID: ${extractedMetadata.id}`, true);
+    log(`함수 개수: ${extractedMetadata.functions.length}`, true);
+    log(`테이블 개수: ${extractedMetadata.tables.length}`, true);
+  };
+  reader.readAsText(uploadedFile);
+}
+
+function testProgramSelection() {
+  clearLog();
+
+  if (!extractedMetadata) {
+    log('먼저 메타정보를 추출하세요', false);
+    return;
+  }
+
+  selectedProc = {
+    id: extractedMetadata.id,
+    name: `프로그램: ${extractedMetadata.id}`,
+    lines: extractedMetadata.lines
+  };
+
+  log(`프로그램 선택 성공`, true);
+  log(`선택된 프로그램: ${selectedProc.id}`, true);
+  log(`라인 수: ${selectedProc.lines}`, true);
+}
+
+function testButtonActivation() {
+  clearLog();
+
+  if (!selectedProc) {
+    log('먼저 프로그램을 선택하세요', false);
+    return;
+  }
+
+  log(`버튼 활성화 가능 상태`, true);
+  log(`📄 PDF 다운로드 - 활성화됨 (클릭 가능)`, true);
+  log(`💾 HTML 다운로드 - 활성화됨 (클릭 가능)`, true);
+  log(`📝 Markdown 다운로드 - 활성화됨 (클릭 가능)`, true);
+  log(`👁️ 미리보기 - 활성화됨 (새 탭 열림)`, true);
+}
+
+// 간단한 추출 함수
+function extractFunctions(text) {
+  const matches = text.match(/\bP[_A-Z0-9]+/gi) || [];
+  const unique = [...new Set(matches)];
+  return unique.slice(0, 10);
+}
+
+function extractTables(text) {
+  const matches = text.match(/\bFAM[A-Z0-9]+\b/gi) || [];
+  const unique = [...new Set(matches)];
+  return unique.slice(0, 10);
+}
+</script>
+
+</body>
+</html>

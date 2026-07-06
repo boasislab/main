@@ -696,9 +696,18 @@ function initProcList() {
   renderProcList();
 }
 
+// ── 프로그램 ID로 선택 (renderProcList에서 호출) ──
+function selectProcById(event, procId) {
+  const proc = LAM_PROCS.find(p => p.id === procId);
+  if (proc) {
+    selectProc(event, proc);
+  }
+}
+
 // ── 프로그램 선택 ──
 function selectProc(event, proc) {
-  if (event && event.target.type === 'checkbox') return;
+  if (event && event.target && event.target.type === 'checkbox') return;
+  if (!proc) return;
 
   currentProc = proc;
 
@@ -715,6 +724,10 @@ function selectProc(event, proc) {
 
   // 테이블 매핑 표시
   renderTableMapping(proc);
+
+  // 메타정보 생성 (산출물 생성용)
+  const metadata = extractMetadataFromPC(proc.content || '');
+  currentProcMetadata = buildGeneratorMetadata(metadata);
 
   // 산출물 생성 버튼 활성화
   enableArtifactButtons(proc);
@@ -869,7 +882,7 @@ let batchStartTime = null;
 function renderProcList() {
   const list = document.getElementById('procList');
   list.innerHTML = LAM_PROCS.map(proc => `
-    <div class="proc-item" onclick="selectProc(event, proc)">
+    <div class="proc-item" data-proc-id="${proc.id}" onclick="selectProcById(event, '${proc.id}')">
       <input type="checkbox" class="proc-checkbox" value="${proc.id}"
         onchange="toggleProc(event, '${proc.id}')"
         onclick="event.stopPropagation()"
@@ -1663,9 +1676,9 @@ function addToList(proc) {
   }
 
   const item = document.createElement('div');
-  item.className = 'list-item selected';
+  item.className = 'list-item selected proc-item';
   item.setAttribute('data-id', proc.id);
-  item.onclick = () => selectProc(proc.id);
+  item.onclick = () => selectProc(null, proc);
   item.innerHTML = `
     <div class="item-id">📤 ${proc.id}</div>
     <div class="item-name">${proc.name}</div>

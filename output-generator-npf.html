@@ -814,10 +814,23 @@
 
         // 파일에서 메타정보 로드 (대시보드에서 전달)
         window.addEventListener('load', () => {
-            // opener가 있으면 대시보드에서 메타정보 가져오기
+            // 1. opener가 있으면 대시보드에서 메타정보 가져오기
             if (window.opener && window.opener.getGeneratorMetadata) {
                 window.metadata = window.opener.getGeneratorMetadata();
             }
+
+            // 2. sessionStorage에서 메타정보 가져오기 (새 탭 열었을 때)
+            if (!window.metadata) {
+                const stored = sessionStorage.getItem('pkm_metadata');
+                if (stored) {
+                    try {
+                        window.metadata = JSON.parse(stored);
+                    } catch (e) {
+                        console.error('Failed to parse metadata from sessionStorage:', e);
+                    }
+                }
+            }
+
             loadMetadata();
         });
 
