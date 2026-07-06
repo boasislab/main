@@ -78,26 +78,35 @@
             border-bottom: none;
         }
 
-        /* Slide 1: Title */
+        /* Slide 1: Cover (NPF 표지) */
         .slide-1 {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            color: white;
+            justify-content: space-between;
+            background: #f8f9fa;
+            color: #333;
         }
 
-        .slide-1 .logo {
-            font-size: 48px;
+        .slide-1 .header {
+            padding-bottom: 40px;
+            border-bottom: 3px solid #333;
+        }
+
+        .slide-1 .logo-nps {
+            font-size: 14px;
             font-weight: bold;
+            color: #d35400;
             margin-bottom: 30px;
-            opacity: 0.9;
+        }
+
+        .slide-1 .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
         }
 
         .slide-1 .main-title {
-            font-size: 32px;
+            font-size: 40px;
             font-weight: bold;
             margin-bottom: 10px;
         }
