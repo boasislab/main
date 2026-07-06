@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0407 곤충의 이해 기출문제집</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 960px; margin: 0 auto; padding: 22px; background: #f5f7fb; color: #273447; line-height: 1.7; }
+  h1 { background: #2c5aa0; color: white; padding: 22px 24px; border-radius: 10px; text-align: center; margin: 0 0 10px; font-size: 1.8em; }
+  .subtitle { text-align: center; color: #5f6f86; font-size: 0.94em; margin-bottom: 16px; }
+  .intro { background: #ffffff; border: 1px solid #d7e2f2; border-left: 5px solid #2c5aa0; border-radius: 10px; padding: 18px 20px; margin: 18px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .stats { text-align: center; margin: 12px 0 16px; font-size: 1.05em; color: #40516a; }
+  .progress-bar { background: #d8dee9; border-radius: 10px; height: 14px; margin: 10px 0 24px; overflow: hidden; }
+  .progress-fill { background: #2c5aa0; height: 14px; width: 0%; transition: width 0.25s ease; }
+  .section-header { background: #2c5aa0; color: white; padding: 12px 18px; border-radius: 10px; margin: 30px 0 12px; font-weight: 800; }
+  .question-card { background: white; border: 1px solid #e2e7ef; border-left: 5px solid #4a7ba7; border-radius: 10px; padding: 20px 22px; margin: 14px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .question-num { font-size: 0.84em; color: #718096; margin-bottom: 7px; }
+  .question-text { font-size: 1.04em; font-weight: 800; margin-bottom: 14px; color: #1f2d3d; }
+  .options { list-style: none; padding: 0; margin: 0; }
+  .options li { padding: 10px 14px; margin: 7px 0; border-radius: 8px; border: 1.5px solid #d8dee9; cursor: pointer; transition: all 0.18s; }
+  .options li:hover { background: #f0f5fb; border-color: #4a7ba7; }
+  .options li.correct { background: #dff3e6; border-color: #2e7d32; color: #174b22; font-weight: 800; }
+  .options li.wrong { background: #fde3e3; border-color: #d32f2f; color: #8a1c1c; }
+  .explanation { display: none; margin-top: 14px; padding: 12px 15px; background: #fff8e1; border-left: 4px solid #f57f17; border-radius: 6px; font-size: 0.93em; }
+  .explanation.show { display: block; }
+  .exam-tip-badge { display: inline-block; background: #d32f2f; color: white; font-size: 0.72em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .final-score { display: none; background: #2c5aa0; color: white; text-align: center; padding: 24px; border-radius: 12px; margin: 30px 0; font-size: 1.15em; }
+  .final-score.show { display: block; }
+  .metadata { color: #6b7280; font-size: 0.9em; margin-top: 36px; padding-top: 18px; border-top: 1px solid #d8dee9; }
+  @media (max-width: 720px) { body { padding: 14px; } h1 { font-size: 1.45em; } .question-card { padding: 16px; } }
+</style>
+</head>
+<body>
+<h1>0407 곤충의 이해 기출문제집</h1>
+<p class="subtitle">김종만 원장 강의 정리본 기반 | 총 50문항 | 클릭형 정답·해설</p>
+
+<div class="intro">
+  <p><strong>출제 범위:</strong> 0407 곤충의 이해 정리본_완전본</p>
+  <p><strong>구성:</strong> 8개 섹션, 총 50문항</p>
+  <p><strong>핵심:</strong> 곤충의 역사, 정의와 특징, 구조, 입과 먹이 방식, 번식과 변태, 식물과의 공진화, 생존 전략, 주요 목 분류</p>
+</div>
+
+<div class="stats">진행: <span id="answered">0</span> / 50 &nbsp;|&nbsp; 정답: <span id="correct-count">0</span> &nbsp;|&nbsp; 정답률: <span id="score">0</span>%</div>
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<div id="questions"></div>
+<div class="final-score" id="finalScore"></div>
+
+<div class="metadata">
+  <p><strong>작성일:</strong> 2026-07-06</p>
+  <p><strong>원본:</strong> 0407_곤충의이해_정리본_완전본.html</p>
+  <p><strong>원칙:</strong> 정리본에 포함된 내용만 기준으로 출제</p>
+</div>
+
+<script>
+const sections = [
+  { title: '섹션 1. 곤충의 역사와 종 다양성', count: 7 },
+  { title: '섹션 2. 곤충의 정의와 특징', count: 8 },
+  { title: '섹션 3. 곤충의 구조', count: 6 },
+  { title: '섹션 4. 입과 먹이 방식', count: 6 },
+  { title: '섹션 5. 번식과 변태', count: 7 },
+  { title: '섹션 6. 식물과 곤충의 관계', count: 5 },
+  { title: '섹션 7. 생존 전략', count: 6 },
+  { title: '섹션 8. 곤충의 분류', count: 5 }
+];
+
+const questions = [
+  {s:1, tip:true, q:'지구가 출현한 시기로 정리본에 제시된 것은?', o:['약 46억 년 전','약 40억 년 전','약 8억 6천만 년 전','약 4억 4천만 년 전'], a:0, e:'정리본은 지구의 출현을 약 46억 년 전으로 정리했다.'},
+  {s:1, q:'최초의 생명체가 출현한 시기로 제시된 것은?', o:['약 46억 년 전','약 40억 년 전','약 2억 년 전','약 1억 년 전'], a:1, e:'최초의 생명체는 약 40억 년 전에 출현한 것으로 정리되어 있다.'},
+  {s:1, q:'육상식물이 출현한 시기로 옳은 것은?', o:['약 4억 4천만 년 전','약 3억 6천만 년 전','약 2억 년 전','약 700만 년 전'], a:0, e:'육상식물은 약 4억 4천만 년 전에 출현했다.'},
+  {s:1, tip:true, q:'곤충의 출현 시기로 옳은 것은?', o:['약 4억 년~3억 5천만 년 전','약 2억 년 전','약 1억 년 전','약 25만~30만 년 전'], a:0, e:'곤충은 약 4억 년~3억 5천만 년 전에 출현한 것으로 정리되어 있다.'},
+  {s:1, q:'현생인류의 출현 시기로 정리본에 제시된 것은?', o:['약 700만 년 전','약 25만~30만 년 전','약 1억 년 전','약 3억 6천만 년 전'], a:1, e:'인간의 출현은 약 700만 년 전, 현생인류는 약 25만~30만 년 전이다.'},
+  {s:1, tip:true, q:'현재 알려진 동물 150만 종 중 곤충은 약 몇 종으로 제시되었는가?', o:['약 26만 종','약 100만 종','약 20,977종','약 4,500종'], a:1, e:'곤충은 약 100만 종으로, 동물 전체의 약 67%를 차지한다.'},
+  {s:1, q:'2024년 기준 국내 곤충의 숫자로 제시된 것은?', o:['4,500종','20,977종','26만 종','150만 종'], a:1, e:'국내 곤충은 2024년 기준 20,977종으로 정리되어 있다.'},
+
+  {s:2, tip:true, q:'곤충은 절지동물의 어느 분류 단계에 해당한다고 정리되었는가?', o:['문(門)','강(綱)','목(Order)','과(Family)'], a:1, e:'곤충은 절지동물의 한 강(綱)이다.'},
+  {s:2, q:'곤충의 몸을 이루는 세 부분의 조합으로 옳은 것은?', o:['머리·목·가슴','머리·가슴·배','가슴·배·꼬리','머리·몸통·다리'], a:1, e:'곤충은 머리, 가슴, 배 세 부분으로 구분된다.'},
+  {s:2, tip:true, q:'곤충의 다리 수로 옳은 것은?', o:['두 쌍, 4개','세 쌍, 6개','네 쌍, 8개','다섯 쌍, 10개'], a:1, e:'곤충은 가슴에 세 쌍의 다리, 즉 6개의 다리를 가진다.'},
+  {s:2, q:'곤충의 일반적인 날개 수로 정리된 것은?', o:['한 쌍','두 쌍','세 쌍','날개가 항상 없음'], a:1, e:'곤충은 일반적으로 가슴에 두 쌍의 날개를 가진다.'},
+  {s:2, q:'곤충의 몸을 보호하고 지지하는 구조는?', o:['내골격','외골격','척추','연골'], a:1, e:'곤충은 외골격으로 이루어져 있어 몸을 보호하고 지지한다.'},
+  {s:2, q:'곤충의 복부는 대개 몇 개의 절로 구성된다고 정리되었는가?', o:['3개','6개','11개','20개'], a:2, e:'복부는 대개 11개의 절(segment)로 구성된다.'},
+  {s:2, q:'곤충의 순환계에 대한 설명으로 옳은 것은?', o:['폐쇄혈관계를 가진다','개방혈관계를 가진다','혈관계가 없다','척추동물과 같은 심장 구조이다'], a:1, e:'곤충은 혈액이 체강을 자유롭게 흐르는 개방혈관계를 가진다.'},
+  {s:2, q:'곤충의 호흡과 관련된 기관으로 옳은 것은?', o:['아가미','폐','기문','기관지와 폐포'], a:2, e:'곤충은 가슴과 배의 기문을 통해 직접 호흡한다.'},
+
+  {s:3, tip:true, q:'곤충의 머리 부분이 주로 담당하는 기능은?', o:['운동과 비행','감각 및 섭식','배설과 생식만','저장과 휴면'], a:1, e:'머리는 촉각, 눈, 입 부분이 있어 감각 및 섭식 기관 역할을 한다.'},
+  {s:3, q:'복안(compound eye)에 대한 설명으로 옳은 것은?', o:['밝기만 감지하는 기본 눈','여러 개의 작은 눈이 모여 이루어진 눈','날개의 변형 기관','호흡공의 한 종류'], a:1, e:'복안은 여러 개의 작은 눈(ommatidium)이 모여 이루어진 눈이며 움직임에 민감하다.'},
+  {s:3, q:'단안(simple eye)의 기본 기능으로 제시된 것은?', o:['먹이 씹기','밝기 감지','비행 조절','산란'], a:1, e:'단안은 기본적인 눈으로 밝기 감지 기능을 한다.'},
+  {s:3, tip:true, q:'곤충의 가슴 부분이 주로 담당하는 기능은?', o:['운동 기관','생식 기관','소화 기관만','저장 기관만'], a:0, e:'가슴은 날개와 다리가 붙어 있어 운동 기관에 해당한다.'},
+  {s:3, q:'딱정벌레에서 앞날개의 특징으로 옳은 것은?', o:['완전히 사라진다','딱딱한 날개로 변화한다','흡기관으로 변화한다','기문으로 변화한다'], a:1, e:'딱정벌레의 앞날개는 딱딱한 날개(elytra)로 변화한다.'},
+  {s:3, q:'곤충의 배 부분에 포함되는 주요 기관으로 적절한 것은?', o:['소화기관과 생식기관','날개와 다리','복안과 단안','촉각과 입 부분'], a:0, e:'배는 소화기관, 생식기관, 기문 등 주요 내부 장기를 포함한다.'},
+
+  {s:4, tip:true, q:'씹는 입을 가진 곤충의 예로 적절한 것은?', o:['메뚜기와 딱정벌레','나비와 나방','모기와 매미','파리와 꿀벌만'], a:0, e:'씹는 입은 발달된 턱으로 고체 먹이를 먹으며 메뚜기, 바퀴벌레, 딱정벌레, 개미 등이 해당한다.'},
+  {s:4, q:'빨아먹는 입의 특징으로 옳은 것은?', o:['턱으로 고체 먹이를 깨문다','입이 주둥이 모양으로 길어져 액체를 흡수한다','침 모양 구조로 식물 조직을 찌른다','입이 완전히 퇴화한다'], a:1, e:'빨아먹는 입은 액체 흡수에 알맞게 주둥이 모양으로 길어진다.'},
+  {s:4, q:'찌르는 입을 가진 곤충의 예로 옳은 것은?', o:['매미·진딧물·노린재','메뚜기·딱정벌레','나비·나방','꿀벌·파리만'], a:0, e:'매미, 진딧물, 노린재 등은 찌르는 입으로 식물 즙액 등을 흡수한다.'},
+  {s:4, q:'핥는 입의 예로 제시된 곤충은?', o:['파리와 꿀벌','메뚜기와 바퀴벌레','잠자리와 하루살이','진딧물과 노린재'], a:0, e:'핥는 입은 파리, 꿀벌 등이 해당한다.'},
+  {s:4, q:'부식성 곤충의 먹이 습성으로 옳은 것은?', o:['식물의 즙액만 흡수','다른 곤충만 포식','죽은 동물이나 식물을 분해','꽃의 꿀만 섭취'], a:2, e:'부식성 곤충은 죽은 동물이나 식물을 분해한다.'},
+  {s:4, q:'기생곤충의 설명으로 옳은 것은?', o:['다른 곤충이나 동물의 체내에서 기생','식물의 광합성을 돕기만 함','항상 물속에서만 생활','반드시 날개가 없음'], a:0, e:'기생곤충은 다른 곤충이나 동물의 체내에서 기생한다.'},
+
+  {s:5, q:'곤충의 일반적인 번식 시스템으로 정리된 것은?', o:['대부분 자웅동체','대부분 자웅이체','무성생식만 함','포자로 번식'], a:1, e:'대부분의 곤충은 암수 분리인 자웅이체이다.'},
+  {s:5, q:'곤충의 일반적인 산란 장소 선택 기준은?', o:['먹이가 풍부한 장소','항상 물속','항상 바위 밑','햇빛이 전혀 없는 장소'], a:0, e:'암컷은 유충의 먹이 확보를 위해 먹이가 풍부한 장소에 산란한다.'},
+  {s:5, tip:true, q:'완전변태의 올바른 과정은?', o:['알 → 약충 → 성충','알 → 유충 → 번데기 → 성충','알 → 성충 → 번데기','성충 → 알 → 약충'], a:1, e:'완전변태는 알, 유충, 번데기, 성충의 과정을 거친다.'},
+  {s:5, tip:true, q:'불완전변태의 올바른 과정은?', o:['알 → 유충 → 번데기 → 성충','알 → 약충 → 성충','성충 → 번데기 → 약충','알 → 번데기 → 성충'], a:1, e:'불완전변태는 번데기 단계가 없고 알, 약충, 성충으로 이어진다.'},
+  {s:5, q:'완전변태에서 번데기 단계의 특징으로 옳은 것은?', o:['신체가 완전히 재구성된다','먹이를 가장 많이 먹는 성충 단계이다','탈피 없이 바로 성충이 된다','약충과 성충이 거의 같다'], a:0, e:'번데기 단계에서 신체가 완전히 재구성된다.'},
+  {s:5, q:'불완전변태의 특징으로 옳은 것은?', o:['번데기 단계가 있다','약충과 성충의 형태가 유사하다','유충과 성충이 완전히 다르다','번데기에서만 먹이를 먹는다'], a:1, e:'불완전변태는 약충과 성충이 유사하고 약충이 탈피를 반복하며 성장한다.'},
+  {s:5, q:'무변태의 특징으로 옳은 것은?', o:['알에서 나온 뒤 형태 변화가 거의 없음','번데기 단계가 매우 김','반드시 날개가 네 장임','성충이 다시 유충으로 돌아감'], a:0, e:'무변태는 알에서 나온 후 형태 변화가 거의 없으며 톡톡이 등이 예로 제시되었다.'},
+
+  {s:6, tip:true, q:'정리본에서 식물의 1차 음식으로 강조한 것은?', o:['물','햇빛','곤충','흙'], a:1, e:'식물의 1차 음식은 물이 아니라 햇빛이며, 광합성을 통해 에너지를 얻는다.'},
+  {s:6, q:'식물과 곤충의 공진화 관계로 옳은 것은?', o:['꽃은 곤충을 유인하기 위해 색상·향기·형태를 진화시켰다','곤충은 식물과 무관하게만 진화했다','곤충은 식물 번식에 관여하지 않는다','식물은 곤충을 항상 배척한다'], a:0, e:'꽃과 곤충은 색상, 향기, 입 구조, 행동 등에서 함께 진화했다.'},
+  {s:6, tip:true, q:'수분 매개에 대한 설명으로 옳은 것은?', o:['곤충이 꽃가루를 다른 꽃으로 옮겨 식물 번식을 돕는다','곤충이 꽃을 모두 먹어 없앤다','식물이 곤충의 알만 퍼뜨린다','곤충이 토양을 직접 만든다'], a:0, e:'곤충은 꿀이나 꽃가루를 먹는 과정에서 꽃가루를 옮겨 식물의 번식을 돕는다.'},
+  {s:6, q:'종자 퍼트리기와 관련된 설명으로 옳은 것은?', o:['곤충의 배설물을 통해 종자가 멀리 퍼질 수 있다','종자는 곤충과 절대 접촉하지 않는다','곤충은 종자를 모두 소화해 없앤다','종자 산포는 오직 바람만 가능하다'], a:0, e:'곤충의 배설물이나 몸에 붙는 방식으로 종자가 산포될 수 있다.'},
+  {s:6, q:'나방과 야행성 꽃의 관계로 제시된 예시는?', o:['밤에 피는 흰색 꽃들이 나방을 유인하도록 진화','자주색 꽃이 꿀벌을 피하도록 진화','깊은 꽃통이 딱정벌레만 유인','굵은 꽃이 나비만 견딤'], a:0, e:'밤에 피는 흰색 꽃들은 나방을 유인하도록 진화한 예로 제시되었다.'},
+
+  {s:7, tip:true, q:'위장(Camouflage)의 정의로 가장 적절한 것은?', o:['주변 환경과 비슷한 색·형태로 눈에 띄지 않게 하는 전략','독을 경고하는 화려한 색','독 없는 종이 독 있는 종을 닮는 전략','독침으로 공격하는 전략'], a:0, e:'위장은 주변 환경에 맞춰 색깔과 형태를 변화시켜 발견되지 않게 하는 전략이다.'},
+  {s:7, q:'죽은체 하기(Thanatosis)의 원리로 옳은 것은?', o:['많은 포식자가 움직이는 먹이에 반응하기 때문에 효과적','몸 색을 빨갛게 만들어 독성을 경고','독 있는 곤충을 모방','몸에서 향기만 분비'], a:0, e:'위험을 감지하면 움직임을 멈추고 죽은 척해 포식자의 반응을 피한다.'},
+  {s:7, tip:true, q:'경고색에 주로 사용되는 색상 조합으로 제시된 것은?', o:['빨강·노랑·검정','파랑·보라·흰색','갈색·회색·검정','초록·파랑·은색'], a:0, e:'경고색은 빨강, 노랑, 검정의 조합이 주로 사용된다.'},
+  {s:7, q:'베이트식 모방에 대한 설명으로 옳은 것은?', o:['독이 없는 곤충이 독 있는 곤충의 색상이나 형태를 모방','독 있는 여러 곤충이 같은 경고색을 공유','위험 시 죽은 척함','몸을 주변 색과 같게 함'], a:0, e:'베이트식 모방은 독이 없는 곤충이 독 있는 곤충을 닮는 전략이다.'},
+  {s:7, q:'뮬러식 모방에 대한 설명으로 옳은 것은?', o:['독 있는 여러 곤충이 같은 경고색을 진화시켜 서로 보호','독이 없는 곤충이 독 있는 곤충 한 종만 모방','먹이 장소에 산란','복안으로 움직임을 감지'], a:0, e:'뮬러식 모방은 독 있는 여러 곤충이 같은 경고색을 공유해 포식자의 학습 효과를 높인다.'},
+  {s:7, q:'화학 방어의 예로 옳은 것은?', o:['독성 물질이나 악취를 분비해 포식자를 격퇴','몸을 세 부분으로 나눔','알을 많이 낳음','식물의 꽃가루를 옮김'], a:0, e:'화학 방어는 독성 화합물이나 악취를 분비하여 포식자를 격퇴하는 전략이다.'},
+
+  {s:8, tip:true, q:'잠자리목(Odonata)의 특징으로 정리된 것은?', o:['가장 오래된 곤충, 두 쌍의 비슷한 크기의 날개, 불완전변태','앞날개가 딱딱한 껍질로 변형','날개에 비늘 가루','앞날개만 있고 뒷날개는 평형추'], a:0, e:'잠자리목은 오래된 곤충, 두 쌍의 비슷한 크기의 날개, 불완전변태가 특징으로 정리되었다.'},
+  {s:8, q:'사마목(Orthoptera)의 대표 곤충으로 옳은 것은?', o:['메뚜기·귀뚜라미·여치','나비·나방','파리·모기','벌·개미'], a:0, e:'사마목은 메뚜기, 귀뚜라미, 여치가 대표 곤충이다.'},
+  {s:8, tip:true, q:'딱정벌레목(Coleoptera)의 주요 특징은?', o:['앞날개가 딱딱한 껍질로 변형, 완전변태','뒷날개가 평형추로 변형','날개에 비늘 가루','찌르는 입 기관만 가짐'], a:0, e:'딱정벌레목은 앞날개가 elytra로 변형되고 완전변태를 한다.'},
+  {s:8, q:'나비목(Lepidoptera)의 특징으로 옳은 것은?', o:['날개에 비늘 가루, 빨대처럼 말린 입, 완전변태','납작한 몸과 빠른 이동','찌르는 입과 불완전변태만','두 쌍의 투명한 날개와 사회성만'], a:0, e:'나비목은 날개 비늘 가루, 빨대처럼 말린 입, 완전변태가 특징이다.'},
+  {s:8, q:'파리목(Diptera)의 특징으로 옳은 것은?', o:['앞날개만 있고 뒷날개는 평형추로 변형','날개가 네 장 모두 딱딱함','몸이 머리와 배 두 부분뿐임','항상 무변태'], a:0, e:'파리목은 앞날개만 있고 뒷날개가 평형추로 변형된 것이 특징이다.'}
+];
+
+let answered = 0;
+let correctCount = 0;
+const TOTAL = questions.length;
+
+function render() {
+  const root = document.getElementById('questions');
+  let html = '';
+  let current = 0;
+  questions.forEach((item, idx) => {
+    if (item.s !== current) {
+      current = item.s;
+      html += '<div class="section-header">' + sections[current - 1].title + ' (' + sections[current - 1].count + '문항)</div>';
+    }
+    const no = idx + 1;
+    html += '<div class="question-card">';
+    html += '<div class="question-num">문제 ' + no + ' / ' + TOTAL + ' · 섹션 ' + item.s + (item.tip ? ' <span class="exam-tip-badge">★★ 시험</span>' : '') + '</div>';
+    html += '<div class="question-text">' + item.q + '</div>';
+    html += '<ul class="options">';
+    item.o.forEach((choice, choiceIdx) => {
+      html += '<li onclick="choose(this,' + (choiceIdx === item.a) + ',&quot;exp' + no + '&quot;)" ' + (choiceIdx === item.a ? 'data-correct' : '') + '>' + ['①','②','③','④'][choiceIdx] + ' ' + choice + '</li>';
+    });
+    html += '</ul>';
+    html += '<div class="explanation" id="exp' + no + '">정답: <strong>' + ['①','②','③','④'][item.a] + '</strong><br>' + item.e + '</div>';
+    html += '</div>';
+  });
+  root.innerHTML = html;
+}
+
+function choose(btn, isCorrect, expId) {
+  const ul = btn.closest('ul');
+  if (ul.dataset.done) return;
+  ul.dataset.done = '1';
+  answered++;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correctCount++;
+  } else {
+    btn.classList.add('wrong');
+    const correct = ul.querySelector('[data-correct]');
+    if (correct) correct.classList.add('correct');
+  }
+  document.getElementById(expId).classList.add('show');
+  document.getElementById('answered').textContent = answered;
+  document.getElementById('correct-count').textContent = correctCount;
+  const pct = Math.round(correctCount / answered * 100);
+  document.getElementById('score').textContent = pct;
+  document.getElementById('progress').style.width = (answered / TOTAL * 100) + '%';
+  if (answered === TOTAL) {
+    const fs = document.getElementById('finalScore');
+    const msg = pct >= 80 ? '우수! 핵심 개념이 잘 잡혔습니다.' : pct >= 60 ? '양호합니다. 틀린 문제의 해설을 다시 보세요.' : '정리본을 한 번 더 훑고 재도전하세요.';
+    fs.innerHTML = '완료! 최종 점수: ' + correctCount + ' / ' + TOTAL + ' (' + pct + '%)<br>' + msg;
+    fs.classList.add('show');
+    fs.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+render();
+</script>
+</body>
+</html>
