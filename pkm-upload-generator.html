@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PKM 메타화 · NPF 명세서 생성기</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8edf7 100%);
+  min-height: 100vh;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+header h1 { font-size: 1.8em; font-weight: 800; margin-bottom: 6px; }
+header p { font-size: 0.95em; opacity: 0.9; }
+
+/* 메인 레이아웃 (3열) */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 280px 1fr 380px;
+  gap: 16px;
+  min-height: calc(100vh - 140px);
+}
+
+/* 좌측: 프로그램 목록 */
+.left-panel {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 180px);
+}
+
+.list-header {
+  padding: 16px;
+  border-bottom: 2px solid #e0e7f1;
+  flex-shrink: 0;
+}
+
+.list-header h2 {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid #e0e7f1;
+  border-radius: 8px;
+  font-size: 0.9em;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box:focus { border-color: #667eea; }
+
+.proc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.proc-item {
+  padding: 12px;
+  margin-bottom: 6px;
+  background: #f9fbfd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 4px solid #e0e7f1;
+}
+
+.proc-item:hover {
+  background: #e8edf7;
+  border-left-color: #667eea;
+}
+
+.proc-item.active {
+  background: #667eea;
+  color: #fff;
+  border-left-color: #764ba2;
+}
+
+.proc-name {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.proc-desc {
+  font-size: 0.8em;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.proc-meta {
+  font-size: 0.75em;
+  opacity: 0.7;
+  font-family: monospace;
+}
+
+.proc-total {
+  padding: 12px 16px;
+  border-top: 2px solid #e0e7f1;
+  text-align: center;
+  font-size: 0.85em;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+/* 중앙: 메타정보 & 프리뷰 */
+.center-panel {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 180px);
+}
+
+.center-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e7f1;
+}
+
+.meta-empty {
+  text-align: center;
+  color: #aaa;
+  padding: 40px 20px;
+  font-size: 0.9em;
+}
+
+.meta-info {
+  background: #e3f2fd;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+  border-left: 4px solid #2196f3;
+  font-size: 0.9em;
+  color: #1565c0;
+  line-height: 1.6;
+}
+
+.meta-table {
+  width: 100%;
+  font-size: 0.85em;
+  margin-bottom: 16px;
+  border-collapse: collapse;
+}
+
+.meta-table th {
+  background: #f5f7fa;
+  padding: 10px;
+  text-align: left;
+  font-weight: 700;
+  color: #333;
+  border-bottom: 2px solid #e0e7f1;
+}
+
+.meta-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e7f1;
+  word-break: break-word;
+}
+
+.meta-table tr:hover {
+  background: #f9fbfd;
+}
+
+/* 우측: 파일 업로드 & 산출물 생성 */
+.right-panel {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+}
+
+.right-header {
+  font-size: 1em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e7f1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-section {
+  padding: 16px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  border-radius: 12px;
+  border: 2px solid #667eea;
+  margin-bottom: 16px;
+}
+
+.upload-title {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.upload-desc {
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.upload-button {
+  width: 100%;
+  padding: 14px;
+  background: #fff;
+  border: 2px dashed #667eea;
+  border-radius: 10px;
+  text-align: center;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95em;
+}
+
+.upload-button:hover {
+  background: #f5f7fa;
+  border-color: #764ba2;
+}
+
+.upload-status {
+  font-size: 0.85em;
+  color: #667eea;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 500;
+  min-height: 20px;
+}
+
+.prompt-select {
+  background: #fff3e0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid #ff6f00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.prompt-select strong {
+  color: #e65100;
+  font-weight: 700;
+}
+
+.prompt-select small {
+  color: #e65100;
+  opacity: 0.9;
+}
+
+.selected-info {
+  background: #e3f2fd;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid #2196f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.selected-info strong {
+  color: #1565c0;
+  font-weight: 700;
+}
+
+.selected-info small {
+  color: #1565c0;
+  opacity: 0.9;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.btn-artifact {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.2s;
+  font-size: 0.9em;
+  background: #ccc;
+  color: #666;
+}
+
+.btn-artifact:not(:disabled) {
+  cursor: pointer;
+}
+
+.btn-artifact:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-pdf:not(:disabled) { background: #2196f3; color: #fff; }
+.btn-html:not(:disabled) { background: #4caf50; color: #fff; }
+.btn-md:not(:disabled) { background: #ff9800; color: #fff; }
+.btn-preview:not(:disabled) { background: #9c27b0; color: #fff; }
+
+.help-box {
+  background: #f3e5f5;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #7b1fa2;
+  margin-top: auto;
+  font-size: 0.85em;
+  color: #4a148c;
+  line-height: 1.5;
+}
+
+.help-box strong { font-weight: 700; }
+
+footer {
+  background: #fff;
+  border-top: 1px solid #e0e7f1;
+  padding: 16px 24px;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.82em;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .container { grid-template-columns: 1fr; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 PKM 메타화 생성기</h1>
+  <p>Pro*C 파일 업로드 → NPF 배치 명세서 자동 생성</p>
+</header>
+
+<!-- 파일 업로드 (페이지 상단) -->
+<div style="max-width: 1600px; margin: 0 auto; padding: 24px; padding-bottom: 0;">
+  <div style="padding: 20px; background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); border-radius: 12px; border: 2px solid #667eea; margin-bottom: 24px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <span style="font-size: 1.3em;">📂</span>
+      <div>
+        <div style="font-size: 0.95em; font-weight: 700; color: #333;">1️⃣ Pro*C 파일 업로드</div>
+        <div style="font-size: 0.8em; color: #666;">Pro*C 파일을 선택하여 메타정보 추출 시작</div>
+      </div>
+    </div>
+    <input type="file" id="pcFileInput" accept=".pc" style="display: none;" onchange="handlePCFileUpload(event)">
+    <button onclick="document.getElementById('pcFileInput').click()" style="width: 100%; padding: 14px; background: #fff; border: 2px dashed #667eea; border-radius: 10px; text-align: center; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.95em;">
+      + 클릭하여 파일 선택
+    </button>
+    <div id="uploadStatus" style="font-size: 0.85em; color: #667eea; margin-top: 10px; text-align: center; font-weight: 500; min-height: 20px;"></div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 좌측: 프로그램 목록 -->
+  <div class="left-panel">
+    <div class="list-header">
+      <h2>📋 프로그램 목록</h2>
+      <input type="text" class="search-box" id="searchBox" placeholder="프로그램 검색..."
+        oninput="filterProcList()">
+    </div>
+    <div class="proc-list" id="procList">
+      <div style="color: #aaa; padding: 40px 20px; text-align: center; font-size: 0.9em;">
+        PC 파일을 업로드하면 프로그램 목록이 표시됩니다.
+      </div>
+    </div>
+    <div class="proc-total" id="procTotal">0 / 0 programs</div>
+  </div>
+
+  <!-- 중앙: 메타정보 표시 -->
+  <div class="center-panel">
+    <div class="center-title">📊 메타정보</div>
+    <div id="metaContainer">
+      <div class="meta-empty">프로그램을 선택하면 메타정보가 표시됩니다.</div>
+    </div>
+  </div>
+
+  <!-- 우측: 산출물 생성 -->
+  <div class="right-panel">
+    <div class="right-header">📄 산출물 생성</div>
+
+    <!-- 산출물 생성 -->
+    <div id="selectPrompt" class="prompt-select" style="display: none;">
+      <strong>👈 좌측 목록에서 프로그램을 선택하세요!</strong>
+      <small>선택 후 아래 버튼들이 활성화됩니다.</small>
+    </div>
+
+    <div id="selectedInfo" class="selected-info" style="display: none;">
+      <strong id="selectedProgramId">선택됨</strong>
+      <small>프로그램의 NPF 배치 명세서를 생성하세요.</small>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-artifact btn-pdf" id="btnPDF" onclick="generatePDF()" disabled>
+        📄 PDF 다운로드
+      </button>
+      <button class="btn-artifact btn-html" id="btnHTML" onclick="generateHTML()" disabled>
+        💾 HTML 다운로드
+      </button>
+      <button class="btn-artifact btn-md" id="btnMarkdown" onclick="generateMarkdown()" disabled>
+        📝 Markdown 다운로드
+      </button>
+      <button class="btn-artifact btn-preview" id="btnPreview" onclick="openPreview()" disabled>
+        👁️ 미리보기
+      </button>
+    </div>
+
+    <div class="help-box">
+      <strong>💡 사용법</strong><br>
+      1️⃣ 우측 상단에서 PC 파일 업로드<br>
+      2️⃣ 좌측 목록에서 프로그램 선택<br>
+      3️⃣ 아래 버튼으로 산출물 생성
+    </div>
+  </div>
+</div>
+
+<footer>
+  PKM 메타화 생성기 · Pro*C 자동 분석 & NPF 명세서 생성
+  <br>- boasis_lab.(yyj assistant)
+</footer>
+
+<script>
+// 메타 템플릿
+const META_TEMPLATE = {
+  program: { id: '', file: '', 업무명: '', lang: 'Pro*C', kind: 'Oracle Embedded SQL', author: '', version: '1.0' },
+  business_steps: [], functions: [], calls: [], structures: [], sql: [], tables: [],
+  variables: [], history: [], document_mapping: []
+};
+
+// 상태
+let uploadedProgs = [];
+let currentProc = null;
+let currentMetadata = null;
+
+// 함수명/테이블명 정규화 (이전 파서 재사용)
+const FUNCTION_CANONICAL = {
+  'P_DATALINIT': 'P_DATA_INIT', 'P_DATA_INIT': 'P_DATA_INIT',
+  'P_BNF_BUY': 'P_BNF_BUY', 'P_IBND_BUY': 'P_BNF_BUY',
+};
+
+const TABLE_CANONICAL = {
+  'FAMBN022OMAA': 'FAMBN0220MAA', 'FAMBN0220MAA': 'FAMBN0220MAA',
+  'FAMBN0221MAA': 'FAMBN0221MAA', 'FAMBN0233NTA': 'FAMBN0233NTA',
+  'FAMBN0201CDA': 'FAMBN0201CDA', 'FAMBN0202NTA': 'FAMBN0202NTA',
+  'FEIBMO009NTA': 'FEIBMO009NTA', 'FEIOE0003NTA': 'FEIOE0003NTA',
+  'FBCCD0014NTA': 'FBCCD0014NTA',
+};
+
+function compactSymbol(value) {
+  value = value.toUpperCase();
+  value = value.replace(/ /g, '_');
+  value = value.replace(/[^A-Z0-9_]/g, '');
+  return value.replace(/_+/g, '_').replace(/^_|_$/g, '');
+}
+
+function extractFunctions(text) {
+  const found = new Set();
+  const patterns = [/\bP[_\s]+[A-Z0-9_ ]{3,40}/gi, /static\s+int\s+(P[_\s]+[A-Z0-9_ ]{3,40})/gi];
+  for (const pattern of patterns) {
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      const symbol = compactSymbol(match[1] || match[0]);
+      for (const [raw, canonical] of Object.entries(FUNCTION_CANONICAL)) {
+        if (symbol.includes(raw)) { found.add(canonical); }
+      }
+    }
+  }
+  return Array.from(found).sort();
+}
+
+function extractCalls(text) {
+  const found = new Set();
+  const pattern = /\bL[_\s]*AM[_\s]+[A-Z0-9_ ]{3,50}/gi;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    let symbol = compactSymbol(match[0]);
+    symbol = symbol.replace(/LAM_/, 'L_AM_').replace(/L_AML_/, 'L_AM_');
+    found.add(symbol);
+  }
+  return Array.from(found).sort();
+}
+
+function extractTables(text) {
+  const found = new Set();
+  const pattern = /\b(?:FAM|FEI|FET|FBC|JOURNAL)[A-Z0-9_]{4,30}\b/gi;
+  let match;
+  while ((match = pattern.exec(text)) !== null) {
+    const symbol = compactSymbol(match[0]);
+    found.add(TABLE_CANONICAL[symbol] || symbol);
+  }
+  return Array.from(found).sort();
+}
+
+function extractMetadataFromPC(content, programId, fileName) {
+  const metadata = JSON.parse(JSON.stringify(META_TEMPLATE));
+  metadata.program.id = programId;
+  metadata.program.file = fileName;
+
+  const functions = extractFunctions(content);
+  const tables = extractTables(content);
+  const calls = extractCalls(content);
+
+  metadata.functions = functions.map(name => ({ name, description: 'Extracted from .pc' }));
+  metadata.calls = calls.slice(0, 30).map(name => ({ name, purpose: 'Program call' }));
+  metadata.tables = tables.map(name => ({ name, description: 'Table accessed' }));
+
+  return metadata;
+}
+
+// 파일 업로드 처리
+function handlePCFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    const fileName = file.name;
+    const programId = fileName.replace('.pc', '').toUpperCase();
+
+    // 상태 메시지
+    const statusDiv = document.getElementById('uploadStatus');
+    statusDiv.textContent = `✓ ${fileName} 로드됨`;
+    statusDiv.style.color = '#4caf50';
+
+    // 메타정보 추출
+    const metadata = extractMetadataFromPC(content, programId, fileName);
+
+    // 목록에 추가
+    const prog = {
+      id: programId,
+      name: metadata.program.업무명 || 'Unknown',
+      lines: content.split('\n').length,
+      content,
+      metadata
+    };
+
+    uploadedProgs = [prog];
+    renderProcList();
+  };
+  reader.readAsText(file);
+}
+
+// 프로그램 목록 렌더링
+function renderProcList() {
+  const list = document.getElementById('procList');
+  if (uploadedProgs.length === 0) {
+    list.innerHTML = '<div style="color: #aaa; padding: 40px 20px; text-align: center; font-size: 0.9em;">PC 파일을 업로드하세요.</div>';
+    document.getElementById('procTotal').textContent = '0 / 0 programs';
+    return;
+  }
+
+  list.innerHTML = uploadedProgs.map(prog => `
+    <div class="proc-item" data-proc-id="${prog.id}" onclick="selectProc('${prog.id}')">
+      <div class="proc-name">${prog.id}</div>
+      <div class="proc-desc">${prog.name}</div>
+      <div class="proc-meta">${prog.lines} 줄</div>
+    </div>
+  `).join('');
+
+  document.getElementById('procTotal').textContent = `${uploadedProgs.length} / ${uploadedProgs.length} programs`;
+}
+
+// 프로그램 선택
+function selectProc(procId) {
+  const prog = uploadedProgs.find(p => p.id === procId);
+  if (!prog) return;
+
+  currentProc = prog;
+  currentMetadata = prog.metadata;
+
+  // UI 업데이트
+  document.querySelectorAll('.proc-item').forEach(item => {
+    if (item.getAttribute('data-proc-id') === procId) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // 메타정보 표시
+  renderMetaInfo(prog.metadata);
+
+  // 버튼 활성화
+  enableArtifactButtons();
+}
+
+// 메타정보 표시
+function renderMetaInfo(metadata) {
+  const container = document.getElementById('metaContainer');
+  let html = `
+    <div class="meta-info">
+      ✓ <strong>${metadata.program.id}</strong> 프로그램 로드됨
+    </div>
+    <table class="meta-table">
+      <tr>
+        <th>항목</th>
+        <th>값</th>
+      </tr>
+      <tr>
+        <td><strong>Program ID</strong></td>
+        <td>${metadata.program.id}</td>
+      </tr>
+      <tr>
+        <td><strong>File</strong></td>
+        <td>${metadata.program.file}</td>
+      </tr>
+      <tr>
+        <td><strong>Functions</strong></td>
+        <td>${metadata.functions.length}개</td>
+      </tr>
+      <tr>
+        <td><strong>Tables</strong></td>
+        <td>${metadata.tables.length}개</td>
+      </tr>
+      <tr>
+        <td><strong>Calls</strong></td>
+        <td>${metadata.calls.length}개</td>
+      </tr>
+    </table>
+
+    <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 16px; margin-bottom: 8px; color: #333;">🔧 함수 (${metadata.functions.length})</h3>
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
+      ${metadata.functions.length > 0 ? metadata.functions.map(f => `<div style="padding: 4px 0;">• ${f.name}</div>`).join('') : '<div style="color: #aaa;">함수 없음</div>'}
+    </div>
+
+    <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 14px; margin-bottom: 8px; color: #333;">📋 테이블 (${metadata.tables.length})</h3>
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
+      ${metadata.tables.length > 0 ? metadata.tables.map(t => `<div style="padding: 4px 0;">• ${t.name}</div>`).join('') : '<div style="color: #aaa;">테이블 없음</div>'}
+    </div>
+
+    <h3 style="font-size: 0.95em; font-weight: 700; margin-top: 14px; margin-bottom: 8px; color: #333;">🔗 호출 프로그램 (${metadata.calls.length})</h3>
+    <div style="background: #f9fbfd; padding: 10px; border-radius: 6px; border-left: 3px solid #667eea; font-size: 0.85em; max-height: 150px; overflow-y: auto;">
+      ${metadata.calls.length > 0 ? metadata.calls.map(c => `<div style="padding: 4px 0;">• ${c.name}</div>`).join('') : '<div style="color: #aaa;">호출 없음</div>'}
+    </div>
+  `;
+  container.innerHTML = html;
+}
+
+// 버튼 활성화
+function enableArtifactButtons() {
+  const hasProc = currentProc && currentProc.id;
+  document.getElementById('selectPrompt').style.display = hasProc ? 'none' : 'flex';
+  document.getElementById('selectedInfo').style.display = hasProc ? 'flex' : 'none';
+  if (hasProc) {
+    document.getElementById('selectedProgramId').textContent = currentProc.id;
+  }
+
+  ['btnPDF', 'btnHTML', 'btnMarkdown', 'btnPreview'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.disabled = !hasProc;
+    btn.style.cursor = hasProc ? 'pointer' : 'not-allowed';
+    btn.style.opacity = hasProc ? '1' : '0.5';
+  });
+}
+
+// 검색
+function filterProcList() {
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  document.querySelectorAll('.proc-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(search) ? 'block' : 'none';
+  });
+}
+
+// 산출물 생성 함수들
+function openPreview() {
+  if (!currentMetadata || !currentProc) return;
+
+  // 메타데이터를 sessionStorage에 저장해서 새 탭에서 접근 가능하게 함
+  sessionStorage.setItem('pkm_metadata', JSON.stringify(currentMetadata));
+  sessionStorage.setItem('pkm_program_id', currentProc.id);
+
+  window.open('output-generator-npf.html', '_blank');
+}
+
+function generatePDF() {
+  if (!currentMetadata || !currentProc) return;
+
+  // PDF 생성 (html2pdf 라이브러리 사용)
+  const element = createNPFDocument();
+  const opt = {
+    margin: 10,
+    filename: `${currentProc.id}_NPF명세서.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+  };
+
+  // html2pdf 라이브러리 로드 후 생성
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+  script.onload = function() {
+    html2pdf().set(opt).from(element).save();
+  };
+  document.head.appendChild(script);
+}
+
+function generateHTML() {
+  if (!currentMetadata || !currentProc) return;
+
+  const element = createNPFDocument();
+  const htmlContent = element.outerHTML;
+  const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+  downloadBlob(blob, `${currentProc.id}_NPF명세서.html`);
+}
+
+function generateMarkdown() {
+  if (!currentMetadata || !currentProc) return;
+
+  const md = `# ${currentProc.id} - NPF 배치프로그램 명세서
+
+## 프로그램 정보
+- **Program ID**: ${currentProc.id}
+- **프로그램명**: ${currentProc.name || 'Unknown'}
+- **파일명**: ${currentMetadata.program.file}
+- **라인수**: ${currentProc.lines}
+
+## 함수 (${currentMetadata.functions.length}개)
+${currentMetadata.functions.map(f => `- ${f.name}`).join('\n')}
+
+## 테이블 (${currentMetadata.tables.length}개)
+${currentMetadata.tables.map(t => `- ${t.name}`).join('\n')}
+
+## 호출 프로그램 (${currentMetadata.calls.length}개)
+${currentMetadata.calls.map(c => `- ${c.name}`).join('\n')}
+
+---
+생성일시: ${new Date().toLocaleString('ko-KR')}
+`;
+
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  downloadBlob(blob, `${currentProc.id}_NPF명세서.md`);
+}
+
+function createNPFDocument() {
+  const div = document.createElement('div');
+  div.style.padding = '20px';
+  div.style.fontFamily = 'Arial, sans-serif';
+  div.style.fontSize = '14px';
+
+  div.innerHTML = `
+    <h1 style="text-align: center; margin-bottom: 10px;">배치프로그램 명세서</h1>
+    <h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">${currentProc.id}</h2>
+
+    <h3 style="color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px;">프로그램 정보</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+      <tr style="background: #f5f7fa;">
+        <td style="padding: 10px; border: 1px solid #ddd; width: 150px;"><strong>Program ID</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentProc.id}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>프로그램명</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentProc.name || 'N/A'}</td>
+      </tr>
+      <tr style="background: #f5f7fa;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>파일명</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentMetadata.program.file}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>라인수</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentProc.lines}</td>
+      </tr>
+      <tr style="background: #f5f7fa;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>언어</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentMetadata.program.lang}</td>
+      </tr>
+    </table>
+
+    <h3 style="color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px;">추출 메타정보</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+      <tr style="background: #f5f7fa;">
+        <td style="padding: 10px; border: 1px solid #ddd; width: 150px;"><strong>함수</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentMetadata.functions.length}개</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>테이블</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentMetadata.tables.length}개</td>
+      </tr>
+      <tr style="background: #f5f7fa;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>호출 프로그램</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${currentMetadata.calls.length}개</td>
+      </tr>
+    </table>
+
+    <h3 style="color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px;">함수 목록</h3>
+    <ul style="margin-left: 20px;">
+      ${currentMetadata.functions.map(f => `<li>${f.name}</li>`).join('')}
+    </ul>
+
+    <h3 style="color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; margin-top: 20px;">테이블 목록</h3>
+    <ul style="margin-left: 20px;">
+      ${currentMetadata.tables.map(t => `<li>${t.name}</li>`).join('')}
+    </ul>
+
+    <p style="margin-top: 40px; color: #999; font-size: 12px; text-align: right;">
+      생성일시: ${new Date().toLocaleString('ko-KR')}
+    </p>
+  `;
+
+  return div;
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+// 초기화
+window.addEventListener('DOMContentLoaded', () => {
+  console.log('✅ 페이지 로드됨');
+  enableArtifactButtons();
+  renderProcList();
+});
+</script>
+
+</body>
+</html>
