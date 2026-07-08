@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>숲해설프로그램개발 신규 정리 초안</title><style>
+:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:#24313f;line-height:1.72}header,section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem}h2{color:#234f7c;border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:#eef5fb;padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.existing{background:#eaf2ff;color:#174ea6}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.source{white-space:pre-wrap;font-family:inherit}.preserve{background:#f8fafc;border-left:5px solid #64748b}.todo li{margin:5px 0}@media print{body{background:#fff;padding:10px}header,section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+</style>
+<style id="cell-readability-fix-20260708">
+:root{--cell-line:#d9e2ec;--cell-head:#eef5fb;--cell-bg:#ffffff;}
+table{width:100%;border-collapse:collapse;table-layout:auto;margin:14px 0;background:var(--cell-bg);font-size:15px;}
+th,td{border:1px solid var(--cell-line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:0;}
+th{background:var(--cell-head);font-weight:800;color:#183a5a;}
+td p,th p{margin:.25rem 0!important;white-space:normal!important;}
+p{white-space:normal!important;word-break:keep-all;overflow-wrap:break-word;}
+.source{white-space:pre-line!important;word-break:keep-all;overflow-wrap:break-word;line-height:1.7;}
+.team-pdf-supplement .source{white-space:pre-line!important;}
+img{max-width:100%;height:auto;}
+figure{break-inside:avoid;}
+@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
+</style>
+</head><body>
+<header><h1>숲해설프로그램개발 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header>
+<section class="preserve"><h2>신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
+<section class="exam"><h2>주요 표시 요약</h2><ul class="todo">
+<li>- <span class="hl-yellow">관찰</span>과 경험을 통해 자연을 효율적으로 기억할 수 있도록 돕는다.</li>
+<li>- 자연의 이용에 대한 바른 <span class="hl-yellow">방법</span>을 알고, 올바른 태도를 가질 수 있도록 돕는다.</li>
+<li>4. 숲해설의 <span class="hl-yellow">목적</span></li>
+<li><span class="hl-yellow">구분</span> 장점 단점</li>
+<li>방식 -해설자의 유도로 건전한 이용, <span class="hl-red">안전</span> -자유로운 탐방 및 체험기회 억제</li>
+<li>도모, 환경영향 감소<span class="hl-yellow">효과</span> -일정지역 및 시간적 제약이 따름</li>
+<li>- 교육기관의 미션, <span class="hl-yellow">목적</span>, 목표를 고려한다.</li>
+<li>- 결과를 측정하여 프로그램을 향상하고 책무성을 확보해 <span class="hl-yellow">효과</span>를 극대화한다.</li>
+<li><span class="hl-yellow">효과</span>가 아무리 크더라도 확산될 수 없기 때문</li>
+<li>→ 실행<span class="hl-yellow">목적</span> 달성과 관련된 문제</li>
+<li>→ 실행<span class="hl-yellow">방법</span>과 관련된 문제</li>
+<li>• <span class="hl-yellow">핵심</span>내용을 포괄하고 대표성 있는 제목 선정</li>
+<li>• 전달하고자 하는 주된 메시지와 궁극적 방향성 <span class="hl-yellow">정의</span></li>
+<li>프로그램 <span class="hl-yellow">목적</span></li>
+<li>• <span class="hl-yellow">목적</span> 달성을 위해 지향하는 실제적 대상 기술</li>
+<li>• 강의, 토론, 체험활동, 실험, 숲<span class="hl-yellow">관찰</span>, 실외놀이, 역할놀이, 만들기, 추</li>
+<li>진행<span class="hl-yellow">방법</span></li>
+<li>가자의 만족도와 프로그램의 <span class="hl-yellow">효과</span>성을 높이는 데 기여</li>
+<li>1) 참가자 특성 파악: 연령대, 배경지식, 관심사 등</li>
+<li>2) 참가자 요구 이해: 목표 기대 파악하고 피드백 수집</li>
+<li>3) 참가자 환경 분석: 참가자 지역 고려 및 문화적 배경이 다를 경우 접근 방식 개발</li>
+<li>4) 인원수 및 그룹 구성: 참가자수 파악 및 그룹 구성 활동으로 상호작용 촉진</li>
+</ul></section>
+<section><h2>팀 자료 원문 기반 정리</h2><div class="source">
+20260510_숲해설프로그램개발(실습)_신은주 요약 2권 9-63p
+**이 수업은 <span class="hl-yellow">시험</span>으로 어떤 게 나올지 집어주지 않으셨습니다!**
+**피티로 수업하셔서 피티로 요약정리했습니다**
+
+1. 숲해설 프로그램의 교육적 <span class="hl-yellow">기능</span>
+- <span class="hl-green">생물</span>에 대한 이해를 통해 생명체로 인식하도록 도울 수 있다.
+- 탐색을 통한 발견의 결과물과 자신이 알고 있던 지식과의 연결을 도울 수 있다.
+- 자연현상의 원리를 이해할 수 있도록 도울 수 있다.
+- <span class="hl-yellow">관찰</span>과 경험을 통해 자연을 효율적으로 기억할 수 있도록 돕는다.
+- 단편적인 지식으로 생겨나는 고정관념을 깨고, <span class="hl-green">생태</span>계의 다양성을 이해할 수 있도록 돕는다.
+- 자연의 이용에 대한 바른 <span class="hl-yellow">방법</span>을 알고, 올바른 태도를 가질 수 있도록 돕는다.
+- 현재와 미래의 환경문제에 대한 개인과 사회의 인식과 이해를 높이고, 환경보호 및 지속가능한 사회 발전을 촉진하는 역할을 해야 한다.
+
+2. 숲해설이란체험(몸소 겪음) ≠ 경험(실제로 겪은 데서 얻은 지식이나 <span class="hl-yellow">기능</span>)
+
+메시지 전달&gt;이해&gt;기억&gt;교류를 통해 체험이 경험으로 확장
+
+① 산림교육이란
+
+② 산림교육전문가란
+: 산림교육활성화에 관한 법률 제2조
+→ “산림교육전문가”란 산림교육전문가 양성기관에서 산림교육 전문과정을 이수한 사람으로서 다음 각 목*의 어느 하나에 해당하는 사람
+* 숲해설가, 유아숲지도사, 숲길등산지도사
+
+3. 숲해설의 역할
+
+- 90 -
+
+① 흥미롭고 의미있는 경험을 제공
+② 자연과 문화에 관련된 메시지의 전달
+③ 자연과 역사적 환경에 방문객의 참여유도
+④ 자연자원을 이용하는 대중의 현명한 행동과 태도를 유도하고 문화 및 자연유적지의 보호
+⑤ 자연의 가치, 역사유적, 그리고 자원에 대한 방문객의 이해 및 인식향상, 자연에 대한 인간의 영향 최소화
+⑥ 관련기관의 역할, 관리목표에 대한 대중의 이해를 높이고, 정책을 실시하기 위함
+
+4. 숲해설의 <span class="hl-yellow">목적</span>
+: 참가자의 가치관과 태도의 변화
+
+5. 프로그램의 어원과 의미
+Programme
+→ 그리스어 prographine = pro(before 미리)+graphine(to write 기록하다)
+→ 모든 과정을 마칠 때까지 요구되는 전체적인 계획
+
+6. 숲해설 유형
+
+<span class="hl-yellow">구분</span> 장점 단점
+
+-대상자와 직접적 소통 및 토론가능 -별도의 해설인력 및 조직필요
+-대상자별 해설수준 선택 편리 -일정단위의 참여 인원 필요
+-필요시 일정 프로그램 도입 및 변경 -해설자 교육훈련 및 연수 등 운영 관안내식 용이 리 비용 많이 소요방식 -해설자의 유도로 건전한 이용, <span class="hl-red">안전</span> -자유로운 탐방 및 체험기회 억제도모, 환경영향 감소<span class="hl-yellow">효과</span> -일정지역 및 시간적 제약이 따름토크식 기법, 거점식 기법, 이동식 기법, 강연식 기법
+
+-특별한 해설인력 및 조직 없이 시행
+-초기 해설물, 환경영향 방지시설등의가능초기 비용이 많이 소요자기 -참여인원수에 관계없이 해설가능
+-해설대상 및 수준의 선택폭이 적음안내식 -광범위한 지역활용에 유리
+-대상자들과의 직접적인 의사소통 곤란방식 -자유로운 탐방 및 체험기회 제공전시 및 해설물기법, 전시물 기법, 간행물기법(리플릿), 매체식 기법(QR코드)
+
+7. 좋은 산림교육 프로그램이란
+- 교육기관의 미션, <span class="hl-yellow">목적</span>, 목표를 고려한다.
+- 요구를 충족시키고, 실질적인 이익을 생산할 수 있도록 설계한다.
+
+- 91 -
+
+- 교육의 범위를 정하고 구조를 조직한다.
+- 프로그램 계획에 맞는 양질의 교육자료를 준비한다.
+- 프로그램에 맞는 훈련된 지도사를 활용한다.
+- 결과를 측정하여 프로그램을 향상하고 책무성을 확보해 <span class="hl-yellow">효과</span>를 극대화한다.
+
+8. 프로그램 개발이 계획적이어야 하는 이유
+: 산림교육전문가의 전달능력에만 의존하며 체계적 프로그램을 개발하지 못하면 산림교육의
+<span class="hl-yellow">효과</span>가 아무리 크더라도 확산될 수 없기 때문
+
+9. 프로그램 계획 수립과 실행을 위한 6W1H 체크리스트
+
+6W1H 실행계획 수립을 위해 고려해야할 요소무슨 프로그램을 실행하나?
+WHAT
+→ 실행행동과 관련된 문제왜 해야 하나?
+WHY
+→ 실행<span class="hl-yellow">목적</span> 달성과 관련된 문제누가 하는가?
+WHO
+→ 실행주체와 관련된 문제누구를 위해 하나?
+FOR WHOM
+→ 실행대상과 관련된 문제언제 해야 하나?
+WHEN
+→ 실행시기와 기간과 관련된 문제어디서 해야 하나?
+WHERE
+→ 실행장소 및 주변 여건과 관련된 문제어떻게 실행 해야 하나?
+HOW
+→ 실행<span class="hl-yellow">방법</span>과 관련된 문제
+
+10. 프로그램 개발 단계별 과제
+① 교육프로그램요소 내용
+
+• <span class="hl-yellow">핵심</span>내용을 포괄하고 대표성 있는 제목 선정프로그램 제목 • 프로그램 내용을 가늠할 수 있도록 구체적으로 작성
+• 추상적 표현 지양
+
+• 전달하고자 하는 주된 메시지와 궁극적 방향성 <span class="hl-yellow">정의</span>
+• 설계·실행·평가의 방향성 제시프로그램 <span class="hl-yellow">목적</span>
+• 정량적 측정 불가
+• 짧고 단순하지만 완전한 문장으로 작성
+• <span class="hl-yellow">목적</span> 달성을 위해 지향하는 실제적 대상 기술
+• 실현 가능한 일을 중심으로 작성프로그램 목표 • 결과 중심, 측정 가능
+• 인지목표: 지식·이해·<span class="hl-red">사고</span>능력 발달
+• 감성목표: 감정·태도·가치관 형성
+
+- 92 -
+
+• 행동목표: 행동·기술 습득 및 실천
+
+• 목표 달성 시 기대되는 긍정적 결과나 변화프로그램 기대효 • 목표와 동떨어진 기대나 과장된 표현 지양과 • 지식·기술 향상, 태도·감정 변화, 행동 실천, 지역사회·환경 변화 측면에서 서술
+
+• 포괄적 대상 선정 지양교육대상
+• 연령 또는 학년을 구체적으로 선정
+
+• 강의, 토론, 체험활동, 실험, 숲<span class="hl-yellow">관찰</span>, 실외놀이, 역할놀이, 만들기, 추진행<span class="hl-yellow">방법</span>
+론하기 등
+
+• 발달·욕구·신체적·사회적·심리적 측면에서 프로그램 필요성 중심 작성참가자 특성
+• 문헌·연구 인용 시 출처 명기
+• 일반적 내용은 짧게 요약
+
+- 참가자 분석
+→ 분석 과정을 통해 참가자에 최적화된 환경체험 프로그램을 설계할 수 있으며, 이는 참가자의 만족도와 프로그램의 <span class="hl-yellow">효과</span>성을 높이는 데 기여
+1) 참가자 특성 파악: 연령대, 배경지식, 관심사 등
+2) 참가자 요구 이해: 목표 기대 파악하고 피드백 수집
+3) 참가자 환경 분석: 참가자 지역 고려 및 문화적 배경이 다를 경우 접근 방식 개발
+4) 인원수 및 그룹 구성: 참가자수 파악 및 그룹 구성 활동으로 상호작용 촉진
+5) <span class="hl-red">안전</span>성, 접근성 고려: <span class="hl-red">안전</span> 요구사항 분석, 신체적 장애 있는 참가자가 있으면 고려
+6) 평가 피드백 계획: 사전 및 사후 평가 <span class="hl-yellow">방법</span> 계획, 프로그램 중 지속적 피드백
+
+- 요구 분석[실즈와 그래스고우(Seels &amp; Glasgow)의 요<span class="hl-yellow">구분</span>석 모형]
+
+정보 수집 요<span class="hl-yellow">구분</span>석에 필요한 정보를 수집
+↓
+수집한 정보 분석으로 바람직한 상태와 현재 상태 간에 차차이 확인이 확인
+↓
+수행 분석 차이 확인으로 문제 파악 후 원인과 해결안을 도출
+↓
+가용자원과문제해결을 위한 활용 가능 자원과 방해 요인 확인장애요인 확인
+↓
+학습에 영향 미치는 학습자의 일반적인 특성, *출발점 행학습자 특성 파악 동, 동기 등의 특성을 분석
+*<span class="hl-yellow">목적</span>, 목표, 내용, 교수학습<span class="hl-yellow">방법</span> 등에 영향
+↓
+우선 순위와
+<span class="hl-yellow">목적</span>수립
+
+- 93 -
+
+*출발점 행동: 학습자들이 학습을 시작하기 전에 지니고 있어야 할 선수지식, 기술, 태도를 의미
+
+- 프로그램 개발 주제와 내용 5가지
+[산림교육의 활성화에 관한 법률 시행규칙 제4조 제2항]
+
+- 숲을 보는 관점
+1) 경제적 개념: 경제 자원 가치를 지닌 수단으로 봄
+2) 환경<span class="hl-green">생태</span>적 개념: <span class="hl-green">생태</span>계 건강성, 다양성 증진 역할을 한다고 봄
+3) 문화교육적 개념: 살아있는 병원, 공동체 의식 증진, 삶과 연계된 공간이라고 봄
+4) 윤리실존적 개념: 지속가능한 발전으로 숲과 공생하고 숲을 배려해야 한다고 봄
+
+- 시대별 숲을 보는 관점의 변화
+
+1988~현재
+1946~1966 1988~1997
+1967~1972 1973~1987 산림의 다<span class="hl-yellow">기능</span>
+산림청 산지자원화산림청 발족 치산녹화기 인프라 조성기·지속발족 이전 추진기가능한 산림경영기
+
+▶ ▶ ▶ ▶
+산림자원의 산림의 공익산업으로서 · 숲과 인간의 상생산림복구·보 양·질적 조성 적 가치 창출의 임업 강 · 지속 가능한 산림호의 시대 → 산림의 종 → 사람과 산조 행정합 관리 림의 공존
+
+② 교수요원
+- 자격; 프로그램 운영할 수 있는 전문가(전문 역량 평가 진행)
+③ 교육활동환경
+
+- 94 -
+
+- 공간 및 설비: 교육에 필요한 공간과 <span class="hl-red">안전</span>한 시설 확보
+- <span class="hl-red">안전</span>관리계획: <span class="hl-red">안전</span>관리계획·비상연락체계수립, 교육 운영자의 <span class="hl-red">안전</span>관련 자격 및 교육 이수 여부 확인
+- 위생관리: 활동장소의 화장실, 숙박시설 등 위생 및 청결 관리
+④ 활동기록관리
+- 교육활동 체계 기술
+⑤ 숙박시설관리(숙박형만 해당)
+- 충분한 숙박 공간 확보
+- 야간 생활지도 담당 지정
+
+11. 프로그램의 단계별 <span class="hl-yellow">특징</span>과 과제 및 실행 전략도입 전개 마무리
+· 프로그램 완수한 자부심과
+· 분위기 활성화, 문제해결 만족감
+· 낯설지만 호기심 시도하며 집단 역동 나타남 · 집단원간 유대
+→ 프로그램 이해 도모 및 → 참여자 관심 발견하고 → 집단 경험에서의 긍정적관심유발 강화 의미 조명
+→ 프로그램 오리엔테이션 → 의사소통 및 피드백 → 성장에 칭찬과 보상, 피
+→ 편안한 분위기 마련 → 다양한 회기 진행방식 드백구사 → 결과에 대한 평가 및 기록
+
+12. 산림교육프로그램이란(산림교육활성화에 관한 법률 제2조)
+: 산림을 휴양과 문화,교육 공간으로 이용함에 있어 국민들에게 산림의 여러 속성을 잘 이해시키고 산림<span class="hl-green">생태</span>계의 훼손을 방지할 수 있도록 다양하고 내실 있는 교육 및 체험활동을 제공하기 위하여 운영하는 프로그램
+
+- 산림교육프로그램 인증제도 법적 근거
+: 「산림교육의 활성화에 관한 법률」 제8조
+
+- 산림교육프로그램 인증 절차
+: 신청서 작성 접수&gt;서류 검토&gt;현지조사 및 컨설팅 평가보고서&gt;심사안건 검토&gt;심의·결정&gt;
+인증서 발급
+
+13. 숲해설프로그램 개발 모형 종류
+
+: 교육 프로그램이나 교수 학습 과정을 체계적으로 설계하고 개발할 때 가장 널리 쓰이는대표적인 교수설계(Instructional Design) 프레임워크
+
+- 95 -
+
+14. 숲해설가란
+: 국민이 산림에 대한 지식을 습득하고 올바른 가치관을 갖도록 지도·교육하는 사람
+: 숲에 관한 전문지식을 갖춘 자
+: 국민에게 숲에 대한 다양한 지식과 정보를 전달하고 안내하는 전문가
+
+- 96 -
+</div></section>
+<section class="safe"><h2>검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>
