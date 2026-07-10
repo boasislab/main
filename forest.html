@@ -83,7 +83,17 @@
 
   /* 파일 버튼 그리드 */
   .file-list { padding: 12px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (max-width: 560px) { .file-list { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) {
+    html, body { width: 100%; overflow-x: hidden; }
+    body { display: block; }
+    #main-screen { width: 100%; max-width: none; margin: 0; padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
+    .file-list { grid-template-columns: 1fr; }
+    .subject-title { flex-wrap: wrap; }
+    .subject-title .date { margin-left: 0; }
+    .file-btn { min-width: 0; }
+    .file-btn .info { min-width: 0; }
+    .file-btn .info .label, .file-btn .info .sub { overflow-wrap: anywhere; word-break: keep-all; }
+  }
 
   .file-btn {
     display: flex; align-items: center; gap: 10px;
@@ -114,51 +124,11 @@
   .footer { text-align: center; color: #aaa; font-size: 0.8em; margin-top: 28px; }
   .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
   .logout-btn:hover { border-color: #999; color: #555; }
-
-  /* ── 고품질 오디오 플레이어 ── */
-  .audio-player { margin-top:8px; background:#f0faf4; border:1.5px solid #81c784; border-radius:12px; padding:10px 14px; }
-  .audio-player .ap-label { font-size:0.78em; font-weight:700; color:#2d6a4f; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
-  .audio-player .ap-badge { background:#52b788; color:#fff; font-size:0.7em; padding:1px 7px; border-radius:10px; }
-  .audio-player audio { width:100%; height:36px; }
-
-  /* ── TTS 음성 플레이어 ── */
-  .tts-btn { display:inline-flex; align-items:center; gap:5px; padding:8px 14px; background:#e8f5e9; border:1.5px solid #81c784; border-radius:10px; color:#2d6a4f; font-size:0.82em; font-weight:700; cursor:pointer; text-decoration:none; transition:background 0.15s; margin-top:6px; }
-  .tts-btn:hover { background:#c8e6c9; }
-  .tts-btn.loading { opacity:0.6; pointer-events:none; }
-  #tts-bar { display:none; position:fixed; bottom:0; left:0; right:0; background:#1a2e22; color:#fff; padding:10px 16px; z-index:9999; box-shadow:0 -4px 20px rgba(0,0,0,0.3); }
-  #tts-bar .tts-inner { max-width:860px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-  #tts-bar .tts-title { flex:1; font-size:0.88em; font-weight:700; color:#74c69d; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
-  #tts-bar .tts-controls { display:flex; gap:8px; align-items:center; }
-  #tts-bar button { background:rgba(255,255,255,0.15); border:none; color:#fff; border-radius:8px; padding:6px 12px; font-size:0.88em; cursor:pointer; transition:background 0.15s; }
-  #tts-bar button:hover { background:rgba(255,255,255,0.28); }
-  #tts-bar button.active { background:#52b788; }
-  #tts-bar .tts-progress { font-size:0.78em; color:#aaa; }
-  #tts-bar select { background:#333; border:none; color:#fff; border-radius:6px; padding:4px 8px; font-size:0.82em; }
-  @media(max-width:600px) { #tts-bar .tts-inner { gap:8px; } #tts-bar .tts-title { font-size:0.8em; } }
 </style>
 </head>
 <body>
 
 <!-- 로그인 화면 -->
-<!-- 🔊 TTS 플레이어 바 (고정 하단) -->
-<div id="tts-bar">
-  <div class="tts-inner">
-    <div class="tts-title" id="tts-title">⏳ 로딩 중...</div>
-    <div class="tts-controls">
-      <button id="tts-playpause" onclick="ttsToggle()">⏸ 일시정지</button>
-      <button onclick="ttsStop()">⏹ 정지</button>
-      <select id="tts-rate" onchange="ttsChangeRate(this.value)" title="재생 속도">
-        <option value="0.8">0.8×</option>
-        <option value="1.0" selected>1.0×</option>
-        <option value="1.2">1.2×</option>
-        <option value="1.5">1.5×</option>
-        <option value="2.0">2.0×</option>
-      </select>
-    </div>
-    <div class="tts-progress" id="tts-progress"></div>
-  </div>
-</div>
-
 <!-- 점검중 화면 -->
 <div id="maint-screen">
   <div class="maint-card">
@@ -197,10 +167,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">산림교육의 이해 <span class="date">2026-02-24</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0224_산림교육의이해_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="0224_산림교육의이해_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 1.2 MB</div></div>
       </a>
@@ -213,10 +179,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">산림문화휴양 <span class="date">2026-02-26</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/20260226_산림휴양문화_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="20260226_산림휴양문화_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 47 KB</div></div>
       </a>
@@ -229,10 +191,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">나무·숲·임업 <span class="date">2026-03-10</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0310_나무숲임업_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="0310_나무숲임업_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 1.7 MB</div></div>
       </a>
@@ -247,10 +205,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">숲해설개론 <span class="date">2026-05-19</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0519_숲해설개론_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="0519_숲해설개론_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 55.4 MB (PC 권장)</div></div>
       </a>
@@ -265,10 +219,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">산림생태학 <span class="date">2026-04-21</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0421_산림생태학_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="0421_산림생태학_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 284 KB</div></div>
       </a>
@@ -281,14 +231,6 @@
   <div class="subject-block">
     <div class="subject-title title-common">식물의 이해 (초본·목본) <span class="date">2026-04~05</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 — 정리본 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0502_식물의이해_정리본_최종.mp3" preload="none"></audio>
-      </div>
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 — 수목원 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0502_식물의이해_수목원.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-common" href="식물의이해_초본목본_통합정리본.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 106 KB</div></div>
       </a>
@@ -306,10 +248,6 @@
   <div class="subject-block">
     <div class="subject-title title-select2">야생동물의 이해 (조류·포유류) <span class="date">2026-03-07 · 03-09</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0307_야생동물의이해_통합정리본.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-select2" href="0307_야생동물의이해_통합정리본.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 148 KB</div></div>
       </a>
@@ -334,10 +272,6 @@
   <div class="subject-block">
     <div class="subject-title title-select2">산림토양학 <span class="date">2026-03-28</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0328_산림토양학_정리본_최종.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-select2" href="0328_산림토양학_정리본_최종.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 44 KB</div></div>
       </a>
@@ -375,10 +309,6 @@
   <div class="subject-block">
     <div class="subject-title title-select2">도시숲 가꾸기의 이해 <span class="date">2026-03-19</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/도시숲가꾸기_통합정리본.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-select2" href="도시숲가꾸기_통합정리본.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 38 KB</div></div>
       </a>
@@ -391,10 +321,6 @@
   <div class="subject-block">
     <div class="subject-title title-select2">기후변화실습 (기후위기·탄소중립) <span class="date">2026-06-20</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/기후위기탄소중립_통합정리본.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-select2" href="기후위기탄소중립_통합정리본.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">생태·온실가스·탄소중립·IPCC · 27 KB</div></div>
       </a>
@@ -437,10 +363,6 @@
   <div class="subject-block">
     <div class="subject-title title-select2">양서파충류 이야기 <span class="date">2026-04-16</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0416_양서파충류_정리본.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-select2" href="0416_양서파충류_정리본.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">11섹션 · 생명사·분류·생태 · 45 KB</div></div>
       </a>
@@ -516,10 +438,6 @@
   <div class="subject-block">
     <div class="subject-title title-etc">산림정책의이해 <span class="date">2026-03-05</span></div>
     <div class="file-list">
-      <div class="audio-player">
-        <div class="ap-label">🎵 음성 강의 <span class="ap-badge">ElevenLabs AI</span></div>
-        <audio controls src="audio/0305_산림정책의이해.mp3" preload="none"></audio>
-      </div>
       <a class="file-btn btn-etc" href="0305_산림정책의이해.html" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">핵심 요약 · 10 KB</div></div>
       </a>
@@ -578,160 +496,7 @@
   else if (sessionStorage.getItem('auth') === 'maint') { showMaint(); }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
-  let ttsChunks = [], ttsIdx = 0, ttsPaused = false, ttsRate = 1.0, ttsCurrentName = '';
-  let ttsVoice = null, ttsActive = false;
 
-  // 한국어 최적 음성 선택 (Yuna > Korean Neural > ko-KR 순)
-  function ttsBestVoice() {
-    if (ttsVoice) return ttsVoice;
-    const voices = window.speechSynthesis.getVoices();
-    const priority = ['Yuna', '유나', 'Korean', 'ko-KR Neural', 'Microsoft Heami'];
-    for (const p of priority) {
-      const v = voices.find(v => v.name.includes(p));
-      if (v) { ttsVoice = v; return v; }
-    }
-    ttsVoice = voices.find(v => v.lang.startsWith('ko')) || null;
-    return ttsVoice;
-  }
-  window.speechSynthesis.onvoiceschanged = () => { ttsVoice = null; ttsBestVoice(); };
-
-  function ttsExtractText(html) {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    doc.querySelectorAll('script, style, nav, header, .toc, [class*="toc"], [id*="toc"]').forEach(el => el.remove());
-
-    // 인라인 강조 span(.highlight-*, .hl-*)이 있는 부모 블록에 data-imp 마킹
-    doc.querySelectorAll('[class*="highlight-"],[class*="hl-"]').forEach(span => {
-      const block = span.closest('p,li,blockquote,td,dt,dd');
-      if (block) block.dataset.imp = '1';
-    });
-
-    const texts = [];
-    const included = new WeakSet();
-
-    // h1/h2/h3(섹션 제목) + 시험/핵심 박스 + 인라인강조 부모블록 — 문서 순서대로
-    doc.querySelectorAll(
-      'h1,h2,h3,' +
-      '.exam-box,.exam,.exam-tip,.key-box,' +
-      '[data-imp="1"]'
-    ).forEach(el => {
-      if (included.has(el)) return;
-      // 이미 포함된 exam/key 블록 안의 하위 [data-imp] 요소는 스킵
-      if (el.dataset && el.dataset.imp && el.closest('.exam-box,.exam,.exam-tip,.key-box')) return;
-      included.add(el);
-      el.querySelectorAll('*').forEach(c => included.add(c));
-
-      let t = el.textContent.replace(/\s+/g, ' ').trim();
-      if (!t) return;
-      // 헤딩 앞에 구분용 간격
-      if (el.matches('h1,h2,h3')) t = ' ' + t + '.';
-      texts.push(t);
-    });
-
-    let result = texts.join(' ');
-    result = result
-      .replace(/[★☆●○◆◇■□▲△▶▷◀◁→←↑↓]/g, ' ')
-      .replace(/[\u{1F300}-\u{1FFFF}]/gu, ' ')
-      .replace(/[📋📖📝🌿🦅📘🔊🔴]/g, ' ')
-      .replace(/\s{2,}/g, ' ')
-      .trim();
-    return result;
-  }
-
-  // 문장 단위로 끊어 자연스럽게 읽기
-  function ttsChunkText(text, maxLen = 300) {
-    const sentences = text.split(/(?<=[.!?。])\s+|(?<=다[.。])\s*|(?<=요[.。])\s*/);
-    const chunks = []; let cur = '';
-    for (const s of sentences) {
-      if (!s.trim()) continue;
-      if (cur.length + s.length < maxLen) {
-        cur += (cur ? ' ' : '') + s.trim();
-      } else {
-        if (cur) chunks.push(cur);
-        cur = s.trim();
-      }
-    }
-    if (cur) chunks.push(cur);
-    return chunks.filter(Boolean);
-  }
-
-  function ttsSpeak(idx) {
-    if (!ttsActive || idx >= ttsChunks.length) { ttsStop(); return; }
-    ttsIdx = idx;
-    const utter = new SpeechSynthesisUtterance(ttsChunks[idx]);
-    utter.lang = 'ko-KR';
-    utter.rate = ttsRate;
-    utter.pitch = 1.0;
-    const voice = ttsBestVoice();
-    if (voice) utter.voice = voice;
-    utter.onend = () => { if (ttsActive && !ttsPaused) ttsSpeak(ttsIdx + 1); };
-    utter.onerror = () => { if (ttsActive) ttsSpeak(ttsIdx + 1); };
-    const pct = Math.round((idx / ttsChunks.length) * 100);
-    document.getElementById('tts-progress').textContent = `${idx + 1}/${ttsChunks.length} (${pct}%)`;
-    window.speechSynthesis.speak(utter);
-  }
-
-  async function playTTS(url, name) {
-    ttsStop();
-    const btn = document.querySelector(`.tts-btn[data-url="${CSS.escape(url)}"]`);
-    if (btn) { btn.classList.add('loading'); btn.textContent = '⏳ 로딩...'; }
-    try {
-      const res = await fetch(url);
-      const html = await res.text();
-      const text = ttsExtractText(html);
-      if (!text) { alert('텍스트를 추출할 수 없습니다.'); return; }
-      ttsChunks = ttsChunkText(text);
-      ttsIdx = 0; ttsPaused = false; ttsActive = true; ttsCurrentName = name;
-      document.getElementById('tts-title').textContent = '🔊 ' + name;
-      document.getElementById('tts-bar').style.display = 'block';
-      document.getElementById('tts-playpause').textContent = '⏸ 일시정지';
-      ttsSpeak(0);
-    } catch(e) {
-      alert('음성 재생 오류: ' + e.message);
-    } finally {
-      if (btn) { btn.classList.remove('loading'); btn.innerHTML = '🔊 듣기'; }
-    }
-  }
-
-  function ttsToggle() {
-    const ss = window.speechSynthesis;
-    if (ss.speaking && !ss.paused) {
-      ss.pause(); ttsPaused = true;
-      document.getElementById('tts-playpause').textContent = '▶ 재생';
-    } else if (ss.paused) {
-      ss.resume(); ttsPaused = false;
-      document.getElementById('tts-playpause').textContent = '⏸ 일시정지';
-    }
-  }
-
-  function ttsStop() {
-    ttsActive = false;
-    ttsPaused = false;
-    window.speechSynthesis.cancel();
-    // Chrome 버그: paused 상태에서 cancel이 바로 안 먹힐 수 있어 한 번 더 호출
-    setTimeout(() => window.speechSynthesis.cancel(), 80);
-    ttsChunks = []; ttsIdx = 0;
-    document.getElementById('tts-bar').style.display = 'none';
-  }
-
-  function ttsChangeRate(val) {
-    ttsRate = parseFloat(val);
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      ttsSpeak(ttsIdx);
-    }
-  }
-
-  // 강의내용 정리본 링크에 🔊 듣기 버튼 동적 추가
-  document.querySelectorAll('.file-btn:not(.btn-quiz)').forEach(link => {
-    const url = link.getAttribute('href');
-    const name = link.closest('.subject-block')?.querySelector('.subject-title')?.childNodes[0]?.textContent?.trim() || url;
-    const btn = document.createElement('button');
-    btn.className = 'tts-btn';
-    btn.setAttribute('data-url', url);
-    btn.innerHTML = '🔊 듣기';
-    btn.onclick = (e) => { e.preventDefault(); playTTS(url, name); };
-    link.parentNode.appendChild(btn);
-  });
 </script>
 
 <div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
