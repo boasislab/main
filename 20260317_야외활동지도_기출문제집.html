@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>야외활동지도 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.7;color:#222;background:#f0f4f8}
+.container{max-width:860px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d5fa0,#5279b5);color:white;padding:24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:20px;font-weight:800;margin-bottom:4px}header .meta{font-size:13px;opacity:.9}
+.score-bar{background:white;border-radius:10px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.score-label{font-size:14px;color:#555}.score-val{font-size:22px;font-weight:800;color:#2d5fa0}
+.btn-reset{margin-left:auto;background:#e6ecf6;color:#1a2d50;border:0;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-reset:hover{background:#d6e1f0}
+.q-card{background:white;border-radius:12px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.07);border-left:5px solid #9bb4d8}
+.q-card.correct-card{border-left-color:#2f8f4e}.q-card.wrong-card{border-left-color:#d64545}
+.q-num{font-size:12px;font-weight:800;color:#2d5fa0;margin-bottom:6px;letter-spacing:.5px}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt-btn{display:block;width:100%;text-align:left;padding:10px 14px;border:1.5px solid #d8e0e8;border-radius:8px;background:#fbfcff;font-size:14px;cursor:pointer;color:#333;transition:all .15s}
+.opt-btn:hover:not(:disabled){border-color:#2d5fa0;background:#eef4ff}
+.opt-btn.selected-correct{background:#e7f5eb;border-color:#2f8f4e;color:#155724;font-weight:800}
+.opt-btn.selected-wrong{background:#fdecec;border-color:#d64545;color:#9f1d1d;font-weight:800}
+.opt-btn.show-answer{background:#e7f5eb;border-color:#2f8f4e;color:#155724;font-weight:800}
+.opt-btn:disabled{cursor:default}
+.explanation{margin-top:12px;background:#fff8e8;border-left:3px solid #d89000;border-radius:6px;padding:10px 14px;font-size:13px;color:#5d4037;display:none}
+.explanation.visible{display:block}
+.footer{text-align:center;margin-top:30px;padding-bottom:20px}.back-btn{display:inline-block;color:#777;font-size:.9em;text-decoration:none}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media print{.forest-back-link,.score-bar{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>야외활동지도 — 기출문제집</h1><div class="meta">50문항 · 클릭형 정답 확인 · 2026-03-17</div></header>
+<div class="score-bar"><span class="score-label">맞은 문항</span><span class="score-val" id="score">0 / 50</span><button class="btn-reset" onclick="resetAll()">다시 풀기</button></div>
+<div id="quiz"></div>
+<div class="footer"><a class="back-btn" href="forest.html?k=yyj1201">← 강의자료 목록으로</a></div>
+</div>
+<script>
+const QS = [
+  {
+    "q": "야외활동의 필요성을 설명하는 괴테의 말로 정리된 것은?",
+    "opts": [
+      "자연과 가까울수록 병에 멀어지고 자연과 멀어질수록 병과 가까워진다",
+      "자연은 언제나 위험하므로 피해야 한다",
+      "도시는 항상 숲보다 건강하다",
+      "야외활동은 교육 효과가 없다"
+    ],
+    "ans": 0,
+    "exp": "정리본 첫 부분은 괴테의 말을 통해 자연과 건강의 관계를 설명한다."
+  },
+  {
+    "q": "숲의 쾌적함에 대한 생리인류학적 이론의 관점은?",
+    "opts": [
+      "인간 신체기관이 오랜 진화 과정에서 숲 환경에 맞도록 만들어졌다는 관점",
+      "숲은 현대에 처음 생긴 환경이라는 관점",
+      "인간은 자연환경과 무관하다는 관점",
+      "도시 소음이 가장 안정적이라는 관점"
+    ],
+    "ans": 0,
+    "exp": "생리인류학적 이론은 인간이 오랜 기간 숲 환경에 적응해 왔다고 본다."
+  },
+  {
+    "q": "집단무의식 이론과 관련된 인물은?",
+    "opts": [
+      "K. G. Jung",
+      "Freeman Tilden",
+      "E. O. Wilson",
+      "Kaplan"
+    ],
+    "ans": 0,
+    "exp": "집단무의식은 K. G. Jung, 칼 융과 관련된다."
+  },
+  {
+    "q": "바이오필리아(Biophilia)를 설명한 인물로 정리된 것은?",
+    "opts": [
+      "E. O. Wilson",
+      "괴테",
+      "사토우 교수",
+      "김백윤"
+    ],
+    "ans": 0,
+    "exp": "바이오필리아는 E. O. Wilson의 생명사랑, 생명호성 개념으로 정리된다."
+  },
+  {
+    "q": "바이오필리아의 의미로 가장 적절한 것은?",
+    "opts": [
+      "자연과 생명에 대한 사랑 또는 생명호성",
+      "위험요소를 제거하는 점검표",
+      "응급처치 절차",
+      "기상악화 대응 계획"
+    ],
+    "ans": 0,
+    "exp": "바이오필리아는 자연과 사랑의 합성어로 생명사랑·생명호성을 뜻한다."
+  },
+  {
+    "q": "사바나 이론의 핵심 설명으로 적절한 것은?",
+    "opts": [
+      "서식환경에 대한 애정",
+      "숲에서의 독초 구분",
+      "119 신고 절차",
+      "곤충 채집 방법"
+    ],
+    "ans": 0,
+    "exp": "사바나 이론은 서식환경에 대한 애정과 관련된다."
+  },
+  {
+    "q": "주의회복 이론을 설명한 인물은?",
+    "opts": [
+      "Kaplan",
+      "Freeman Tilden",
+      "E. O. Wilson",
+      "Goethe"
+    ],
+    "ans": 0,
+    "exp": "주의회복 이론은 Kaplan과 관련된다."
+  },
+  {
+    "q": "주의회복 이론에서 주의피로 회복에 대표적인 환경은?",
+    "opts": [
+      "숲",
+      "공사장",
+      "교통혼잡 도로",
+      "밀폐된 회의실"
+    ],
+    "ans": 0,
+    "exp": "정리본은 주의피로 후 주의 회복의 대표적인 환경을 숲으로 설명한다."
+  },
+  {
+    "q": "산림치유 효과의 기본 흐름으로 옳은 것은?",
+    "opts": [
+      "스트레스 상태 → 산림치유 → 스트레스 경감 → 면역성 증가",
+      "스트레스 상태 → 소음 증가 → 면역성 감소",
+      "산림치유 → 위험요소 증가 → 피로 증가",
+      "숲 방문 → 즉시 응급상황 발생"
+    ],
+    "ans": 0,
+    "exp": "산림치유는 스트레스를 줄이고 자가면역력과 회복능력을 높이는 흐름으로 정리된다."
+  },
+  {
+    "q": "숲의 치유자원으로 보기 어려운 것은?",
+    "opts": [
+      "소음 공해",
+      "경관",
+      "향기",
+      "계곡 소리"
+    ],
+    "ans": 0,
+    "exp": "치유자원에는 경관, 향기, 광선, 색깔, 지형, 계곡, 소리, 음이온, 약초 등이 포함된다."
+  },
+  {
+    "q": "숲에서 깨어나는 행복 호르몬으로 정리된 것은?",
+    "opts": [
+      "세로토닌",
+      "아드레날린",
+      "인슐린",
+      "히스타민"
+    ],
+    "ans": 0,
+    "exp": "정리본은 숲에서 깨어나는 행복 호르몬으로 세로토닌을 언급한다."
+  },
+  {
+    "q": "알파파와 관련된 상태로 정리된 것은?",
+    "opts": [
+      "휴식",
+      "스트레스",
+      "일/공부",
+      "숙면"
+    ],
+    "ans": 0,
+    "exp": "표에서는 알파파를 휴식과 연결한다."
+  },
+  {
+    "q": "감마파와 관련된 상태로 정리된 것은?",
+    "opts": [
+      "스트레스",
+      "휴식",
+      "졸림",
+      "숙면"
+    ],
+    "ans": 0,
+    "exp": "표에서는 감마파를 스트레스와 연결한다."
+  },
+  {
+    "q": "피톤치드의 어원 설명으로 옳은 것은?",
+    "opts": [
+      "phyton(식물) + cide(죽이다)",
+      "photo(빛) + synthesis(합성)",
+      "bio(생명) + philia(사랑)",
+      "eco(집) + logos(배우다)"
+    ],
+    "ans": 0,
+    "exp": "피톤치드는 phyton(식물)과 cide(죽이다)의 합성어로 정리된다."
+  },
+  {
+    "q": "피톤치드의 치유효과로 정리된 것은?",
+    "opts": [
+      "NK세포 활성화",
+      "주의력 완전 소모",
+      "스트레스 증가",
+      "공기오염 증가"
+    ],
+    "ans": 0,
+    "exp": "정리본은 피톤치드가 암세포를 죽이는 NK세포 활성화와 관련된다고 정리한다."
+  },
+  {
+    "q": "아카시아 꽃향기와 관련해 정리된 효과는?",
+    "opts": [
+      "백일해와 결핵균 사멸효과",
+      "말벌 회피 효과",
+      "저체온 유발",
+      "미세먼지 증가"
+    ],
+    "ans": 0,
+    "exp": "정리본은 아카시아 꽃향기를 백일해와 결핵균 사멸효과와 연결한다."
+  },
+  {
+    "q": "솔잎과 관련해 정리된 효과는?",
+    "opts": [
+      "디프테리아균 사멸효과",
+      "멧돼지 유인효과",
+      "꽃가루 지수 증가",
+      "독버섯 판별"
+    ],
+    "ans": 0,
+    "exp": "솔잎은 디프테리아균 사멸효과로 정리되어 있다."
+  },
+  {
+    "q": "송진과 관련해 정리된 효과는?",
+    "opts": [
+      "세균과 곰팡이 성장 억제, 기침과 가래 완화",
+      "뱀 독 제거",
+      "진드기 자동 제거",
+      "말벌집 제거"
+    ],
+    "ans": 0,
+    "exp": "송진은 세균·곰팡이 성장 억제와 기침·가래 완화 효과로 정리된다."
+  },
+  {
+    "q": "숲의 치유효과 연구 중 청각자극실험의 비교 대상으로 적절한 것은?",
+    "opts": [
+      "치과 진료 소리와 자연의 소리",
+      "독사와 말벌",
+      "등산화와 장갑",
+      "꽃가루와 미세먼지"
+    ],
+    "ans": 0,
+    "exp": "청각자극실험은 치과 진료 소리와 자연의 소리를 비교한 내용으로 정리된다."
+  },
+  {
+    "q": "백색소음으로 예시된 자연의 소리는?",
+    "opts": [
+      "새소리와 계곡물 흐르는 소리",
+      "자동차 경적",
+      "공사장 소음",
+      "응급차 사이렌만"
+    ],
+    "ans": 0,
+    "exp": "정리본은 새소리, 계곡물 흐르는 소리 등을 편안한 자연의 소리로 예시한다."
+  },
+  {
+    "q": "유아 대상 야외활동의 교육적 효과로 보기 어려운 것은?",
+    "opts": [
+      "무조건 경쟁심만 강화",
+      "인성발달",
+      "인지발달",
+      "의사소통기술 발달"
+    ],
+    "ans": 0,
+    "exp": "유아 대상 효과에는 인성발달, 적응행동 도움, 심미감, 인지발달, 의사소통기술, 감각운동 발달 등이 있다."
+  },
+  {
+    "q": "어린이를 대상으로 하는 해설 원칙으로 옳은 것은?",
+    "opts": [
+      "가르치기보다 함께 나누기",
+      "반응을 무시하기",
+      "체험보다 설명만 먼저 하기",
+      "즐기는 것을 배제하기"
+    ],
+    "ans": 0,
+    "exp": "어린이 해설 원칙에는 가르치기보다 함께 나누기, 반응에 민감할 것, 체험이 먼저 등이 있다."
+  },
+  {
+    "q": "어린이 해설 원칙 중 체험과 해설의 관계로 옳은 것은?",
+    "opts": [
+      "체험이 먼저, 해설은 그 다음",
+      "해설만 하고 체험은 하지 않음",
+      "암기 후 체험 금지",
+      "자료 배포만 우선"
+    ],
+    "ans": 0,
+    "exp": "정리본은 어린이 해설에서 체험이 먼저, 해설은 그 다음이라고 정리한다."
+  },
+  {
+    "q": "청소년 대상 야외활동에서 중요하다고 표시된 것은?",
+    "opts": [
+      "상호작용",
+      "일방적 강의만",
+      "위험요소 무시",
+      "휴식 금지"
+    ],
+    "ans": 0,
+    "exp": "청소년 대상 해설은 상호작용이 중요하다고 강조되어 있다."
+  },
+  {
+    "q": "성인 대상 야외활동의 효과로 정리된 것은?",
+    "opts": [
+      "만성질환 예방과 건강증진 효과",
+      "놀이 금지",
+      "인지발달 배제",
+      "감각운동 저하"
+    ],
+    "ans": 0,
+    "exp": "성인 대상 효과는 만성질환 예방과 건강증진으로 정리된다."
+  },
+  {
+    "q": "야외활동 안내자로서 숲해설가의 기본자세가 아닌 것은?",
+    "opts": [
+      "위험요소 방치",
+      "인간과 자연에 대한 존중과 사랑",
+      "긍정적인 마음과 태도",
+      "책임감"
+    ],
+    "ans": 0,
+    "exp": "기본자세에는 존중과 사랑, 긍정적 태도, 책임감, 연구와 노력, 의사소통, 대상 이해 등이 포함된다."
+  },
+  {
+    "q": "숲해설가의 기본자세 중 안전과 연관된 항목으로 정리된 것은?",
+    "opts": [
+      "기초 운동능력",
+      "파일 전송능력",
+      "화면 디자인",
+      "음성 재생"
+    ],
+    "ans": 0,
+    "exp": "기초 운동능력은 안전과 연관된 항목으로 정리되어 있다."
+  },
+  {
+    "q": "21세기 환경해설 원칙과 관련된 인물은?",
+    "opts": [
+      "프리만 틸든",
+      "칼 융",
+      "사토우 교수",
+      "괴테"
+    ],
+    "ans": 0,
+    "exp": "정리본은 21세기 환경 해설의 원칙으로 프리만 틸든을 언급한다."
+  },
+  {
+    "q": "안전지침 중 사전준비에 해당하는 것은?",
+    "opts": [
+      "야외활동 장소 답사와 안전점검",
+      "위험요소 발견 후 방치",
+      "구급약품 미준비",
+      "비상연락망 생략"
+    ],
+    "ans": 0,
+    "exp": "사전준비에는 장소 답사와 안전점검, 위험요소 파악 제거, 구급약품 체크, 비상연락망 등이 포함된다."
+  },
+  {
+    "q": "아는 장소라도 안전점검을 해야 하는 이유로 적절한 것은?",
+    "opts": [
+      "변수가 있을 수 있기 때문",
+      "안전점검은 형식이기 때문",
+      "답사는 금지되어 있기 때문",
+      "위험요소가 절대 없기 때문"
+    ],
+    "ans": 0,
+    "exp": "정리본은 아는 장소라도 변수가 있을 수 있어 전날 필수 점검과 당일 조기 도착을 권한다."
+  },
+  {
+    "q": "야외활동 안전 복장으로 정리된 것은?",
+    "opts": [
+      "발목까지 올라온 신발, 긴 팔, 긴 바지, 모자",
+      "샌들, 반바지, 민소매",
+      "맨발, 짧은 옷",
+      "복장은 상관없음"
+    ],
+    "ans": 0,
+    "exp": "안전한 복장에는 발목까지 올라온 신발, 긴 팔, 긴 바지, 모자가 포함된다."
+  },
+  {
+    "q": "야외활동 중 안전 지도에 해당하는 것은?",
+    "opts": [
+      "준비운동, 안전교육, 기상악화 대응",
+      "무리한 활동 강행",
+      "날씨 무시",
+      "응급상황 신고 금지"
+    ],
+    "ans": 0,
+    "exp": "활동 중에는 준비운동, 안전교육, 기상악화 대응 방안이 필요하다."
+  },
+  {
+    "q": "큰 부상이 발생한 경우 조치로 옳은 것은?",
+    "opts": [
+      "응급처치 후 119 연락",
+      "귀가 조치만",
+      "운동 계속",
+      "현장 방치"
+    ],
+    "ans": 0,
+    "exp": "정리본은 응급처치 후 큰 부상일 경우 119 연락을 강조한다."
+  },
+  {
+    "q": "독사 위험이 특히 높다고 정리된 시기는?",
+    "opts": [
+      "9월경",
+      "1월경",
+      "한겨울",
+      "장마 직전만"
+    ],
+    "ans": 0,
+    "exp": "정리본은 9월경 뱀의 독이 가장 위험하고 물릴 가능성이 높다고 정리한다."
+  },
+  {
+    "q": "독사에 물렸을 때 우선 조치로 옳은 것은?",
+    "opts": [
+      "환자를 안정시키고 뱀과 멀리 떨어진 안전한 장소로 옮긴다",
+      "상처를 칼로 절개한다",
+      "입으로 독을 빨아낸다",
+      "환자를 뛰게 한다"
+    ],
+    "ans": 0,
+    "exp": "독사 응급처치는 환자 안정과 안전한 장소 이동이 우선이다."
+  },
+  {
+    "q": "독사 교상 처치에서 금지되는 행위는?",
+    "opts": [
+      "상처를 칼로 절개하거나 입으로 빠는 행위",
+      "환자 안정",
+      "119 신고",
+      "독사로 가정한 응급처치"
+    ],
+    "ans": 0,
+    "exp": "상처 절개나 입으로 빠는 행위는 감염 위험을 높이므로 시행하지 않는다."
+  },
+  {
+    "q": "어떤 뱀에 물렸는지 모를 때 조치로 옳은 것은?",
+    "opts": [
+      "독사로 가정하여 응급처치",
+      "무조건 무독성으로 판단",
+      "증상이 없으면 방치",
+      "상처를 문지름"
+    ],
+    "ans": 0,
+    "exp": "뱀 종류를 모르면 독사로 가정해 응급처치를 시행한다."
+  },
+  {
+    "q": "말벌 안전 수칙에서 적절한 행동은?",
+    "opts": [
+      "말벌을 자극하지 않고 벌집 발견 시 접근하지 않기",
+      "벌집을 흔들어 확인",
+      "향이 강한 화장품을 많이 사용",
+      "검은색 옷을 일부러 착용"
+    ],
+    "ans": 0,
+    "exp": "말벌 안전은 자극하지 않고 벌집에 접근하지 않는 것이 핵심이다."
+  },
+  {
+    "q": "말벌에 쏘인 과거력이 있는 사람의 위험으로 정리된 것은?",
+    "opts": [
+      "호흡기가 부어 질식할 수 있어 응급실로 빠르게 이송",
+      "위험이 전혀 없음",
+      "물만 마시면 충분",
+      "운동하면 회복"
+    ],
+    "ans": 0,
+    "exp": "과거력이 있는 사람은 호흡기 부종과 질식 위험이 있어 빠른 이송이 필요하다."
+  },
+  {
+    "q": "진드기 안전 수칙으로 옳은 것은?",
+    "opts": [
+      "긴 옷 착용, 풀밭 눕기 피하기, 활동 후 확인",
+      "짧은 옷 착용",
+      "풀밭에 바로 눕기",
+      "진드기 물림 방치"
+    ],
+    "ans": 0,
+    "exp": "진드기는 긴 옷, 노출 최소화, 활동 후 확인 등으로 예방한다."
+  },
+  {
+    "q": "멧돼지를 만났을 때 적절한 태도는?",
+    "opts": [
+      "자극하지 않고 안전거리를 유지하며 침착하게 피한다",
+      "큰소리로 쫓아간다",
+      "먹이를 준다",
+      "사진을 찍기 위해 접근한다"
+    ],
+    "ans": 0,
+    "exp": "멧돼지는 자극하지 않고 안전거리를 유지하며 침착하게 피해야 한다."
+  },
+  {
+    "q": "미세먼지가 심할 때 야외활동 지도 방안으로 옳은 것은?",
+    "opts": [
+      "마스크 착용과 정적인 프로그램 위주 운영",
+      "강도 높은 달리기",
+      "기상 상황 무시",
+      "야외활동 강행만"
+    ],
+    "ans": 0,
+    "exp": "정리본은 미세먼지가 심할 때 마스크 착용과 정적인 프로그램 위주 운영을 예시한다."
+  },
+  {
+    "q": "미세먼지 위험 설명으로 정리된 것은?",
+    "opts": [
+      "교통사고 사망자보다 공기오염 사망자가 많다는 비교",
+      "공기오염은 건강과 무관",
+      "미세먼지는 숲에서만 발생",
+      "마스크는 항상 금지"
+    ],
+    "ans": 0,
+    "exp": "정리본은 미세먼지 위험을 교통사고 사망자와 공기오염 사망자 비교로 강조한다."
+  },
+  {
+    "q": "꽃가루 위험지수가 높을 때 지도 방안으로 옳은 것은?",
+    "opts": [
+      "외출 자제",
+      "야외 장시간 활동 권장",
+      "마스크 금지",
+      "증상 무시"
+    ],
+    "ans": 0,
+    "exp": "꽃가루 위험지수가 높음일 때는 외출자제가 필요하다."
+  },
+  {
+    "q": "독초 위험 지도에서 적절한 조치는?",
+    "opts": [
+      "맹독성 식물 접촉 시 바로 맑은 물로 씻어내기",
+      "독초를 맛보기",
+      "확인 없이 먹기",
+      "아이들에게 채취 권장"
+    ],
+    "ans": 0,
+    "exp": "맹독성 식물은 위험하므로 바로 맑은 물로 씻어내는 조치가 정리되어 있다."
+  },
+  {
+    "q": "독버섯 관련 지도에서 중요한 것은?",
+    "opts": [
+      "잘못 알려진 독버섯 상식을 경계한다",
+      "민간 속설만 믿는다",
+      "색이 예쁘면 먹어도 된다",
+      "벌레 먹은 버섯은 무조건 안전하다"
+    ],
+    "ans": 0,
+    "exp": "정리본은 잘못 알고 있는 독버섯에 대한 위험한 상식을 경계한다."
+  },
+  {
+    "q": "야외활동 위험요소 모니터링의 의미로 옳은 것은?",
+    "opts": [
+      "숲에서 이루어지는 야외활동 공간 속 위험요소를 살피고 관리하는 것",
+      "활동 후 사진만 정리하는 것",
+      "기출문제를 만드는 것",
+      "비밀번호를 관리하는 것"
+    ],
+    "ans": 0,
+    "exp": "위험요소 모니터링은 야외활동 공간 속 위험요소를 파악하고 관리하는 일이다."
+  },
+  {
+    "q": "위험요소 모니터링 기법에 포함될 수 있는 활동은?",
+    "opts": [
+      "현장 관찰과 체크리스트 활용",
+      "위험요소 숨기기",
+      "보고서 생략",
+      "비상연락망 삭제"
+    ],
+    "ans": 0,
+    "exp": "정리본은 위험요소 모니터링 기법과 체크리스트 결과 보고서 작성을 다룬다."
+  },
+  {
+    "q": "위험요소 모니터링 및 체크리스트 후 필요한 산출물은?",
+    "opts": [
+      "결과 보고서",
+      "사진 꾸미기",
+      "출석부만",
+      "음성파일"
+    ],
+    "ans": 0,
+    "exp": "정리본은 위험요소 모니터링 및 체크리스트 결과 보고서 작성을 언급한다."
+  },
+  {
+    "q": "야외활동지도 과목의 핵심으로 가장 적절한 것은?",
+    "opts": [
+      "건강증진 효과 이해와 안전한 야외활동 운영",
+      "실내 강의만 운영",
+      "위험요소 무시",
+      "응급처치와 안전교육 배제"
+    ],
+    "ans": 0,
+    "exp": "야외활동지도는 숲의 건강증진 효과와 대상별 교육효과, 안전점검과 위험요소 대처를 함께 다룬다."
+  }
+];
+let answered = new Array(QS.length).fill(false);
+let correct = new Array(QS.length).fill(false);
+function render() {
+  const wrap=document.getElementById('quiz');
+  wrap.innerHTML=QS.map((item,idx)=>`<div class="q-card" id="qcard-${idx}"><div class="q-num">문항 ${idx+1}</div><div class="q-text">${item.q}</div><div class="options">${item.opts.map((opt,oi)=>`<button class="opt-btn" onclick="choose(${idx}, ${oi})">${['①','②','③','④'][oi]} ${opt}</button>`).join('')}</div><div class="explanation" id="exp-${idx}">${item.exp}</div></div>`).join('');
+}
+function choose(qi,oi) {
+  if(answered[qi]) return; answered[qi]=true; correct[qi]=oi===QS[qi].ans;
+  const card=document.getElementById(`qcard-${qi}`); card.classList.add(correct[qi]?'correct-card':'wrong-card');
+  const btns=card.querySelectorAll('.opt-btn');
+  btns.forEach((btn,bi)=>{ btn.disabled=true; if(bi===QS[qi].ans) btn.classList.add('show-answer'); if(bi===oi&&bi===QS[qi].ans) btn.classList.add('selected-correct'); if(bi===oi&&bi!==QS[qi].ans) btn.classList.add('selected-wrong'); });
+  document.getElementById(`exp-${qi}`).classList.add('visible'); updateScore();
+}
+function updateScore() { document.getElementById('score').textContent=`${correct.filter(Boolean).length} / ${QS.length}`; }
+function resetAll() { answered.fill(false); correct.fill(false); render(); updateScore(); window.scrollTo({top:0,behavior:'smooth'}); }
+render();
+</script>
+</body>
+</html>
