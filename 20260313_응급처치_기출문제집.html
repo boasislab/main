@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20260313 응급처치 기출문제집</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 960px; margin: 0 auto; padding: 22px; background: #f7f8fb; color: #263241; line-height: 1.7; }
+  h1 { background: #9f2f2f; color: white; padding: 22px 24px; border-radius: 10px; text-align: center; margin: 0 0 10px; font-size: 1.8em; }
+  .subtitle { text-align: center; color: #667085; font-size: 0.94em; margin-bottom: 16px; }
+  .intro { background: #ffffff; border: 1px solid #ead7d7; border-left: 5px solid #9f2f2f; border-radius: 10px; padding: 18px 20px; margin: 18px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .stats { text-align: center; margin: 12px 0 16px; font-size: 1.05em; color: #40516a; }
+  .progress-bar { background: #d8dee9; border-radius: 10px; height: 14px; margin: 10px 0 24px; overflow: hidden; }
+  .progress-fill { background: #9f2f2f; height: 14px; width: 0%; transition: width 0.25s ease; }
+  .section-header { background: #9f2f2f; color: white; padding: 12px 18px; border-radius: 10px; margin: 30px 0 12px; font-weight: 800; }
+  .question-card { background: white; border: 1px solid #e2e7ef; border-left: 5px solid #b85656; border-radius: 10px; padding: 20px 22px; margin: 14px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .question-num { font-size: 0.84em; color: #718096; margin-bottom: 7px; }
+  .question-text { font-size: 1.04em; font-weight: 800; margin-bottom: 14px; color: #1f2d3d; }
+  .options { list-style: none; padding: 0; margin: 0; }
+  .options li { padding: 10px 14px; margin: 7px 0; border-radius: 8px; border: 1.5px solid #d8dee9; cursor: pointer; transition: all 0.18s; }
+  .options li:hover { background: #fff3f3; border-color: #b85656; }
+  .options li.correct { background: #dff3e6; border-color: #2e7d32; color: #174b22; font-weight: 800; }
+  .options li.wrong { background: #fde3e3; border-color: #d32f2f; color: #8a1c1c; }
+  .explanation { display: none; margin-top: 14px; padding: 12px 15px; background: #fff8e1; border-left: 4px solid #f57f17; border-radius: 6px; font-size: 0.93em; }
+  .explanation.show { display: block; }
+  .exam-tip-badge { display: inline-block; background: #d32f2f; color: white; font-size: 0.72em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .final-score { display: none; background: #9f2f2f; color: white; text-align: center; padding: 24px; border-radius: 12px; margin: 30px 0; font-size: 1.15em; }
+  .final-score.show { display: block; }
+  .metadata { color: #6b7280; font-size: 0.9em; margin-top: 36px; padding-top: 18px; border-top: 1px solid #d8dee9; }
+  @media (max-width: 720px) { body { padding: 14px; } h1 { font-size: 1.45em; } .question-card { padding: 16px; } }
+</style>
+
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+
+<h1>20260313 응급처치 기출문제집</h1>
+<p class="subtitle">김백윤 강의 정리본 기반 | 총 50문항 | 클릭형 정답·해설</p>
+
+<div class="intro">
+  <p><strong>출제 범위:</strong> 20260313_응급처치_정리본.html</p>
+  <p><strong>구성:</strong> 8개 섹션, 총 50문항</p>
+  <p><strong>핵심:</strong> 응급처치 목적, 4C·STOP, 쇼크, 심폐소생술, AED, 기도폐쇄, 출혈·상처, 감염예방, 드레싱·붕대, 염좌/RICE, 저체온증, 환자 이송</p>
+</div>
+
+<div class="stats">진행: <span id="answered">0</span> / 50 &nbsp;|&nbsp; 정답: <span id="correct-count">0</span> &nbsp;|&nbsp; 정답률: <span id="score">0</span>%</div>
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<div id="questions"></div>
+<div class="final-score" id="finalScore"></div>
+
+<div class="metadata">
+  <p><strong>작성일:</strong> 2026-07-07</p>
+  <p><strong>원본:</strong> 20260313_응급처치_정리본.html</p>
+  <p><strong>원칙:</strong> 정리본과 Gnote 별표/중요 표시 내용만 기준으로 출제</p>
+</div>
+
+<script>
+const sections = [
+  { title: '섹션 1. 응급처치 정의와 행동요령', count: 7 },
+  { title: '섹션 2. 쇼크와 심장발작', count: 5 },
+  { title: '섹션 3. 심폐소생술과 AED', count: 10 },
+  { title: '섹션 4. 기도폐쇄 처치', count: 6 },
+  { title: '섹션 5. 출혈과 상처 응급처치', count: 5 },
+  { title: '섹션 6. 감염예방·드레싱·붕대', count: 8 },
+  { title: '섹션 7. 염좌·저체온증', count: 5 },
+  { title: '섹션 8. 환자 이송과 예상문제', count: 4 }
+];
+
+const questions = [
+  {s:1, tip:true, q:'응급처치(First Aid)의 정의로 옳은 것은?', o:['응급상황으로부터 자신을 보호하거나 부상자를 임시 처치하는 것','전문 의료진만 시행하는 수술 행위','환자를 무조건 이동시키는 것','약물을 투여해 질병을 완치하는 것'], a:0, e:'정리본은 응급처치를 응급상황으로부터 자기 자신을 보호하거나 부상자를 임시 처치하는 것으로 설명한다.'},
+  {s:1, q:'응급처치의 목적에 해당하지 않는 것은?', o:['고통 경감','악화 방지','생명 유지','환자 방치'], a:3, e:'목적은 고통 경감, 악화 방지, 회복 촉진, 생명 유지, 치료비 절감 등이다.'},
+  {s:1, tip:true, q:'Gnote 예상문제에서 응급처치 목적 4가지로 정리된 조합은?', o:['환자 통증 경감, 증상 악화 방지, 생명 유지, 치료비 절감','환자 이동, 약물 투여, 진단, 수술','사진 촬영, 기록 보관, 귀가 조치, 현장 정리','현장 이탈, 신고 지연, 환자 방치, 음료 제공'], a:0, e:'Gnote 예상문제는 목적을 환자의 통증 경감, 증상의 악화 방지, 생명의 유지, 치료비 절감으로 정리했다.'},
+  {s:1, tip:true, q:'응급상황 행동요령 4C의 올바른 조합은?', o:['Check, Conclusion, Call, Care','Check, Carry, Close, Cancel','Care, Cure, Clean, Cover','Call, Cut, Cool, Compress'], a:0, e:'4C는 Check(응급상황 인지), Conclusion(행동 결정), Call(119 신고), Care(응급처치 시행)이다.'},
+  {s:1, q:'긴급 상황 행동 절차의 올바른 순서는?', o:['응급상황 인지 → 행동 결정 → 119 신고 → 응급처치 시행','119 신고 → 현장 이탈 → 환자 이동 → 관찰','응급처치 시행 → 행동 결정 → 신고 → 상황 인지','환자 이동 → 음료 제공 → 사진 촬영 → 신고'], a:0, e:'정리본은 긴급 상황 행동 절차를 응급상황 인지, 행동 결정, 119 신고, 응급처치 시행 순서로 정리한다.'},
+  {s:1, tip:true, q:'긴급 상황에서 가장 중요한 절차로 표시된 것은?', o:['119에 전화','환자에게 음료 제공','환자를 무조건 옮김','현장을 떠남'], a:0, e:'Gnote 예상문제에서 긴급 상황 시 가장 중요한 절차는 119에 전화하는 것으로 정리되어 있다.'},
+  {s:1, q:'STOP 원칙 중 Think의 의미로 옳은 것은?', o:['문제 해결의 올바른 행동 과정을 생각하고 자기 안전을 우선한다','무조건 뛰어간다','환자에게 음료를 준다','상처를 만져 확인한다'], a:0, e:'STOP 원칙의 Think는 올바른 행동 과정을 생각하고 자기 안전을 우선하는 것이다.'},
+
+  {s:2, tip:true, q:'쇼크의 3가지 응급처치로 정리된 것은?', o:['자세, 보온, 음료','압박, 절개, 주사','이동, 운동, 식사','마사지, 목욕, 수면'], a:0, e:'쇼크 처치는 주관식 출제 가능성이 높은 부분으로 자세, 보온, 음료로 정리되어 있다.'},
+  {s:2, q:'쇼크 환자에게 음료를 주지 말아야 하는 경우는?', o:['의식이 없거나 희미한 환자, 수술 예상 환자','말을 또렷하게 하는 환자 모두','가벼운 찰과상 환자','정상적으로 걷는 사람'], a:0, e:'의식이 없거나 희미한 환자, 수술 예상 환자에게는 음료를 주지 않는다.'},
+  {s:2, q:'일사병·열사병 등 높은 열에 의한 환자의 보온 처치로 옳은 것은?', o:['시원하게 한다','두꺼운 담요로 더 덮는다','뜨거운 음료를 반드시 준다','운동을 시킨다'], a:0, e:'정리본은 정상체온 유지를 말하지만, 일사병·열사병 등 높은 열에 의한 환자는 시원하게 한다고 구분한다.'},
+  {s:2, q:'심장발작 증상으로 정리된 것은?', o:['계속되는 가슴 답답함, 호흡곤란, 식은땀','손톱 밑 오염만','발목 부종만','피부 찰과상만'], a:0, e:'심장발작 증상에는 계속되는 가슴 답답함, 호흡곤란, 식은땀, 가슴 중앙에서 팔 등으로 고통 전이가 포함된다.'},
+  {s:2, q:'심장발작 유발 위험인자로 정리된 것은?', o:['흡연, 고혈압, 비만, 당뇨, 고지혈증','손씻기, 휴식, 드레싱','소독, 붕대, 냉찜질','호흡 확인, 가슴압박'], a:0, e:'위험인자에는 흡연, 고혈압, 비만, 당뇨, 고지혈증, 식습관, 비활동성, 피로·과로, 스트레스, 유전 등이 있다.'},
+
+  {s:3, tip:true, q:'심폐소생술의 설명으로 옳은 것은?', o:['인공호흡으로 폐 기능을, 흉부압박으로 심장 기능을 대신하는 응급처치술','상처를 덮어 보호하는 처치','관절 조직 손상 처치','저체온 환자에게 음료만 주는 처치'], a:0, e:'심폐소생술은 인공호흡으로 폐의 기능을 대신하고 흉부압박으로 심장의 기능을 대신하는 응급처치술이다.'},
+  {s:3, q:'심정지 후 시간별 손상에서 10분 이상 경과 시 가능성으로 정리된 것은?', o:['뇌사 가능','손상 없음','손상 가능만 있음','완전 회복 보장'], a:0, e:'0~4분 손상 없음, 4~6분 손상 가능, 6~10분 손상 확실, 10분 이상은 뇌사 가능으로 정리되어 있다.'},
+  {s:3, q:'소생의 사슬에 포함되지 않는 것은?', o:['심장정지 인지 및 구조 요청','목격자 심폐소생술','제세동','환자 방치'], a:3, e:'소생의 사슬은 심장정지 인지 및 구조 요청, 목격자 심폐소생술, 제세동, 전문소생술, 소생 후 치료이다.'},
+  {s:3, tip:true, q:'성인 가슴압박 위치로 옳은 것은?', o:['가슴뼈 아래쪽 1/2','목 중앙','복부 중앙','허벅지 안쪽'], a:0, e:'일반구조자 심폐소생술 주요 내용에서 가슴압박 위치는 가슴뼈 아래쪽 1/2이다.'},
+  {s:3, tip:true, q:'성인 가슴압박 깊이로 정리된 것은?', o:['약 5cm','약 1cm','약 10cm 이상','깊이는 상관없음'], a:0, e:'성인 가슴압박 깊이는 약 5cm로 정리되어 있다.'},
+  {s:3, tip:true, q:'가슴압박 속도로 옳은 것은?', o:['분당 100~120회','분당 20~30회','분당 200회 이상','속도 제한 없음'], a:0, e:'성인, 소아, 영아 모두 가슴압박 속도는 분당 100~120회로 정리되어 있다.'},
+  {s:3, tip:true, q:'표준 심폐소생술 비율로 옳은 것은?', o:['가슴압박 30 : 인공호흡 2','가슴압박 5 : 인공호흡 5','가슴압박 1 : 인공호흡 1','인공호흡만 계속'], a:0, e:'표준 심폐소생술 비율은 가슴압박 30회, 인공호흡 2회이다.'},
+  {s:3, q:'영아 가슴압박 방법으로 정리된 것은?', o:['두 손가락','두 손','한 손 주먹','발뒤꿈치'], a:0, e:'영아는 두 손가락으로 가슴압박을 한다.'},
+  {s:3, tip:true, q:'심폐소생술을 실시해야 하는 호흡 상태로 옳은 것은?', o:['호흡이 없거나 비정상 호흡일 때','정상 호흡이 명확할 때','기침을 잘하고 말할 때','가벼운 찰과상만 있을 때'], a:0, e:'Gnote 중요 필기는 무호흡 외에도 비정상 호흡이면 심폐소생술을 실시한다고 강조한다.'},
+  {s:3, q:'자동제세동기(AED)에 대한 설명으로 옳은 것은?', o:['급성 심정지 등에서 전기 충격으로 심장을 다시 뛸 수 있게 돕는 장치','상처를 덮는 거즈','체온을 낮추는 얼음주머니','관절을 고정하는 붕대'], a:0, e:'AED는 급성 심정지 또는 심장박동 기능을 잃은 사람에게 전기 충격을 가해 심장을 회복시킬 수 있는 장치이다.'},
+
+  {s:4, q:'부분 기도폐쇄의 설명으로 옳은 것은?', o:['호흡이 가능하면 기침을 세게 할 수 있다','말과 호흡이 모두 불가능하다','항상 즉시 복부 밀어내기만 한다','청색증만 보고 판단한다'], a:0, e:'부분 기도폐쇄는 호흡이 가능한 경우 기침을 세게 할 수 있으며, 이물질을 뱉어내려 하면 방해하지 않는다.'},
+  {s:4, q:'완전 기도폐쇄의 특징으로 옳은 것은?', o:['말할 수 없고 호흡이나 기침을 할 수 없다','기침을 자유롭게 할 수 있다','상처 표면만 손상된다','체온이 35도 이하이다'], a:0, e:'완전 기도폐쇄는 말할 수 없고 호흡이나 기침을 할 수 없으며 목을 움켜쥐는 동작이 나타날 수 있다.'},
+  {s:4, tip:true, q:'성인 및 1세 이상 이물질 기도폐쇄 처치에서 우선 시행하는 것은?', o:['등 두드리기 5회','온찜질 5분','드레싱 제거','음료 제공'], a:0, e:'별표 포인트는 성인 및 1세 이상 기도폐쇄 시 등 두드리기 5회를 우선 시행하는 것이다.'},
+  {s:4, tip:true, q:'등 두드리기가 효과 없을 때 시행하는 처치로 옳은 것은?', o:['복부 밀어내기 5회(하임리히법)','환자에게 물 마시게 하기','가만히 눕혀 방치','손가락·발가락 확인'], a:0, e:'등 두드리기가 효과 없으면 복부 밀어내기 5회, 즉 하임리히법을 시행한다.'},
+  {s:4, tip:true, q:'매우 비만이거나 임산부의 기도폐쇄 처치로 옳은 것은?', o:['복부 밀어내기 대신 가슴 압박','반드시 복부 밀어내기만 시행','기도폐쇄 처치를 하지 않음','붕대로 감음'], a:0, e:'매우 비만이거나 임산부는 복부 밀어내기 대신 가슴 압박을 한다.'},
+  {s:4, q:'기도폐쇄 처치 후 환자가 불편 없이 호흡한 경우에도 필요한 조치로 정리된 것은?', o:['병원 진료를 받게 한다','즉시 모든 처치를 종료하고 방치한다','운동을 시킨다','음료를 많이 준다'], a:0, e:'환자가 불편 없이 호흡한 경우라도 병원 진료를 받게 한다.'},
+
+  {s:5, tip:true, q:'출혈 응급처치의 기본으로 강조된 것은?', o:['직접 압박','드레싱 제거','환자 달리기','감염 무시'], a:0, e:'별표 3은 출혈 응급처치는 직접 압박이 기본이고 감염에 주의한다고 강조한다.'},
+  {s:5, tip:true, q:'출혈 처치 중 드레싱에 대한 주의로 옳은 것은?', o:['드레싱은 제거하지 않는다','반드시 제거한다','화장지로 교체한다','말단을 모두 덮는다'], a:0, e:'출혈이 멈추지 않을 때도 드레싱은 제거하지 않는 것이 시험 포인트로 표시되어 있다.'},
+  {s:5, q:'혈관 압박은 언제 고려하는가?', o:['출혈이 멈추지 않을 때','가벼운 감기일 때','정상 호흡일 때','심장발작 위험인자 확인 때'], a:0, e:'혈관 압박은 출혈이 멈추지 않을 때 실시한다.'},
+  {s:5, q:'출혈이 심한 경우 가장 우선인 것은?', o:['지혈','음료 제공','온찜질','환자 이동'], a:0, e:'상처 응급처치와 출혈에서 출혈이 심한 경우 지혈이 가장 우선이다.'},
+  {s:5, q:'상처에서 핵심적으로 보아야 할 위험으로 옳은 것은?', o:['출혈과 감염 위험','시력과 청력만','체형과 나이만','운동 능력만'], a:0, e:'상처는 출혈과 감염 위험이 핵심이며 쇼크 동반 가능성도 본다.'},
+
+  {s:6, tip:true, q:'올바른 손씻기로 예방 가능한 감염 비율로 정리된 것은?', o:['약 90%','약 10%','약 30%','0%'], a:0, e:'감염의 약 90%는 올바른 손씻기로 예방할 수 있다고 중요 표시되어 있다.'},
+  {s:6, q:'감염 예방법에 해당하는 것은?', o:['상처 세척 후 드레싱, 일회용 장갑 착용, 사용 물품 폐기','드레싱 제거 후 방치','상처에 기침하기','오염 물품 재사용'], a:0, e:'감염 예방법에는 상처 세척 후 드레싱, 청결 유지, 사용 물품 폐기, 일회용 장갑 착용, 감염 의심 시 치료 등이 있다.'},
+  {s:6, q:'올바른 손씻기 6단계에 포함되는 것은?', o:['손바닥을 마주대고 문지른다','상처에 직접 입김을 분다','드레싱을 다시 사용한다','붕대를 꽉 묶는다'], a:0, e:'손바닥을 마주대고 문지르기, 손가락·손등·엄지·손깍지·손톱 밑 문지르기 등이 포함된다.'},
+  {s:6, tip:true, q:'드레싱의 정의로 옳은 것은?', o:['상처의 표면을 덮고 보호해 주는 것','환자를 옮기는 방법','가슴압박 비율','기도폐쇄 처치'], a:0, e:'드레싱은 상처의 표면을 덮고 보호해 주는 것이다.'},
+  {s:6, tip:true, q:'드레싱의 목적에 해당하지 않는 것은?', o:['감염 방지','출혈 방지','분비물 흡수','환자에게 음료 제공'], a:3, e:'드레싱의 목적은 감염 방지, 출혈 방지, 분비물 흡수이다.'},
+  {s:6, q:'드레싱 주의사항으로 옳은 것은?', o:['통풍이 잘 되고 상처보다 넓어야 한다','솜, 화장지, 티슈를 사용한다','기침이나 말을 하며 덮는다','상처보다 작아야 한다'], a:0, e:'드레싱은 통풍이 잘 되고 상처보다 넓어야 하며, 솜·화장지·티슈는 사용하지 않는다.'},
+  {s:6, tip:true, q:'붕대의 용도로 옳은 것은?', o:['드레싱 고정, 부목 고정, 압박을 통한 출혈 방지','심장리듬 분석','이물질 삼키기','저체온 환자에게 알코올 제공'], a:0, e:'붕대는 드레싱 고정, 부목 고정, 압박을 통한 출혈 방지, 오염과 감염 보호, 붓기 예방에 사용된다.'},
+  {s:6, tip:true, q:'붕대 사용 시 주의사항으로 옳은 것은?', o:['사지 순환을 확인하고 너무 꽉 묶지 않으며 손가락·발가락은 덮지 않는다','항상 말단을 완전히 덮는다','통증 여부와 관계없이 강하게 묶는다','드레싱 없이 감는다'], a:0, e:'붕대 사용의 시험 포인트는 사지 순환 확인, 너무 꽉 묶지 않기, 손가락·발가락 덮지 않기이다.'},
+
+  {s:7, tip:true, q:'염좌의 정의로 옳은 것은?', o:['관절에 강한 힘이 작용해 인대 등 관절조직이 손상되거나 파열된 상태','심장이 멈춘 상태','기도가 이물질로 막힌 상태','체온이 35도 이하로 떨어진 상태만'], a:0, e:'염좌는 직간접적인 강한 힘이 관절에 작용해 인대와 같은 관절조직이 손상되거나 파열된 상태이다.'},
+  {s:7, q:'염좌 증상으로 정리된 것은?', o:['통증, 부종, 피부 변색','호흡정지, 심정지, 뇌사','기침, 발열, 콧물','청색증만'], a:0, e:'염좌 증상은 통증, 부종, 피부 변색으로 정리되어 있다.'},
+  {s:7, tip:true, q:'RICE의 올바른 구성은?', o:['Rest, Ice, Compression, Elevation','Run, Inject, Cut, Eat','Response, Airway, Bleeding, Shock','Check, Call, Care, Conclusion'], a:0, e:'Gnote 보강은 RICE를 휴식(Rest), 얼음찜질(Ice), 압박(Compression), 올리기(Elevation)로 정리한다.'},
+  {s:7, q:'저체온증의 기준으로 옳은 것은?', o:['체온 35도 이하','체온 40도 이상','가벼운 찰과상','일시적 갈증'], a:0, e:'저체온증은 신체가 몸을 따뜻하게 유지하지 못해 차가워지는 상태이며 체온 35도 이하로 정리되어 있다.'},
+  {s:7, q:'저체온증 응급처치로 옳은 것은?', o:['젖은 의복을 벗기고 몸을 건조하게 하며 점진적으로 따뜻하게 한다','갑작스럽게 체온을 변화시킨다','카페인이나 알코올을 권장한다','야외활동을 계속 늘린다'], a:0, e:'저체온증은 119 요청, 편안하게 하기, 젖은 의복 제거, 건조, 점진적 보온이 필요하며 갑작스러운 체온 변화는 피한다.'},
+
+  {s:8, tip:true, q:'심하게 다친 환자에게 가장 위험한 것으로 정리된 것은?', o:['불필요한 이동','119 신고','기도 유지','정상 체온 유지'], a:0, e:'환자 이송에서 심하게 다친 환자에게 가장 위험한 것은 불필요한 이동이라고 정리되어 있다.'},
+  {s:8, q:'환자를 운반해야 하는 경우로 옳은 것은?', o:['위험한 현장일 때','언제나 즉시 이동','목 부상이 의심되어도 이유 없이 이동','단순히 빨리 귀가시키기 위해'], a:0, e:'위험한 현장, 더 심각한 환자를 돌봐야 할 때, 적당한 처치가 필요한 경우, CPR처럼 평평하고 딱딱한 곳이 필요한 경우 운반을 고려한다.'},
+  {s:8, tip:true, q:'대출혈, 심장멈춤, 호흡멈춤, 중독 환자 중 우선 처치 순위로 정리된 것은?', o:['심장 → 호흡 → 대출혈 → 중독','중독 → 대출혈 → 호흡 → 심장','대출혈 → 중독 → 심장 → 호흡','호흡 → 중독 → 대출혈 → 심장'], a:0, e:'Gnote 예상문제는 우선순위를 심장, 호흡, 대출혈, 중독으로 정리했다.'},
+  {s:8, q:'신체 이상 발생 시 일반 처치로 옳은 것은?', o:['움직임 최소화, 기도 유지, 호흡과 의식 확인, 출혈 확인과 지혈, 정상 체온 유지','무조건 달리기','상처에 화장지 사용','환자를 방치'], a:0, e:'Gnote 보강은 움직임 최소화, 기도 유지, 호흡과 의식 확인, 외부 출혈 확인과 지혈, 정상 체온 유지를 정리한다.'}
+];
+
+let answered = 0;
+let correctCount = 0;
+const TOTAL = questions.length;
+
+function render() {
+  const root = document.getElementById('questions');
+  let html = '';
+  let current = 0;
+  questions.forEach((item, idx) => {
+    if (item.s !== current) {
+      current = item.s;
+      html += '<div class="section-header">' + sections[current - 1].title + ' (' + sections[current - 1].count + '문항)</div>';
+    }
+    const no = idx + 1;
+    html += '<div class="question-card">';
+    html += '<div class="question-num">문제 ' + no + ' / ' + TOTAL + ' · 섹션 ' + item.s + (item.tip ? ' <span class="exam-tip-badge">★★ 시험</span>' : '') + '</div>';
+    html += '<div class="question-text">' + item.q + '</div>';
+    html += '<ul class="options">';
+    item.o.forEach((choice, choiceIdx) => {
+      html += '<li onclick="choose(this,' + (choiceIdx === item.a) + ',&quot;exp' + no + '&quot;)" ' + (choiceIdx === item.a ? 'data-correct' : '') + '>' + ['①','②','③','④'][choiceIdx] + ' ' + choice + '</li>';
+    });
+    html += '</ul>';
+    html += '<div class="explanation" id="exp' + no + '">정답: <strong>' + ['①','②','③','④'][item.a] + '</strong><br>' + item.e + '</div>';
+    html += '</div>';
+  });
+  root.innerHTML = html;
+}
+
+function choose(btn, isCorrect, expId) {
+  const ul = btn.closest('ul');
+  if (ul.dataset.done) return;
+  ul.dataset.done = '1';
+  answered++;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correctCount++;
+  } else {
+    btn.classList.add('wrong');
+    const correct = ul.querySelector('[data-correct]');
+    if (correct) correct.classList.add('correct');
+  }
+  document.getElementById(expId).classList.add('show');
+  document.getElementById('answered').textContent = answered;
+  document.getElementById('correct-count').textContent = correctCount;
+  const pct = Math.round(correctCount / answered * 100);
+  document.getElementById('score').textContent = pct;
+  document.getElementById('progress').style.width = (answered / TOTAL * 100) + '%';
+  if (answered === TOTAL) {
+    const fs = document.getElementById('finalScore');
+    const msg = pct >= 80 ? '우수! 응급처치 핵심 절차가 잘 잡혔습니다.' : pct >= 60 ? '양호합니다. 틀린 문제의 해설을 다시 보세요.' : '정리본의 별표와 예상문제를 한 번 더 훑고 재도전하세요.';
+    fs.innerHTML = '완료! 최종 점수: ' + correctCount + ' / ' + TOTAL + ' (' + pct + '%)<br>' + msg;
+    fs.classList.add('show');
+    fs.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+render();
+</script>
+</body>
+</html>

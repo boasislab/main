@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>숲해설프로그램개발 신규 정리 초안</title><style>
 :root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:#24313f;line-height:1.72}header,section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem}h2{color:#234f7c;border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:#eef5fb;padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.existing{background:#eaf2ff;color:#174ea6}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.source{white-space:pre-wrap;font-family:inherit}.preserve{background:#f8fafc;border-left:5px solid #64748b}.todo li{margin:5px 0}@media print{body{background:#fff;padding:10px}header,section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
 </style>
@@ -15,10 +16,29 @@ img{max-width:100%;height:auto;}
 figure{break-inside:avoid;}
 @media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
 </style>
+<style id="toc-link-fix-20260708">
+.toc-link-fix{background:#fff;border:1px solid #d8e0e8;border-radius:8px;padding:16px 18px;margin:18px 0;box-shadow:0 1px 4px rgba(20,40,70,.05)}
+.toc-link-fix h2{font-size:1.05rem;margin:0 0 10px;color:#183a5a;border-bottom:1px solid #d8e0e8;padding-bottom:8px}
+.toc-link-fix ol{margin:0;padding-left:1.25rem}
+.toc-link-fix li{margin:4px 0}
+.toc-link-fix a{color:#174ea6;text-decoration:none;font-weight:700}
+.toc-link-fix a:hover{text-decoration:underline}
+html{scroll-behavior:smooth}
+h2[id],h3[id],h4[id]{scroll-margin-top:18px}
+</style>
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style>
 </head><body>
-<header><h1>숲해설프로그램개발 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header>
-<section class="preserve"><h2>신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
-<section class="exam"><h2>주요 표시 요약</h2><ul class="todo">
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+
+<header><h1>숲해설프로그램개발 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header><nav aria-label="목차" class="toc-link-fix"><h2 id="sec-목차">목차</h2><ol><li><a href="#sec-신규-과목-생성-원칙">신규 과목 생성 원칙</a></li><li><a href="#sec-주요-표시-요약">주요 표시 요약</a></li><li><a href="#sec-팀-자료-원문-기반-정리">팀 자료 원문 기반 정리</a></li><li><a href="#sec-검작-요청">검작 요청</a></li></ol></nav>
+<section class="preserve"><h2 id="sec-신규-과목-생성-원칙">신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
+<section class="exam"><h2 id="sec-주요-표시-요약">주요 표시 요약</h2><ul class="todo">
 <li>- <span class="hl-yellow">관찰</span>과 경험을 통해 자연을 효율적으로 기억할 수 있도록 돕는다.</li>
 <li>- 자연의 이용에 대한 바른 <span class="hl-yellow">방법</span>을 알고, 올바른 태도를 가질 수 있도록 돕는다.</li>
 <li>4. 숲해설의 <span class="hl-yellow">목적</span></li>
@@ -42,7 +62,7 @@ figure{break-inside:avoid;}
 <li>3) 참가자 환경 분석: 참가자 지역 고려 및 문화적 배경이 다를 경우 접근 방식 개발</li>
 <li>4) 인원수 및 그룹 구성: 참가자수 파악 및 그룹 구성 활동으로 상호작용 촉진</li>
 </ul></section>
-<section><h2>팀 자료 원문 기반 정리</h2><div class="source">
+<section><h2 id="sec-팀-자료-원문-기반-정리">팀 자료 원문 기반 정리</h2><div class="source">
 20260510_숲해설프로그램개발(실습)_신은주 요약 2권 9-63p
 **이 수업은 <span class="hl-yellow">시험</span>으로 어떤 게 나올지 집어주지 않으셨습니다!**
 **피티로 수업하셔서 피티로 요약정리했습니다**
@@ -257,4 +277,4 @@ HOW
 
 - 96 -
 </div></section>
-<section class="safe"><h2>검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>
+<section class="safe"><h2 id="sec-검작-요청">검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>

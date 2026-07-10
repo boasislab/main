@@ -1,107 +1,146 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>교육프로그램운영실습1 신규 정리 초안</title><style>
-:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:#24313f;line-height:1.72}header,section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem}h2{color:#234f7c;border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:#eef5fb;padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.existing{background:#eaf2ff;color:#174ea6}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.source{white-space:pre-wrap;font-family:inherit}.preserve{background:#f8fafc;border-left:5px solid #64748b}.todo li{margin:5px 0}@media print{body{background:#fff;padding:10px}header,section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>교육프로그램운영실습1 보강 정리본</title>
+<style>
+:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb;--ink:#24313f;--soft:#eef5fb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:var(--ink);line-height:1.72;word-break:keep-all;overflow-wrap:break-word}header,section,nav{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem;letter-spacing:0}h2{color:var(--blue);border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0;scroll-margin-top:18px}h3{color:#1e5b8f;background:var(--soft);padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px;margin-top:22px}h4{color:#2f6f4e;margin-bottom:6px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.new{background:#fff4db;color:#92400e}.done{background:#eaf7ef;color:#166534}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.note{background:#f8fafc;border-left:5px solid #64748b}.case{background:#f4fbf6;border:1px solid #c8e6d0;border-left:5px solid #2f6f4e}.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}.step{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfdff}.step b{display:block;color:#183a5a;margin-bottom:4px}.toc ol{margin:0;padding-left:1.25rem}.toc li{margin:4px 0}.toc a{color:#174ea6;text-decoration:none;font-weight:700}.toc a:hover{text-decoration:underline}table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;font-size:15px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important}th{background:var(--soft);font-weight:800;color:#183a5a}.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif}.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}.forest-back-link a:hover{background:#e7f5eb}.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0}@media(max-width:720px){body{padding:14px}header,section,nav{padding:16px}h1{font-size:1.55rem}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}@media print{body{background:#fff;padding:10px}header,section,nav{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.forest-back-link{display:none!important}}
 </style>
-<style id="cell-readability-fix-20260708">
-:root{--cell-line:#d9e2ec;--cell-head:#eef5fb;--cell-bg:#ffffff;}
-table{width:100%;border-collapse:collapse;table-layout:auto;margin:14px 0;background:var(--cell-bg);font-size:15px;}
-th,td{border:1px solid var(--cell-line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:0;}
-th{background:var(--cell-head);font-weight:800;color:#183a5a;}
-td p,th p{margin:.25rem 0!important;white-space:normal!important;}
-p{white-space:normal!important;word-break:keep-all;overflow-wrap:break-word;}
-.source{white-space:pre-line!important;word-break:keep-all;overflow-wrap:break-word;line-height:1.7;}
-.team-pdf-supplement .source{white-space:pre-line!important;}
-img{max-width:100%;height:auto;}
-figure{break-inside:avoid;}
-@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
-</style>
-</head><body>
-<header><h1>교육프로그램운영실습1 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header>
-<section class="preserve"><h2>신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
-<section class="exam"><h2>주요 표시 요약</h2><ul class="todo">
-<li>: 목재 생산→다<span class="hl-yellow">목적</span> 이용→공익<span class="hl-yellow">기능</span>→통합적 이용(<span class="hl-green">생태</span>서비스)</li>
-<li>*틸든의 해설 6<span class="hl-yellow">원칙</span></li>
-<li>① 관련성의 <span class="hl-yellow">원칙</span>: 해설은 참가자의 경험이나 관심사와 연결되어야 함</li>
-<li>⑥ 대상별 차별화: 참가자 특성에 따라 해설의 내용과 <span class="hl-yellow">방법</span> 달리 해야함</li>
-<li>교안 작성_진행<span class="hl-yellow">방법</span> 구체화</li>
-<li>10. 교재교구의 <span class="hl-yellow">정의</span></li>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+<header>
+<h1>교육프로그램운영실습1 보강 정리본</h1>
+<p class="meta">팀 정리 PDF + 첨부 강의내용 보강 · 2026-07-09</p>
+<p><span class="badge done">보강 반영</span> <span class="badge new">스토리텔링·대상자 분석·코스기획·실습 사례 강화</span></p>
+</header>
+<nav class="toc" aria-label="목차"><h2 id="toc">목차</h2><ol>
+<li><a href="#sec-core">핵심 한눈정리</a></li>
+<li><a href="#sec-forest-culture">숲과 신화·산림문화</a></li>
+<li><a href="#sec-policy">산림 정책과 산림복지 흐름</a></li>
+<li><a href="#sec-interpretation">숲해설의 개념과 스토리텔링</a></li>
+<li><a href="#sec-development">프로그램 개발 절차</a></li>
+<li><a href="#sec-participant">대상자 분석</a></li>
+<li><a href="#sec-course">장소·등산로 사전조사</a></li>
+<li><a href="#sec-case">전주 숲속 탐험대 사례</a></li>
+<li><a href="#sec-structure">도입·전개·절정·마무리 구성</a></li>
+<li><a href="#sec-teaching">교재교구와 진행 팁</a></li>
+<li><a href="#sec-exam">시험 포인트</a></li>
+</ol></nav>
+<section class="exam" id="sec-core"><h2>1. 핵심 한눈정리</h2>
+<ul>
+<li>숲해설은 단순 지식 전달이 아니라 <span class="hl-green">식물과 장소가 가진 의미를 스토리텔링으로 전달</span>하는 활동이다.</li>
+<li>프로그램은 <span class="hl-yellow">대상자 이해 → 주제 설정 → 장소 기획 → 진행 방법 구체화 → 실행 → 평가</span>의 흐름으로 개발한다.</li>
+<li>기획 단계에서는 교육적·철학적·역사적 맥락을 깊게 담고, 실제 운영 단계에서는 <span class="hl-red">재미</span>가 우선이다.</li>
+<li>좋은 소재는 평소 관찰과 관심에서 나온다. 강사의 표현처럼 <span class="hl-blue">“미쳐야 미친다”</span>.</li>
+<li>기존 책·자료·AI·지역 콘텐츠를 잘 활용하는 것도 프로그램 개발 능력이다.</li>
 </ul></section>
-<section><h2>팀 자료 원문 기반 정리</h2><div class="source">
-20260523_교육프로그램운영실습1(이론 및 실습)_이경민 요약
-2권 67-78p
-
-1. 동서양의 산림문화
-- 동서양 모두 수목 숭배사상이 존재한다
-ex. 그리스신화의 세계수 이그드라실 등
-- 단군신화(신단수), 성경(에덴동산)을 보면 인류의 시작은 숲이었음
-2. 산림의 패러다임
-① 1908년: 산림법 제정→ 최초의 근대적 산림관계 법령
-② 1930년대: 농공병진정책*
-* 일제가 농업과 공업을 함께 발전시켜 식량·원료를 확보하고 전쟁 수행 기반을 마련하려 한 정책으로 이때 산림이 전쟁 물자 공급원으로 활용됨
-③ 1970년대~1980년대: 치산녹화정책(100억 그루 이상 조림)
-6.25로 황폐화된 숲을 전 국민이 일치단결해 조림 녹화함
-④ 1980년대~1990년대: 산지 자원화, 수종개량 등 경제림 육성(좋은 목재로 키우기 위해)
-⑤ 2000년대: 지속가능한 산림경영 추진
-
-3. 산림 이용문화의 변화
-: 목재 생산→다<span class="hl-yellow">목적</span> 이용→공익<span class="hl-yellow">기능</span>→통합적 이용(<span class="hl-green">생태</span>서비스)
-* 산림의 공익<span class="hl-yellow">기능</span>
-① 수원함양<span class="hl-yellow">기능</span>(숲은 녹색 댐이라고도 불리며 홍수 예방 및 가뭄 시 수자원 공급)
-② 토사유출 및 붕괴 방지
-③ 대기정화 및 <span class="hl-red">미세먼지</span> 저감
-④ 산림 휴양 및 치유
-⑤ <span class="hl-green">온실가스</span> 흡수
-
-4. 산림복지란
-: 국민이 산림을 통해 건강하고 안정적인 삶을 영위할 수 있도록 제공되는 서비스
-*2016년 ‘산림복지 진흥에 관한 법률’ 제정으로 산림복지가 국민 기본 권리로 인정받게 됨
-
-5. 산림복지서비스 4가지 영역
-① 산림휴양서비스: 자연휴양림 등 휴식과 여가 즐길 수 있게 함
-② 산림교육서비스: 숲해설 등을 통해 산림 가치 배우고 체험
-③ 산림치유서비스: 산림을 통해 심신의 건강 증진
-④ 산림문화서비스: 산림관련 문화, 예술, 역사 등 체험
-
-6. 포레스타일(forestyle)
-: forest와 lifestyle의 합성어
-: 도시에서 벗어나 숲에서 여유를 찾고 자연과 조화를 이루는 생활방식
-
-- 101 -
-
-7. 환경교육의 목표와 특성
-- 목표: 인식, 지식, 태도, 스킬, 참여를 종합적으로 함양하는 것
-- 특성
-① 통합성: 환경문제는 자연과학, 인문학 등 다양한 분야가 연관되므로
-② 평생성: 유아기부터 노년기까지 전생애에 걸쳐 이루어져야 하므로
-③ 실천성: 일회성이 아니라 지속적 실천 이끌어내야 하므로
-④ 지역성: 환경문제는 지역마다 다르므로
-⑤ 참여성: 학습자의 능동적 참여를 통해 이루어져야 하므로
-
-8. 해설의 개념
-: 1957년 미국의 프리먼 틸든의 ‘해설의 원리’라는 책을 통해 체계화됨
-*틸든의 해설 6<span class="hl-yellow">원칙</span>
-① 관련성의 <span class="hl-yellow">원칙</span>: 해설은 참가자의 경험이나 관심사와 연결되어야 함
-② 정보와 해설의 차이: 단순 사실 나열은 정보고 해설은 뒤에 숨은 의미를 드러내는것
-③ 예술성: 해설은 논리적이면서 동시에 창의적이어야 함
-④ 도발성: 참가자의 호기심 자극해야 함
-⑤ 전체상의 제시: 단편적 사실이 아니라 전체적 맥락을 보여줘야 함
-⑥ 대상별 차별화: 참가자 특성에 따라 해설의 내용과 <span class="hl-yellow">방법</span> 달리 해야함
-**한국 숲해설
-· 본격화: 1995년(국립공원 자연해설프로그램을 시작으로)
-· 숲해설가 제도 도입: 2010년
-
-9. 숲해설프로그램 개발 순서참가자 특성 조사(참가자 이해)
-↓
-프로그램 주제 설정
-↓
-프로그램 계획
-(자원조사_장소선정, 답사 및 조사교안 작성_진행<span class="hl-yellow">방법</span> 구체화시연 및 수정_시범운영)
-↓
-프로그램 실행 및 평가
-
-10. 교재교구의 <span class="hl-yellow">정의</span>
-: 교육 목표를 달성하기 위해 사용하는 모든 도구로 이동성, 내구성, 자연 친화성의 세 가지 특성을 가져야 한다.
-
-- 102 -
-</div></section>
-<section class="safe"><h2>검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>
+<section id="sec-forest-culture"><h2>2. 숲과 신화·산림문화</h2>
+<p>강의 도입부는 “왜 인간은 숲과 자연을 떼어놓고 생각할 수 없는가”를 설득하는 방식으로 진행되었다. 참가자가 큰 틀에 동의해야 세부 지식도 소중하게 받아들일 수 있다.</p>
+<table><thead><tr><th>사례</th><th>숲과 연결되는 의미</th></tr></thead><tbody>
+<tr><td>단군신화</td><td>환웅이 태백산 <span class="hl-green">신단수</span>로 내려옴. 민족의 시작을 산·숲과 연결한다.</td></tr>
+<tr><td>신라 건국신화·계림</td><td>나무·숲·닭 울음·금궤 등 숲의 상징이 건국 이야기와 결합된다.</td></tr>
+<tr><td>북유럽 신화</td><td>세계수처럼 거대한 나무가 우주와 세계 질서를 상징한다.</td></tr>
+<tr><td>성경 창세기</td><td>아담과 에덴동산, 선악과 나무를 통해 인류의 시작을 동산·숲과 연결한다.</td></tr>
+</tbody></table>
+<div class="note"><h3>해설 도입 전략</h3><p>동서양의 신화와 경전은 모두 인류의 시작을 산과 숲에서 찾는다. 이 흐름을 활용하면 참가자에게 “우리는 본능적으로 자연과 연결된 존재”라는 메시지를 자연스럽게 전달할 수 있다.</p></div>
+</section>
+<section id="sec-policy"><h2>3. 산림 정책과 산림복지 흐름</h2>
+<div class="timeline">
+<div class="step"><b>1908년</b>최초의 근대적 산림 관계 법령 제정</div>
+<div class="step"><b>1970~80년대</b>치산녹화 정책, 대대적 조림사업</div>
+<div class="step"><b>1980~90년대</b>산지 자원화, 간벌·수종개량·경제림 육성</div>
+<div class="step"><b>2000년대 이후</b>지속가능한 산림경영과 공익 기능 확대</div>
+</div>
+<h3>산림 이용문화의 변화</h3>
+<p><span class="hl-yellow">목재 생산</span> → 다목적 이용 → 공익 기능 → 통합적 이용, 생태서비스 중심으로 변화하였다.</p>
+<ul><li>수원함양: 숲은 녹색 댐 역할을 하며 홍수 예방과 가뭄 시 수자원 공급에 기여한다.</li><li>토사 유출·붕괴 방지</li><li>대기정화와 미세먼지 저감</li><li>산림휴양·치유</li><li>온실가스 흡수</li></ul>
+<h3>산림복지서비스 4가지 영역</h3>
+<table><thead><tr><th>영역</th><th>내용</th></tr></thead><tbody>
+<tr><td>산림휴양서비스</td><td>자연휴양림 등에서 휴식과 여가를 제공</td></tr>
+<tr><td>산림교육서비스</td><td>숲해설 등을 통해 산림의 가치 학습·체험</td></tr>
+<tr><td>산림치유서비스</td><td>산림환경을 활용해 심신 건강 증진</td></tr>
+<tr><td>산림문화서비스</td><td>산림 관련 문화·예술·역사 체험</td></tr>
+</tbody></table>
+</section>
+<section id="sec-interpretation"><h2>4. 숲해설의 개념과 스토리텔링</h2>
+<p>강사는 자기 이름 하나로도 여러 이야기를 풀어낼 수 있듯, 나무 하나·식물 하나도 다양한 이야기로 연결할 수 있어야 한다고 강조했다. 숲해설사의 역할은 식물명 암기가 아니라 <span class="hl-green">의미를 만들어 전달하는 일</span>이다.</p>
+<h3>틸든의 해설 6원칙</h3>
+<table><thead><tr><th>원칙</th><th>핵심</th></tr></thead><tbody>
+<tr><td>관련성</td><td>참가자의 경험·관심사와 연결한다.</td></tr>
+<tr><td>정보와 해설의 차이</td><td>단순 사실 나열이 아니라 뒤에 숨은 의미를 드러낸다.</td></tr>
+<tr><td>예술성</td><td>논리적이면서도 창의적으로 전달한다.</td></tr>
+<tr><td>도발성</td><td>호기심과 질문을 자극한다.</td></tr>
+<tr><td>전체상의 제시</td><td>단편 지식보다 전체 맥락을 보여준다.</td></tr>
+<tr><td>대상별 차별화</td><td>참가자의 특성에 맞게 내용과 방법을 조정한다.</td></tr>
+</tbody></table>
+<div class="case"><h3>실습: 숲해설 정의 내리기</h3><p>수강생들은 “숲해설이란 무엇인가”를 한 문장과 이유 3문장으로 정의했다. 예를 들어 “그림을 이해시키는 것이다”, “숲에서 함께 노는 것이다”처럼 해설자의 관점과 철학이 드러나는 답변이 나왔다.</p></div>
+</section>
+<section id="sec-development"><h2>5. 프로그램 개발 절차</h2>
+<div class="timeline">
+<div class="step"><b>1. 대상자 이해</b>연령, 성별, 인원, 목적, 신체·정서 특성 파악</div>
+<div class="step"><b>2. 주제 설정</b>대상과 장소에 맞는 중심 메시지 결정</div>
+<div class="step"><b>3. 장소 기획</b>자원조사, 답사, 코스 선정</div>
+<div class="step"><b>4. 진행 방법 구체화</b>교안 작성, 활동·교구·멘트 준비</div>
+<div class="step"><b>5. 실행</b>현장에서 참가자 반응에 맞춰 운영</div>
+<div class="step"><b>6. 평가</b>마지막 단계로 반드시 수행</div>
+</div>
+<p>순서는 상황에 따라 조정될 수 있지만, <span class="hl-red">평가</span>는 프로그램을 마무리하고 다음 개선으로 이어지게 하는 필수 단계이다.</p>
+</section>
+<section id="sec-participant"><h2>6. 대상자 분석</h2>
+<p>대상자 분석은 프로그램의 난이도, 안전, 활동 방식, 아이스브레이킹 필요성을 결정한다.</p>
+<table><thead><tr><th>항목</th><th>확인 내용</th></tr></thead><tbody>
+<tr><td>대상</td><td>연령, 성별, 인원, 유아·초등·청소년·청년·직장인·노년층·장애인 등 그룹 특성</td></tr>
+<tr><td>참가 목적</td><td>교육, 휴식, 모임 친목 등 참가자 입장에서의 신청 이유</td></tr>
+<tr><td>참여 유형</td><td>개인인지 단체인지, 서로 아는 사이인지 모르는 사이인지</td></tr>
+<tr><td>신체적·물리적 특징</td><td>거동 불편, 휠체어, 유아 동반, 화장실·음수대 필요 등</td></tr>
+<tr><td>정서적·심리적 특징</td><td>사별 경험, 불안감, 단체 분위기, 인솔자의 태도 등</td></tr>
+<tr><td>이전 경험</td><td>처음 방문인지, 반복 참가자인지, 숲을 잘 아는 참가자가 섞여 있는지</td></tr>
+<tr><td>요구사항</td><td>시간대, 조 편성, 쉬운 소재 또는 도전적 소재 선호</td></tr>
+</tbody></table>
+<div class="safe"><h3>현장 배려 사례</h3><p>조현병 환자 대상 프로그램에서는 약 복용으로 갈증이 생길 수 있으므로 음수대와 화장실 위치를 코스에 반드시 포함해야 한다. 대상자 이해는 안전과 존중의 문제다.</p></div>
+</section>
+<section id="sec-course"><h2>7. 장소·등산로 사전조사</h2>
+<p>프로그램 장소는 단순히 예쁜 곳을 고르는 것이 아니라, 교육 목표·안전·접근성·이동 흐름을 함께 고려해 선정한다.</p>
+<ul><li>구간 위치: 백두대간·호남정맥 여부, 국립공원·보전지역 등 법정구역 확인</li><li>노면 상태: 포장·비포장, 훼손, 미끄럼, 낙석 위험</li><li>지형·시설물: 계단 높이, 뿌리 노출, 쉼터, 화장실, 음수대</li><li>기록 방법: 기점(P1), 분기점(O1), GPS 번호와 사진을 함께 기록</li></ul>
+<p>이 조사 결과를 바탕으로 여러 갈래 길 중 실제 프로그램에 사용할 코스를 선별한다.</p>
+</section>
+<section id="sec-case"><h2>8. 실제 사례: 전주 숲속 탐험대</h2>
+<div class="case"><h3>프로그램 개요</h3><ul><li>약 17년 전 전북 생명의 숲과 지자체 지원으로 운영</li><li>초등학생 약 30명, 1년간 매월 둘째 주 토요일 참여</li><li>일회성 체험이 아니라 지속적·체계적 환경교육을 목표로 기획</li></ul></div>
+<h3>코스 설계</h3><p>전주의 도넛형 지형과 도심 생태축을 분석해 한옥마을, 오목대, 군경묘지, 인후공원, 건지산, 덕진공원, 전주천, 다가공원, 완산칠봉, 남고산성, 향교 등을 연결했다.</p>
+<h3>주제 예시</h3>
+<ul><li>“역사의 퇴적층”: 승암산, 발리사, 맹종죽 숲, 군경묘지 등 여러 시대의 역사가 겹친 장소</li><li>“우리말 우리얼”: 최명희 문학공원과 혼불 소설 구절 답사</li><li>편백숲: 임종국 선생과 애니메이션 「나무를 심은 사람」 연결</li><li>“붉은 피로 새긴 푸르른 동학”: 초록바위와 천주교 순교 역사</li></ul>
+<h3>교육 방법</h3>
+<ul><li>낙엽 유무에 따른 빗물 침투 실험, 식빵을 이용한 토양 답압 비유 실험</li><li>매 회차 마무리의 “오늘의 되새겨보기” 활동지</li><li>정답 맞히기보다 이야기 자체를 즐기고 스스로 찾아보게 유도</li><li>마지막 회차에 아이별 활동 기록과 손편지를 책으로 제작해 선물</li></ul>
+<p><span class="hl-green">평가</span>: 프로그램 종료 후 학부모·아이들과 영상 시청 및 소감 나누기로 마무리하였다.</p>
+</section>
+<section id="sec-structure"><h2>9. 도입·전개·절정·마무리 구성</h2>
+<p>하나의 소재, 예를 들어 소나무나 솔방울을 정한 뒤 활동을 도입–전개–절정–마무리 순서로 배치한다. 순서는 고정이 아니라 현장과 대상에 맞게 조정할 수 있다.</p>
+<table><thead><tr><th>단계</th><th>역할</th><th>주의점</th></tr></thead><tbody>
+<tr><td>도입</td><td>관심 유도, 관계 형성, 주제 제시</td><td>처음부터 복잡한 설명보다 흥미와 참여를 우선한다.</td></tr>
+<tr><td>전개</td><td>관찰, 탐색, 이야기 확장</td><td>대상자 반응에 따라 깊이와 속도를 조정한다.</td></tr>
+<tr><td>절정</td><td>가장 몰입도 높은 활동 배치</td><td>절정 활동을 도입에 놓으면 흐름이 약해질 수 있다.</td></tr>
+<tr><td>마무리</td><td>정리, 소감, 되새김, 평가</td><td>참가자가 자기 언어로 경험을 정리하게 한다.</td></tr>
+</tbody></table>
+<h3>시나리오 작성 연습</h3><p>실제 진행 멘트를 글로 써보면 반복 표현이나 장황한 부분을 점검할 수 있다. 현장에서는 그대로 읽기보다, 미리 써보고 녹음해 들으며 다듬는 연습이 좋다.</p>
+</section>
+<section id="sec-teaching"><h2>10. 교재교구와 진행 팁</h2>
+<p>교재교구는 교육 목표를 달성하기 위해 사용하는 모든 도구다. 이동성, 내구성, 자연친화성을 고려해야 한다.</p>
+<div class="case"><h3>곤충 게임 사례</h3><p>크기가 다른 나무집게 3종류를 이용한 이어달리기 게임으로 곤충의 몸 크기와 포식자로부터 살아남기 위한 크기 변화를 놀이 속에서 체득하게 했다. 이처럼 진행은 재미있어야 기억에 남는다.</p></div>
+<h3>소재 발굴 팁</h3><ul><li>드라마·영화 촬영지, 절 앞 배롱나무, 지역 성지와 유적도 숲해설 소재가 될 수 있다.</li><li>치명자산 성당처럼 지역의 역사·종교·문화 요소를 숲과 연결하면 풍부한 이야기가 된다.</li><li>처음부터 모든 것을 새로 만들 필요는 없다. 기존 자료를 잘 조합하는 것도 능력이다.</li></ul>
+</section>
+<section class="exam" id="sec-exam"><h2>11. 시험 포인트</h2>
+<ul>
+<li><span class="hl-yellow">산림 이용문화 변화</span>: 목재 생산 → 다목적 이용 → 공익 기능 → 통합적 이용·생태서비스</li>
+<li><span class="hl-yellow">틸든의 해설 6원칙</span>: 관련성, 정보와 해설의 차이, 예술성, 도발성, 전체상, 대상별 차별화</li>
+<li><span class="hl-yellow">프로그램 개발 순서</span>: 대상자 이해 → 주제 설정 → 장소 기획 → 진행 방법 구체화 → 실행 → 평가</li>
+<li><span class="hl-red">대상자 분석</span>: 신체적·정서적 특징과 요구사항까지 확인</li>
+<li><span class="hl-green">운영 핵심</span>: 기획은 깊이 있게, 진행은 재미있게</li>
+<li><span class="hl-blue">교재교구</span>: 이동성, 내구성, 자연친화성</li>
+</ul></section>
+<div class="forest-back-link forest-back-link-bottom"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>

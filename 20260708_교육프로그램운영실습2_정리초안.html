@@ -1,103 +1,89 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>교육프로그램운영실습2 신규 정리 초안</title><style>
-:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:#24313f;line-height:1.72}header,section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem}h2{color:#234f7c;border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:#eef5fb;padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.existing{background:#eaf2ff;color:#174ea6}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.source{white-space:pre-wrap;font-family:inherit}.preserve{background:#f8fafc;border-left:5px solid #64748b}.todo li{margin:5px 0}@media print{body{background:#fff;padding:10px}header,section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>교육프로그램운영실습2 보강 정리본</title>
+<style>
+:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb;--ink:#24313f;--soft:#eef5fb}*{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:var(--ink);line-height:1.72;word-break:keep-all;overflow-wrap:break-word}header,section,nav{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem;letter-spacing:0}h2{color:var(--blue);border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0;scroll-margin-top:18px}h3{color:#1e5b8f;background:var(--soft);padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px;margin-top:22px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.done{background:#eaf7ef;color:#166534}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.note{background:#f8fafc;border-left:5px solid #64748b}.case{background:#f4fbf6;border:1px solid #c8e6d0;border-left:5px solid #2f6f4e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}.card{border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfdff}.card b{display:block;color:#183a5a;margin-bottom:4px}.toc ol{margin:0;padding-left:1.25rem}.toc li{margin:4px 0}.toc a{color:#174ea6;text-decoration:none;font-weight:700}.toc a:hover{text-decoration:underline}table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;font-size:15px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important}th{background:var(--soft);font-weight:800;color:#183a5a}.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0}.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}.forest-back-link a:hover{background:#e7f5eb}.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0}@media(max-width:720px){body{padding:14px}header,section,nav{padding:16px}h1{font-size:1.55rem}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}@media print{body{background:#fff;padding:10px}header,section,nav{box-shadow:none;border:1px solid #ddd;break-inside:avoid}.forest-back-link{display:none!important}}
 </style>
-<style id="cell-readability-fix-20260708">
-:root{--cell-line:#d9e2ec;--cell-head:#eef5fb;--cell-bg:#ffffff;}
-table{width:100%;border-collapse:collapse;table-layout:auto;margin:14px 0;background:var(--cell-bg);font-size:15px;}
-th,td{border:1px solid var(--cell-line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:0;}
-th{background:var(--cell-head);font-weight:800;color:#183a5a;}
-td p,th p{margin:.25rem 0!important;white-space:normal!important;}
-p{white-space:normal!important;word-break:keep-all;overflow-wrap:break-word;}
-.source{white-space:pre-line!important;word-break:keep-all;overflow-wrap:break-word;line-height:1.7;}
-.team-pdf-supplement .source{white-space:pre-line!important;}
-img{max-width:100%;height:auto;}
-figure{break-inside:avoid;}
-@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
-</style>
-</head><body>
-<header><h1>교육프로그램운영실습2 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header>
-<section class="preserve"><h2>신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
-<section class="exam"><h2>주요 표시 요약</h2><ul class="todo">
-<li><span class="hl-yellow">구분</span> 풀 나무</li>
-<li><span class="hl-yellow">구분</span> 침엽수 활엽수</li>
-<li>3. 소나무 <span class="hl-yellow">구분</span>하기</li>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+<header><h1>교육프로그램운영실습2 보강 정리본</h1><p class="meta">팀 정리 PDF + 첨부 강의내용 보강 · 2026-07-09</p><p><span class="badge done">보강 반영</span> <span class="badge new">수목 식별·천이·목재 구조·산림측정 실습 강화</span></p></header>
+<nav class="toc" aria-label="목차"><h2 id="toc">목차</h2><ol>
+<li><a href="#sec-core">핵심 한눈정리</a></li>
+<li><a href="#sec-plant-tree">풀과 나무, 침엽수와 활엽수</a></li>
+<li><a href="#sec-conifer">소나무류·전나무류 구분</a></li>
+<li><a href="#sec-use">수목의 쓰임과 보전 관점</a></li>
+<li><a href="#sec-wood">목재 구조와 나이테</a></li>
+<li><a href="#sec-carbon">나이테와 탄소중립 교육</a></li>
+<li><a href="#sec-succession">숲의 천이</a></li>
+<li><a href="#sec-succession-activity">천이 카드 실습</a></li>
+<li><a href="#sec-tools">산림조사 도구 실습</a></li>
+<li><a href="#sec-exam">시험 포인트</a></li>
+</ol></nav>
+<section class="exam" id="sec-core"><h2>1. 핵심 한눈정리</h2><ul>
+<li>실습2는 나무 이름 암기보다 <span class="hl-green">현장에서 구분하고 설명하는 힘</span>을 기르는 수업이다.</li>
+<li>식별의 기본은 잎의 개수, 마주나기·어긋나기, 잎의 촉감, 열매, 생육 위치를 함께 보는 것이다.</li>
+<li>목재 구조는 수·심재·변재·형성층·수피를 구분하고, 형성층이 나이테를 만든다는 흐름으로 이해한다.</li>
+<li>나이테는 나무의 나이뿐 아니라 생육 상태, 기후 기록, 탄소 저장을 설명하는 좋은 교육 소재다.</li>
+<li>숲의 천이는 토양, 낙엽층, 교란, 빛 경쟁, 사람의 관리가 함께 만든 변화 과정이다.</li>
+<li>현장 실습 도구는 <span class="hl-yellow">윤척, 측고기, 생장추</span>가 핵심이다.</li>
 </ul></section>
-<section><h2>팀 자료 원문 기반 정리</h2><div class="source">
-20260530_교육프로그램운영실습2(이론 및 실습)_류진호 요약
-2권 81-140p
-
-1. 풀과 나무의 차이
-
-<span class="hl-yellow">구분</span> 풀 나무줄기 연하다 단단하다수명 단년생 다년생생장 부피생장 나무에 비해 못함 부피생장나이테 없음 있음
-* 옥수수, 대나무는 풀이다
-
-2. 침엽수와 활엽수의 차이
-
-<span class="hl-yellow">구분</span> 침엽수 활엽수잎 바늘모양 부채처럼 넓은모양밑씨 겉씨식물(겉에 드러난 밑씨) 속씨식물(씨방 속 밑씨)
-*은행나무 침엽수
-
-3. 소나무 <span class="hl-yellow">구분</span>하기
-- 잎 2개: 소나무(적송), 곰솔(해송)
-- 잎 3개: 리기다(미국출신), 백송(중국출신)
-- 잎 5개: 잣나무, 스트로브 잣나무(도심, 약해서 건축자재x), 섬잣나무
-*잣나무는 잎이 5개라 오엽송이라고도 함
-
-4. 목재의 구조
-
-- 103 -
-
-① 변재: 심재 주변
-② 심재: 수 주변, 세포 죽은 것, 사람으로 치면 뼈
-③ 수: 목재의 중심, 가지는 수에서부터 자람
-④ 형성층: 세포분열이 일어나서 나이테(1년 동안 자란 부분)를 만듦
-⑤ 추재: 늦여름 이후 자란 부분
-⑥ 춘재: 봄 여름에 자란 부분
-
-5. 숲의 천이란
-: 숲이 오랜 시간에 걸쳐 다른 모습과 군집으로 바뀌어 안정적 상태로 진행되어 가는 현상
-① 1차 천이
-- 식물이 전혀 없는 곳에서 시작되는 천이
-- 암석이 풍화되고 토양이 형성되어 <span class="hl-green">생태</span>계가 형성
-② 2차 천이
-- 기존 <span class="hl-green">생태</span>계 파괴 후 다시 <span class="hl-green">생태</span>계 형성
-- 버려진 농경지 등이 성숙된 나무와 풀 군집으로 회복
-③ 극상림
-- 기후조건이 적합한 안정된 지역에서 극상에 이른 숲
-
-6. 천이 <span class="hl-blue">식생</span> 순서한해살이풀→여러해살이풀→붉나무, 진달래, 철쭉 등 산성토양에서 잘 자라는 식물→소나무(양수림) 출현→ 참나무(음수림) 출현→혼효림(참나무+소나무)→극상림
-
-*마무리퀴즈숲은 시간이 지날수록 그 모습을 바꿉니다. 우리는 시간이 지나면서 숲에 서식하는 종들이바뀌는 것을 천이라고 합니다. 아무것도 없는 벌판에서 한해살이풀이 들어옵니다. 몇 년이지나면 쑥, 토끼풀, 억새 같은 여러해살이풀이 들어옵니다.
-어느새 붉나무, 싸리나무, 찔레나무, 진달래와 같은 키 작은 나무들이 싹을 틔웁니다. 작은나무들이 자라면서 숲에 영양분도 많아지고 물도 충분해지고 나니 키가 크고 빛을 필요로하는 소나무(양수림)가 들어오기 시작했습니다. 숲에 특별히 교란이 일어나지 않고 사람들이 숲을 그대로 두었더니 어느덧 이 숲은 참나무(음수림)이 자리를 차지하고 있습니다. 하지만 이들도 영원히 숲을 차지하고 있지는 못하고 서어나무나 까치박달나무들이 들어오지요. 이렇게 숲이 변화하다가 안정을 차지하느 순간이 있는데 이것을 극상림이라고 부릅니다.
-
-7. 숲 천이에 영향을 주는 요인
-: 산불, 동물, 곤충, 이상기온, 인공조림
-
-8. 윤척
-: 나무 둘레 잴 때 사용
-: 나무 자란 방향과 수직되게 측정
-: 2번 재서 평균 구함
-*흉고직경
-
-- 104 -
-
-- 가슴높이에서 잰 수목의 직경
-- 지상에서 1.2m 측정
-
-9. 측고기
-: 나무 키잴 때 사용
-
-- 초두부(나무끝)와 근원부가 잘 보이는 지점에서 측정
-- 나무에서 <span class="hl-red">20m</span> 떨어진 지점에서 측정(윙크 안됨)
-- 나무키= BC(탄젠트값*거리)+BD
-*BD는 관측자의 눈높이(키 1.6m면 1.5m)
-
-10. 생장추
-: 나무의 나이테 볼 수 있는 도구
-: 바닥에서 20cm 떨어진 지점 뚫어 측정
-* 침엽수는 2살을 더해줌, 왜냐면 침엽수는 처음에 2년생을 심기 때문
-* 활엽수는 1살 더한다.
-
-- 105 -
-</div></section>
-<section class="safe"><h2>검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>
+<section id="sec-plant-tree"><h2>2. 풀과 나무, 침엽수와 활엽수</h2>
+<table><thead><tr><th>구분</th><th>풀</th><th>나무</th></tr></thead><tbody><tr><td>줄기</td><td>대체로 연하다</td><td>목질화되어 단단하다</td></tr><tr><td>수명</td><td>한해살이·여러해살이 등 다양</td><td>다년생으로 오래 산다</td></tr><tr><td>부피생장</td><td>나무처럼 뚜렷한 부피생장이 어렵다</td><td>형성층 활동으로 부피생장과 나이테 형성</td></tr><tr><td>나이테</td><td>없음</td><td>있음</td></tr></tbody></table>
+<div class="note"><h3>대나무와 옥수수</h3><p>대나무는 오래 살고 이름에 “나무”가 붙지만, 나이테가 없으므로 식물학적으로는 풀로 본다. 강의에서는 “오래 산다고 모두 나무가 아니다”라는 점을 강조했다.</p></div>
+<h3>침엽수와 활엽수</h3><table><thead><tr><th>구분</th><th>침엽수</th><th>활엽수</th></tr></thead><tbody><tr><td>잎</td><td>바늘형·비늘형 등 좁은 형태</td><td>넓은 잎</td></tr><tr><td>종자</td><td>겉씨식물</td><td>속씨식물</td></tr><tr><td>예외·주의</td><td>은행나무는 넓은 잎처럼 보이지만 겉씨식물로 다룬다</td><td>잎 모양만 보고 단정하지 말고 생식 구조도 함께 이해</td></tr></tbody></table>
+</section>
+<section id="sec-conifer"><h2>3. 소나무류·전나무류 구분</h2>
+<h3>소나무류 잎 개수</h3><table><thead><tr><th>잎 개수</th><th>대표 수종</th><th>기억 포인트</th></tr></thead><tbody><tr><td>2개</td><td>소나무, 곰솔</td><td>가장 기본. 소나무와 해안가 곰솔을 구분</td></tr><tr><td>3개</td><td>리기다소나무, 백송</td><td>외래 수종과 조경 수종에서 자주 등장</td></tr><tr><td>5개</td><td>잣나무, 스트로브잣나무, 섬잣나무</td><td>잣나무는 오엽송이라고도 부름</td></tr></tbody></table>
+<h3>잎 촉감으로 보는 전나무·가문비·구상나무</h3><p>가문비나무와 전나무, 구상나무는 멀리서 비슷하게 보일 수 있다. 강의에서는 잎을 만져보고 <span class="hl-yellow">따끔한지 부드러운지</span>를 구분하라고 설명했다.</p>
+<ul><li>딱딱하고 따끔한 느낌: 가문비류 식별에 도움</li><li>부드러운 느낌: 전나무·구상나무류 식별에 도움</li><li>멀리서 보기보다 잎 배열, 촉감, 생육 위치를 함께 본다.</li></ul>
+<h3>마주나기와 어긋나기</h3><p>시험과 현장 식별에서 자주 나오는 포인트다. 비슷한 잎처럼 보여도 <span class="hl-blue">잎이 몇 개씩 나는지, 서로 마주나는지, 어긋나는지</span>를 먼저 확인한다.</p>
+</section>
+<section id="sec-use"><h2>4. 수목의 쓰임과 보전 관점</h2>
+<p>강의는 단순 식별을 넘어 나무의 생활문화적 쓰임과 보전의 필요성을 함께 다루었다.</p>
+<div class="grid"><div class="card"><b>주목</b>붉은 열매의 과육은 새들이 좋아하지만 씨에는 독성이 있다. 주목은 항암제 원료 이야기와도 연결된다.</div><div class="card"><b>비자나무</b>예전에는 구충제처럼 이용되었고, 제주 비자림·남부 지역 비자 군락 보전과 연결된다.</div><div class="card"><b>은행나무</b>사람과 함께 이동한 수종으로 설명 가능하다. 산속 은행나무는 과거 사람의 흔적과 연결해 볼 수 있다.</div><div class="card"><b>버드나무</b>살리실산 계열 이야기, 물가 생활문화와 연결해 해설 소재로 활용 가능하다.</div></div>
+<div class="case"><h3>지역 수종을 보는 태도</h3><p>다른 지역의 유명 수종을 부러워하기보다, 우리 지역에 어떤 수종이 있고 어떤 생태·문화적 의미가 있는지 살피는 것이 숲해설사의 역할이다.</p></div>
+</section>
+<section id="sec-wood"><h2>5. 목재 구조와 나이테</h2>
+<table><thead><tr><th>구조</th><th>설명</th></tr></thead><tbody><tr><td>수</td><td>목재의 중심부. 가지는 수에서부터 이어진다.</td></tr><tr><td>심재</td><td>중심부 주변의 죽은 조직. 사람으로 치면 뼈처럼 나무를 지탱한다.</td></tr><tr><td>변재</td><td>심재 바깥의 살아 있는 부분. 물의 이동과 관계가 깊다.</td></tr><tr><td>형성층</td><td>세포분열이 일어나 나이테를 만드는 핵심 층. 수피 바로 안쪽에 있다.</td></tr><tr><td>수피</td><td>외부 보호 조직. 형성층을 보호한다.</td></tr></tbody></table>
+<div class="safe"><h3>환상박피</h3><p>나무 껍질을 둥글게 벗겨 형성층을 끊으면 물질 이동과 생장이 막혀 나무가 죽을 수 있다. 형성층이 중요한 이유를 설명하는 사례다.</p></div>
+<h3>춘재와 추재</h3><p>봄·초여름처럼 생장이 빠른 시기에는 밝고 넓은 부분이 생기고, 늦여름 이후 생장이 느려지면 진하고 좁은 부분이 생긴다. 밝은 부분과 진한 부분이 합쳐져 1년의 나이테가 된다.</p>
+</section>
+<section id="sec-carbon"><h2>6. 나이테와 탄소중립 교육</h2>
+<p>나이테는 단순히 나이를 세는 자료가 아니다. 나무가 광합성으로 탄소를 고정해 목재를 만든 결과를 눈으로 보여주는 자료다.</p>
+<ul><li>나무의 주요 성분인 셀룰로스, 헤미셀룰로스, 리그닌은 탄소와 관련된다.</li><li>나이테 폭은 생육 조건, 가뭄, 경쟁, 간벌 여부를 보여주는 기록이 된다.</li><li>탄소중립 교육에서는 “나무가 자란 만큼 탄소를 저장했다”는 시각적 증거로 활용할 수 있다.</li><li>과거 치산녹화로 조성된 숲의 공익적 가치는 이전 세대의 노력과 연결해 설명할 수 있다.</li></ul>
+<div class="case"><h3>관리의 의미</h3><p>나무를 심는 것만으로 끝나는 것이 아니라, 물 주기, 생육 모니터링, 간벌, 건강성 점검이 함께 이루어져야 숲의 공익 기능이 유지된다.</p></div>
+</section>
+<section id="sec-succession"><h2>7. 숲의 천이</h2>
+<p>천이는 숲이 시간이 지나며 다른 식생과 군집으로 바뀌어 가는 과정이다. 토양 형성, 낙엽층, 빛 경쟁, 교란, 사람의 관리가 모두 영향을 준다.</p>
+<table><thead><tr><th>구분</th><th>내용</th></tr></thead><tbody><tr><td>1차 천이</td><td>식물이 없는 암석·모래 등에서 시작. 풍화와 토양 형성을 거쳐 생태계가 만들어진다.</td></tr><tr><td>2차 천이</td><td>기존 생태계가 산불·벌채·농경지 방치 등으로 교란된 뒤 다시 회복되는 과정.</td></tr><tr><td>극상림</td><td>기후와 토양 조건에서 안정된 숲 상태. 광릉숲 사례처럼 장기간 보전된 숲을 설명할 수 있다.</td></tr></tbody></table>
+<h3>천이 식생 흐름</h3><p><span class="hl-yellow">한해살이풀</span> → 여러해살이풀 → 붉나무·싸리·찔레·진달래·철쭉 같은 관목 → 소나무 양수림 → 참나무류 음수림 → 혼효림 → 서어나무·까치박달 등 극상림 방향</p>
+<div class="note"><h3>낙엽층의 역할</h3><p>낙엽은 부식되어 유기물층을 만들고, 지렁이·곤충·미생물 활동으로 토양을 비옥하게 한다. 숲은 논밭처럼 매년 갈아엎지 않아도 낙엽층을 통해 스스로 토양을 만든다.</p></div>
+</section>
+<section id="sec-succession-activity"><h2>8. 천이 카드 실습</h2>
+<p>강의에서는 모둠별로 천이 단계 카드를 배열하고, 왜 그 순서가 되는지 이유를 설명하는 활동을 진행했다.</p>
+<ul><li>답만 맞히는 활동이 아니라, 한 단계에서 다음 단계로 넘어가는 이유를 말해야 한다.</li><li>교란 요인으로는 산불, 사람의 벌채, 산사태, 동물, 곤충, 이상기온, 인공조림 등을 고려한다.</li><li>소나무 숲이 계속 유지된다면 사람의 관리나 교란이 있었는지 살펴본다.</li><li>참나무류가 들어오고, 시간이 지나 서어나무·까치박달 등 그늘에 강한 수종이 들어오는 흐름을 설명한다.</li></ul>
+</section>
+<section id="sec-tools"><h2>9. 산림조사 도구 실습</h2>
+<h3>윤척</h3><p>나무의 직경을 재는 도구다. 흉고직경은 지상 약 1.2m 높이에서 측정하며, 나무가 자란 방향과 수직으로 재고 2회 측정해 평균을 낸다.</p>
+<h3>직경테이프</h3><p>둘레를 재면 바로 직경으로 환산되도록 만들어진 테이프다. 큰 나무를 잴 때 유용하다.</p>
+<h3>측고기</h3><p>나무 높이를 재는 도구다. 강의에서는 20m 떨어진 지점에서 각도를 보고, 탄젠트값과 거리를 곱한 뒤 관측자의 눈높이를 더해 나무 높이를 구하는 방식을 설명했다.</p>
+<div class="exam"><p><strong>나무 높이 계산:</strong> 나무키 = 탄젠트값 × 거리 + 관측자 눈높이. 예를 들어 20m 거리에서 45도이면 탄젠트값 1이므로 눈높이 위쪽 높이는 20m가 된다.</p></div>
+<h3>생장추</h3><p>나무를 베지 않고 나이테를 확인하는 도구다. 바닥에서 약 20cm 높이를 뚫어 코어를 뽑아 나이테를 본다.</p>
+<ul><li>침엽수는 보통 조림 시 2년생 묘목을 쓰므로 측정값에 2살을 더한다.</li><li>활엽수는 1살을 더하는 방식으로 설명되었다.</li><li>나이테 폭을 통해 생육 경쟁, 간벌, 가뭄 등 생장 환경을 해석할 수 있다.</li></ul>
+</section>
+<section class="exam" id="sec-exam"><h2>10. 시험 포인트</h2><ul>
+<li><span class="hl-yellow">풀과 나무 구분</span>: 나이테, 목질화, 부피생장</li>
+<li><span class="hl-yellow">침엽수·활엽수</span>: 잎 모양뿐 아니라 겉씨·속씨 구조까지 연결</li>
+<li><span class="hl-yellow">소나무류</span>: 잎 2개, 3개, 5개 구분</li>
+<li><span class="hl-yellow">목재 구조</span>: 수, 심재, 변재, 형성층, 수피</li>
+<li><span class="hl-red">형성층</span>: 나이테를 만드는 세포분열층</li>
+<li><span class="hl-green">천이</span>: 1차 천이, 2차 천이, 극상림, 교란 요인</li>
+<li><span class="hl-blue">측정 도구</span>: 윤척, 측고기, 생장추의 용도와 측정 위치</li>
+</ul></section>
+<div class="forest-back-link forest-back-link-bottom"><a href="forest.html?k=yyj1201">← 공유페이지로 돌아가기</a></div>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">- boasis_lab.(yyj assistant)</div>
+</body></html>
