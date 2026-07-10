@@ -69,7 +69,8 @@
   .subgroup-etc     { background: #f4ece6; border-left: 4px solid #8a5f2d; color: #3d2b1a; }
 
   /* ── Lv3: 과목 블록 ── */
-  .subject-block { background: white; border-radius: 14px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .subject-block { background: white; border-radius: 14px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); scroll-margin-top: 18px; }
+  .subject-block.return-highlight { outline: 3px solid #f0c419; box-shadow: 0 0 0 6px rgba(240,196,25,0.18), 0 2px 8px rgba(0,0,0,0.07); }
 
   .subject-title {
     color: white; padding: 11px 18px;
@@ -164,37 +165,37 @@
 
   <div class="subgroup subgroup-common">📚 산림교육론</div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-01">
     <div class="subject-title title-common">산림교육의 이해 <span class="date">2026-02-24</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="0224_산림교육의이해_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-common" href="0224_산림교육의이해_정리본_최종.html?from=subject-01" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 1.2 MB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0224_산림교육의이해_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0224_산림교육의이해_기출문제집.html?from=subject-01" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-02">
     <div class="subject-title title-common">산림문화휴양 <span class="date">2026-02-26</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="20260226_산림휴양문화_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-common" href="20260226_산림휴양문화_정리본_최종.html?from=subject-02" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 47 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="20260226_산림휴양문화_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="20260226_산림휴양문화_기출문제집.html?from=subject-02" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-03">
     <div class="subject-title title-common">나무·숲·임업 <span class="date">2026-03-10</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="0310_나무숲임업_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-common" href="0310_나무숲임업_정리본_최종.html?from=subject-03" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 1.7 MB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0310_나무숲임업_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0310_나무숲임업_기출문제집.html?from=subject-03" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
@@ -202,13 +203,13 @@
 
   <div class="subgroup subgroup-common">🌳 숲해설개론</div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-04">
     <div class="subject-title title-common">숲해설개론 <span class="date">2026-05-19</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="0519_숲해설개론_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-common" href="0519_숲해설개론_정리본_최종.html?from=subject-04" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 55.4 MB (PC 권장)</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0519_숲해설개론_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0519_숲해설개론_기출문제집.html?from=subject-04" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
@@ -216,25 +217,25 @@
 
   <div class="subgroup subgroup-common">🍃 산림생태계</div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-05">
     <div class="subject-title title-common">산림생태학 <span class="date">2026-04-21</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="0421_산림생태학_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-common" href="0421_산림생태학_정리본_최종.html?from=subject-05" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 284 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0421_산림생태학_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0421_산림생태학_기출문제집.html?from=subject-05" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-06">
     <div class="subject-title title-common">식물의 이해 (초본·목본) <span class="date">2026-04~05</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="식물의이해_초본목본_통합정리본.html" target="_blank">
+      <a class="file-btn btn-common" href="식물의이해_초본목본_통합정리본.html?from=subject-06" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 106 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="식물의이해_초본목본_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="식물의이해_초본목본_기출문제집.html?from=subject-06" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 (초본25+목본25) · 클릭형</div></div>
       </a>
     </div>
@@ -248,34 +249,34 @@
   <div class="subject-block">
     <div class="subject-title title-select2">야생동물의 이해 (조류·포유류) <span class="date">2026-03-07 · 03-09</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="0307_야생동물의이해_통합정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="0307_야생동물의이해_통합정리본.html?from=subject-06" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 148 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0307_야생동물의이해_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0307_야생동물의이해_기출문제집.html?from=subject-06" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 (조류25+포유류25) · 클릭형</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-07">
     <div class="subject-title title-select2">곤충의 이해 <span class="date">2026-04-07</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="0407_곤충의이해_정리본_완전본.html" target="_blank">
+      <a class="file-btn btn-select2" href="0407_곤충의이해_정리본_완전본.html?from=subject-07" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 58 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0407_곤충의이해_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0407_곤충의이해_기출문제집.html?from=subject-07" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-08">
     <div class="subject-title title-select2">산림토양학 <span class="date">2026-03-28</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="0328_산림토양학_정리본_최종.html" target="_blank">
+      <a class="file-btn btn-select2" href="0328_산림토양학_정리본_최종.html?from=subject-08" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 44 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0328_산림토양학_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0328_산림토양학_기출문제집.html?from=subject-08" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
@@ -283,25 +284,25 @@
 
   <div class="subgroup subgroup-select2">🩹 안전교육 및 안전관리</div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-09">
     <div class="subject-title title-select2">응급처치 <span class="date">2026-03-13 · 03-14</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260313_응급처치_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260313_응급처치_정리본.html?from=subject-09" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">CPR·AED·기도폐쇄·상처처치 · 14 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="20260313_응급처치_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="20260313_응급처치_기출문제집.html?from=subject-09" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-10">
     <div class="subject-title title-select2">야외활동지도 <span class="date">2026-03-17</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260317_야외활동지도_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260317_야외활동지도_정리본.html?from=subject-10" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 44 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="20260317_야외활동지도_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="20260317_야외활동지도_기출문제집.html?from=subject-10" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
@@ -309,79 +310,79 @@
 
   <div class="subgroup subgroup-select2">⭐ 선택과목</div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-11">
     <div class="subject-title title-select2">도시숲 가꾸기의 이해 <span class="date">2026-03-19</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="도시숲가꾸기_통합정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="도시숲가꾸기_통합정리본.html?from=subject-11" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 38 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="도시숲가꾸기_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="도시숲가꾸기_기출문제집.html?from=subject-11" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-12">
     <div class="subject-title title-select2">기후변화실습 (기후위기·탄소중립) <span class="date">2026-06-20</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="기후위기탄소중립_통합정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="기후위기탄소중립_통합정리본.html?from=subject-12" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">생태·온실가스·탄소중립·IPCC · 27 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="기후위기탄소중립_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="기후위기탄소중립_기출문제집.html?from=subject-12" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-13">
     <div class="subject-title title-select2">계절을 찾아가는 식물이야기 <span class="date">2026-03-31</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260331_계절을찾아가는식물이야기_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260331_계절을찾아가는식물이야기_정리본.html?from=subject-13" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">최종 보강본 · 2.1 MB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="20260331_계절을찾아가는식물이야기_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="20260331_계절을찾아가는식물이야기_기출문제집.html?from=subject-13" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-14">
     <div class="subject-title title-select2">생명의 숲밧줄놀이 <span class="date">2026-04-04</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260404_생명의숲밧줄놀이_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260404_생명의숲밧줄놀이_정리본.html?from=subject-14" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">트리플레잉·매듭·안전 주의사항 · 6.1 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-15">
     <div class="subject-title title-select2">자연생태놀이 <span class="date">2026-04-11</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260411_자연생태놀이_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260411_자연생태놀이_정리본.html?from=subject-15" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">자연놀이·숲놀이·생태놀이 유형 · 4 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-16">
     <div class="subject-title title-select2">양서파충류 이야기 <span class="date">2026-04-16</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="0416_양서파충류_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="0416_양서파충류_정리본.html?from=subject-16" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">11섹션 · 생명사·분류·생태 · 45 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="0416_양서파충류_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="0416_양서파충류_기출문제집.html?from=subject-16" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-17">
     <div class="subject-title title-select2">수서생물 <span class="date">2026-06-13</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260613_수서생물_정리본.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260613_수서생물_정리본.html?from=subject-17" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">팀 정리 PDF 보강 반영 · 42 KB</div></div>
       </a>
-      <a class="file-btn btn-quiz" href="20260613_수서생물_기출문제집.html" target="_blank">
+      <a class="file-btn btn-quiz" href="20260613_수서생물_기출문제집.html?from=subject-17" target="_blank">
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
       </a>
     </div>
@@ -393,43 +394,43 @@
   <div class="subject-block">
     <div class="subject-title title-select2">커뮤니케이션 <span class="date">2026-07-08 신규</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260708_커뮤니케이션_정리초안.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260708_커뮤니케이션_정리초안.html?from=subject-17" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">신규 정리 초안</div><div class="sub">팀 정리 PDF 기반 · 15 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-18">
     <div class="subject-title title-select2">숲해설프로그램개발 <span class="date">2026-07-08 신규</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260708_숲해설프로그램개발_정리초안.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260708_숲해설프로그램개발_정리초안.html?from=subject-18" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">신규 정리 초안</div><div class="sub">팀 정리 PDF 기반 · 18 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-19">
     <div class="subject-title title-select2">교육프로그램운영실습1 <span class="date">2026-07-08 신규</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습1_정리초안.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습1_정리초안.html?from=subject-19" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">신규 정리 초안</div><div class="sub">팀 정리 PDF 기반 · 9 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-20">
     <div class="subject-title title-select2">교육프로그램운영실습2 <span class="date">2026-07-08 신규</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습2_정리초안.html" target="_blank">
+      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습2_정리초안.html?from=subject-20" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">신규 정리 초안</div><div class="sub">팀 정리 PDF 기반 · 8 KB</div></div>
       </a>
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-21">
     <div class="subject-title title-select2">팀 정리 PDF 원본·이미지 <span class="date">2026-07-08</span></div>
     <div class="file-list">
-      <a class="file-btn btn-select2" href="team_pdf_20260708_images/00_PDF이미지_추출목록_공유용.html" target="_blank">
+      <a class="file-btn btn-select2" href="team_pdf_20260708_images/00_PDF이미지_추출목록_공유용.html?from=subject-21" target="_blank">
         <span class="ico">🖼️</span><div class="info"><div class="label">PDF 추출 이미지 목록</div><div class="sub">228개 이미지 · 페이지별 미리보기</div></div>
       </a>
       <a class="file-btn btn-select2" href="team_pdf_20260708_original_pdf/팀정리PDF_원본.pdf" target="_blank">
@@ -438,10 +439,10 @@
     </div>
   </div>
 
-  <div class="subject-block">
+  <div class="subject-block" id="subject-22">
     <div class="subject-title title-etc">산림정책의이해 <span class="date">2026-03-05</span></div>
     <div class="file-list">
-      <a class="file-btn btn-etc" href="0305_산림정책의이해.html" target="_blank">
+      <a class="file-btn btn-etc" href="0305_산림정책의이해.html?from=subject-22" target="_blank">
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">핵심 요약 · 10 KB</div></div>
       </a>
     </div>
@@ -459,10 +460,22 @@
   const PW_MAINT = '__maint_disabled__';
   const OWNER_KEY = 'yyj1201';
 
+  function restoreReturnTarget() {
+    const targetId = decodeURIComponent((window.location.hash || '').replace(/^#/, ''));
+    if (!targetId) return;
+    setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      target.scrollIntoView({ block: 'center' });
+      target.classList.add('return-highlight');
+      setTimeout(() => target.classList.remove('return-highlight'), 1800);
+    }, 80);
+  }
   function showMain() {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
+    restoreReturnTarget();
   }
   function showMaint() {
     document.getElementById('login-screen').style.display = 'none';
@@ -493,7 +506,7 @@
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
     localStorage.setItem('owner_auth', OWNER_KEY);
-    history.replaceState({}, '', window.location.pathname); showMain();
+    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain();
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { showMain(); }
   else if (sessionStorage.getItem('auth') === '1') { showMain(); }
   else if (sessionStorage.getItem('auth') === 'maint') { showMaint(); }
