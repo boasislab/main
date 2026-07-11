@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>계절을 찾아가는 식물이야기 — 기출문제집</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; line-height: 1.7; color: #222; background: #f0f4f0; }
+  .container { max-width: 860px; margin: 0 auto; padding: 20px; }
+  header { background: linear-gradient(135deg, #2d6a4f, #52796f); color: white; padding: 24px; border-radius: 12px; margin-bottom: 24px; }
+  header h1 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  header .meta { font-size: 13px; opacity: .88; }
+  .score-bar { background:white; border-radius:10px; padding:14px 20px; margin-bottom:20px; display:flex; align-items:center; gap:16px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .score-label { font-size:14px; color:#555; }
+  .score-val { font-size:22px; font-weight:800; color:#2d6a4f; }
+  .btn-reset { margin-left:auto; background:#e6f3eb; color:#1f6b3a; border:0; border-radius:8px; padding:7px 14px; font-size:13px; font-weight:700; cursor:pointer; }
+  .btn-reset:hover { background:#d2eadb; }
+  .q-card { background:white; border-radius:12px; padding:20px 22px; margin-bottom:16px; box-shadow:0 1px 4px rgba(0,0,0,.07); border-left:5px solid #9bc7a7; }
+  .q-card.correct-card { border-left-color:#2f8f4e; }
+  .q-card.wrong-card { border-left-color:#d64545; }
+  .q-num { font-size:12px; font-weight:800; color:#2d6a4f; margin-bottom:6px; letter-spacing:.5px; }
+  .q-text { font-size:15px; font-weight:700; margin-bottom:14px; line-height:1.6; }
+  .options { display:flex; flex-direction:column; gap:8px; }
+  .opt-btn { display:block; width:100%; text-align:left; padding:10px 14px; border:1.5px solid #d8e6dc; border-radius:8px; background:#fbfdfb; font-size:14px; cursor:pointer; color:#333; transition:all .15s; }
+  .opt-btn:hover:not(:disabled) { border-color:#2d6a4f; background:#eef8f1; }
+  .opt-btn.selected-correct { background:#e7f5eb; border-color:#2f8f4e; color:#155724; font-weight:800; }
+  .opt-btn.selected-wrong { background:#fdecec; border-color:#d64545; color:#9f1d1d; font-weight:800; }
+  .opt-btn.show-answer { background:#e7f5eb; border-color:#2f8f4e; color:#155724; font-weight:800; }
+  .opt-btn:disabled { cursor:default; }
+  .explanation { margin-top:12px; background:#fff8e8; border-left:3px solid #d89000; border-radius:6px; padding:10px 14px; font-size:13px; color:#5d4037; display:none; }
+  .explanation.visible { display:block; }
+  .footer { text-align:center; margin-top:30px; padding-bottom:20px; }
+  .back-btn { display:inline-block; color:#777; font-size:.9em; text-decoration:none; }
+  .forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+  .forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+  .forest-back-link a:hover{background:#e7f5eb;}
+  @media print{.forest-back-link,.score-bar{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201#subject-13">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>계절을 찾아가는 식물이야기 — 기출문제집</h1><div class="meta">50문항 · 클릭형 정답 확인 · 2026-03-31</div></header>
+<div class="score-bar"><span class="score-label">맞은 문항</span><span class="score-val" id="score">0 / 50</span><button class="btn-reset" onclick="resetAll()">다시 풀기</button></div>
+<div id="quiz"></div>
+<div class="footer"><a class="back-btn" href="forest.html?k=yyj1201#subject-13">← 강의자료 목록으로</a></div>
+</div>
+<script>
+const QS = [
+  {
+    "q": "벚꽃 개화에 직접 관련된 조건으로 가장 적절한 것은?",
+    "opts": [
+      "토양 산도만 충족되면 개화한다",
+      "온도와 일조량, 일조시간 등 환경 조건이 맞아야 한다",
+      "비가 많이 오면 반드시 개화한다",
+      "나무 나이만 개화를 결정한다"
+    ],
+    "ans": 1,
+    "exp": "개화는 온도, 일조량, 일조시간 등 여러 환경 조건의 영향을 받는다."
+  },
+  {
+    "q": "춘화처리에 대한 설명으로 옳은 것은?",
+    "opts": [
+      "고온을 오래 처리해 발아를 막는 현상",
+      "추운 겨울을 지나야 꽃눈 형성·개화가 촉진되는 현상",
+      "잎의 가장자리가 물결 모양이 되는 현상",
+      "씨앗이 물 없이 발아하는 현상"
+    ],
+    "ans": 1,
+    "exp": "보리처럼 겨울을 지나야 생장·개화가 이어지는 현상과 관련된다."
+  },
+  {
+    "q": "식물의 기본 특징으로 옳은 것은?",
+    "opts": [
+      "대부분 세포벽이 없고 신경계가 발달한다",
+      "대부분 엽록소를 이용해 광합성을 한다",
+      "항상 능동적으로 이동한다",
+      "동물처럼 종속영양만 한다"
+    ],
+    "ans": 1,
+    "exp": "식물은 세포벽을 가지며 엽록소를 통해 광합성으로 양분을 만든다."
+  },
+  {
+    "q": "식물과 동물의 구분 기준으로 적절하지 않은 것은?",
+    "opts": [
+      "세포벽의 유무",
+      "영양 방식",
+      "이동성과 신경계",
+      "무조건 꽃의 색깔"
+    ],
+    "ans": 3,
+    "exp": "꽃 색깔은 식물과 동물을 나누는 기본 기준이 아니다."
+  },
+  {
+    "q": "미모사의 잎이 움직이는 주된 원리는?",
+    "opts": [
+      "팽압 변화",
+      "목질부 연소",
+      "씨방 팽창",
+      "꽃가루 이동"
+    ],
+    "ans": 0,
+    "exp": "미모사는 세포 내 수분 변화에 따른 팽압 작용으로 잎이 움직인다."
+  },
+  {
+    "q": "파리지옥이 곤충을 잡는 이유로 가장 알맞은 것은?",
+    "opts": [
+      "광합성을 하지 못해서",
+      "척박한 습지에서 부족한 무기영양소를 보충하기 위해",
+      "뿌리가 없어서",
+      "열매를 만들기 위해"
+    ],
+    "ans": 1,
+    "exp": "식충식물은 부족한 질소 등 무기영양소를 곤충에서 보충한다."
+  },
+  {
+    "q": "아까시나무가 제거 후에도 다시 퍼지기 쉬운 이유는?",
+    "opts": [
+      "잎으로만 번식하기 때문에",
+      "뿌리로 번식하는 성질이 있기 때문에",
+      "씨앗이 전혀 없기 때문에",
+      "물관이 없기 때문에"
+    ],
+    "ans": 1,
+    "exp": "아까시나무는 뿌리 번식 특성이 있어 제거 후에도 다시 올라올 수 있다."
+  },
+  {
+    "q": "잎차례에 해당하지 않는 것은?",
+    "opts": [
+      "어긋나기",
+      "마주나기",
+      "돌려나기",
+      "파상형"
+    ],
+    "ans": 3,
+    "exp": "파상형은 잎 가장자리 모양에 해당한다."
+  },
+  {
+    "q": "홑잎과 겹잎을 나누는 기준은?",
+    "opts": [
+      "잎의 수와 구성",
+      "꽃의 색",
+      "뿌리 길이",
+      "줄기 높이"
+    ],
+    "ans": 0,
+    "exp": "홑잎과 겹잎은 잎몸이 하나인지 여러 소엽으로 나뉘는지에 따라 구분한다."
+  },
+  {
+    "q": "잎맥의 모양에 해당하는 것은?",
+    "opts": [
+      "그물맥과 나란히맥",
+      "진과와 위과",
+      "배젖과 떡잎",
+      "암꽃과 수꽃"
+    ],
+    "ans": 0,
+    "exp": "잎맥은 그물맥, 나란히맥, 장상맥 등으로 구분한다."
+  },
+  {
+    "q": "잎 가장자리가 톱니처럼 까칠까칠한 모양은?",
+    "opts": [
+      "전연",
+      "거치형",
+      "파상형",
+      "선형"
+    ],
+    "ans": 1,
+    "exp": "거치형은 톱니 모양의 잎 가장자리를 말한다."
+  },
+  {
+    "q": "잎 가장자리가 부드러운 물결 모양인 것은?",
+    "opts": [
+      "파상형",
+      "거치형",
+      "장상맥",
+      "단엽"
+    ],
+    "ans": 0,
+    "exp": "파상형은 물결 모양의 가장자리이다."
+  },
+  {
+    "q": "쌍떡잎식물 줄기의 특징으로 옳은 것은?",
+    "opts": [
+      "형성층이 있어 부피생장이 가능하다",
+      "형성층이 전혀 없다",
+      "물관과 체관이 없다",
+      "떡잎이 항상 한 장이다"
+    ],
+    "ans": 0,
+    "exp": "쌍떡잎식물은 형성층이 있어 부피생장을 한다."
+  },
+  {
+    "q": "외떡잎식물의 예로 적절한 것은?",
+    "opts": [
+      "옥수수",
+      "복숭아",
+      "사과",
+      "고구마"
+    ],
+    "ans": 0,
+    "exp": "옥수수는 외떡잎식물의 대표 예이다."
+  },
+  {
+    "q": "물관의 주된 기능은?",
+    "opts": [
+      "물과 무기양분 이동",
+      "광합성 산물 이동",
+      "꽃가루 생산",
+      "씨방 형성"
+    ],
+    "ans": 0,
+    "exp": "물관은 뿌리에서 흡수한 물과 무기양분을 이동시킨다."
+  },
+  {
+    "q": "체관의 주된 기능은?",
+    "opts": [
+      "광합성 산물 이동",
+      "수분만 흡수",
+      "꽃잎 색 결정",
+      "뿌리털 제거"
+    ],
+    "ans": 0,
+    "exp": "체관은 잎에서 만들어진 양분을 식물체 각 부분으로 이동시킨다."
+  },
+  {
+    "q": "뿌리의 주요 기능으로 옳지 않은 것은?",
+    "opts": [
+      "식물체 지지",
+      "물과 무기양분 흡수",
+      "저장",
+      "꽃가루받이 전담"
+    ],
+    "ans": 3,
+    "exp": "꽃가루받이는 꽃의 생식 과정이다."
+  },
+  {
+    "q": "고구마에서 먹는 부분은 주로 무엇인가?",
+    "opts": [
+      "뿌리",
+      "잎",
+      "꽃",
+      "씨방"
+    ],
+    "ans": 0,
+    "exp": "고구마는 뿌리가 비대해진 저장기관이다."
+  },
+  {
+    "q": "열매는 꽃의 어느 부분이 발달한 것인가?",
+    "opts": [
+      "씨방",
+      "잎맥",
+      "뿌리털",
+      "형성층"
+    ],
+    "ans": 0,
+    "exp": "열매는 주로 씨방이 발달하여 만들어진다."
+  },
+  {
+    "q": "복숭아처럼 씨방이 과육이 되는 열매 구분은?",
+    "opts": [
+      "진과",
+      "위과",
+      "포자",
+      "떡잎"
+    ],
+    "ans": 0,
+    "exp": "진과는 씨방이 발달하여 과육을 이루는 열매이다."
+  },
+  {
+    "q": "사과처럼 꽃받침 등 씨방 외 부분이 과육 형성에 관여하는 것은?",
+    "opts": [
+      "위과",
+      "진과",
+      "겹잎",
+      "장상맥"
+    ],
+    "ans": 0,
+    "exp": "사과는 꽃받침통 등이 발달한 위과로 설명된다."
+  },
+  {
+    "q": "씨앗 생성 과정과 가장 관련 깊은 구조는?",
+    "opts": [
+      "꽃",
+      "형성층",
+      "나이테",
+      "잎 가장자리"
+    ],
+    "ans": 0,
+    "exp": "씨앗은 꽃의 생식 과정과 관련되어 생성된다."
+  },
+  {
+    "q": "자웅이주란 무엇인가?",
+    "opts": [
+      "암꽃과 수꽃이 서로 다른 개체에 달리는 것",
+      "한 꽃에 암술과 수술이 모두 없는 것",
+      "잎이 두 장씩 나는 것",
+      "뿌리가 두 갈래인 것"
+    ],
+    "ans": 0,
+    "exp": "자웅이주는 암수 생식기관이 서로 다른 개체에 나뉘어 있는 경우이다."
+  },
+  {
+    "q": "자웅동주에 가까운 설명은?",
+    "opts": [
+      "한 개체에 암꽃과 수꽃이 함께 있는 경우",
+      "암수 개체가 반드시 따로 있는 경우",
+      "꽃이 피지 않는 식물",
+      "씨앗이 없는 열매"
+    ],
+    "ans": 0,
+    "exp": "자웅동주는 한 개체에 암꽃과 수꽃이 함께 있는 경우이다."
+  },
+  {
+    "q": "배젖의 역할로 가장 적절한 것은?",
+    "opts": [
+      "배의 영양 저장",
+      "잎맥 형성",
+      "물관 보호",
+      "수피 색 결정"
+    ],
+    "ans": 0,
+    "exp": "배젖은 종자에서 배가 자라는 데 필요한 양분을 저장한다."
+  },
+  {
+    "q": "떡잎은 무엇과 관련 있는가?",
+    "opts": [
+      "씨앗 속 어린 식물의 초기 잎",
+      "줄기의 나이테",
+      "꽃잎의 색",
+      "뿌리의 압력"
+    ],
+    "ans": 0,
+    "exp": "떡잎은 씨앗 속 배에 들어 있는 초기 잎이다."
+  },
+  {
+    "q": "장일식물의 개화 조건으로 알맞은 것은?",
+    "opts": [
+      "낮 길이가 길어질 때 개화가 촉진됨",
+      "밤 길이가 길어질 때만 개화",
+      "빛이 전혀 없어야 개화",
+      "온도와 무관하게 개화"
+    ],
+    "ans": 0,
+    "exp": "장일식물은 낮 길이가 일정 이상 길어지는 조건과 관련된다."
+  },
+  {
+    "q": "단일식물의 개화 조건으로 알맞은 것은?",
+    "opts": [
+      "낮이 짧고 밤이 길어지는 조건과 관련됨",
+      "낮이 길수록 개화",
+      "항상 겨울에만 개화",
+      "빛 조건과 무관"
+    ],
+    "ans": 0,
+    "exp": "단일식물은 상대적으로 긴 밤 조건에서 개화가 촉진된다."
+  },
+  {
+    "q": "식물의 생장과 발육에 영향을 주는 요인으로 적절하지 않은 것은?",
+    "opts": [
+      "온도",
+      "빛",
+      "수분",
+      "강사의 이름"
+    ],
+    "ans": 3,
+    "exp": "강사의 이름은 생장과 발육 조건이 아니다."
+  },
+  {
+    "q": "광합성에 꼭 필요한 요소로 보기 어려운 것은?",
+    "opts": [
+      "빛",
+      "엽록소",
+      "이산화탄소",
+      "쇠붙이"
+    ],
+    "ans": 3,
+    "exp": "광합성에는 빛, 엽록소, 이산화탄소, 물 등이 필요하다."
+  },
+  {
+    "q": "녹색 잎이 광합성과 관련 깊은 이유는?",
+    "opts": [
+      "엽록소를 가지고 있기 때문",
+      "항상 씨앗이 있기 때문",
+      "물관이 없기 때문",
+      "꽃받침이 과육이기 때문"
+    ],
+    "ans": 0,
+    "exp": "엽록소는 빛에너지를 이용해 광합성을 수행하는 색소이다."
+  },
+  {
+    "q": "삼투에 의한 수분 흡수와 가장 관련 있는 것은?",
+    "opts": [
+      "세포막과 농도 차",
+      "꽃잎 색",
+      "열매 단맛",
+      "나이테 수"
+    ],
+    "ans": 0,
+    "exp": "삼투는 반투과성 막을 통한 물의 이동과 관련된다."
+  },
+  {
+    "q": "세포벽에 대한 설명으로 옳은 것은?",
+    "opts": [
+      "식물세포에 형태와 지지를 제공한다",
+      "동물세포에만 있다",
+      "광합성 산물을 이동한다",
+      "씨앗만 만든다"
+    ],
+    "ans": 0,
+    "exp": "식물세포의 세포벽은 지지와 형태 유지에 중요하다."
+  },
+  {
+    "q": "식물 이름을 통해 알 수 있는 정보로 보기 어려운 것은?",
+    "opts": [
+      "형태나 특징",
+      "서식지나 생태적 성격",
+      "이용 또는 발견 관련 정보",
+      "반드시 개체의 정확한 나이"
+    ],
+    "ans": 3,
+    "exp": "식물 이름은 특징·서식지·용도 등을 담을 수 있지만 정확한 나이를 알려주지는 않는다."
+  },
+  {
+    "q": "정확한 전달이 숲해설에서 중요한 이유는?",
+    "opts": [
+      "잘못된 자연 지식 전달을 줄이기 위해",
+      "식물 이름을 모두 외우지 않기 위해",
+      "참가자의 질문을 막기 위해",
+      "자료를 줄이기 위해"
+    ],
+    "ans": 0,
+    "exp": "숲해설은 자연 지식을 바르게 전달하는 태도가 중요하다."
+  },
+  {
+    "q": "식물 관찰에서 잎을 볼 때 확인할 항목으로 적절한 것은?",
+    "opts": [
+      "잎차례, 잎맥, 가장자리 모양",
+      "강의실 번호",
+      "파일 크기",
+      "문서 형식"
+    ],
+    "ans": 0,
+    "exp": "잎 관찰은 잎차례, 잎 수, 잎맥, 모양, 가장자리 등을 함께 본다."
+  },
+  {
+    "q": "식물 관찰에서 열매를 볼 때 중요한 것은?",
+    "opts": [
+      "씨방 발달 여부와 씨앗 성숙",
+      "수업 시간표",
+      "파일명",
+      "음성 재생 여부"
+    ],
+    "ans": 0,
+    "exp": "열매와 씨앗은 꽃의 구조와 성숙 과정까지 연결해 이해한다."
+  },
+  {
+    "q": "목본과 초본 구분에서 줄기와 관련 깊은 것은?",
+    "opts": [
+      "목질화와 부피생장 여부",
+      "꽃잎 색깔만",
+      "씨앗의 맛",
+      "잎의 향기만"
+    ],
+    "ans": 0,
+    "exp": "나무와 풀의 구분은 줄기의 목질화, 형성층, 부피생장 등과 관련된다."
+  },
+  {
+    "q": "형성층이 있다는 말의 의미로 옳은 것은?",
+    "opts": [
+      "줄기가 굵어지는 부피생장 가능",
+      "광합성을 전혀 하지 않음",
+      "꽃이 피지 않음",
+      "씨앗이 없음"
+    ],
+    "ans": 0,
+    "exp": "형성층은 줄기의 굵기 생장과 관련된다."
+  },
+  {
+    "q": "외떡잎식물과 쌍떡잎식물 구분에서 볼 수 있는 항목은?",
+    "opts": [
+      "떡잎 수, 잎맥, 줄기 구조",
+      "꽃 이름만",
+      "열매 맛만",
+      "강사 이름"
+    ],
+    "ans": 0,
+    "exp": "떡잎 수, 잎맥, 관다발 배열 등이 구분 기준이 된다."
+  },
+  {
+    "q": "식물의 씨앗이 중요한 이유는?",
+    "opts": [
+      "다음 세대 번식과 확산에 관여하기 때문",
+      "잎의 가장자리만 만들기 때문",
+      "줄기 색만 정하기 때문",
+      "물관을 없애기 때문"
+    ],
+    "ans": 0,
+    "exp": "씨앗은 종자식물의 번식과 확산에서 핵심이다."
+  },
+  {
+    "q": "열매와 씨앗의 성숙기를 이해할 때 연결되는 주제는?",
+    "opts": [
+      "식물의 번식 전략",
+      "기계 작동법",
+      "문서 배포 방식",
+      "강의 파일 압축"
+    ],
+    "ans": 0,
+    "exp": "열매와 씨앗은 식물 번식 전략과 계절 변화 이해에 중요하다."
+  },
+  {
+    "q": "뿌리번식 식물을 관리할 때 주의할 점은?",
+    "opts": [
+      "뿌리 잔재에서 다시 발생할 수 있음을 고려한다",
+      "잎만 제거하면 끝난다",
+      "꽃 색만 바꾸면 된다",
+      "물을 주지 않으면 항상 즉시 사라진다"
+    ],
+    "ans": 0,
+    "exp": "뿌리번식 식물은 뿌리 잔재 관리가 중요하다."
+  },
+  {
+    "q": "식물 설명에서 ‘정확한 용어 사용’이 중요한 이유는?",
+    "opts": [
+      "비슷한 개념을 혼동하지 않게 하기 위해",
+      "내용을 어렵게 만들기 위해",
+      "질문을 피하기 위해",
+      "사진을 줄이기 위해"
+    ],
+    "ans": 0,
+    "exp": "진과·위과, 물관·체관, 장일·단일 등은 구분해 설명해야 한다."
+  },
+  {
+    "q": "다음 중 물관·체관 설명으로 옳은 것은?",
+    "opts": [
+      "물관은 물 이동, 체관은 양분 이동",
+      "물관은 양분 이동, 체관은 물 이동",
+      "둘 다 꽃잎 색만 결정",
+      "둘 다 씨방만 만든다"
+    ],
+    "ans": 0,
+    "exp": "물관은 물·무기양분, 체관은 광합성 산물 이동과 관련된다."
+  },
+  {
+    "q": "계절 식물 강의에서 벚꽃 개화 사례가 설명하는 핵심은?",
+    "opts": [
+      "식물 현상이 계절과 환경 조건에 연결됨",
+      "모든 식물은 같은 날 핌",
+      "온도는 식물과 무관",
+      "꽃은 씨앗과 무관"
+    ],
+    "ans": 0,
+    "exp": "벚꽃 개화는 계절, 온도, 일조시간 같은 환경 요인과 연결된다."
+  },
+  {
+    "q": "꽃의 역할로 가장 적절한 것은?",
+    "opts": [
+      "생식기관으로 씨앗 형성과 관련된다",
+      "뿌리를 지지한다",
+      "물만 이동시킨다",
+      "줄기를 굵게 한다"
+    ],
+    "ans": 0,
+    "exp": "꽃은 식물의 생식기관이며 씨앗과 열매 형성으로 이어진다."
+  },
+  {
+    "q": "씨방과 열매의 관계로 옳은 것은?",
+    "opts": [
+      "씨방은 열매 형성과 밀접하다",
+      "씨방은 잎맥이다",
+      "씨방은 뿌리 끝이다",
+      "씨방은 줄기 형성층이다"
+    ],
+    "ans": 0,
+    "exp": "꽃의 씨방이 발달해 열매가 되는 것이 기본 원리이다."
+  },
+  {
+    "q": "식물 생장 설명에서 ‘발육’에 가까운 의미는?",
+    "opts": [
+      "기관과 기능이 분화·성숙하는 과정",
+      "파일이 커지는 과정",
+      "문서가 전송되는 과정",
+      "사진이 열리는 과정"
+    ],
+    "ans": 0,
+    "exp": "발육은 생물이 구조와 기능을 갖추며 성숙하는 과정이다."
+  },
+  {
+    "q": "식물 강의를 현장에서 설명할 때 가장 적절한 태도는?",
+    "opts": [
+      "관찰 가능한 특징을 정확한 용어로 쉽고 바르게 전달한다",
+      "모르는 내용도 단정한다",
+      "식물과 동물을 구분하지 않는다",
+      "질문을 받지 않는다"
+    ],
+    "ans": 0,
+    "exp": "숲해설에서는 정확한 전달과 관찰 기반 설명이 중요하다."
+  }
+];
+let answered = new Array(QS.length).fill(false);
+let correct = new Array(QS.length).fill(false);
+function render() {
+  const wrap = document.getElementById('quiz');
+  wrap.innerHTML = QS.map((item, idx) => `
+    <div class="q-card" id="qcard-${idx}">
+      <div class="q-num">문항 ${idx + 1}</div>
+      <div class="q-text">${item.q}</div>
+      <div class="options">
+        ${item.opts.map((opt, oi) => `<button class="opt-btn" onclick="choose(${idx}, ${oi})">${['①','②','③','④'][oi]} ${opt}</button>`).join('')}
+      </div>
+      <div class="explanation" id="exp-${idx}">${item.exp}</div>
+    </div>`).join('');
+}
+function choose(qi, oi) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+  correct[qi] = oi === QS[qi].ans;
+  const card = document.getElementById(`qcard-${qi}`);
+  card.classList.add(correct[qi] ? 'correct-card' : 'wrong-card');
+  const btns = card.querySelectorAll('.opt-btn');
+  btns.forEach((btn, bi) => {
+    btn.disabled = true;
+    if (bi === QS[qi].ans) btn.classList.add('show-answer');
+    if (bi === oi && bi === QS[qi].ans) btn.classList.add('selected-correct');
+    if (bi === oi && bi !== QS[qi].ans) btn.classList.add('selected-wrong');
+  });
+  document.getElementById(`exp-${qi}`).classList.add('visible');
+  updateScore();
+}
+function updateScore() {
+  document.getElementById('score').textContent = `${correct.filter(Boolean).length} / ${QS.length}`;
+}
+function resetAll() { answered.fill(false); correct.fill(false); render(); updateScore(); window.scrollTo({top:0, behavior:'smooth'}); }
+render();
+</script>
+</body>
+</html>

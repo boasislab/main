@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보아시스랩 · bettyyoon oasis lab</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, #1a2e22 0%, #2d6a4f 60%, #52b788 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .site-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .site-header .logo { font-size: 2.6em; margin-bottom: 14px; }
+  .site-header .brand-top {
+    font-size: 0.78em;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+  .site-header h1 {
+    color: #fff;
+    font-size: 1.9em;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+  }
+  .site-header h1 .accent { color: #74c69d; }
+  .site-header .brand-ko {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .site-header .brand-sub {
+    font-size: 0.78em;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 820px;
+    width: 100%;
+    align-items: start;
+  }
+  @media (max-width: 620px) {
+    .menu-grid { grid-template-columns: 1fr; max-width: 360px; }
+  }
+
+  .menu-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 36px 24px 32px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.25);
+  }
+  .menu-card.no-hover:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .menu-card .card-icon { font-size: 3em; line-height: 1; }
+  .menu-card .card-icon img { width: 72px; height: 72px; object-fit: contain; }
+  .menu-card .card-title { font-size: 1.05em; font-weight: 700; color: #1a2e22; line-height: 1.4; }
+  .menu-card .card-desc { font-size: 0.8em; color: #888; line-height: 1.5; }
+  .menu-card .card-badge {
+    margin-top: 4px;
+    font-size: 0.72em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .badge-lock { background: #fff3cd; color: #856404; }
+  .badge-coming { background: #e9ecef; color: #6c757d; }
+  .badge-open { background: #d4edda; color: #155724; }
+
+  /* 회사업무관리 카드 — 비밀번호 입력 영역 */
+  .pw-row {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .pw-row input {
+    flex: 1;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.85em;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .pw-row input:focus { border-color: #2d6a4f; }
+  .pw-row button {
+    background: #2d6a4f;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 0.9em;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+  .pw-row button:hover { background: #1a4a36; }
+  .pw-err { font-size: 0.75em; color: #c0392b; min-height: 16px; }
+
+  /* 서브메뉴 */
+  .submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .submenu a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #f4f9f6;
+    border: 1.5px solid #d4edda;
+    text-decoration: none;
+    color: #1a2e22;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .submenu a:hover { background: #d4edda; border-color: #52b788; }
+  .submenu a .sm-badge {
+    margin-left: auto;
+    font-size: 0.72em;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+  .sm-lv1 { background: #f0f0f0; color: #666; }
+  .sm-lv2 { background: #dce8f5; color: #1a5fa8; }
+  .sm-lv3 { background: #fff0e0; color: #b85c00; }
+
+  /* 레벨 뱃지 */
+  .lv-pill {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 10px;
+    font-size: 0.78em;
+    font-weight: 700;
+  }
+  .lv1-pill { background: #f0f0f0; color: #666; }
+  .lv2-pill { background: #dce8f5; color: #1a5fa8; }
+  .lv3-pill { background: #fff0e0; color: #b85c00; }
+  .lv4-pill { background: #fde8e8; color: #b80000; }
+
+  .logout-btn {
+    margin-top: 4px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 0.75em;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .logout-btn:hover { color: #c0392b; border-color: #c0392b; }
+
+  .footer {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75em;
+    margin-top: 40px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo">🦞</div>
+  <div class="brand-top">bettyyoon oasis lab</div>
+  <h1>보<span class="accent">아시스</span>랩</h1>
+  <div class="brand-ko">boasis lab</div>
+  <div class="brand-sub">yyj assistant</div>
+</div>
+
+<div class="menu-grid">
+
+  <!-- 1. 회사업무관리 (레벨별 서브메뉴) -->
+  <div class="menu-card no-hover" id="work-card">
+    <div class="card-icon">📊</div>
+    <div class="card-title">회사업무관리</div>
+
+    <!-- 잠김 상태 -->
+    <div id="work-locked">
+      <div class="card-desc" style="margin-bottom:8px;">소스자원관리 · 업무처리로그</div>
+      <div class="pw-row">
+        <input type="password" id="work-pw" placeholder="비밀번호" maxlength="30"
+          onkeydown="if(event.key==='Enter') workLogin()">
+        <button onclick="workLogin()">→</button>
+      </div>
+      <div class="pw-err" id="work-pw-err"></div>
+      <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+    </div>
+
+    <!-- 잠금 해제 상태 -->
+    <div id="work-unlocked" style="display:none; width:100%;">
+      <div style="margin-bottom:10px;">
+        <span class="lv-pill" id="work-lv-badge">LV1 일반</span>
+      </div>
+      <div class="submenu">
+        <a href="work-management.html" id="sm-pkm">
+          🎯 PKM 프로그램 엔티티화
+          <span class="sm-badge" style="background:#d4edda;color:#155724">✨ 신규</span>
+        </a>
+        <a href="pkm-dashboard.html" id="sm-dashboard" style="display:none;">
+          🚀 PKM 메타화 프로세서
+          <span class="sm-badge" style="background:#dce8f5;color:#1a5fa8">LV2</span>
+        </a>
+        <a href="event.html" id="sm-event" style="display:none;">
+          📋 오류 목록
+          <span class="sm-badge sm-lv1">LV1</span>
+        </a>
+        <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
+          📊 코드표 (주제영역·Proc소스)
+          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
+        </a>
+        <a href="npf_journal_er.html" id="sm-er" style="display:none;">
+          🗂️ 분개모형 ER 다이어그램
+          <span class="sm-badge sm-lv2">LV2</span>
+        </a>
+        <a href="tbl_simulator.html" id="sm-sim" style="display:none;">
+          🔧 테이블명 시뮬레이터
+          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
+        </a>
+        <a href="event.html?tab=proc" id="sm-proc" style="display:none;">
+          🔍 L_AM Proc 목록 (1,393건)
+          <span class="sm-badge sm-lv3">LV3</span>
+        </a>
+      </div>
+      <button class="logout-btn" onclick="workLogout()">🔓 로그아웃</button>
+    </div>
+  </div>
+
+  <!-- 2. 맛집멋집 -->
+  <a class="menu-card" href="guide.html">
+    <div class="card-icon">🍽️</div>
+    <div class="card-title">윤슬랭가이드</div>
+    <div class="card-desc">맛집 &amp; 멋집 추천 및 기록</div>
+    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+  </a>
+
+  <!-- 3. 숲해설가 18기 강의자료 -->
+  <a class="menu-card" href="forest.html">
+    <div class="card-icon"><img src="forest-icon.jpg" alt="숲해설"></div>
+    <div class="card-title">숲해설가 18기<br>강의자료</div>
+    <div class="card-desc">과목별 정리본<br>및 기출문제집</div>
+    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+  </a>
+
+</div>
+
+<div class="footer">boasis_lab · 2026</div>
+
+<div style="text-align:center;color:rgba(255,255,255,0.25);font-size:0.75em;padding:16px 0 8px;margin-top:24px;">
+  - boasis_lab.(yyj assistant)
+</div>
+
+<script>
+  const PW_MAP = {
+    'nps2026lv1': 1,
+    'nps2026lv2': 2,
+    'nps2026lv3': 3,
+    'yyj123': 4,
+  };
+  const LEVEL_INFO = {
+    1: { label: 'LV1 일반',      cls: 'lv1-pill' },
+    2: { label: 'LV2 상세',      cls: 'lv2-pill' },
+    3: { label: 'LV3 민감',      cls: 'lv3-pill' },
+    4: { label: '👑 LV4 슈퍼유저', cls: 'lv4-pill' },
+  };
+  const KEY = 'auth_nps_level';
+
+  function workLogin() {
+    const pw = document.getElementById('work-pw').value.trim();
+    const level = PW_MAP[pw];
+    if (!level) {
+      document.getElementById('work-pw-err').textContent = '비밀번호가 올바르지 않습니다';
+      return;
+    }
+    document.getElementById('work-pw-err').textContent = '';
+    sessionStorage.setItem(KEY, level);
+    renderUnlocked(level);
+  }
+
+  function renderUnlocked(level) {
+    document.getElementById('work-locked').style.display = 'none';
+    const ul = document.getElementById('work-unlocked');
+    ul.style.display = 'block';
+
+    const info = LEVEL_INFO[level] || LEVEL_INFO[1];
+    const badge = document.getElementById('work-lv-badge');
+    badge.textContent = info.label;
+    badge.className = 'lv-pill ' + info.cls;
+
+    document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
+    document.getElementById('sm-dashboard').style.display = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
+    document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-sim').style.display   = level >= 4 ? 'flex' : 'none';
+    document.getElementById('sm-proc').style.display  = level >= 3 ? 'flex' : 'none';
+  }
+
+  function workLogout() {
+    sessionStorage.removeItem(KEY);
+    document.getElementById('work-unlocked').style.display = 'none';
+    document.getElementById('work-locked').style.display = 'block';
+    document.getElementById('work-pw').value = '';
+  }
+
+  // 페이지 로드 시 기존 세션 확인
+  (function() {
+    const saved = parseInt(sessionStorage.getItem(KEY) || '0');
+    if (saved >= 1) renderUnlocked(saved);
+  })();
+</script>
+</body>
+</html>

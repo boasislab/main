@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>커뮤니케이션 신규 정리 초안</title><style>
+:root{--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--bg:#f7f9fb}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:#24313f;line-height:1.72}header,section{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem}h2{color:#234f7c;border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:#eef5fb;padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:#52616f}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem}.existing{background:#eaf2ff;color:#174ea6}.new{background:#fff4db;color:#92400e}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow);padding:12px 14px;border-radius:4px;margin:12px 0}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red);padding:12px 14px;border-radius:4px;margin:12px 0}.source{white-space:pre-wrap;font-family:inherit}.preserve{background:#f8fafc;border-left:5px solid #64748b}.todo li{margin:5px 0}@media print{body{background:#fff;padding:10px}header,section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}}
+</style>
+<style id="cell-readability-fix-20260708">
+:root{--cell-line:#d9e2ec;--cell-head:#eef5fb;--cell-bg:#ffffff;}
+table{width:100%;border-collapse:collapse;table-layout:auto;margin:14px 0;background:var(--cell-bg);font-size:15px;}
+th,td{border:1px solid var(--cell-line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:0;}
+th{background:var(--cell-head);font-weight:800;color:#183a5a;}
+td p,th p{margin:.25rem 0!important;white-space:normal!important;}
+p{white-space:normal!important;word-break:keep-all;overflow-wrap:break-word;}
+.source{white-space:pre-line!important;word-break:keep-all;overflow-wrap:break-word;line-height:1.7;}
+.team-pdf-supplement .source{white-space:pre-line!important;}
+img{max-width:100%;height:auto;}
+figure{break-inside:avoid;}
+@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
+</style>
+<style id="toc-link-fix-20260708">
+.toc-link-fix{background:#fff;border:1px solid #d8e0e8;border-radius:8px;padding:16px 18px;margin:18px 0;box-shadow:0 1px 4px rgba(20,40,70,.05)}
+.toc-link-fix h2{font-size:1.05rem;margin:0 0 10px;color:#183a5a;border-bottom:1px solid #d8e0e8;padding-bottom:8px}
+.toc-link-fix ol{margin:0;padding-left:1.25rem}
+.toc-link-fix li{margin:4px 0}
+.toc-link-fix a{color:#174ea6;text-decoration:none;font-weight:700}
+.toc-link-fix a:hover{text-decoration:underline}
+html{scroll-behavior:smooth}
+h2[id],h3[id],h4[id]{scroll-margin-top:18px}
+</style>
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style>
+</head><body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201#subject-communication">← 공유페이지로 돌아가기</a></div>
+
+<header><h1>커뮤니케이션 신규 정리 초안</h1><p class="meta">팀 정리 PDF 기준 · 생성일 2026-07-08</p><p><span class="badge new">신규 과목 정리 초안</span></p></header><nav aria-label="목차" class="toc-link-fix"><h2 id="sec-목차">목차</h2><ol><li><a href="#sec-신규-과목-생성-원칙">신규 과목 생성 원칙</a></li><li><a href="#sec-주요-표시-요약">주요 표시 요약</a></li><li><a href="#sec-팀-자료-원문-기반-정리">팀 자료 원문 기반 정리</a></li><li><a href="#sec-검작-요청">검작 요청</a></li></ol></nav>
+<section class="preserve"><h2 id="sec-신규-과목-생성-원칙">신규 과목 생성 원칙</h2><p>현재 공유페이지에 대응 정리본이 없어, 팀 자료를 기준으로 신규 과목 정리 초안을 만들었습니다. 승인 전 공유페이지에는 적용하지 않습니다.</p></section>
+<section class="exam"><h2 id="sec-주요-표시-요약">주요 표시 요약</h2><ul class="todo">
+<li>2. 커뮤니케이션의 <span class="hl-yellow">정의</span> → 의사소통, 통신, 언론</li>
+<li>→ 숲의 <span class="hl-yellow">특징</span>에 관해 다양한 안목으로 해당 방문객과 <span class="hl-yellow">효과</span>적으로 소통/신념,</li>
+<li>▶ 유아 - 성장기 단계 고려 (숲의 유형적 사물을 <span class="hl-yellow">분류</span>, 생명애호의 정감발달)</li>
+<li>▶ 청소년 - 청소년 어휘 사용 (감<span class="hl-yellow">정의</span> 세심한 배려, 청소년특성과 결부)</li>
+<li>▶ 성인- 자기정체성 확인 강한 욕구 (과거, 삶, 지식과 결부)</li>
+<li>▶ 송신자 – 커뮤니케이션 목표의 결여, 커뮤니케이션 기술의 부족, 신뢰도의</li>
+<li>▶ 수신자 – 선입견, 평가적 경향(송신자 평가), 선택적 경청, 반응적 피드백의 결</li>
+<li>▶ 상황 – 정보의 과중, 어의의 문제(구체적인 언어, 그림말 필요), 커뮤니케이</li>
+<li>12. <span class="hl-yellow">효과</span>적이고 적극적인 경청의 기법을 기술하시오. (로빈스)</li>
+<li>16. 피드백 <span class="hl-yellow">방법</span></li>
+<li>[주제 선정] → [목표 설정] → [전략 수집] → [참가자 파악] → [전달 <span class="hl-yellow">방법</span>] →</li>
+<li>① 상대방이 이해는 정도에 따라 <span class="hl-yellow">방법</span>을 연구한다.</li>
+<li>30. 유아 숲해설 시 <span class="hl-yellow">핵심</span> <span class="hl-yellow">포인트</span> 3가지는?</li>
+</ul></section>
+<section><h2 id="sec-팀-자료-원문-기반-정리">팀 자료 원문 기반 정리</h2><div class="source">
+20260321_커뮤니케이션(이론)_김양용교재 1권 437~514p
+
+1. 소통은 (경청)과 (피드백 : 쌍방향)이다.
+
+2. 커뮤니케이션의 <span class="hl-yellow">정의</span> → 의사소통, 통신, 언론
+○ communication → 공통되는(common) + 공유하다(share) = communis
+에서 유래
+◎ 해설커뮤니케이션
+- 자연<span class="hl-green">생태</span>, 문화유산 등 배움과 체험이 중시되는 해설 서비스
+- 보전에 대한 가치관과 훼손에 대한 올바른 태도 설득 과정
+
+2-1. 해설커뮤니케이션과 관련 없는 것은? ④
+① 자연<span class="hl-green">생태</span>와 문화유산에 대한 배움의 기회를 제공한다.
+② 참여자의 직접적인 체험을 통해 이해를 돕는다.
+③ 자원의 보전 가치를 전달하고 올바른 태도를 형성하도록 돕는다.
+❹ 정확한 정보를 전달하기 위해 전문용어를 중심으로 설명한다.
+
+3. 커뮤니케이션의 종류
+① 언어적 커뮤니케이션 – 구어 의사소통, 문어 의사소통
+② 비언어적 커뮤니케이션 – 입말(구어), 대화, 글말(문어) 이외 모든 커뮤니케이션
+③ 시각 커뮤니케이션 – 시각적으로 말할 수 있다면 그래프나 다이어그램으로말하고 글은 피하라
+④ 공식적 커뮤니케이션 – 권한의 체계와 절차관계가 분명한 상태에서 이루어짐 / 예) 결재 행위, 문서 전달, 공식회의 보고 등
+⑤ 비공식적/포도덩굴 커뮤니케이션 – 사내 소문(gossip)이 조직 내 모든 방향으로 퍼지기 때문에 ‘포도덩굴’로 불림
+
+4. 배고픔이나 고통을 표현하는 아기 울음소리는 비언어적 커뮤니케이션이다.
+(X)
+
+5. 사인, 상징, 색채, 제스처, 악수, 교통표지는 비언어적 커뮤니케이션의 예이
+
+- 36 -
+
+다. (O)
+
+6. 의사소통 진단 EAR이란?
+E: 공감(Empathy), A: 주장(Assertiveness, 자기표현), R: 존중(Respect)
+
+7. 커뮤니케이션과 해설구 분 커뮤니케이션 해 설소통주체 송신자와 수신자 해설가와 참여자매개 매체, 언어, 코드 언어, 비언어메시지 콘텐츠, 지시대상, 정보 의미, 가치, 자원이 지닌 정보결과 반응, 결과 신념·태도·행동의 변화
+→ 숲의 <span class="hl-yellow">특징</span>에 관해 다양한 안목으로 해당 방문객과 <span class="hl-yellow">효과</span>적으로 소통/신념,
+태도, 행동의 변화를 일으키는 것
+
+8. 틸든의 해설커뮤니케이션의 6대 원리
+
+- 37 -
+
+9. 해설 커뮤니케이션의 유의점 (연령별로 다르게)
+▶ 유아 - 성장기 단계 고려 (숲의 유형적 사물을 <span class="hl-yellow">분류</span>, 생명애호의 정감발달)
+▶ 청소년 - 청소년 어휘 사용 (감<span class="hl-yellow">정의</span> 세심한 배려, 청소년특성과 결부)
+▶ 성인- 자기정체성 확인 강한 욕구 (과거, 삶, 지식과 결부)
+
+10. 해설커뮤니케이션의 장애
+▶ 송신자 – 커뮤니케이션 목표의 결여, 커뮤니케이션 기술의 부족, 신뢰도의결핍, 대인간의 감수성 부족, 준거체계(대상자의 범위)의 차이
+▶ 수신자 – 선입견, 평가적 경향(송신자 평가), 선택적 경청, 반응적 피드백의 결핍
+▶ 상황 – 정보의 과중, 어의의 문제(구체적인 언어, 그림말 필요), 커뮤니케이션의 환경, 시간의 압박, 비구두적 커뮤니케이션
+
+11. 해설커뮤니케이션의 성공전략
+→ (경청)과 (피드백)의 양단을 잡아라
+
+- 투사적 경청 : 메시지 평가 없이 경청, 송신자의 관점 이해 노력
+- 경청의 3요소 : 눈으로 보고, 귀로 듣고, 마음으로 공감하기
+
+12. <span class="hl-yellow">효과</span>적이고 적극적인 경청의 기법을 기술하시오. (로빈스)
+- 눈을 맞추고 고개를 끄덕이며 적절한 표정을 짓기
+- 주위를 산만하게 하는 행동이나 제스처를 피하기
+- 질문하기
+- “내가 듣기에 당신이 말하는 바가...” 또는 “당신이 말하는 바는...” 등 부연
+(paraphrase)하기
+- 말하는 사람들 사이에 끼어들어 방해하지 말기
+- 너무 말하지 말기
+- 말하는 사람과 듣는 사람의 역할 간의 전환을 자연스럽게 하기
+
+- 38 -
+
+13. 공감적 경청경청→반응→정리→마무리 4단계로, 눈맞춤과 끄덕임, 감탄사 사용, 동의해주기, 이야기 추가하기가 있다.
+
+14. 경청의 방해요소는 끼어들기, 비교하기, 선입견 갖기, 말자르기가 있다.
+
+15. 상대의 선택과 결정에 평가보다 지지와 격려를 보태라. (O)
+
+16. 피드백 <span class="hl-yellow">방법</span>
+- 성격보다 행동에 대하여
+- 판단보다 정보교환의 차원에서
+- 충고나 해결 방안보다 대안 제시
+- 강요하지 말기
+
+17. 해설의 결과를 중심, 측정할 수 있는 목표를 설정해야 한다. (O)
+
+18. 해설커뮤니케이션 프로세스
+[주제 선정] → [목표 설정] → [전략 수집] → [참가자 파악] → [전달 <span class="hl-yellow">방법</span>] →
+[시나리오] → [실행] → [피드백 평가]
+
+19. 해설 커뮤니케이션의 목표 설정 3가지
+① 학습목표 (예 : 대부분의 방문객은 숲을 보호해야 할 이유를 말 할 수 있다.)
+② 감성목표 (예 : 우리가 바라는 숲 보존 사업에 대해 좋은 느낌을 받을 것이다.)
+③ 행동목표 (예 : 대부분의 방문객은 숲 탐방로를 둘러보고자 원할 것이다.)
+
+20. 참가자 파악 : 자료 수집
+[성, 연령] – [배경, 지위] – [신체 특성] – [관심분야] – [과거경험, 미래경험]
+– [방문동기] – [장소 정체성(왜 이 장소인가?)]
+
+21. 아동과의 커뮤니케이션 전략
+- 집중시간이 짧다. 추상적 개념 이해도가 낮고 어휘력도 낮다.
+- 언어적이기보다 시각적이다. 사실을 말하고 지킬 수 없는 약속은 하지 않는
+
+- 39 -
+
+다.
+- 감정을 존중해 준다. 개방형 질문을 한다.
+
+22. 성인에 대한 커뮤니케이션 전략
+- ‘구성을 단순하게, 메시지는 명확하게’ 해라
+
+23. 설명(해설)을 잘 하는 비결이 아닌 것은? ②
+① 상대방이 이해는 정도에 따라 <span class="hl-yellow">방법</span>을 연구한다.
+❷ 무엇을 말하고 싶은지, 주제나 논점을 자세하게 말한다. (짧고 간결하게)
+③ 항목을 미리 예고한다
+④ 구체적인 예들 들어 이야기하고 반응을 확인하면서 이야기 한다.
+⑤ 반응을 확인하면서 이야기한다.
+
+24. 유형의 언어부터 시작하라.
+
+유형의 언어로 시작 무형적 요소 추가 보편성 확장
+
+* 무형적 요소, 보편 언어가 배제되는 건 X
+
+25. 카피의 원리(설득 커뮤니케이션) → (A.I.D.A 아이다)
+○ Attention (주목) : 참가자들이 주목하게 만들어라. (의외성, 심플함)
+○ Interest (흥미) : 재미있는 사실, 통계 등을 통해 흥미를 유발해라. (의외성)
+○ Desire (욕망) : 학생들이 ‘알고 싶다’는 생각에 이르도록 유도하라. (감성,
+구체성)
+○ Action (행동) : 학생들에게 정확히 어떻게 알 수 있는지, 체험 후 일어나는 일에 대해 알려줘라. (구체성, 신뢰성, 스토리)
+
+26. 해설은 설명과 설득 중 무엇인가? (설득)
+설명 : 과거부터 현재까지 있었던 일을 설명해주는 것(과거 초점)
+설득 : 현재부터 미래까지의 행동을 유발하는 소통의 수단(미래 편익)
+
+27. 바디랭귀지의 <span class="hl-yellow">중요</span>성
+- 의사소통에서 언어의 역할 7% / 언어, 음색 38% / 비언어 55%
+
+- 40 -
+
+(비언어의 역할이 언어의 역할의 약 8배)
+- 가장 원초적인 소통수단(표정, 행동), 가장 고차원적인 소통수단(바디랭귀지)
+
+28. 연설에 대한 긍정적인 평가손바닥을 위로 향한 경우(84%) &gt; 손바닥을 아래로 향한 경우(52%)
+
+29. 유아 대상의 언어적 소통전략이 아닌 것은? ③
+① 감각을 깨우는 ‘의성어, 의태어’ 활용
+② 눈높이 ‘의인화’와 ‘스토리텔링’
+❸ ‘단답형 질문’으로 <span class="hl-red">사고</span> 확장 (개방형 질문)
+④ 긍정적이고 구체적인 ‘행동 지시’
+⑤ 즉각적인 공감과 ‘맞장구’
+
+30. 유아 숲해설 시 <span class="hl-yellow">핵심</span> <span class="hl-yellow">포인트</span> 3가지는?
+(짧고 반복적인 언어) , (놀이 중심) , (정서적 교감)
+
+31. 청소년 대상의 언어적 소통전략이 아닌 것은? ④
+① 청소년과의 대화에서 가장 <span class="hl-yellow">중요</span>한 요소는 공감이다.
+② 열린 대화를 통해 청소년의 감정을 이해하고 소통을 강화한다.
+③ 갈등을 해결하기 위해서는 서로의 입장을 존중하며 대화를 이어가는 것이
+<span class="hl-yellow">중요</span>하다.
+❹ 장기적으로 소통은 지식 전달에 초점을 둔다.
+(청소년의 정신적 안정과 정서적 안정에 초점을 둔다.)
+
+32. 청소년과의 커뮤니케이션 중 주의할 점
+- 가르치려는 태도를 버리고 함께 즐기러 온 동료임을 밝히기
+- 지나친 하이텐션은 지양하고 선택권 부여하기
+
+33. 알프레드 히치콕은 인간의 행동 변화는 지식이 아니라 “이미지 주입”으로부터온다.
+
+34. 소크라테스의 대화법을 무엇이라고 하는가? 산파술
+
+- 41 -
+</div></section>
+<section class="safe"><h2 id="sec-검작-요청">검작 요청</h2><p>색상 강조와 보강 방향을 확인해주세요. 승인 후 기존 정리본에 병합하거나 신규 과목으로 공유페이지 적용하겠습니다.</p></section></body></html>

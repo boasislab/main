@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20260613 수서생물 기출문제집</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 960px; margin: 0 auto; padding: 22px; background: #f5f7fb; color: #273447; line-height: 1.7; }
+  h1 { background: #25636f; color: white; padding: 22px 24px; border-radius: 10px; text-align: center; margin: 0 0 10px; font-size: 1.8em; }
+  .subtitle { text-align: center; color: #5f6f86; font-size: 0.94em; margin-bottom: 16px; }
+  .intro { background: #ffffff; border: 1px solid #d7e2f2; border-left: 5px solid #25636f; border-radius: 10px; padding: 18px 20px; margin: 18px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .stats { text-align: center; margin: 12px 0 16px; font-size: 1.05em; color: #40516a; }
+  .progress-bar { background: #d8dee9; border-radius: 10px; height: 14px; margin: 10px 0 24px; overflow: hidden; }
+  .progress-fill { background: #25636f; height: 14px; width: 0%; transition: width 0.25s ease; }
+  .section-header { background: #25636f; color: white; padding: 12px 18px; border-radius: 10px; margin: 30px 0 12px; font-weight: 800; }
+  .question-card { background: white; border: 1px solid #e2e7ef; border-left: 5px solid #4b8190; border-radius: 10px; padding: 20px 22px; margin: 14px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .question-num { font-size: 0.84em; color: #718096; margin-bottom: 7px; }
+  .question-text { font-size: 1.04em; font-weight: 800; margin-bottom: 14px; color: #1f2d3d; }
+  .options { list-style: none; padding: 0; margin: 0; }
+  .options li { padding: 10px 14px; margin: 7px 0; border-radius: 8px; border: 1.5px solid #d8dee9; cursor: pointer; transition: all 0.18s; }
+  .options li:hover { background: #f0f7f8; border-color: #4b8190; }
+  .options li.correct { background: #dff3e6; border-color: #2e7d32; color: #174b22; font-weight: 800; }
+  .options li.wrong { background: #fde3e3; border-color: #d32f2f; color: #8a1c1c; }
+  .explanation { display: none; margin-top: 14px; padding: 12px 15px; background: #fff8e1; border-left: 4px solid #f57f17; border-radius: 6px; font-size: 0.93em; }
+  .explanation.show { display: block; }
+  .exam-tip-badge { display: inline-block; background: #d32f2f; color: white; font-size: 0.72em; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .final-score { display: none; background: #25636f; color: white; text-align: center; padding: 24px; border-radius: 12px; margin: 30px 0; font-size: 1.15em; }
+  .final-score.show { display: block; }
+  .metadata { color: #6b7280; font-size: 0.9em; margin-top: 36px; padding-top: 18px; border-top: 1px solid #d8dee9; }
+  @media (max-width: 720px) { body { padding: 14px; } h1 { font-size: 1.45em; } .question-card { padding: 16px; } }
+</style>
+
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201#subject-17">← 공유페이지로 돌아가기</a></div>
+
+<h1>20260613 수서생물 기출문제집</h1>
+<p class="subtitle">심양재 강의 정리본 기반 | 총 50문항 | 클릭형 정답·해설</p>
+
+<div class="intro">
+  <p><strong>출제 범위:</strong> 20260613_수서생물_정리본.html</p>
+  <p><strong>구성:</strong> 8개 섹션, 총 50문항</p>
+  <p><strong>핵심:</strong> 수환경 3대 요소, 생태하천, 홍수맥박·하천연속성, 하상구조, 수서곤충, 녹조와 시아노박테리아, 어류 특성, 지표종, K/R전략, 참종개 학명, 돌고기류 탁란</p>
+</div>
+
+<div class="stats">진행: <span id="answered">0</span> / 50 &nbsp;|&nbsp; 정답: <span id="correct-count">0</span> &nbsp;|&nbsp; 정답률: <span id="score">0</span>%</div>
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<div id="questions"></div>
+<div class="final-score" id="finalScore"></div>
+
+<div class="metadata">
+  <p><strong>작성일:</strong> 2026-07-07</p>
+  <p><strong>원본:</strong> 20260613_수서생물_정리본.html</p>
+  <p><strong>원칙:</strong> 정리본에 포함된 내용만 기준으로 출제</p>
+</div>
+
+<script>
+const sections = [
+  { title: '섹션 1. 수환경과 생태하천 개념', count: 7 },
+  { title: '섹션 2. 하천 구조와 자연정화', count: 7 },
+  { title: '섹션 3. 하천 관리와 현장 사례', count: 6 },
+  { title: '섹션 4. 먹이 피라미드와 K/R전략', count: 6 },
+  { title: '섹션 5. 수서곤충과 녹조', count: 6 },
+  { title: '섹션 6. 어류 기본 특성', count: 6 },
+  { title: '섹션 7. 전주천 주요 지표종', count: 8 },
+  { title: '섹션 8. 중요 보강 포인트', count: 4 }
+];
+
+const questions = [
+  {s:1, tip:true, q:'수환경의 3대 요소로 옳은 조합은?', o:['물, 하천 및 강, 하천에 서식하는 동식물','토양, 바람, 햇빛','암석, 모래, 자갈','식물, 조류, 포유류'], a:0, e:'정리본은 수환경의 3대 요소를 매체인 물, 물의 이동통로인 하천 및 강, 하천에 서식하는 동식물로 정리했다.'},
+  {s:1, q:'자연형 하천의 설명으로 옳은 것은?', o:['하천을 자연에 가깝게 조성하는 것','콘크리트 제방만으로 직선화한 하천','생물이 살지 못하게 정비한 하천','하천 바닥을 모두 준설한 하천'], a:0, e:'자연형 하천은 하천을 자연에 가깝게 조성하는 것이다.'},
+  {s:1, tip:true, q:'생태하천의 설명으로 옳은 것은?', o:['생물이 서식할 수 있는 생물 중심 하천','홍수만 빠르게 배출하는 하천','식물이 전혀 없는 하천','모든 모래톱을 제거한 하천'], a:0, e:'생태하천은 생물이 서식할 수 있는 생물 중심 하천이며, 건강한 생태하천은 다양한 서식처를 제공한다.'},
+  {s:1, q:'홍수맥박개념에 대한 설명으로 옳은 것은?', o:['주기적 홍수에 의해 생태계의 고유성이 유지된다는 개념','하천을 행정구역별로 끊어 관리하는 개념','수심이 깊은 소만 보존하는 개념','상류와 하류를 서로 무관하게 보는 개념'], a:0, e:'홍수맥박개념은 주기적 홍수가 담수어류 산란과 부화, 먹이원 공급, 수질 정화 등에 기능을 한다는 인식 전환과 관련된다.'},
+  {s:1, tip:true, q:'하천연속성개념의 핵심으로 옳은 것은?', o:['상류에서 하류까지 흐름에 의해 생기는 연속적 변화','하천을 완전히 직선으로 만드는 원리','보와 낙차공을 많이 설치하는 관리 원리','하천과 육상생태계를 분리하는 개념'], a:0, e:'하천연속성개념은 상류에서 하류까지 흐름에 의해 생성되는 연속적 변화를 말하며, 주변 육상생태계와도 밀접한 관계가 있다.'},
+  {s:1, q:'보와 낙차공 설치가 하천에 미치는 영향으로 정리된 것은?', o:['하천 연속성을 단절하는 인위적 교란','하천 연속성을 항상 회복시킴','어류 산란을 무조건 증가시킴','하천을 자연형으로만 바꿈'], a:0, e:'정리본에서는 보와 낙차공 설치를 하천 연속성을 단절하는 인위적 교란으로 설명한다.'},
+  {s:1, q:'하천을 행정구역보다 유역 단위로 보아야 하는 이유로 옳은 것은?', o:['물과 생태계가 상류에서 하류로 이어지기 때문','하천은 행정구역마다 물이 끊기기 때문','유역관리는 물 이용과 무관하기 때문','하천 생물은 이동하지 않기 때문'], a:0, e:'하천은 행정구역으로 끊어지는 공간이 아니며 물과 생태계가 연결되므로 유역 단위 관리가 필요하다.'},
+
+  {s:2, tip:true, q:'여울의 특징으로 옳은 것은?', o:['물이 빨리 흐르고 용존산소량이 많다','물이 정체되어 유기물이 쌓이기만 한다','수심이 깊고 흐름이 거의 없다','항상 오염물질만 축적된다'], a:0, e:'여울은 물이 빨리 흐르고 돌과 자갈에 부딪히며 공기와 물이 섞여 용존산소가 많아진다.'},
+  {s:2, q:'소의 역할로 옳은 것은?', o:['수심이 깊고 물이 느리게 흐르며 유기물 정화가 일어난다','물이 가장 빠르게 흐르는 곳이다','자갈과 모래 사이 공극만을 뜻한다','수서곤충이 우화하는 식생대만 뜻한다'], a:0, e:'소는 수심이 깊고 물이 느리게 흐르는 곳으로, 유기물 정화가 일어나고 큰 어류의 서식 공간이 된다.'},
+  {s:2, tip:true, q:'사주·하중도·모래톱에 대한 설명으로 옳은 것은?', o:['자갈과 모래로 구성된 생물의 주요 서식처이며 홍수·가뭄 조절에 기여한다','하천 생물과 무관하므로 모두 제거해야 한다','콘크리트 제방의 다른 이름이다','오직 물고기 이동을 막는 장애물이다'], a:0, e:'사주, 하중도, 모래톱은 물의 흐름을 다양하게 만들고 생물 서식처가 되며 공극을 통해 홍수와 가뭄 조절에도 기여한다.'},
+  {s:2, q:'습지의 설명으로 옳은 것은?', o:['물이 정체되거나 약하게 흐르며 습지식물에 의해 수질정화가 활발하다','물살이 가장 빠른 곳이다','자갈만 쌓인 건조한 공간이다','수질정화 기능이 전혀 없다'], a:0, e:'습지는 물이 고이거나 약하게 흐르는 지역이며 습지식물에 의해 수질정화가 활발하고 양서류·파충류 서식처가 된다.'},
+  {s:2, q:'하천 육역화의 뜻으로 옳은 것은?', o:['하천이 육지화되어 물의 흐름을 방해하는 현상','하천 물이 모두 지하수로 바뀌는 현상','여울이 늘어나 용존산소가 증가하는 현상','하천에 어류가 많아지는 현상'], a:0, e:'하천 육역화는 토양 퇴적과 식물 뿌리내림 등으로 하천이 육지화되어 수류가 줄어드는 현상이다.'},
+  {s:2, q:'여울과 소가 반복되는 하천의 장점으로 옳은 것은?', o:['자연정화 능력이 높아진다','생물이 모두 사라진다','수질 회복이 불가능하다','오직 홍수 피해만 늘어난다'], a:0, e:'여울과 소가 반복되면 산소 공급, 미생물 분해, 생물 순환이 일어나 자연정화 능력이 높아진다.'},
+  {s:2, q:'호안식생의 중요성으로 옳은 것은?', o:['수서곤충이 식물을 타고 올라와 우화할 수 있고 생태계 연결에 기여한다','하천과 육지를 완전히 단절한다','물속 곤충의 우화를 막는다','새와 물고기의 이동을 모두 차단한다'], a:0, e:'호안식생은 물과 육지가 만나는 곳에서 수서곤충의 우화, 물고기와 새의 연결, 생태계 확장에 관여한다.'},
+
+  {s:3, q:'전주시 쪽 삼천과 완주군 쪽 삼천의 차이를 설명할 때 강조된 관점은?', o:['같은 하천도 행정구역별 관리 방식에 따라 모습이 달라질 수 있다','하천은 다리마다 생태계가 완전히 끊어진다','전주천은 생태계가 존재하지 않는다','상류와 하류는 물리적으로 연결되지 않는다'], a:0, e:'실습 보강에서는 원남교 부근을 기준으로 행정구역별 관리 방식이 달라 하천 모습이 다르게 나타난다고 설명한다.'},
+  {s:3, q:'과거 치수 중심 하천 정비 방식의 특징으로 옳은 것은?', o:['물길을 곧게 만들고 콘크리트 제방을 쌓는 방식','생물 서식처를 늘리는 사행하천 회복 방식','식생대를 최대한 보존하는 방식','모래톱 기능을 조사한 뒤 보전하는 방식'], a:0, e:'과거 치수 중심 정비는 홍수를 막기 위해 물길을 직선화하고 콘크리트 제방을 쌓는 방식이었다.'},
+  {s:3, tip:true, q:'사행하천의 효과로 옳은 것은?', o:['빠른 곳과 느린 곳이 생기며 여울, 소, 모래톱, 습지 등 다양한 구조가 만들어진다','물길이 모두 같은 속도로 흐른다','하천 구조가 단순해진다','생물 서식처가 사라진다'], a:0, e:'사행하천은 구불구불한 흐름으로 깎이는 곳과 쌓이는 곳을 만들고 다양한 하천 구조와 서식처를 형성한다.'},
+  {s:3, q:'도시하천의 초기강우 문제로 옳은 것은?', o:['도로·주차장·지붕의 오염물질이 비와 함께 하천으로 흘러들 수 있다','비가 오면 오염물질이 모두 사라진다','초기강우는 물고기 폐사와 무관하다','불투수층이 많을수록 빗물이 땅속으로 잘 스며든다'], a:0, e:'초기강우 때 도로, 주차장, 지붕 등에 쌓인 오염물질이 하천으로 흘러들어 물고기 폐사가 발생할 수 있다.'},
+  {s:3, q:'도시하천 관리에서 바람직한 방향으로 설명된 것은?', o:['불투수층을 줄이고 투수층과 녹지 공간을 늘리는 것','아스팔트와 콘크리트 면적을 무조건 늘리는 것','빗물이 땅에 스며들지 못하게 하는 것','하천변 식물을 모두 제거하는 것'], a:0, e:'도시에서는 불투수층을 줄이고 빗물이 스며들 수 있는 투수층과 녹지 공간을 늘려야 한다.'},
+  {s:3, q:'전주천 버드나무숲 관리 사례에서 강조된 것은?', o:['안전뿐 아니라 생태적 가치와 경관적 가치도 함께 고려해야 한다','홍수 대비를 위해 모든 나무를 밑동만 남겨야 한다','버드나무숲은 생태와 경관 가치가 없다','하천 관리는 경관과 무관하다'], a:0, e:'버드나무숲은 전주천의 생태, 경관, 관광 가치와 연결되므로 안전과 함께 생태·경관 가치도 고려해야 한다.'},
+
+  {s:4, tip:true, q:'하천 생태계 먹이 피라미드에서 상위로 갈수록 개체 수는 어떻게 되는가?', o:['적어진다','많아진다','항상 동일하다','먹이 피라미드와 무관하다'], a:0, e:'Gnote 보강부에는 하천 생태계 먹이 피라미드에서 상위로 갈수록 개체 수가 적다고 정리되어 있다.'},
+  {s:4, tip:true, q:'K전략의 설명으로 옳은 것은?', o:['적은 수의 자손을 낳고 생존율을 높이는 전략','많은 자손을 낳고 돌보지 않는 전략','환경 변화가 클수록 항상 유리한 전략','하위 생물에게만 나타나는 전략'], a:0, e:'K전략은 적은 수의 자손을 낳고 부모가 돌보거나 개체 하나하나의 생존 가능성을 높이는 전략이다.'},
+  {s:4, tip:true, q:'R전략의 설명으로 옳은 것은?', o:['많은 수의 자손을 낳아 그중 일부가 살아남도록 하는 전략','자손을 거의 낳지 않는 전략','개체별 생존율을 반드시 100%로 만드는 전략','상위 포식자에게만 나타나는 전략'], a:0, e:'R전략은 많은 수의 자손을 낳아 일부가 살아남도록 하는 전략이며, 변화가 크거나 불안정한 환경에서 유리하다.'},
+  {s:4, q:'하천 먹이피라미드에서 상위 포식자와 연결되는 전략으로 정리된 것은?', o:['K전략','R전략','무변태 전략','부착조류 전략'], a:0, e:'시험 핵심 문장에서는 상위 포식자일수록 K전략에 가깝다고 정리했다.'},
+  {s:4, q:'하천 먹이피라미드에서 하위 생물과 연결되는 전략으로 정리된 것은?', o:['R전략','K전략','육봉화','상리공생'], a:0, e:'하위 생물일수록 자식을 많이 낳고 일부가 살아남는 R전략에 가깝게 이해한다.'},
+  {s:4, q:'K전략과 R전략의 시험용 핵심 정리로 옳은 것은?', o:['K전략은 적게 낳고 생존율을 높이며, R전략은 많이 낳고 일부가 살아남는다','K전략은 많이 낳고 일부가 살아남으며, R전략은 적게 낳고 오래 돌본다','K전략과 R전략은 번식과 무관하다','둘 다 하천 생물에는 적용하지 않는다'], a:0, e:'정리본 시험 핵심은 K전략 = 적게 낳고 생존율을 높임, R전략 = 많이 낳고 일부가 살아남음이다.'},
+
+  {s:5, q:'수서곤충의 뜻으로 옳은 것은?', o:['물에서 생활하는 곤충을 총칭하는 말','바다 어류만 가리키는 말','육상식물에 붙는 곰팡이','하천의 모래톱만 뜻하는 말'], a:0, e:'수서곤충은 물에서 생활하는 곤충을 총칭한다.'},
+  {s:5, tip:true, q:'반수서곤충의 설명으로 옳은 것은?', o:['물에서 태어나 성충이 되면 물 밖으로 나오는 곤충','전 생애를 물속에서만 사는 곤충','물과 전혀 관련 없는 곤충','민물고기의 다른 이름'], a:0, e:'반수서곤충은 어린 시기에는 물속에서 살다가 성충이 되면 물 밖으로 나온다.'},
+  {s:5, tip:true, q:'진수서곤충의 설명으로 옳은 것은?', o:['전 생애를 물에서 살아가는 곤충','성충이 되면 반드시 숲으로 이동하는 곤충','물속에서 태어나지 않는 곤충','식물 플랑크톤의 다른 이름'], a:0, e:'진수서곤충은 전 생애를 물에서 살아가며, 물장군과 물자라가 예시로 정리되어 있다.'},
+  {s:5, q:'녹조현상과 시아노박테리아에 대한 설명으로 옳은 것은?', o:['식물성 플랑크톤이나 광합성을 하는 시아노박테리아가 과도하게 늘어난 상태로 이해한다','모래톱이 많아져 생기는 현상이다','수서곤충이 모두 사라져 생기는 이름이다','어류가 체외수정을 하는 현상이다'], a:0, e:'녹조는 단순히 물이 초록색인 현상이 아니라 식물성 플랑크톤이나 시아노박테리아가 과도하게 늘어난 상태로 이해한다. 시아노박테리아는 남세균이라고도 하며 광합성을 한다.'},
+  {s:5, q:'돌에 붙은 녹색 부착조류에 대한 설명으로 옳은 것은?', o:['물속 생태계의 1차 생산자 역할을 할 수 있다','항상 더러운 하천이라는 증거이다','수서곤충과 미생물의 먹이그물과 무관하다','반드시 모두 솔로 닦아내야 한다'], a:0, e:'부착조류는 물속 생태계의 1차 생산자 역할을 하며, 무조건 더러운 하천이라고 볼 수 없다.'},
+  {s:5, q:'청계천처럼 돌의 녹조나 부착조류를 보기 싫다는 이유로 닦아내는 방식의 문제로 옳은 것은?', o:['수서곤충과 미생물까지 제거할 수 있어 생태적으로 바람직하지 않다','하천 먹이그물이 반드시 안정된다','부착조류만 남기고 미생물은 보호된다','어류 산란을 항상 증가시킨다'], a:0, e:'돌을 솔로 닦아내는 방식은 수서곤충과 미생물까지 제거할 수 있어 생태적으로 바람직하지 않다.'},
+
+  {s:6, tip:true, q:'어류가 하천 생태계를 평가할 때 중요한 지표가 되는 이유로 옳은 것은?', o:['크기가 비교적 크고 관찰하기 쉬우며 환경 변화에 민감하게 반응하기 때문','항상 육지에서만 살기 때문','하천 환경 변화와 무관하기 때문','모든 어류가 같은 장소에만 살기 때문'], a:0, e:'어류는 수서곤충보다 크기가 크고 관찰하기 쉬우며 하천 환경 변화에 민감하게 반응한다.'},
+  {s:6, q:'어류의 기본 특징으로 옳은 조합은?', o:['물에서 생활, 아가미 호흡, 지느러미 존재, 체외수정','폐 호흡, 날개 비행, 체내수정만 함','육상 생활, 기문 호흡, 외골격','광합성, 뿌리, 줄기'], a:0, e:'정리본은 어류의 특징을 물에서 생활, 아가미 호흡, 지느러미 존재, 체외수정으로 정리했다.'},
+  {s:6, tip:true, q:'부레에 대한 주의 사항으로 옳은 것은?', o:['모든 어류가 부레를 가지고 있지는 않다','모든 어류는 반드시 부레가 있다','상어는 부레가 발달해 있다','부레는 어류와 무관하다'], a:0, e:'정리본은 모든 어류가 부레를 가진 것은 아니며 상어는 부레가 없다고 주의 표시했다.'},
+  {s:6, q:'우리나라 민물고기 수로 정리된 것은?', o:['212여 종','63종만 존재','11종만 존재','1,000종 이상'], a:0, e:'우리나라 민물고기는 212여 종으로 정리되어 있으며, 한국고유종 63종과 외래종 11종 포함으로 보강되어 있다.'},
+  {s:6, q:'육봉화의 뜻으로 옳은 것은?', o:['바다에 살던 생물이 민물 환경에 적응해 계속 사는 것','민물고기가 모두 바다로 돌아가는 것','어류가 날개를 얻는 것','곤충이 물속에서만 사는 것'], a:0, e:'육봉화는 바다에 살던 생물이 민물 환경에 적응해 살아가게 된 사례로 설명된다.'},
+  {s:6, q:'물고기의 몸 모양을 보면 추정할 수 있는 것은?', o:['그 물고기가 사는 하천 환경','하천의 행정구역 이름만','강의 법정 등급만','곤충의 변태 방식만'], a:0, e:'물고기의 몸 모양은 사는 환경에 따라 달라지므로, 형태를 보면 하천 환경을 추정할 수 있다.'},
+
+  {s:7, q:'쉬리에 대한 설명으로 옳은 것은?', o:['1~2급수 상류 여울부 바닥에 서식하며 수서곤충을 먹는다','조개 속에 알을 낳는 납자루류이다','대표 생태계 교란종이다','부레가 없는 연골어류이다'], a:0, e:'쉬리는 1~2급수 상류 여울부 바닥에 서식하며 수서곤충을 먹는 전주천 지표종으로 정리되어 있다.'},
+  {s:7, q:'꺽지에 대한 설명으로 옳은 것은?', o:['머리와 입이 크고 육식성이며 돌 밑에 알을 붙이면 수컷이 알을 지킨다','조개 속에 산란하는 납자루어과이다','차가운 물보다 더운 물만 좋아한다','몸에 비늘이 전혀 없다'], a:0, e:'꺽지는 몸에 비해 머리와 입이 크고 다른 물고기를 잡아먹는 육식성 물고기이며, 돌 밑에 알을 붙이면 수컷이 알을 지킨다.'},
+  {s:7, tip:true, q:'참종개의 학명으로 옳은 것은?', o:['Iksookimia koreensis','Micropterus salmoides','Cyprinus carpio','Lepomis macrochirus'], a:0, e:'참종개의 학명은 Iksookimia koreensis, 익수키미아 코린시스이다.'},
+  {s:7, tip:true, q:'참종개 학명 Iksookimia의 설명으로 옳은 것은?', o:['김익수 교수 이름에서 유래한 학명으로 기억한다','꺽지의 산란 장소를 뜻한다','말조개의 입수관을 뜻한다','녹조를 만드는 세균 이름이다'], a:0, e:'정리본에는 속명 Iksookimia가 우리나라 민물고기 연구자인 김익수 교수 이름에서 유래한 것으로 중요 표시되어 있다.'},
+  {s:7, q:'동사리와 얼룩동사리의 구분 포인트로 정리된 것은?', o:['몸의 무늬 패턴','부레의 유무','아가미의 개수','산란관의 길이'], a:0, e:'동사리는 얼룩무늬가 띠 모양으로 규칙적이고, 얼룩무늬가 불규칙하면 얼룩동사리로 구분한다.'},
+  {s:7, q:'각시붕어와 납자루류의 산란 특징으로 옳은 것은?', o:['조개 속에 알을 낳는다','꺽지알 활착부근에 탁란한다','돌 밑에 알을 붙이고 수컷이 지킨다','모래 속 유기물을 걸러 먹는다'], a:0, e:'각시붕어와 납자루류는 조개 속에 알을 낳으며, 물고기와 조개의 관계는 상리공생으로 정리되어 있다.'},
+  {s:7, q:'버들치에 대한 설명으로 옳은 것은?', o:['깨끗한 물만보다 차갑고 산소가 풍부한 물을 좋아한다','대표적인 생태계 교란종이다','바다에서만 산다','조개 속에 산란한다'], a:0, e:'버들치는 흔히 1급수 지표종으로 알려져 있으나, 정확히는 차갑고 산소가 풍부한 물을 좋아한다고 정리되어 있다.'},
+  {s:7, q:'배스와 블루길에 대한 설명으로 옳은 것은?', o:['대표적인 생태계 교란종이다','한국고유종이다','참종개의 학명이다','하천 모래톱의 다른 이름이다'], a:0, e:'배스와 블루길은 대표적인 생태계 교란종이며, 특히 배스는 포식성과 번식력이 강해 기존 생물 개체 수를 줄일 수 있다.'},
+
+  {s:8, tip:true, q:'돌고기류의 중요 보강 문구로 옳은 것은?', o:['꺽지알 활착부근에 탁란을 한다','말조개 속에만 알을 낳는다','부착조류를 모두 제거한다','상어처럼 부레가 없다'], a:0, e:'추가 판독 보강 내용으로 돌고기류는 꺽지알 활착부근에 탁란을 한다는 문구가 중요 표시되었다.'},
+  {s:8, q:'민물검정망둑의 특징으로 옳은 것은?', o:['망둑어류에 속하며 눈 아래 붉은색 줄무늬가 특징이다','납자루어과로 조개 속에 산란한다','참종개의 학명이다','수서곤충의 한 종류이다'], a:0, e:'민물검정망둑은 망둑어류이며 눈 아래 붉은색 줄무늬가 특징이고, 육봉화 사례로 설명된다.'},
+  {s:8, q:'모래무지의 생태적 역할로 옳은 것은?', o:['모래 속 유기물을 걸러 먹어 하천 청소부와 같은 역할을 한다','수컷이 꺽지알을 지킨다','녹조를 만드는 식물성 플랑크톤이다','사행하천의 다른 이름이다'], a:0, e:'모래무지는 하천 바닥의 모래를 먹으며 살고, 모래 속 유기물을 걸러 먹어 하천 청소부와 같은 역할을 한다.'},
+  {s:8, q:'좋은 뜻의 방류 행사도 조심해야 하는 이유로 옳은 것은?', o:['기존 생태계 먹이그물의 균형을 깨뜨릴 수 있기 때문','항상 녹조를 없애기 때문','반드시 생태계를 안정시키기 때문','하천연속성을 자동 회복하기 때문'], a:0, e:'먹이그물 중 하나가 무너지면 생태계 전체가 흔들릴 수 있으므로, 좋은 뜻의 방류 행사도 기존 생태계 균형을 깨뜨릴 수 있어 조심해야 한다.'}
+];
+
+let answered = 0;
+let correctCount = 0;
+const TOTAL = questions.length;
+
+function render() {
+  const root = document.getElementById('questions');
+  let html = '';
+  let current = 0;
+  questions.forEach((item, idx) => {
+    if (item.s !== current) {
+      current = item.s;
+      html += '<div class="section-header">' + sections[current - 1].title + ' (' + sections[current - 1].count + '문항)</div>';
+    }
+    const no = idx + 1;
+    html += '<div class="question-card">';
+    html += '<div class="question-num">문제 ' + no + ' / ' + TOTAL + ' · 섹션 ' + item.s + (item.tip ? ' <span class="exam-tip-badge">★★ 시험</span>' : '') + '</div>';
+    html += '<div class="question-text">' + item.q + '</div>';
+    html += '<ul class="options">';
+    item.o.forEach((choice, choiceIdx) => {
+      html += '<li onclick="choose(this,' + (choiceIdx === item.a) + ',&quot;exp' + no + '&quot;)" ' + (choiceIdx === item.a ? 'data-correct' : '') + '>' + ['①','②','③','④'][choiceIdx] + ' ' + choice + '</li>';
+    });
+    html += '</ul>';
+    html += '<div class="explanation" id="exp' + no + '">정답: <strong>' + ['①','②','③','④'][item.a] + '</strong><br>' + item.e + '</div>';
+    html += '</div>';
+  });
+  root.innerHTML = html;
+}
+
+function choose(btn, isCorrect, expId) {
+  const ul = btn.closest('ul');
+  if (ul.dataset.done) return;
+  ul.dataset.done = '1';
+  answered++;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correctCount++;
+  } else {
+    btn.classList.add('wrong');
+    const correct = ul.querySelector('[data-correct]');
+    if (correct) correct.classList.add('correct');
+  }
+  document.getElementById(expId).classList.add('show');
+  document.getElementById('answered').textContent = answered;
+  document.getElementById('correct-count').textContent = correctCount;
+  const pct = Math.round(correctCount / answered * 100);
+  document.getElementById('score').textContent = pct;
+  document.getElementById('progress').style.width = (answered / TOTAL * 100) + '%';
+  if (answered === TOTAL) {
+    const fs = document.getElementById('finalScore');
+    const msg = pct >= 80 ? '우수! 수서생물 핵심 개념이 잘 잡혔습니다.' : pct >= 60 ? '양호합니다. 틀린 문제의 해설을 다시 보세요.' : '정리본을 한 번 더 훑고 재도전하세요.';
+    fs.innerHTML = '완료! 최종 점수: ' + correctCount + ' / ' + TOTAL + ' (' + pct + '%)<br>' + msg;
+    fs.classList.add('show');
+    fs.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+render();
+</script>
+</body>
+</html>

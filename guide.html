@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>윤슬랭가이드 · 맛집 & 명소</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #faf7f4; min-height: 100vh; }
+
+  /* ── 로그인 ── */
+  #login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+  .back-link { color: #aaa; font-size: 0.85em; text-decoration: none; margin-bottom: 20px; }
+  .back-link:hover { color: #555; }
+  .login-card { background: #fff; border-radius: 24px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); max-width: 360px; width: 100%; text-align: center; }
+  .login-card .icon { font-size: 3em; margin-bottom: 12px; }
+  .login-card h1 { color: #c0552a; font-size: 1.4em; margin-bottom: 6px; }
+  .login-card p { color: #aaa; font-size: 0.88em; margin-bottom: 28px; }
+  .pw-input { width: 100%; padding: 13px 16px; border: 2px solid #eee; border-radius: 12px; font-size: 1em; text-align: center; letter-spacing: 4px; outline: none; transition: border-color 0.2s; }
+  .pw-input:focus { border-color: #c0552a; }
+  .pw-input.shake { animation: shake 0.4s; border-color: #dc3545; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+  .login-btn { width: 100%; margin-top: 14px; padding: 13px; background: #c0552a; color: #fff; border: none; border-radius: 12px; font-size: 1em; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+  .login-btn:hover { background: #9e3f1c; }
+  .err-msg { color: #dc3545; font-size: 0.85em; margin-top: 10px; min-height: 18px; }
+
+  /* ── 메인 ── */
+  #main-screen { display: none; max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+  .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .top-bar h1 { font-size: 1.4em; color: #c0552a; font-weight: 800; }
+  .top-bar-right { display: flex; gap: 10px; align-items: center; }
+  .logout-btn { background: none; border: 1px solid #ddd; color: #aaa; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.8em; }
+  .logout-btn:hover { color: #c0552a; border-color: #c0552a; }
+
+  /* 검색·필터 바 */
+  .filter-bar { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 24px; display: flex; flex-direction: column; gap: 14px; }
+  .search-row { display: flex; gap: 10px; }
+  .search-input { flex: 1; padding: 10px 16px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.95em; outline: none; transition: border-color 0.2s; }
+  .search-input:focus { border-color: #c0552a; }
+  .region-selects { display: flex; gap: 10px; flex-wrap: wrap; }
+  .region-sel { padding: 9px 14px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.88em; outline: none; background: #fafafa; cursor: pointer; color: #444; transition: border-color 0.2s; }
+  .region-sel:focus { border-color: #c0552a; }
+  .type-toggle { display: flex; gap: 8px; }
+  .type-btn { padding: 7px 18px; border: 1.5px solid #ddd; border-radius: 20px; background: #fff; font-size: 0.85em; font-weight: 600; cursor: pointer; color: #888; transition: all 0.15s; }
+  .type-btn.active { color: #fff; border-color: transparent; }
+  .type-btn.all.active  { background: #444; }
+  .type-btn.food.active { background: #e07b39; }
+  .type-btn.spot.active { background: #3a7bd5; }
+  .result-info { font-size: 0.82em; color: #aaa; }
+
+  /* ── 장소 카드 ── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .place-card { background: #fff; border-radius: 16px; padding: 20px 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 9px; transition: transform 0.15s, box-shadow 0.15s; }
+  .place-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .card-head { display: flex; align-items: flex-start; gap: 10px; }
+  .card-type-icon { font-size: 1.6em; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .card-name { font-size: 1.04em; font-weight: 800; color: #1a1a1a; }
+  .card-region { font-size: 0.78em; color: #aaa; margin-top: 2px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 0.71em; padding: 3px 9px; border-radius: 10px; font-weight: 600; }
+  .tag-food { background: #fef0e7; color: #c0552a; }
+  .tag-spot { background: #e7f0fe; color: #2a5fa8; }
+  .tag-general { background: #f0f0f0; color: #666; }
+  .card-desc { font-size: 0.84em; color: #555; line-height: 1.55; }
+  .card-addr { font-size: 0.77em; color: #bbb; }
+
+  /* ── 맛집 전용 정보 ── */
+  .food-info { display: flex; flex-direction: column; gap: 5px; background: #fffbf8; border: 1px solid #f5e6d8; border-radius: 10px; padding: 10px 12px; }
+  .food-info-row { display: flex; gap: 6px; align-items: flex-start; font-size: 0.82em; }
+  .food-info-label { color: #c0552a; font-weight: 700; white-space: nowrap; min-width: 62px; flex-shrink: 0; }
+  .food-info-value { color: #444; line-height: 1.5; }
+
+  .card-base-rating { display: flex; align-items: center; gap: 4px; }
+  .star-disp { color: #f5a623; font-size: 0.9em; letter-spacing: 1px; }
+  .rating-num { font-size: 0.8em; color: #aaa; }
+
+  /* ── 내 후기 영역 ── */
+  .review-divider { border: none; border-top: 1.5px dashed #f0e8e0; margin: 2px 0; }
+
+  /* 후기 없을 때 버튼 */
+  .review-add-btn {
+    width: 100%;
+    padding: 8px;
+    border: 1.5px dashed #e8d5c4;
+    border-radius: 10px;
+    background: #fffaf7;
+    color: #c0552a;
+    font-size: 0.82em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-align: center;
+  }
+  .review-add-btn:hover { background: #fef0e7; border-color: #c0552a; }
+
+  /* 후기 입력 폼 */
+  .review-form { background: #fffaf7; border: 1.5px solid #f0e0d0; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .review-form-title { font-size: 0.8em; font-weight: 700; color: #c0552a; }
+
+  /* 별점 인터랙티브 */
+  .star-picker { display: flex; gap: 4px; align-items: center; }
+  .star-picker span { font-size: 1.6em; cursor: pointer; color: #ddd; transition: color 0.1s; line-height: 1; }
+  .star-picker span.on { color: #f5a623; }
+  .star-picker span:hover { color: #f5a623; }
+  .star-val-label { font-size: 0.8em; color: #aaa; margin-left: 4px; }
+
+  .review-comment-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1.5px solid #eee;
+    border-radius: 9px;
+    font-size: 0.85em;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    min-height: 56px;
+  }
+  .review-comment-input:focus { border-color: #c0552a; }
+
+  .review-date-row { display: flex; align-items: center; gap: 8px; }
+  .review-date-row label { font-size: 0.8em; color: #888; white-space: nowrap; }
+  .review-date-input { flex: 1; padding: 7px 10px; border: 1.5px solid #eee; border-radius: 9px; font-size: 0.82em; outline: none; color: #444; }
+  .review-date-input:focus { border-color: #c0552a; }
+
+  .review-btns { display: flex; gap: 8px; }
+  .btn-save { flex: 1; padding: 8px; background: #c0552a; color: #fff; border: none; border-radius: 9px; font-size: 0.85em; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+  .btn-save:hover { background: #9e3f1c; }
+  .btn-cancel { padding: 8px 14px; background: #f0f0f0; color: #888; border: none; border-radius: 9px; font-size: 0.85em; cursor: pointer; }
+  .btn-cancel:hover { background: #e0e0e0; }
+
+  /* 내 후기 표시 */
+  .my-review-box { background: #fffaf7; border: 1.5px solid #f0e0d0; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .my-review-header { display: flex; align-items: center; justify-content: space-between; }
+  .my-review-label { font-size: 0.78em; font-weight: 700; color: #c0552a; }
+  .my-review-actions { display: flex; gap: 8px; }
+  .btn-edit-review, .btn-del-review { background: none; border: none; font-size: 0.75em; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+  .btn-edit-review { color: #888; }
+  .btn-edit-review:hover { background: #eee; }
+  .btn-del-review { color: #dc3545; }
+  .btn-del-review:hover { background: #fde8e8; }
+  .my-review-stars { color: #f5a623; font-size: 1.1em; letter-spacing: 1px; }
+  .my-review-score { font-size: 0.85em; font-weight: 700; color: #c0552a; margin-left: 4px; }
+  .my-review-comment { font-size: 0.84em; color: #555; line-height: 1.5; }
+  .my-review-date { font-size: 0.75em; color: #ccc; }
+
+  /* 지역 헤더 */
+  .region-header { font-size: 0.9em; font-weight: 700; color: #888; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1.5px solid #eee; }
+  .region-header:first-child { margin-top: 0; }
+
+  /* ── 태그 칩 필터 ── */
+  .tag-filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag-chip { padding: 5px 13px; border: 1.5px solid #e8ddd5; border-radius: 20px; background: #fff; font-size: 0.78em; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .tag-chip:hover { border-color: #c0552a; color: #c0552a; }
+  .tag-chip.active { background: #c0552a; border-color: #c0552a; color: #fff; }
+  .tag-filter-label { font-size: 0.75em; color: #ccc; white-space: nowrap; }
+
+  /* ── 정렬 / 방문완료 ── */
+  .sort-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sort-sel { padding: 7px 12px; border: 1.5px solid #eee; border-radius: 10px; font-size: 0.82em; color: #555; background: #fafafa; outline: none; cursor: pointer; }
+  .sort-sel:focus { border-color: #c0552a; }
+  .visited-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82em; color: #888; user-select: none; }
+  .visited-toggle input[type=checkbox] { accent-color: #c0552a; width: 15px; height: 15px; cursor: pointer; }
+  .visited-toggle.on { color: #c0552a; font-weight: 700; }
+
+  /* 빈 상태 */
+  .empty-state { text-align: center; padding: 60px 24px; color: #bbb; }
+  .empty-state .e-icon { font-size: 3em; margin-bottom: 14px; }
+  .empty-state p { font-size: 0.92em; }
+
+  /* 링크/방문 */
+  .card-meta { display: flex; align-items: center; justify-content: space-between; }
+  .card-link { font-size: 0.78em; color: #3a7bd5; text-decoration: none; }
+  .card-link:hover { text-decoration: underline; }
+  .card-visited { font-size: 0.75em; color: #ccc; }
+
+  @media (max-width: 480px) {
+    .region-selects { flex-direction: column; }
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<div id="login-screen">
+  <a class="back-link" href="index.html">← 메인으로</a>
+  <div class="login-card">
+    <div class="icon">🗺️</div>
+    <h1>윤슬랭가이드</h1>
+    <p>맛집 &amp; 명소 가이드<br>접속 비밀번호를 입력해주세요</p>
+    <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="30"
+      onkeydown="if(event.key==='Enter') tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">입장하기</button>
+    <div class="err-msg" id="err-msg"></div>
+  </div>
+</div>
+
+<!-- 메인 -->
+<div id="main-screen">
+  <div class="top-bar">
+    <h1>🗺️ 윤슬랭가이드</h1>
+    <div class="top-bar-right">
+      <a class="back-link" href="index.html" style="margin:0;">← 메인</a>
+      <button class="logout-btn" onclick="logout()">로그아웃</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="search-row">
+      <input type="text" class="search-input" id="q" placeholder="🔍  장소명, 지역, 키워드 검색…" oninput="render()">
+    </div>
+    <div class="region-selects">
+      <select class="region-sel" id="sel-province" onchange="onProvinceChange()">
+        <option value="">전체 도/시</option>
+      </select>
+      <select class="region-sel" id="sel-city" onchange="render()">
+        <option value="">전체 시/군/구</option>
+      </select>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+      <div class="type-toggle">
+        <button class="type-btn all active" onclick="setType('all',this)">전체</button>
+        <button class="type-btn food" onclick="setType('food',this)">🍽️ 맛집</button>
+        <button class="type-btn spot" onclick="setType('spot',this)">📸 멋집</button>
+      </div>
+    </div>
+    <!-- 태그 칩 필터 -->
+    <div class="tag-filter-row" id="tag-chips">
+      <span class="tag-filter-label">태그▸</span>
+    </div>
+    <!-- 정렬 + 방문완료 + 결과수 -->
+    <div class="sort-row">
+      <select class="sort-sel" id="sort-sel" onchange="render()">
+        <option value="default">기본순</option>
+        <option value="rating-desc">별점 높은순</option>
+        <option value="rating-asc">별점 낮은순</option>
+        <option value="name-asc">이름 가나다순</option>
+      </select>
+      <label class="visited-toggle" id="visited-lbl">
+        <input type="checkbox" id="only-visited" onchange="render()"> 방문완료만
+      </label>
+      <div class="result-info" id="result-info" style="margin-left:auto;"></div>
+    </div>
+  </div>
+
+  <div id="cards-area"></div>
+</div>
+
+<div style="text-align:center;color:#ddd;font-size:0.75em;padding:16px 0 8px;margin-top:24px;">
+  - boasis_lab.(yyj assistant)
+</div>
+
+<script>
+// ── 장소 데이터 ────────────────────────────────────────
+// type: 'food'=맛집 | 'spot'=멋집/명소
+// province: 도/광역시/특별시    city: 시/군/구
+// district: 동/읍/면 (선택)    rating: 기본 별점 (선택, 0~5)
+// tags: 키워드 배열             url: 링크 (선택)
+// visited: 'YYYY-MM-DD' (선택)
+// [맛집 전용] contact: 연락처  signature: 시그니쳐메뉴  tip: 이용/예약팁  holiday: 정기휴무일
+const PLACES = [
+  {
+    id: 1,
+    type: 'food',
+    name: '정든집 김여사',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '',
+    address: '',
+    tags: ['한식', '가정식'],
+    rating: 0,
+    desc: '',
+    contact: '',
+    signature: '',
+    tip: '',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 2,
+    type: 'food',
+    name: '동락일식',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '',
+    address: '',
+    tags: ['일식', '초밥', '회'],
+    rating: 0,
+    desc: '',
+    contact: '',
+    signature: '',
+    tip: '',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 3,
+    type: 'spot',
+    name: '용문사',
+    province: '경상북도',
+    city: '예천군',
+    district: '',
+    address: '',
+    tags: ['사찰', '명소', '산책', '문화재'],
+    rating: 0,
+    desc: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 4,
+    type: 'food',
+    name: '인월 소나무금줄',
+    province: '전라북도',
+    city: '남원시',
+    district: '인월면',
+    address: '',
+    tags: ['한식', '지리산', '향토음식'],
+    rating: 0,
+    desc: '',
+    contact: '',
+    signature: '',
+    tip: '',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 5,
+    type: 'spot',
+    name: '투아모투군도',
+    province: '프랑스령 폴리네시아',
+    city: '태평양',
+    district: '',
+    address: '타히티(파페에테) 동쪽 300~1,800km 태평양 환초 군도',
+    tags: ['산호초', '환초', '드리프트다이빙', '프랑스령폴리네시아', '라군', '흑진주', '상어다이빙', 'UNESCO'],
+    rating: 0,
+    desc: '세계 최대 규모 환초(atoll) 군도. 78개 환초로 이루어진 원시 라군과 에메랄드빛 바다가 압도적이다. 패스(수로)를 이용한 드리프트 다이빙으로 상어·가오리·고래상어를 근거리에서 만날 수 있다. 랑기로아·파카라바(UNESCO 생물권보전지역)·티케하우·마니히가 대표 방문지. 최적 시기: 5~10월(건기).',
+    tip: '한국에서 인천→LA 또는 도쿄 경유→타히티 파페에테(PPT) 도착 후 에어 타히티 국내선 이용. 총 약 20~24시간 소요.',
+    visited: '',
+    url: 'https://www.tahiti-tourisme.com',
+  },
+  {
+    id: 6,
+    type: 'spot',
+    name: '인제 자작나무숲',
+    province: '강원특별자치도',
+    city: '인제군',
+    district: '인제읍 원대리',
+    address: '강원도 인제군 인제읍 원대리 763-4',
+    tags: ['자작나무숲', '트레킹', '설경', '힐링', '포토스팟', '국유림'],
+    rating: 0,
+    desc: '국유림에 조성된 국내 최대 자작나무 군락지로 \'속삭이는 자작나무숲\'이라는 별칭을 가짐. 하얀 수피가 만들어내는 설경과 여름 초록 풍경 모두 인기. 1코스(약 6km)가 초보자에게 적합.',
+    tip: '탐방 전 안내소(033-463-0044) 전화 필수. 겨울 결빙 시 일부 코스 통제되므로 아이젠 지참.',
+    visited: '',
+    url: 'https://forest.go.kr',
+  },
+  {
+    id: 7,
+    type: 'spot',
+    name: '중부내륙 기차여행',
+    province: '충청북도',
+    city: '충주·제천·단양 일대',
+    district: '',
+    address: '',
+    tags: ['기차여행', '백두대간', 'KTX중부내륙선', '단양', '충주', '당일치기'],
+    rating: 0,
+    desc: 'KTX 중부내륙선(수서~충주~제천)으로 연결되는 기차 여행 코스. 단양·충주호 등 주변 명소와 연계한 당일 여행으로 인기. 구 O-train 순환열차는 2021년 폐지됨.',
+    tip: '코레일 홈페이지에서 시간표 사전 확인 권장.',
+    visited: '',
+    url: 'https://www.letskorail.com',
+  },
+  {
+    id: 8,
+    type: 'spot',
+    name: '광주 무등산',
+    province: '광주광역시',
+    city: '광주 동구',
+    district: '용연동 일대',
+    address: '광주광역시 동구 무등로 227',
+    tags: ['국립공원', '트레킹', '주상절리', '천연기념물', '광주', '자연유산'],
+    rating: 0,
+    desc: '2013년 국립공원 지정, 광주의 진산. 정상부 주상절리(서석대·입석대)는 천연기념물로 장엄한 경관을 자랑함. 증심사 코스가 가장 대중적이며 다양한 난이도의 탐방로 운영 중.',
+    tip: '정상(천왕봉 1,187m) 일부 구간은 군사시설 인접으로 개방 제한 있음.',
+    visited: '',
+    url: 'https://mudeung.knps.or.kr',
+  },
+  {
+    id: 9,
+    type: 'spot',
+    name: '보엠스파앤리조트',
+    province: '충청남도',
+    city: '아산시',
+    district: '음봉면',
+    address: '충청남도 아산시 음봉면 월랑로 280',
+    tags: ['온천스파', '리조트', '가족여행', '아산', '워터파크', '숙박'],
+    rating: 0,
+    desc: '아산 온천수를 활용한 스파·워터파크와 숙박 시설을 갖춘 복합 리조트. 실내·외 온천 풀과 다양한 편의시설을 보유해 가족 단위 방문객에게 인기.',
+    tip: '주말·성수기 사전 예약 필수. 아산 온양온천역에서 차량으로 10분 내외.',
+    visited: '',
+    url: 'https://www.bohemresort.com',
+  },
+  {
+    id: 10,
+    type: 'food',
+    name: '왜망실',
+    province: '강원특별자치도',
+    city: '인제군',
+    district: '북면',
+    address: '강원도 인제군 북면 일대 (백담사 인근)',
+    tags: ['한식', '산채비빔밥', '인제맛집', '백담사근처', '로컬맛집'],
+    rating: 0,
+    desc: '인제 내설악 백담사 방면에 위치한 향토 음식점. 강원도 산채나물을 듬뿍 올린 비빔밥과 더덕구이가 대표 메뉴로 등산객·여행객에게 꾸준히 사랑받음.',
+    contact: '',
+    signature: '산채비빔밥, 더덕구이',
+    tip: '성수기 대기 발생 가능. 현금 결제 가능 여부 사전 확인 권장.',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 11,
+    type: 'spot',
+    name: '아중호수',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '덕진구 아중리',
+    address: '전라북도 전주시 덕진구 아중로 일대',
+    tags: ['호수공원', '산책', '전주', '데이트', '피크닉', '야경', '벚꽃'],
+    rating: 0,
+    desc: '전주 시내 아중저수지를 중심으로 조성된 호수공원. 산책로와 데크길이 잘 정비되어 있으며 봄 벚꽃과 야경 명소로 유명. 시민들의 일상 힐링 공간.',
+    tip: '봄철 벚꽃 만개(4월 초)에 특히 아름다움. 주차 협소, 대중교통 이용 권장.',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 12,
+    type: 'spot',
+    name: '비비정',
+    province: '전북특별자치도',
+    city: '완주군',
+    district: '삼례읍',
+    address: '전라북도 완주군 삼례읍 비비정길 일대',
+    tags: ['정자', '만경강', '노을명소', '전통', '전주근교', '일몰'],
+    rating: 0,
+    desc: '만경강변에 세워진 조선시대 정자. 강과 논밭이 어우러진 넓은 들판 풍경이 일품이며 일몰 노을 명소로 알려짐. 인근 비비정마을 예술열차 카페와 코스로 묶기 좋음.',
+    tip: '저녁 일몰 시간대 방문 추천.',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 13,
+    type: 'food',
+    name: '스시명장',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '완산구',
+    address: '전라북도 전주시 완산구 마전3길 12',
+    tags: ['일식', '초밥', '오마카세', '전주신시가지'],
+    rating: 0,
+    desc: '전주 신시가지 오마카세 초밥집. 네타가 두껍게 올라가는 것으로 유명. 카운터석(닷지석)에서 명장이 2점씩 바로 만들어 올려줌. 이 가격대 오마카세 퀄리티로 전주 명물급.',
+    contact: '063-255-1800',
+    signature: '광어초밥, 날치알초밥, 장어초밥',
+    tip: '날치알초밥은 간장에 찍으면 사장님한테 혼남 주의. 와사비 다량 — 조절 요청 가능. 영업시간 11:30~20:00.',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+  {
+    id: 14,
+    type: 'food',
+    name: '모래내우족탕',
+    province: '전북특별자치도',
+    city: '전주시',
+    district: '덕진구',
+    address: '',
+    tags: ['우족탕', '국밥', '한식', '전주'],
+    rating: 0,
+    desc: '전주 우족탕 명물. 국물이 진하고 우족이 푸짐하게 들어가는 것으로 유명. 부드러운 우족과 진한 육수의 조화가 일품.',
+    contact: '',
+    signature: '우족탕, 소머리국밥',
+    tip: '점심 시간대 대기가 길 수 있음. 밑반찬도 푸짐함.',
+    holiday: '',
+    visited: '',
+    url: '',
+  },
+];
+
+// ── 내 후기 저장소 (localStorage) ─────────────────────
+// { [id]: { rating: 1~5, comment: '', visited: 'YYYY-MM-DD' } }
+const REVIEW_KEY = 'guide_my_reviews';
+function loadReviews() {
+  try { return JSON.parse(localStorage.getItem(REVIEW_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveReviews(data) {
+  localStorage.setItem(REVIEW_KEY, JSON.stringify(data));
+}
+
+// ── 인증 ───────────────────────────────────────────────
+const PW  = 'yoon1201@@';
+const KEY = 'auth_food';
+function tryLogin() {
+  const input = document.getElementById('pw');
+  if (input.value === PW) {
+    sessionStorage.setItem(KEY, '1');
+    showMain();
+  } else {
+    input.classList.remove('shake'); void input.offsetWidth; input.classList.add('shake');
+    document.getElementById('err-msg').textContent = '비밀번호가 틀렸습니다.';
+    input.value = '';
+    setTimeout(() => input.classList.remove('shake'), 400);
+  }
+}
+function logout() {
+  sessionStorage.removeItem(KEY);
+  document.getElementById('main-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw').value = '';
+}
+function showMain() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('main-screen').style.display = 'block';
+  initSelectors();
+  render();
+}
+
+// ── 지역 셀렉터 ────────────────────────────────────────
+function initSelectors() {
+  const provinces = [...new Set(PLACES.map(p => p.province))].sort();
+  const selP = document.getElementById('sel-province');
+  provinces.forEach(v => {
+    const o = document.createElement('option'); o.value = v; o.textContent = v; selP.appendChild(o);
+  });
+  initTagChips();
+}
+
+// ── 태그 칩 필터 ───────────────────────────────────────
+let selectedTags = new Set();
+function initTagChips() {
+  // 모든 장소의 태그를 빈도순으로 정렬
+  const freq = {};
+  PLACES.forEach(p => (p.tags||[]).forEach(t => { freq[t] = (freq[t]||0) + 1; }));
+  const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).map(e => e[0]);
+  const area = document.getElementById('tag-chips');
+  sorted.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-chip';
+    btn.textContent = tag;
+    btn.onclick = () => toggleTag(tag, btn);
+    area.appendChild(btn);
+  });
+}
+function toggleTag(tag, btn) {
+  if (selectedTags.has(tag)) { selectedTags.delete(tag); btn.classList.remove('active'); }
+  else                        { selectedTags.add(tag);    btn.classList.add('active'); }
+  render();
+}
+function onProvinceChange() {
+  const pv = document.getElementById('sel-province').value;
+  const cities = [...new Set(PLACES.filter(p => !pv || p.province === pv).map(p => p.city))].sort();
+  const selC = document.getElementById('sel-city');
+  selC.innerHTML = '<option value="">전체 시/군/구</option>';
+  cities.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; selC.appendChild(o); });
+  render();
+}
+
+// ── 필터 ───────────────────────────────────────────────
+let currentType = 'all';
+function setType(t, btn) {
+  currentType = t;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── 렌더 ───────────────────────────────────────────────
+function render() {
+  const q  = document.getElementById('q').value.trim().toLowerCase();
+  const pv = document.getElementById('sel-province').value;
+  const cy = document.getElementById('sel-city').value;
+
+  const onlyVisited = document.getElementById('only-visited').checked;
+  const reviews = loadReviews();
+  const sortBy = document.getElementById('sort-sel').value;
+
+  // 방문완료 토글 라벨 강조
+  document.getElementById('visited-lbl').classList.toggle('on', onlyVisited);
+
+  let list = PLACES.filter(p => {
+    if (currentType !== 'all' && p.type !== currentType) return false;
+    if (pv && p.province !== pv) return false;
+    if (cy && p.city !== cy) return false;
+    if (selectedTags.size > 0) {
+      const ptags = new Set(p.tags||[]);
+      if (![...selectedTags].every(t => ptags.has(t))) return false;
+    }
+    if (onlyVisited && !reviews[p.id]) return false;
+    if (q) {
+      const hay = [p.name, p.province, p.city, p.district, p.address, p.desc, p.contact||'', p.signature||'', p.tip||'', p.holiday||'', ...(p.tags||[])].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  // 정렬
+  if (sortBy === 'rating-desc') list.sort((a,b) => (b.rating||0) - (a.rating||0));
+  else if (sortBy === 'rating-asc') list.sort((a,b) => (a.rating||0) - (b.rating||0));
+  else if (sortBy === 'name-asc') list.sort((a,b) => a.name.localeCompare(b.name, 'ko'));
+
+  document.getElementById('result-info').textContent = list.length + '건';
+  const area = document.getElementById('cards-area');
+
+  if (!list.length) {
+    area.innerHTML = '<div class="empty-state"><div class="e-icon">🔍</div><p>등록된 장소가 없습니다.<br>검색어나 필터를 변경해 보세요.</p></div>';
+    return;
+  }
+
+  // 도/시 단위 그룹화
+  const grouped = {};
+  list.forEach(p => {
+    const gk = pv ? p.city : p.province;
+    if (!grouped[gk]) grouped[gk] = [];
+    grouped[gk].push(p);
+  });
+
+  let html = '';
+  Object.keys(grouped).sort().forEach(gk => {
+    html += '<div class="region-header">📍 ' + gk + '</div>';
+    html += '<div class="cards-grid">';
+    grouped[gk].forEach(p => { html += cardHTML(p); });
+    html += '</div>';
+  });
+  area.innerHTML = html;
+}
+
+// ── 별표 문자열 생성 ───────────────────────────────────
+function starsStr(n) {
+  const full = Math.floor(n);
+  const half = n % 1 >= 0.5 ? '½' : '';
+  return '★'.repeat(full) + half;
+}
+
+// ── 카드 HTML ──────────────────────────────────────────
+function cardHTML(p) {
+  const reviews = loadReviews();
+  const myRev   = reviews[p.id];
+  const icon     = p.type === 'food' ? '🍽️' : '📸';
+  const typeCls  = p.type === 'food' ? 'tag-food' : 'tag-spot';
+  const typeLabel= p.type === 'food' ? '맛집' : '멋집';
+  const tags     = (p.tags||[]).map(t => '<span class="tag tag-general">'+t+'</span>').join('');
+  const addr     = (p.address && p.type !== 'food') ? '<div class="card-addr">📍 ' + p.address + '</div>' : '';
+  const baseRating = p.rating
+    ? '<div class="card-base-rating"><span class="star-disp">' + starsStr(p.rating) + '</span><span class="rating-num">' + p.rating + '</span></div>'
+    : '';
+  // 맛집 전용 정보 블록
+  let foodInfoHTML = '';
+  if (p.type === 'food') {
+    const rows = [];
+    if (p.address)   rows.push(['📍 주소', escHtml(p.address)]);
+    if (p.contact)   rows.push(['📞 연락처', escHtml(p.contact)]);
+    if (p.signature) rows.push(['🍴 시그니쳐', escHtml(p.signature)]);
+    if (p.tip)       rows.push(['💡 이용팁', escHtml(p.tip)]);
+    if (p.holiday)   rows.push(['📅 정기휴무', escHtml(p.holiday)]);
+    if (rows.length) {
+      foodInfoHTML = '<div class="food-info">' +
+        rows.map(([l,v]) => '<div class="food-info-row"><span class="food-info-label">'+l+'</span><span class="food-info-value">'+v+'</span></div>').join('') +
+        '</div>';
+    }
+  }
+
+  const metaItems = [];
+  if (p.visited) metaItems.push('<span class="card-visited">방문 ' + p.visited + '</span>');
+  if (p.url)     metaItems.push('<a class="card-link" href="' + p.url + '" target="_blank">🔗 링크</a>');
+  const meta = metaItems.length ? '<div class="card-meta">' + metaItems.join('') + '</div>' : '';
+
+  // 내 후기 섹션
+  let reviewSection = '';
+  if (myRev) {
+    reviewSection = `
+    <hr class="review-divider">
+    <div class="my-review-box" id="rev-display-${p.id}">
+      <div class="my-review-header">
+        <span class="my-review-label">✏️ 내 후기</span>
+        <div class="my-review-actions">
+          <button class="btn-edit-review" onclick="openForm(${p.id})">수정</button>
+          <button class="btn-del-review" onclick="deleteReview(${p.id})">삭제</button>
+        </div>
+      </div>
+      <div>
+        <span class="my-review-stars">${starsStr(myRev.rating)}</span>
+        <span class="my-review-score">${myRev.rating}점</span>
+      </div>
+      ${myRev.comment ? '<div class="my-review-comment">' + escHtml(myRev.comment) + '</div>' : ''}
+      ${myRev.visited ? '<div class="my-review-date">📅 방문 ' + myRev.visited + '</div>' : ''}
+    </div>
+    <div class="review-form" id="rev-form-${p.id}" style="display:none;">
+      ${reviewFormHTML(p.id, myRev)}
+    </div>`;
+  } else {
+    reviewSection = `
+    <hr class="review-divider">
+    <button class="review-add-btn" id="rev-add-btn-${p.id}" onclick="openForm(${p.id})">✏️ 내 후기 남기기</button>
+    <div class="review-form" id="rev-form-${p.id}" style="display:none;">
+      ${reviewFormHTML(p.id, null)}
+    </div>`;
+  }
+
+  return `
+  <div class="place-card">
+    <div class="card-head">
+      <div class="card-type-icon">${icon}</div>
+      <div>
+        <div class="card-name">${escHtml(p.name)}</div>
+        <div class="card-region">${escHtml(p.province)} · ${escHtml(p.city)}${p.district ? ' ' + escHtml(p.district) : ''}</div>
+      </div>
+    </div>
+    <div class="card-tags"><span class="tag ${typeCls}">${typeLabel}</span>${tags}</div>
+    ${p.desc ? '<div class="card-desc">' + escHtml(p.desc) + '</div>' : ''}
+    ${addr}
+    ${foodInfoHTML}
+    ${baseRating}
+    ${meta}
+    ${reviewSection}
+  </div>`;
+}
+
+// ── 후기 폼 HTML ───────────────────────────────────────
+function reviewFormHTML(id, existing) {
+  const r = existing ? existing.rating : 0;
+  const c = existing ? (existing.comment || '') : '';
+  const v = existing ? (existing.visited || '') : '';
+  const stars = [1,2,3,4,5].map(i =>
+    '<span id="rs-'+id+'-'+i+'" data-v="'+i+'" class="'+(i<=r?'on':'')+'" onclick="pickStar('+id+','+i+')" onmouseover="hoverStar('+id+','+i+')" onmouseout="unhoverStar('+id+')">★</span>'
+  ).join('');
+  return `
+    <div class="review-form-title">✏️ 내 후기</div>
+    <div class="star-picker" id="sp-${id}">
+      ${stars}
+      <span class="star-val-label" id="sv-${id}">${r ? r+'점' : '별점 선택'}</span>
+    </div>
+    <textarea class="review-comment-input" id="rc-${id}" placeholder="한줄 후기 (선택)">${escHtml(c)}</textarea>
+    <div class="review-date-row">
+      <label>방문일</label>
+      <input type="date" class="review-date-input" id="rd-${id}" value="${v}">
+    </div>
+    <div class="review-btns">
+      <button class="btn-save" onclick="submitReview(${id})">저장</button>
+      <button class="btn-cancel" onclick="closeForm(${id})">취소</button>
+    </div>`;
+}
+
+// ── 별점 인터랙션 ──────────────────────────────────────
+let pickedStars = {};
+function pickStar(id, val) {
+  pickedStars[id] = val;
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.className = i <= val ? 'on' : '';
+  }
+  const sv = document.getElementById('sv-'+id);
+  if (sv) sv.textContent = val + '점';
+}
+function hoverStar(id, val) {
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.style.color = i <= val ? '#f5a623' : '#ddd';
+  }
+}
+function unhoverStar(id) {
+  const cur = pickedStars[id] || 0;
+  for (let i=1; i<=5; i++) {
+    const el = document.getElementById('rs-'+id+'-'+i);
+    if (el) el.style.color = '';
+  }
+}
+
+// ── 폼 열기/닫기 ───────────────────────────────────────
+function openForm(id) {
+  const reviews = loadReviews();
+  pickedStars[id] = reviews[id] ? reviews[id].rating : 0;
+
+  const addBtn = document.getElementById('rev-add-btn-'+id);
+  if (addBtn) addBtn.style.display = 'none';
+  const disp = document.getElementById('rev-display-'+id);
+  if (disp) disp.style.display = 'none';
+  const form = document.getElementById('rev-form-'+id);
+  if (form) form.style.display = 'flex';
+}
+function closeForm(id) {
+  const reviews = loadReviews();
+  const addBtn = document.getElementById('rev-add-btn-'+id);
+  if (addBtn) addBtn.style.display = reviews[id] ? 'none' : 'block';
+  const disp = document.getElementById('rev-display-'+id);
+  if (disp) disp.style.display = reviews[id] ? 'flex' : 'none';
+  const form = document.getElementById('rev-form-'+id);
+  if (form) form.style.display = 'none';
+}
+function submitReview(id) {
+  const rating  = pickedStars[id] || 0;
+  if (!rating) { alert('별점을 선택해주세요.'); return; }
+  const comment = (document.getElementById('rc-'+id) || {}).value || '';
+  const visited = (document.getElementById('rd-'+id) || {}).value || '';
+  const reviews = loadReviews();
+  reviews[id] = { rating, comment, visited };
+  saveReviews(reviews);
+  render();
+}
+function deleteReview(id) {
+  if (!confirm('내 후기를 삭제할까요?')) return;
+  const reviews = loadReviews();
+  delete reviews[id];
+  saveReviews(reviews);
+  render();
+}
+
+// ── 유틸 ───────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── 초기화 ─────────────────────────────────────────────
+if (sessionStorage.getItem(KEY) === '1') showMain();
+</script>
+</body>
+</html>
