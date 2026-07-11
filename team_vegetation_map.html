@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>6조 떡갈나무팀 식생조사 지도</title>
+<style>
+:root{--bg:#f5f7f2;--ink:#243024;--muted:#60705d;--green:#2f6f4e;--deep:#18472f;--line:#d8e2d2;--yellow:#f5c84b;--red:#d8332f;--blue:#2d6cdf}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.65;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:1180px;margin:0 auto;padding:18px}
+header{padding:18px 0 12px}
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;padding:8px 12px;border:1px solid #a9c9a9;border-radius:8px;background:#fff;color:var(--deep);text-decoration:none;font-weight:800}
+h1{margin:0;color:var(--deep);font-size:clamp(1.55rem,3vw,2.25rem);letter-spacing:0}
+.meta{margin:6px 0 0;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.75fr);gap:16px;align-items:start}
+.panel,.map-card{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 3px 14px rgba(30,60,30,.08)}
+.map-card{padding:12px}
+.map-frame{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:#e8eee2;border:1px solid var(--line)}
+.map-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.map-frame svg{position:absolute;inset:0;width:100%;height:100%}
+.panel{padding:16px}
+h2{margin:0 0 10px;color:var(--deep);font-size:1.15rem;border-bottom:2px solid var(--line);padding-bottom:8px}
+h3{margin:16px 0 8px;color:#24583b;font-size:1rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-weight:800;font-size:.88rem;background:#eef7ed;color:#195236;border:1px solid #c7dfc2}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.summary div{background:#f7faf5;border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.summary b{display:block;color:var(--deep);font-size:1.25rem}
+table{width:100%;border-collapse:collapse;font-size:.92rem;background:#fff}
+th,td{border:1px solid var(--line);padding:7px 8px;vertical-align:top}
+th{background:#edf5ea;color:var(--deep);font-weight:800}
+.species{columns:2;column-gap:22px;padding-left:18px;margin:8px 0}
+.species li{break-inside:avoid;margin:2px 0}
+.note{background:#fff9df;border-left:5px solid var(--yellow);padding:10px 12px;border-radius:4px;margin-top:12px}
+.legend{display:grid;gap:8px;margin-top:10px}
+.legend span{display:flex;align-items:center;gap:8px}
+.swatch{width:24px;height:14px;border-radius:3px;border:2px solid currentColor;display:inline-block}
+.swatch.area{background:rgba(216,51,47,.22);color:var(--red)}
+.swatch.path{height:0;border-top:4px solid var(--blue);border-left:0;border-right:0;border-bottom:0}
+.swatch.point{width:14px;height:14px;border-radius:999px;background:var(--yellow);color:#906800;border-color:#906800}
+.footer{color:#859182;font-size:.82rem;text-align:center;padding:20px 0 8px}
+@media(max-width:880px){.layout{grid-template-columns:1fr}.species{columns:1}.summary{grid-template-columns:1fr 1fr}.wrap{padding:12px}}
+@media print{body{background:#fff}.back{display:none}.map-card,.panel{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<a class="back" href="forest.html?k=yyj1201">← 숲해설 공유페이지</a>
+<h1>6조 떡갈나무팀 식생조사 지도</h1>
+<p class="meta">전주수목원 A그룹 2번 구역 · 식생조사 선정분 20종 · 2026-07-11 정리</p>
+<div class="badge-row">
+<span class="badge">담당 구역: 2번</span>
+<span class="badge">선정분: 목본 14종</span>
+<span class="badge">선정분: 초본 6종</span>
+<span class="badge">제출 기준: 7/24 17:00</span>
+</div>
+</header>
+
+<main class="layout">
+<section class="map-card" aria-label="전주수목원 2번 구역 식생조사 지도">
+<div class="map-frame">
+<img src="team-vegetation-assets/20260613_course_map.jpg" alt="2026년 18기 숲해설가 시연평가 코스지도">
+<svg viewBox="0 0 1200 900" role="img" aria-label="2번 구역 강조 오버레이">
+<defs>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+<feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity=".35"/>
+</filter>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L0,6 L9,3 z" fill="#2d6cdf"/>
+</marker>
+</defs>
+<polygon points="430,415 560,368 662,525 535,632 455,535" fill="rgba(216,51,47,.24)" stroke="#d8332f" stroke-width="9" stroke-linejoin="round" filter="url(#shadow)"/>
+<path d="M650,665 C590,620 560,590 535,632 C500,575 465,525 430,415" fill="none" stroke="#2d6cdf" stroke-width="9" stroke-linecap="round" stroke-dasharray="16 12" marker-end="url(#arrow)" filter="url(#shadow)"/>
+<circle cx="520" cy="515" r="32" fill="#f5c84b" stroke="#7a5700" stroke-width="5" filter="url(#shadow)"/>
+<text x="520" y="527" text-anchor="middle" font-size="34" font-weight="900" fill="#463400">2</text>
+<rect x="452" y="355" width="210" height="48" rx="8" fill="rgba(255,255,255,.92)" stroke="#d8332f" stroke-width="3"/>
+<text x="557" y="387" text-anchor="middle" font-size="24" font-weight="900" fill="#b42318">A그룹 2번 구역</text>
+<rect x="630" y="650" width="178" height="42" rx="8" fill="rgba(255,255,255,.93)" stroke="#2d6cdf" stroke-width="3"/>
+<text x="719" y="678" text-anchor="middle" font-size="20" font-weight="800" fill="#174ea6">진행 방향 1→2</text>
+</svg>
+</div>
+<div class="legend">
+<span><i class="swatch area"></i> 빨간 강조 영역: 6조 담당 A그룹 2번 식생조사 범위</span>
+<span><i class="swatch path"></i> 파란 점선: 시연 동선상 1번 구역에서 2번 구역으로 이어지는 흐름</span>
+<span><i class="swatch point"></i> 노란 번호: 지도 원본의 2번 구역 표시</span>
+</div>
+</section>
+
+<aside class="panel">
+<h2>조사 개요</h2>
+<div class="summary">
+<div><b>20</b>선정 종</div>
+<div><b>14</b>목본</div>
+<div><b>6</b>초본</div>
+</div>
+<table>
+<tbody>
+<tr><th>팀</th><td>6조 떡갈나무팀</td></tr>
+<tr><th>장소</th><td>전주수목원, 일반수목원·함께하는길 일대</td></tr>
+<tr><th>구역</th><td>A그룹 2번 구역</td></tr>
+<tr><th>범위 설명</th><td>1번 구역 위쪽으로 이어지는 삼각형 영역, 산책로 라인 중심</td></tr>
+<tr><th>과제 기준</th><td>목본 15종 + 초본 5종</td></tr>
+<tr><th>현재 선정분</th><td>목본 14종 + 초본 6종</td></tr>
+</tbody>
+</table>
+<div class="note">개별 식물 위치 좌표는 아직 정리되어 있지 않아, 현재 지도는 “구역 기준 지도”입니다. 현장 위치번호나 GPS가 추가되면 종별 핀 지도로 확장할 수 있습니다. 또한 현재 선정분은 목본 14·초본 6이라, 최종 제출 전 목본 1종을 추가하거나 초본 1종을 교체하는 조정이 필요합니다.</div>
+</aside>
+
+<section class="panel">
+<h2>식생조사 선정분 20종</h2>
+<h3>목본 14종</h3>
+<ol class="species">
+<li>살구나무</li>
+<li>흰매실나무</li>
+<li>느티나무</li>
+<li>팽나무</li>
+<li>괴불나무</li>
+<li>때죽나무</li>
+<li>명자나무</li>
+<li>뽕나무</li>
+<li>히어리</li>
+<li>네군도단풍</li>
+<li>라나스덜꿩나무</li>
+<li>회화나무</li>
+<li>야광나무</li>
+<li>가래나무</li>
+</ol>
+<h3>초본 6종</h3>
+<ol class="species">
+<li>보리사초</li>
+<li>실유카</li>
+<li>양하</li>
+<li>자주천인국</li>
+<li>멜람포디움</li>
+<li>오레가노(꽃박하)</li>
+</ol>
+<div class="note">선정분 목록의 작업 기준을 그대로 반영했습니다. 과제 기준은 목본 15·초본 5이므로, 제출본에서는 목본 후보 1종을 추가하거나 초본 후보 1종을 제외하는 방식으로 수량을 맞추는 것이 좋습니다.</div>
+</section>
+
+<section class="panel">
+<h2>발표·해설 연결 포인트</h2>
+<table>
+<thead><tr><th>묶음</th><th>지도에서 설명할 포인트</th></tr></thead>
+<tbody>
+<tr><td>장미과</td><td>살구나무, 흰매실나무, 명자나무, 야광나무 등 꽃·열매 비교가 쉬운 묶음</td></tr>
+<tr><td>큰 교목</td><td>느티나무, 팽나무, 회화나무는 마을숲·노거수 문화와 연결 가능</td></tr>
+<tr><td>관목류</td><td>괴불나무, 라나스덜꿩나무, 히어리는 잎 배열·꽃차례·보전 가치 설명에 적합</td></tr>
+<tr><td>초본·허브</td><td>보리사초, 양하, 자주천인국, 멜람포디움, 오레가노는 생활 속 식물 이야기로 연결</td></tr>
+</tbody>
+</table>
+</section>
+</main>
+
+<div class="footer">- boasis_lab.(yyj assistant)</div>
+</div>
+</body>
+</html>
