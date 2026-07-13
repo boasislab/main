@@ -5,29 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회사 분개처리 통합교육자료</title>
 <style>
+  :root {
+    --primary: #0f2744;
+    --primary-mid: #1a3a5c;
+    --secondary: #1e6db5;
+    --accent: #e8900a;
+    --green: #16a34a;
+    --red: #dc2626;
+    --purple: #7c3aed;
+    --debit: #1565c0;
+    --credit: #b91c1c;
+    --bg: #eef2f7;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #cbd5e1;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    background: #eef3f8;
-    color: #1f2937;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.65;
   }
   .topbar {
     position: sticky;
     top: 0;
-    z-index: 10;
-    background: #17314f;
+    z-index: 100;
+    background: var(--primary);
     color: #fff;
-    padding: 14px 18px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    padding: 0 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.35);
   }
   .topbar-inner {
-    max-width: 1160px;
+    max-width: 1180px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 14px;
+    min-height: 48px;
   }
   .topbar a {
     color: rgba(255,255,255,0.82);
@@ -35,17 +52,54 @@
     font-size: 0.9rem;
     white-space: nowrap;
   }
+  .topbar-title {
+    color: var(--accent);
+    font-weight: 900;
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    overflow-x: auto;
+    gap: 2px;
+    flex: 1;
+  }
+  .nav-links a {
+    padding: 14px 10px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.62);
+  }
+  .nav-links a:hover { color: #fff; }
   .hero {
-    background: #17314f;
+    background: linear-gradient(160deg, #0a1a2e 0%, #0f2744 46%, #1d5f95 100%);
     color: #fff;
-    padding: 48px 18px 42px;
+    padding: 64px 18px 54px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.045);
+    pointer-events: none;
+  }
+  .hero::before { width: 360px; height: 360px; right: -110px; top: -120px; }
+  .hero::after { width: 260px; height: 260px; left: -90px; bottom: -110px; }
+  .hero-kicker {
+    color: var(--accent);
+    font-weight: 900;
+    letter-spacing: 0;
+    margin-bottom: 10px;
+    position: relative;
   }
   .hero-inner {
-    max-width: 1160px;
+    max-width: 1180px;
     margin: 0 auto;
+    position: relative;
   }
   h1 {
-    font-size: 2rem;
+    font-size: 2.45rem;
     line-height: 1.25;
     letter-spacing: 0;
     margin-bottom: 12px;
@@ -72,9 +126,9 @@
     font-weight: 700;
   }
   main {
-    max-width: 1160px;
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 28px 18px 52px;
+    padding: 34px 18px 56px;
   }
   .notice {
     background: #fff8e7;
@@ -86,17 +140,20 @@
     font-size: 0.92rem;
   }
   .section {
-    background: #fff;
-    border: 1px solid #d8e2ee;
-    border-radius: 8px;
-    padding: 22px;
-    margin-bottom: 18px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 38px 0 18px;
+    margin-bottom: 4px;
   }
   h2 {
-    color: #17314f;
-    font-size: 1.18rem;
-    margin-bottom: 14px;
+    color: var(--primary);
+    font-size: 1.45rem;
+    margin-bottom: 18px;
     letter-spacing: 0;
+    padding-left: 16px;
+    border-left: 6px solid var(--accent);
+    line-height: 1.25;
   }
   h3 {
     color: #244d73;
@@ -122,8 +179,9 @@
   .card {
     border: 1px solid #d8e2ee;
     border-radius: 8px;
-    padding: 16px;
-    background: #fbfdff;
+    padding: 22px;
+    background: var(--card);
+    box-shadow: 0 2px 10px rgba(15,39,68,0.06);
   }
   .flow {
     display: grid;
@@ -133,11 +191,18 @@
   }
   .step {
     border: 1px solid #c9d8e6;
-    background: #f8fbff;
+    background: var(--card);
     border-radius: 8px;
-    padding: 13px;
+    padding: 15px 13px;
     min-height: 118px;
+    box-shadow: 0 2px 8px rgba(15,39,68,0.05);
   }
+  .step:nth-child(3), .step:nth-child(7) {
+    background: var(--secondary);
+    border-color: var(--secondary);
+  }
+  .step:nth-child(3) strong, .step:nth-child(3) span,
+  .step:nth-child(7) strong, .step:nth-child(7) span { color: #fff; }
   .step strong {
     display: block;
     color: #17314f;
@@ -153,14 +218,24 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     border: 1px solid #c9d8e6;
-    border-radius: 8px;
+    border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 4px 18px rgba(15,39,68,0.14);
   }
   .dc-side {
-    padding: 18px;
+    padding: 26px;
   }
-  .debit { background: #eaf3ff; }
-  .credit { background: #fff0f0; }
+  .dc-side li {
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 11px;
+    margin: 8px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .debit { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .credit { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+  .debit h3 { color: var(--debit); }
+  .credit h3 { color: var(--credit); }
   .eq {
     display: flex;
     align-items: center;
@@ -183,10 +258,77 @@
     vertical-align: top;
   }
   th {
-    background: #17314f;
+    background: var(--primary);
     color: #fff;
     font-weight: 700;
   }
+  .visual-panel {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+  .model-header {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    font-weight: 800;
+  }
+  .model-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 15px;
+    margin-bottom: 10px;
+  }
+  .model-row.debit-line { border-left: 5px solid var(--debit); }
+  .model-row.credit-line { border-left: 5px solid var(--credit); }
+  .side-badge {
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-align: center;
+  }
+  .side-badge.debit-badge { background: #dbeafe; color: var(--debit); }
+  .side-badge.credit-badge { background: #fee2e2; color: var(--credit); }
+  .ledger-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+  }
+  .ledger-card {
+    border-radius: 14px;
+    padding: 20px 16px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .ledger-card::after {
+    content: "";
+    position: absolute;
+    top: -28px;
+    right: -24px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.12;
+  }
+  .ledger-card h3 { margin-bottom: 6px; }
+  .ledger-card p { font-size: 0.84rem; color: #475569; }
+  .lc-blue { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+  .lc-green { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+  .lc-amber { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+  .lc-purple { background: #faf5ff; color: #6b21a8; border-color: #ddd6fe; }
+  .lc-rose { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
   .pill {
     display: inline-block;
     border-radius: 8px;
@@ -277,6 +419,8 @@
     .dc { grid-template-columns: 1fr; }
     .eq { padding: 12px; }
     .timeline-item { grid-template-columns: 1fr; }
+    .model-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
     h1 { font-size: 1.55rem; }
   }
 </style>
@@ -284,13 +428,25 @@
 <body>
 <div class="topbar">
   <div class="topbar-inner">
-    <div>회사업무관리 · 분개처리 통합교육자료</div>
+    <div class="topbar-title">분개처리 통합교육</div>
+    <div class="nav-links">
+      <a href="#s01">학습순서</a>
+      <a href="#s02">발생구조</a>
+      <a href="#s03">처리흐름</a>
+      <a href="#s07">차대변</a>
+      <a href="#s08">분개모형</a>
+      <a href="#s10">원장</a>
+      <a href="#s11">손익</a>
+      <a href="#s13">마감</a>
+      <a href="#s15">오류</a>
+    </div>
     <a href="index.html">메인으로</a>
   </div>
 </div>
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="hero-kicker">회사업무관리 · 공유용 일반화 교육자료</div>
     <h1>회사 분개처리 통합교육자료</h1>
     <p>
       거래가 발생한 뒤 회계 분개장으로 확정되기까지의 개념, 매핑 구조, 자동/수동 처리,
@@ -313,7 +469,7 @@
     구조와 업무 흐름 중심으로 정리했습니다.
   </div>
 
-  <section class="section">
+  <section class="section" id="s01">
     <h2>1. 학습 순서</h2>
     <div class="flow">
       <div class="step"><strong>1. 발생 구조</strong><span>분개장이 왜 거래유형과 상품/계정 매핑의 결합 결과인지 먼저 잡습니다.</span></div>
@@ -324,7 +480,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s02">
     <h2>2. 분개장 발생 핵심 구조</h2>
     <div class="summary">
       분개장은 거래유형이 정한 분개모형과 상품/계정 매핑이 결합되어 만들어진다.
@@ -352,7 +508,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s03">
     <h2>3. 전체 처리 흐름</h2>
     <div class="flow">
       <div class="step"><strong>1. 원천 거래 수신</strong><span>작업일자, 거래유형, 상품, 통화, 수량, 금액 등 입력값을 받습니다.</span></div>
@@ -365,7 +521,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s04">
     <h2>4. 주요 구성요소 역할</h2>
     <table>
       <thead>
@@ -410,7 +566,7 @@
     </table>
   </section>
 
-  <section class="section">
+  <section class="section" id="s05">
     <h2>5. 처리 순서 상세</h2>
     <ol>
       <li>원천 거래에서 작업일자, 거래유형, 상품, 통화, 수량, 금액 등을 수신합니다.</li>
@@ -425,7 +581,7 @@
     </ol>
   </section>
 
-  <section class="section">
+  <section class="section" id="s06">
     <h2>6. 분개처리란 무엇인가</h2>
     <div class="grid">
       <div class="card">
@@ -439,7 +595,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s07">
     <h2>7. 복식부기 기본 원칙</h2>
     <div class="dc">
       <div class="dc-side debit">
@@ -463,7 +619,7 @@
     <p style="margin-top:14px">분개 검증의 가장 기본은 모든 거래에서 차변 합계와 대변 합계가 같아야 한다는 점입니다.</p>
   </section>
 
-  <section class="section">
+  <section class="section" id="s08">
     <h2>8. 분개모형의 역할</h2>
     <table>
       <thead>
@@ -496,9 +652,36 @@
         </tr>
       </tbody>
     </table>
+    <div class="visual-panel">
+      <div class="model-header">분개모형 시각화 — 한 거래가 여러 분개 라인으로 펼쳐지는 방식</div>
+      <div class="model-row debit-line">
+        <div class="side-badge debit-badge">차변</div>
+        <div>
+          <h3>자산 또는 비용 성격 라인</h3>
+          <p>거래의 경제적 효과 중 자산 증가, 비용 발생, 미수 성격 금액을 표현합니다.</p>
+        </div>
+        <div><span class="pill">금액 기준</span> 원천 거래 금액, 평가금액, 환율 적용 금액</div>
+      </div>
+      <div class="model-row debit-line">
+        <div class="side-badge debit-badge">차변</div>
+        <div>
+          <h3>부대 금액 또는 발생주의 라인</h3>
+          <p>경과이자, 미수수익, 수수료처럼 본 거래와 함께 분리 관리해야 하는 금액을 담습니다.</p>
+        </div>
+        <div><span class="pill">계정 결정</span> 계정속성 + 상품계정 매핑</div>
+      </div>
+      <div class="model-row credit-line">
+        <div class="side-badge credit-badge">대변</div>
+        <div>
+          <h3>현금 감소 또는 수익 성격 라인</h3>
+          <p>결제금액, 지급금액, 수익 발생처럼 반대편 회계 효과를 기록합니다.</p>
+        </div>
+        <div><span class="pill">검증 기준</span> 차변 합계와 대변 합계 일치</div>
+      </div>
+    </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s09">
     <h2>9. 자동분개와 수동분개</h2>
     <div class="grid">
       <div class="card">
@@ -520,25 +703,33 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s10">
     <h2>10. 주요 원장과 분개장의 관계</h2>
-    <div class="grid3">
-      <div class="card">
+    <div class="ledger-cards">
+      <div class="ledger-card lc-blue">
         <h3>분개장</h3>
         <p>거래별 차변/대변 라인이 저장되는 출발점입니다. 계정별 누계의 근거가 됩니다.</p>
       </div>
-      <div class="card">
+      <div class="ledger-card lc-green">
         <h3>계정원장</h3>
         <p>분개장의 계정별 합계와 잔액을 관리합니다. 결산과 잔액 검증의 중심입니다.</p>
       </div>
-      <div class="card">
+      <div class="ledger-card lc-amber">
         <h3>보조원장</h3>
         <p>상품, 거래, 보수, 평가 등 세부 내역을 관리합니다. 계정원장 잔액과 대사합니다.</p>
+      </div>
+      <div class="ledger-card lc-purple">
+        <h3>평가 기준 자료</h3>
+        <p>가격, 환율, 평가금액처럼 장부 조정과 손익 계산에 필요한 기준값을 제공합니다.</p>
+      </div>
+      <div class="ledger-card lc-rose">
+        <h3>미결/보수 내역</h3>
+        <p>결제 전 거래와 수수료성 금액을 추적해 원장 잔액과 비교할 수 있게 합니다.</p>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s11">
     <h2>11. 손익 유형</h2>
     <div class="grid">
       <div class="card">
@@ -580,7 +771,7 @@
     </table>
   </section>
 
-  <section class="section">
+  <section class="section" id="s12">
     <h2>12. 외화 자산 분개 처리</h2>
     <div class="summary">
       외화 거래는 외화 금액과 원화 장부금액을 함께 봐야 한다. 취득, 보유 평가, 이자/배당 수령, 처분/결제 시점마다 적용 환율과 손익 성격이 달라진다.
@@ -621,7 +812,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s13">
     <h2>13. 일일 처리와 마감 흐름</h2>
     <div class="timeline">
       <div class="timeline-item">
@@ -651,7 +842,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="s14">
     <h2>14. 검증 포인트</h2>
     <ol>
       <li>차변 합계와 대변 합계가 일치하는지 확인합니다.</li>
@@ -663,7 +854,7 @@
     </ol>
   </section>
 
-  <section class="section">
+  <section class="section" id="s15">
     <h2>15. 오류 대응 흐름</h2>
     <div class="flow">
       <div class="step"><strong>오류 발견</strong><span>분개장, 원장, 대사 결과에서 불일치를 확인합니다.</span></div>
@@ -691,7 +882,7 @@
     </table>
   </section>
 
-  <section class="section">
+  <section class="section" id="s16">
     <h2>16. 핵심 키워드 정리</h2>
     <div class="keyword-box">
       <div class="keyword-row">
