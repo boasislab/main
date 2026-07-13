@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분개장 발생 구조 교육자료</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #f4f7fb;
+    color: #1f2a37;
+    line-height: 1.65;
+  }
+  .topbar {
+    background: #16324f;
+    color: #fff;
+    padding: 18px 20px;
+  }
+  .topbar-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .back {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 18px 48px;
+  }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    gap: 22px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+  .hero-copy {
+    background: #fff;
+    border: 1px solid #d9e3ef;
+    border-radius: 8px;
+    padding: 26px;
+  }
+  h1 {
+    font-size: 1.75rem;
+    color: #16324f;
+    margin-bottom: 10px;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+  .lead {
+    color: #4b5b6d;
+    font-size: 1rem;
+  }
+  .note {
+    background: #fff7e6;
+    border: 1px solid #f1d39b;
+    border-radius: 8px;
+    padding: 18px;
+    color: #5c430e;
+    font-size: 0.92rem;
+  }
+  .note strong { color: #8a5b00; }
+  .section {
+    background: #fff;
+    border: 1px solid #d9e3ef;
+    border-radius: 8px;
+    padding: 22px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    color: #16324f;
+    font-size: 1.12rem;
+    margin-bottom: 14px;
+    letter-spacing: 0;
+  }
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .step {
+    min-height: 118px;
+    border: 1px solid #cbd8e6;
+    background: #f8fbff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #16324f;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+  }
+  .step-title {
+    font-weight: 700;
+    color: #1f2a37;
+    margin-bottom: 5px;
+    line-height: 1.35;
+  }
+  .step-desc {
+    color: #5b6b7d;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .axis {
+    border: 1px solid #d9e3ef;
+    border-radius: 8px;
+    padding: 18px;
+    background: #fbfdff;
+  }
+  .axis h3 {
+    font-size: 1rem;
+    color: #234d70;
+    margin-bottom: 10px;
+    letter-spacing: 0;
+  }
+  ul, ol { padding-left: 20px; }
+  li { margin: 6px 0; }
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  .matrix th, .matrix td {
+    border-bottom: 1px solid #e4ebf3;
+    padding: 11px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .matrix th {
+    background: #16324f;
+    color: #fff;
+    font-weight: 700;
+  }
+  .phrase {
+    background: #edf7f1;
+    border: 1px solid #b9dcc5;
+    border-radius: 8px;
+    padding: 16px 18px;
+    color: #173b25;
+    font-weight: 700;
+  }
+  .footer {
+    text-align: center;
+    color: #8391a2;
+    font-size: 0.82rem;
+    padding: 18px 0 4px;
+  }
+  @media (max-width: 820px) {
+    .topbar-inner { align-items: flex-start; flex-direction: column; }
+    .hero, .split { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: repeat(6, 160px); }
+    h1 { font-size: 1.45rem; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>회사업무관리 · 분개 교육자료</div>
+    <a class="back" href="index.html">메인으로</a>
+  </div>
+</div>
+
+<main>
+  <div class="hero">
+    <div class="hero-copy">
+      <h1>분개장은 거래유형과 상품/계정 매핑이 결합되어 만들어진다</h1>
+      <p class="lead">
+        이 자료는 분개장 발생 구조를 교육용으로 정리한 일반화 버전입니다.
+        내부 테이블명, 코드값, 실제 예시값은 제외하고 처리 흐름과 역할 관계만 설명합니다.
+      </p>
+    </div>
+    <div class="note">
+      <strong>공유용 기준</strong><br>
+      공개 페이지에는 내부 식별자와 예시 코드를 싣지 않습니다.
+      상세 원문은 로컬 업무자료에서만 관리합니다.
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>전체 흐름</h2>
+    <div class="flow" aria-label="분개장 발생 전체 흐름">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">원천 거래 수신</div>
+        <div class="step-desc">작업일자, 거래유형, 상품, 통화, 수량, 금액 등 입력값을 받습니다.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">거래유형 확인</div>
+        <div class="step-desc">분개 대상 여부와 어떤 분개모형을 사용할지 판단합니다.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">분개모형 조회</div>
+        <div class="step-desc">차변/대변 라인, 순번, 계정속성, 금액 기준을 가져옵니다.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">상품계정 확인</div>
+        <div class="step-desc">상품의 분류와 목적에 맞는 계정상품 기준을 찾습니다.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-title">실계정 확정</div>
+        <div class="step-desc">계정속성과 상품계정 매핑을 결합해 실제 계정코드를 정합니다.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-title">분개장 저장</div>
+        <div class="step-desc">원천값, 분개 라인, 계정, 금액을 결합해 최종 분개장을 생성합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>두 개의 축</h2>
+    <div class="split">
+      <div class="axis">
+        <h3>거래유형 축</h3>
+        <ul>
+          <li>어떤 업무 거래인지 식별합니다.</li>
+          <li>분개 발생 대상인지 판단합니다.</li>
+          <li>분개모형을 통해 몇 줄의 차변/대변이 필요한지 정합니다.</li>
+          <li>각 분개 라인이 어떤 계정속성을 가져야 하는지 제공합니다.</li>
+        </ul>
+      </div>
+      <div class="axis">
+        <h3>상품/계정 축</h3>
+        <ul>
+          <li>거래 대상 상품의 회계 분류를 확인합니다.</li>
+          <li>상품별 계정상품 기준을 찾습니다.</li>
+          <li>계정속성과 상품계정의 조합으로 실제 계정을 확정합니다.</li>
+          <li>같은 거래유형이라도 상품 성격에 따라 다른 계정으로 분기될 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>주요 구성요소 역할</h2>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>구성요소</th>
+          <th>역할</th>
+          <th>교육 포인트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>원천 거래</td>
+          <td>분개 생성의 입력값을 제공합니다.</td>
+          <td>분개장은 원천 거래 없이 독립적으로 만들어지지 않습니다.</td>
+        </tr>
+        <tr>
+          <td>거래유형</td>
+          <td>어떤 분개모형을 읽을지 결정합니다.</td>
+          <td>거래유형은 계정코드를 직접 확정하기보다 분개 구조를 선택합니다.</td>
+        </tr>
+        <tr>
+          <td>분개모형</td>
+          <td>차변/대변, 순번, 계정속성, 금액 기준을 정의합니다.</td>
+          <td>분개모형은 실제 계정이 아니라 계정의 성격을 먼저 만듭니다.</td>
+        </tr>
+        <tr>
+          <td>계정속성</td>
+          <td>취득가, 미수수익, 손익, 예수금처럼 계정의 의미를 표현합니다.</td>
+          <td>계정속성은 분개모형과 실제 계정을 이어주는 중간 키입니다.</td>
+        </tr>
+        <tr>
+          <td>상품계정 매핑</td>
+          <td>상품 성격과 계정속성을 결합해 실제 계정을 찾습니다.</td>
+          <td>상품이 달라지면 같은 계정속성도 다른 계정으로 치환될 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>분개장</td>
+          <td>원천값, 분개모형 결과, 확정 계정, 금액이 저장되는 최종 결과입니다.</td>
+          <td>분개장은 거래유형 축과 상품/계정 축의 결합 산출물입니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>처리 순서</h2>
+    <ol>
+      <li>원천 거래에서 작업일자, 거래유형, 상품, 통화, 수량, 금액 등을 수신합니다.</li>
+      <li>거래유형 기준으로 분개 발생 대상 여부를 확인합니다.</li>
+      <li>분개 대상이면 거래유형에 맞는 분개모형을 조회합니다.</li>
+      <li>분개모형에서 차변/대변 라인과 계정속성을 생성합니다.</li>
+      <li>상품 기준으로 계정상품 매핑을 확인합니다.</li>
+      <li>계정상품과 계정속성을 결합해 실제 계정을 확정합니다.</li>
+      <li>원천 금액과 분개 라인, 확정 계정을 조합합니다.</li>
+      <li>차변 합계와 대변 합계를 검증한 뒤 분개장에 저장합니다.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>한 문장 요약</h2>
+    <div class="phrase">
+      분개모형은 거래가 몇 줄의 차변/대변으로 나뉘고 각 줄이 어떤 계정속성을 가져야 하는지 정하며,
+      상품계정 매핑은 그 계정속성이 해당 상품에서는 어떤 실제 계정으로 바뀌는지 정한다.
+    </div>
+  </section>
+
+  <div class="footer">boasis_lab.(yyj assistant) · 일반화 공유용</div>
+</main>
+</body>
+</html>
