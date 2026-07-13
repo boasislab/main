@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회사 분개처리 완전교육자료</title>
+<title>회사 분개처리 통합교육자료</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -204,6 +204,67 @@
     color: #173b25;
     font-weight: 700;
   }
+  .mini-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #2563a2;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  .timeline {
+    display: grid;
+    gap: 10px;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .timeline-key {
+    border-radius: 8px;
+    background: #17314f;
+    color: #fff;
+    padding: 12px;
+    font-weight: 800;
+    text-align: center;
+  }
+  .timeline-body {
+    border: 1px solid #d8e2ee;
+    border-radius: 8px;
+    background: #fbfdff;
+    padding: 13px 15px;
+  }
+  .timeline-body strong {
+    display: block;
+    color: #17314f;
+    margin-bottom: 4px;
+  }
+  .timeline-body span {
+    color: #5b6b7d;
+    font-size: 0.9rem;
+  }
+  .keyword-box {
+    background: #17314f;
+    border-radius: 8px;
+    padding: 18px;
+  }
+  .keyword-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .keyword {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 5px 11px;
+    background: rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.18);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
   .footer {
     text-align: center;
     color: #7d8a99;
@@ -215,6 +276,7 @@
     .flow { grid-template-columns: repeat(7, 160px); }
     .dc { grid-template-columns: 1fr; }
     .eq { padding: 12px; }
+    .timeline-item { grid-template-columns: 1fr; }
     h1 { font-size: 1.55rem; }
   }
 </style>
@@ -222,14 +284,14 @@
 <body>
 <div class="topbar">
   <div class="topbar-inner">
-    <div>회사업무관리 · 분개처리 완전교육자료</div>
+    <div>회사업무관리 · 분개처리 통합교육자료</div>
     <a href="index.html">메인으로</a>
   </div>
 </div>
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>회사 분개처리 완전교육자료</h1>
+    <h1>회사 분개처리 통합교육자료</h1>
     <p>
       거래가 발생한 뒤 회계 분개장으로 확정되기까지의 개념, 매핑 구조, 자동/수동 처리,
       검증 포인트와 오류 대응 흐름을 한 번에 볼 수 있도록 정리한 공유용 교육자료입니다.
@@ -239,6 +301,8 @@
       <span class="badge">분개모형</span>
       <span class="badge">상품/계정 매핑</span>
       <span class="badge">원장 검증</span>
+      <span class="badge">손익/외화 처리</span>
+      <span class="badge">마감 흐름</span>
     </div>
   </div>
 </section>
@@ -256,7 +320,7 @@
       <div class="step"><strong>2. 구성요소</strong><span>원천 거래, 거래유형, 분개모형, 계정속성, 상품계정 매핑의 역할을 구분합니다.</span></div>
       <div class="step"><strong>3. 처리 순서</strong><span>원천값 수신부터 실제 계정 확정과 분개장 저장까지 순서대로 봅니다.</span></div>
       <div class="step"><strong>4. 회계 원칙</strong><span>차변/대변, 복식부기, 자동/수동분개의 기준을 이해합니다.</span></div>
-      <div class="step"><strong>5. 후속 검증</strong><span>원장 반영, 손익 유형, 대사, 오류 대응 흐름으로 마무리합니다.</span></div>
+      <div class="step"><strong>5. 후속 검증</strong><span>원장 반영, 손익 유형, 외화 처리, 대사, 오류 대응 흐름으로 마무리합니다.</span></div>
     </div>
   </section>
 
@@ -476,41 +540,119 @@
 
   <section class="section">
     <h2>11. 손익 유형</h2>
-    <table>
+    <div class="grid">
+      <div class="card">
+        <span class="mini-label">미실현 손익</span>
+        <h3>평가손익</h3>
+        <p>보유 자산의 장부가와 공정가가 달라질 때 발생합니다. 실제 처분 전이라도 장부가를 현재 가치에 맞추기 위해 분개가 필요합니다.</p>
+      </div>
+      <div class="card">
+        <span class="mini-label">미실현 손익</span>
+        <h3>환산손익</h3>
+        <p>외화 금액은 그대로인데 환율이 바뀌면서 원화 장부금액이 달라지는 경우입니다. 외화 자산과 부채의 평가 과정에서 확인합니다.</p>
+      </div>
+      <div class="card">
+        <span class="mini-label">실현 손익</span>
+        <h3>매매손익</h3>
+        <p>자산을 실제로 처분할 때 처분금액과 장부금액의 차이로 확정됩니다. 거래가 완료되면 수익 또는 비용으로 인식합니다.</p>
+      </div>
+      <div class="card">
+        <span class="mini-label">실현 손익</span>
+        <h3>환차손익</h3>
+        <p>외화 거래가 실제 결제될 때 적용 환율 차이로 발생합니다. 환산손익과 달리 결제 시점에 손익이 확정됩니다.</p>
+      </div>
+    </div>
+    <table style="margin-top:14px">
       <thead>
         <tr>
-          <th>유형</th>
-          <th>성격</th>
+          <th>구분</th>
+          <th>주요 원인</th>
           <th>분개 관점</th>
+          <th>확인 포인트</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>평가손익</td>
-          <td>보유 자산의 공정가 변동</td>
-          <td>아직 처분하지 않았지만 장부가 조정이 필요한 손익입니다.</td>
-        </tr>
-        <tr>
-          <td>환산손익</td>
-          <td>외화 금액을 원화로 환산할 때 발생하는 차이</td>
-          <td>환율 변동으로 인한 미실현 손익을 반영합니다.</td>
-        </tr>
-        <tr>
-          <td>매매손익</td>
-          <td>자산 처분 시 취득가와 처분가의 차이</td>
-          <td>거래가 확정되면서 실현 손익으로 인식합니다.</td>
-        </tr>
-        <tr>
-          <td>환차손익</td>
-          <td>외화 결제 시 실제 환율 차이</td>
-          <td>결제 시점의 환율 차이를 실현 손익으로 처리합니다.</td>
-        </tr>
+        <tr><td>평가손익</td><td>시장가격 변동</td><td>보유 중인 자산의 장부가 조정</td><td>평가 기준일, 평가금액, 기존 장부가</td></tr>
+        <tr><td>환산손익</td><td>환율 변동</td><td>외화 잔액의 원화 환산 차이</td><td>적용 환율, 외화 잔액, 직전 환산금액</td></tr>
+        <tr><td>매매손익</td><td>자산 처분</td><td>처분 결과의 실현 손익 인식</td><td>처분금액, 장부금액, 수수료 등 부대금액</td></tr>
+        <tr><td>환차손익</td><td>외화 결제</td><td>결제 시점 환율 차이 반영</td><td>거래 환율, 결제 환율, 원화 환산액</td></tr>
       </tbody>
     </table>
   </section>
 
   <section class="section">
-    <h2>12. 검증 포인트</h2>
+    <h2>12. 외화 자산 분개 처리</h2>
+    <div class="summary">
+      외화 거래는 외화 금액과 원화 장부금액을 함께 봐야 한다. 취득, 보유 평가, 이자/배당 수령, 처분/결제 시점마다 적용 환율과 손익 성격이 달라진다.
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card">
+        <h3>취득 시점</h3>
+        <ul>
+          <li>외화 취득금액을 거래일 환율로 원화 환산합니다.</li>
+          <li>취득가, 부대금액, 미수/미지급 성격의 금액을 구분합니다.</li>
+          <li>외화 원금과 원화 장부금액이 모두 후속 검증의 기준이 됩니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>보유 평가 시점</h3>
+        <ul>
+          <li>시장가격 변동은 평가손익으로 확인합니다.</li>
+          <li>환율 변동은 환산손익으로 구분합니다.</li>
+          <li>두 손익이 섞이지 않도록 평가 기준과 환율 기준을 분리합니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>수익 수령 시점</h3>
+        <ul>
+          <li>이자, 배당, 수수료 등 현금흐름이 실제 들어오는 시점의 환율을 확인합니다.</li>
+          <li>미수로 잡혀 있던 금액은 수령 시점에 제거됩니다.</li>
+          <li>수익 인식과 현금 수령의 시점 차이를 분리해서 봅니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>처분/결제 시점</h3>
+        <ul>
+          <li>장부금액과 실제 결제금액의 차이를 확정합니다.</li>
+          <li>가격 차이는 매매손익, 환율 차이는 환차손익으로 구분합니다.</li>
+          <li>처분 후 보유수량과 장부잔액이 남지 않는지 확인합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>13. 일일 처리와 마감 흐름</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-key">기초 세팅</div>
+        <div class="timeline-body"><strong>전일 잔액과 기준정보 이월</strong><span>전일 확정된 원장 잔액, 보유현황, 기준정보를 당일 처리의 시작점으로 세팅합니다.</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-key">기준정보</div>
+        <div class="timeline-body"><strong>시장정보와 공시성 정보 반영</strong><span>가격, 환율, 이자율, 배당 등 분개 금액 산정에 필요한 기준정보를 확인합니다.</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-key">거래평가</div>
+        <div class="timeline-body"><strong>개별 거래 분개 생성</strong><span>매수, 매도, 결제, 수익 수령 등 원천 거래 기반의 분개가 만들어집니다.</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-key">장부평가</div>
+        <div class="timeline-body"><strong>발생주의 금액 반영</strong><span>경과이자, 상각, 보수처럼 기간에 따라 발생하는 금액을 회계적으로 반영합니다.</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-key">공정평가</div>
+        <div class="timeline-body"><strong>평가손익과 환산손익 반영</strong><span>시장가격과 환율 기준으로 장부가를 조정하고 손익을 구분합니다.</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-key">회계마감</div>
+        <div class="timeline-body"><strong>원장 확정과 대사</strong><span>분개장, 계정원장, 보조원장의 정합성을 확인한 뒤 해당 일자의 회계 결과를 확정합니다.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>14. 검증 포인트</h2>
     <ol>
       <li>차변 합계와 대변 합계가 일치하는지 확인합니다.</li>
       <li>거래유형에 맞는 분개모형이 존재하는지 확인합니다.</li>
@@ -522,7 +664,7 @@
   </section>
 
   <section class="section">
-    <h2>13. 오류 대응 흐름</h2>
+    <h2>15. 오류 대응 흐름</h2>
     <div class="flow">
       <div class="step"><strong>오류 발견</strong><span>분개장, 원장, 대사 결과에서 불일치를 확인합니다.</span></div>
       <div class="step"><strong>원인 분류</strong><span>분개모형, 매핑, 금액, 원천 거래, 마감 상태 중 어디 문제인지 나눕니다.</span></div>
@@ -531,6 +673,49 @@
       <div class="step"><strong>정정 처리</strong><span>통제 절차에 따라 수정하고 처리 이력을 남깁니다.</span></div>
       <div class="step"><strong>재검증</strong><span>차대변, 원장 잔액, 보조원장 대사를 다시 확인합니다.</span></div>
       <div class="step"><strong>기록 보관</strong><span>원인, 조치, 검증 결과를 교육/운영 자료로 남깁니다.</span></div>
+    </div>
+    <table style="margin-top:14px">
+      <thead>
+        <tr>
+          <th>오류 유형</th>
+          <th>확인할 부분</th>
+          <th>대응 방향</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>차대 불일치</td><td>금액 기준, 반올림, 누락 라인</td><td>분개 라인별 금액 산식과 원천값 재확인</td></tr>
+        <tr><td>계정 미확정</td><td>계정속성, 상품계정 매핑, 계정 사용 가능 여부</td><td>매핑 기준 보정 후 재처리 또는 수정분개</td></tr>
+        <tr><td>금액 누락</td><td>원천 거래의 수량, 금액, 환율, 평가값</td><td>원천 데이터 보완 후 재검증</td></tr>
+        <tr><td>마감 후 발견</td><td>원분개, 마감 상태, 영향 일자</td><td>통제 절차에 따라 역분개와 수정분개로 추적성 확보</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>16. 핵심 키워드 정리</h2>
+    <div class="keyword-box">
+      <div class="keyword-row">
+        <span class="keyword">분개</span>
+        <span class="keyword">복식부기</span>
+        <span class="keyword">차변</span>
+        <span class="keyword">대변</span>
+        <span class="keyword">분개모형</span>
+        <span class="keyword">거래유형</span>
+        <span class="keyword">계정속성</span>
+        <span class="keyword">상품계정 매핑</span>
+        <span class="keyword">자동분개</span>
+        <span class="keyword">수동분개</span>
+        <span class="keyword">역분개</span>
+        <span class="keyword">계정원장</span>
+        <span class="keyword">보조원장</span>
+        <span class="keyword">평가손익</span>
+        <span class="keyword">환산손익</span>
+        <span class="keyword">매매손익</span>
+        <span class="keyword">환차손익</span>
+        <span class="keyword">마감</span>
+        <span class="keyword">대사</span>
+        <span class="keyword">오류 대응</span>
+      </div>
     </div>
   </section>
 
