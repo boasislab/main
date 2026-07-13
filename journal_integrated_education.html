@@ -435,10 +435,11 @@
       <a href="#s03">처리흐름</a>
       <a href="#s07">차대변</a>
       <a href="#s08">분개모형</a>
-      <a href="#s10">원장</a>
-      <a href="#s11">손익</a>
-      <a href="#s13">마감</a>
-      <a href="#s15">오류</a>
+      <a href="#s09">ASSIGN/ARG</a>
+      <a href="#s11">원장</a>
+      <a href="#s12">손익</a>
+      <a href="#s14">마감</a>
+      <a href="#s16">오류</a>
     </div>
     <a href="index.html">메인으로</a>
   </div>
@@ -455,6 +456,7 @@
     <div class="badges">
       <span class="badge">공유용 일반화</span>
       <span class="badge">분개모형</span>
+      <span class="badge">ASSIGN/ARG</span>
       <span class="badge">상품/계정 매핑</span>
       <span class="badge">원장 검증</span>
       <span class="badge">손익/외화 처리</span>
@@ -682,7 +684,85 @@
   </section>
 
   <section class="section" id="s09">
-    <h2>9. 자동분개와 수동분개</h2>
+    <h2>9. ASSIGN / ARG 금액 세팅 방식</h2>
+    <div class="summary">
+      분개모형은 차변/대변 라인과 계정속성을 정하고, ASSIGN / ARG 방식은 각 라인에 어떤 금액을 넣을지 정한다.
+      즉, 계정의 성격을 정하는 단계와 금액을 세팅하는 단계는 구분해서 관리해야 한다.
+    </div>
+    <div class="grid" style="margin-top:18px">
+      <div class="card">
+        <span class="mini-label">개별 거래 직접 세팅</span>
+        <h3>ASSIGN 방식</h3>
+        <p>원천 거래에 이미 존재하는 금액, 수량, 환율, 결제값 등을 특정 분개 라인에 직접 연결하는 방식입니다.</p>
+        <ul>
+          <li>매매, 결제, 이자/배당 수령처럼 거래 단위가 명확한 경우에 적합합니다.</li>
+          <li>어떤 원천 항목을 가져오는지 업무 의미를 먼저 확인해야 합니다.</li>
+          <li>Null 값, 금액/수량 착오, 세전/세후 금액 혼동이 차대 불일치로 이어질 수 있습니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="mini-label">집계·계산 결과 세팅</span>
+        <h3>ARG 방식</h3>
+        <p>여러 거래나 보유 내역을 먼저 집계·계산한 뒤, 정해진 순번에 맞춰 분개 라인에 금액을 넣는 방식입니다.</p>
+        <ul>
+          <li>평가, 상각, 환산처럼 여러 데이터를 묶어 계산하는 경우에 적합합니다.</li>
+          <li>ARG 순번과 분개 라인의 의미가 정확히 대응되어야 합니다.</li>
+          <li>집계 기준, 대상 누락, 순번 뒤바뀜, 재처리 기준 차이가 주요 오류 원인입니다.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flow" style="margin-top:18px">
+      <div class="step"><strong>원천값 확인</strong><span>거래 금액, 평가값, 환율, 수수료 등 사용할 값의 의미를 확인합니다.</span></div>
+      <div class="step"><strong>분개모형 조회</strong><span>차변/대변 라인과 계정속성을 확인합니다.</span></div>
+      <div class="step"><strong>방식 확인</strong><span>라인별 금액이 직접 세팅인지 집계 세팅인지 구분합니다.</span></div>
+      <div class="step"><strong>금액 세팅</strong><span>ASSIGN은 원천 항목을 직접 연결하고, ARG는 집계 결과를 순번대로 연결합니다.</span></div>
+      <div class="step"><strong>차대 검증</strong><span>합계 일치, 누락 라인, 반올림 차이를 확인합니다.</span></div>
+      <div class="step"><strong>분개장 저장</strong><span>검증을 통과한 결과만 후속 원장 처리로 넘깁니다.</span></div>
+    </div>
+    <table style="margin-top:18px">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>ASSIGN 방식</th>
+          <th>ARG 방식</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>데이터 출처</td>
+          <td>개별 거래 원천값을 직접 사용</td>
+          <td>집계·계산된 결과값을 순번 기준으로 사용</td>
+        </tr>
+        <tr>
+          <td>적합한 업무</td>
+          <td>거래별 금액이 명확한 매매, 결제, 수익 수령</td>
+          <td>평가, 상각, 환산처럼 여러 건을 묶는 처리</td>
+        </tr>
+        <tr>
+          <td>관리 핵심</td>
+          <td>원천 항목의 의미, Null 가능성, 금액/수량 구분</td>
+          <td>순번 설계, 집계 기준, 대상 범위, 재처리 일관성</td>
+        </tr>
+        <tr>
+          <td>주요 오류</td>
+          <td>잘못된 항목 연결, 빈 값, 세전/세후 금액 혼동</td>
+          <td>순번 뒤바뀜, 집계 대상 누락, 계산 기준 불일치</td>
+        </tr>
+        <tr>
+          <td>검증 포인트</td>
+          <td>원천 거래 상세와 분개 라인 금액을 1:1로 대조</td>
+          <td>집계 산출 근거와 분개 라인별 금액을 대조</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="notice" style="margin-top:18px">
+      운영자가 분개모형을 관리할 때는 “어떤 계정으로 갈 것인가”와 “어떤 금액을 넣을 것인가”를 분리해서 봐야 합니다.
+      계정속성·상품계정 매핑은 계정 확정의 문제이고, ASSIGN / ARG는 금액 세팅과 검증의 문제입니다.
+    </div>
+  </section>
+
+  <section class="section" id="s10">
+    <h2>10. 자동분개와 수동분개</h2>
     <div class="grid">
       <div class="card">
         <h3>자동분개</h3>
@@ -703,8 +783,8 @@
     </div>
   </section>
 
-  <section class="section" id="s10">
-    <h2>10. 주요 원장과 분개장의 관계</h2>
+  <section class="section" id="s11">
+    <h2>11. 주요 원장과 분개장의 관계</h2>
     <div class="ledger-cards">
       <div class="ledger-card lc-blue">
         <h3>분개장</h3>
@@ -729,8 +809,8 @@
     </div>
   </section>
 
-  <section class="section" id="s11">
-    <h2>11. 손익 유형</h2>
+  <section class="section" id="s12">
+    <h2>12. 손익 유형</h2>
     <div class="grid">
       <div class="card">
         <span class="mini-label">미실현 손익</span>
@@ -771,8 +851,8 @@
     </table>
   </section>
 
-  <section class="section" id="s12">
-    <h2>12. 외화 자산 분개 처리</h2>
+  <section class="section" id="s13">
+    <h2>13. 외화 자산 분개 처리</h2>
     <div class="summary">
       외화 거래는 외화 금액과 원화 장부금액을 함께 봐야 한다. 취득, 보유 평가, 이자/배당 수령, 처분/결제 시점마다 적용 환율과 손익 성격이 달라진다.
     </div>
@@ -812,8 +892,8 @@
     </div>
   </section>
 
-  <section class="section" id="s13">
-    <h2>13. 일일 처리와 마감 흐름</h2>
+  <section class="section" id="s14">
+    <h2>14. 일일 처리와 마감 흐름</h2>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-key">기초 세팅</div>
@@ -842,8 +922,8 @@
     </div>
   </section>
 
-  <section class="section" id="s14">
-    <h2>14. 검증 포인트</h2>
+  <section class="section" id="s15">
+    <h2>15. 검증 포인트</h2>
     <ol>
       <li>차변 합계와 대변 합계가 일치하는지 확인합니다.</li>
       <li>거래유형에 맞는 분개모형이 존재하는지 확인합니다.</li>
@@ -854,8 +934,8 @@
     </ol>
   </section>
 
-  <section class="section" id="s15">
-    <h2>15. 오류 대응 흐름</h2>
+  <section class="section" id="s16">
+    <h2>16. 오류 대응 흐름</h2>
     <div class="flow">
       <div class="step"><strong>오류 발견</strong><span>분개장, 원장, 대사 결과에서 불일치를 확인합니다.</span></div>
       <div class="step"><strong>원인 분류</strong><span>분개모형, 매핑, 금액, 원천 거래, 마감 상태 중 어디 문제인지 나눕니다.</span></div>
@@ -882,8 +962,8 @@
     </table>
   </section>
 
-  <section class="section" id="s16">
-    <h2>16. 핵심 키워드 정리</h2>
+  <section class="section" id="s17">
+    <h2>17. 핵심 키워드 정리</h2>
     <div class="keyword-box">
       <div class="keyword-row">
         <span class="keyword">분개</span>
@@ -891,6 +971,10 @@
         <span class="keyword">차변</span>
         <span class="keyword">대변</span>
         <span class="keyword">분개모형</span>
+        <span class="keyword">ASSIGN</span>
+        <span class="keyword">ARG</span>
+        <span class="keyword">금액 세팅</span>
+        <span class="keyword">집합분개</span>
         <span class="keyword">거래유형</span>
         <span class="keyword">계정속성</span>
         <span class="keyword">상품계정 매핑</span>
@@ -915,6 +999,7 @@
     <div class="summary">
       분개처리는 거래유형이 정한 분개모형과 상품/계정 매핑이 결합되어 만들어진다.
       분개모형은 차변/대변 라인과 계정속성을 정하고, 상품계정 매핑은 그 계정속성을 실제 계정으로 바꾼다.
+      ASSIGN / ARG 방식은 분개 라인에 들어갈 금액을 원천값 직접 세팅 또는 집계값 순번 세팅으로 구분해 관리한다.
       최종 분개장은 원천 거래, 분개모형, 실제 계정, 금액이 결합된 회계 처리 결과다.
     </div>
   </section>
