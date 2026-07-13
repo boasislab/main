@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회사 분개처리 완전교육자료</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #eef3f8;
+    color: #1f2937;
+    line-height: 1.65;
+  }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #17314f;
+    color: #fff;
+    padding: 14px 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+  .topbar-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+  }
+  .topbar a {
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .hero {
+    background: #17314f;
+    color: #fff;
+    padding: 48px 18px 42px;
+  }
+  .hero-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    max-width: 760px;
+    color: rgba(255,255,255,0.78);
+    font-size: 1rem;
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.88);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  main {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 28px 18px 52px;
+  }
+  .notice {
+    background: #fff8e7;
+    border: 1px solid #f0d69a;
+    border-radius: 8px;
+    padding: 16px 18px;
+    color: #59410d;
+    margin-bottom: 20px;
+    font-size: 0.92rem;
+  }
+  .section {
+    background: #fff;
+    border: 1px solid #d8e2ee;
+    border-radius: 8px;
+    padding: 22px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    color: #17314f;
+    font-size: 1.18rem;
+    margin-bottom: 14px;
+    letter-spacing: 0;
+  }
+  h3 {
+    color: #244d73;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    letter-spacing: 0;
+  }
+  p, li, td {
+    font-size: 0.94rem;
+  }
+  ul, ol { padding-left: 20px; }
+  li { margin: 6px 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .card {
+    border: 1px solid #d8e2ee;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fbfdff;
+  }
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(128px, 1fr));
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .step {
+    border: 1px solid #c9d8e6;
+    background: #f8fbff;
+    border-radius: 8px;
+    padding: 13px;
+    min-height: 118px;
+  }
+  .step strong {
+    display: block;
+    color: #17314f;
+    margin-bottom: 6px;
+    font-size: 0.92rem;
+  }
+  .step span {
+    color: #5b6b7d;
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+  .dc {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    border: 1px solid #c9d8e6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .dc-side {
+    padding: 18px;
+  }
+  .debit { background: #eaf3ff; }
+  .credit { background: #fff0f0; }
+  .eq {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #17314f;
+    color: #fff;
+    padding: 0 18px;
+    font-weight: 900;
+    font-size: 1.4rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border-bottom: 1px solid #e3ebf3;
+    padding: 11px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #17314f;
+    color: #fff;
+    font-weight: 700;
+  }
+  .pill {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 2px 8px;
+    background: #e8f0f7;
+    color: #244d73;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .summary {
+    background: #ecf8f1;
+    border: 1px solid #b8dec6;
+    border-radius: 8px;
+    padding: 17px 18px;
+    color: #173b25;
+    font-weight: 700;
+  }
+  .footer {
+    text-align: center;
+    color: #7d8a99;
+    font-size: 0.82rem;
+    padding: 20px 0 4px;
+  }
+  @media (max-width: 860px) {
+    .grid, .grid3 { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: repeat(7, 160px); }
+    .dc { grid-template-columns: 1fr; }
+    .eq { padding: 12px; }
+    h1 { font-size: 1.55rem; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div>회사업무관리 · 분개처리 완전교육자료</div>
+    <a href="index.html">메인으로</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>회사 분개처리 완전교육자료</h1>
+    <p>
+      거래가 발생한 뒤 회계 분개장으로 확정되기까지의 개념, 매핑 구조, 자동/수동 처리,
+      검증 포인트와 오류 대응 흐름을 한 번에 볼 수 있도록 정리한 공유용 교육자료입니다.
+    </p>
+    <div class="badges">
+      <span class="badge">공유용 일반화</span>
+      <span class="badge">분개모형</span>
+      <span class="badge">상품/계정 매핑</span>
+      <span class="badge">원장 검증</span>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="notice">
+    이 페이지는 교육 공유용입니다. 내부 테이블명, 컬럼명, 프로그램명, 실제 코드값, 화면번호는 싣지 않고
+    구조와 업무 흐름 중심으로 정리했습니다.
+  </div>
+
+  <section class="section">
+    <h2>1. 분개처리란 무엇인가</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>정의</h3>
+        <p>분개처리는 거래를 회계 언어로 바꾸는 과정입니다. 거래의 경제적 의미를 차변과 대변으로 나누고, 금액과 계정을 확정해 분개장에 기록합니다.</p>
+      </div>
+      <div class="card">
+        <h3>목적</h3>
+        <p>거래 원천값을 회계 원장에 반영하고, 이후 잔액 조회, 결산, 대사, 보고 자료의 기준 데이터로 사용할 수 있게 만듭니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>2. 복식부기 기본 원칙</h2>
+    <div class="dc">
+      <div class="dc-side debit">
+        <h3>차변</h3>
+        <ul>
+          <li>자산 증가</li>
+          <li>비용 발생</li>
+          <li>부채 또는 수익 감소</li>
+        </ul>
+      </div>
+      <div class="eq">=</div>
+      <div class="dc-side credit">
+        <h3>대변</h3>
+        <ul>
+          <li>부채 증가</li>
+          <li>수익 발생</li>
+          <li>자산 감소</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:14px">분개 검증의 가장 기본은 모든 거래에서 차변 합계와 대변 합계가 같아야 한다는 점입니다.</p>
+  </section>
+
+  <section class="section">
+    <h2>3. 전체 처리 흐름</h2>
+    <div class="flow">
+      <div class="step"><strong>1. 원천 거래</strong><span>거래유형, 상품, 통화, 수량, 금액 등 입력값을 수신합니다.</span></div>
+      <div class="step"><strong>2. 분개 대상 판단</strong><span>해당 거래가 회계 분개를 생성해야 하는지 확인합니다.</span></div>
+      <div class="step"><strong>3. 분개모형 조회</strong><span>차변/대변 라인과 계정속성, 금액 기준을 가져옵니다.</span></div>
+      <div class="step"><strong>4. 상품계정 확인</strong><span>상품 성격과 투자 목적에 맞는 계정상품 기준을 찾습니다.</span></div>
+      <div class="step"><strong>5. 실제 계정 확정</strong><span>계정속성과 상품계정 매핑을 결합해 실제 계정을 결정합니다.</span></div>
+      <div class="step"><strong>6. 금액 세팅</strong><span>원천 거래의 금액, 환율, 평가값 등을 분개 라인에 반영합니다.</span></div>
+      <div class="step"><strong>7. 분개장 저장</strong><span>검증을 통과한 결과를 분개장과 후속 원장 처리로 넘깁니다.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>4. 거래유형 축과 상품/계정 축</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>거래유형 축</h3>
+        <ul>
+          <li>거래가 매매, 결제, 이자, 배당, 평가, 보수 등 어떤 성격인지 식별합니다.</li>
+          <li>분개 대상 여부를 판단합니다.</li>
+          <li>거래유형에 맞는 분개모형을 선택합니다.</li>
+          <li>분개 라인의 차대변과 계정속성을 제공합니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>상품/계정 축</h3>
+        <ul>
+          <li>상품 분류와 계정상품 기준을 확인합니다.</li>
+          <li>동일한 계정속성이라도 상품 성격에 따라 다른 실제 계정으로 분기될 수 있습니다.</li>
+          <li>상품계정 매핑은 계정속성을 실제 계정으로 바꾸는 핵심 연결 고리입니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>5. 분개모형의 역할</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th>설명</th>
+          <th>교육 포인트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill">분개 라인</span></td>
+          <td>한 거래가 몇 개의 차변/대변 줄로 나뉘는지 정의합니다.</td>
+          <td>복잡한 거래는 하나의 입력에서 여러 분개 라인이 생성됩니다.</td>
+        </tr>
+        <tr>
+          <td><span class="pill">차대변 구분</span></td>
+          <td>각 라인이 차변인지 대변인지 정합니다.</td>
+          <td>차변 합계와 대변 합계가 일치해야 합니다.</td>
+        </tr>
+        <tr>
+          <td><span class="pill">계정속성</span></td>
+          <td>취득가, 미수수익, 손익, 예수금처럼 계정의 의미를 표현합니다.</td>
+          <td>아직 실제 계정이 아니라 실제 계정을 찾기 위한 중간 기준입니다.</td>
+        </tr>
+        <tr>
+          <td><span class="pill">금액 기준</span></td>
+          <td>원천 거래의 어떤 금액을 어떤 라인에 넣을지 정합니다.</td>
+          <td>거래금액, 결제금액, 평가금액, 환율 적용 금액 등이 분리될 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>6. 자동분개와 수동분개</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>자동분개</h3>
+        <ul>
+          <li>정형화된 거래를 기준으로 시스템이 자동 생성합니다.</li>
+          <li>거래유형, 분개모형, 상품계정 매핑, 원천 금액이 결합됩니다.</li>
+          <li>대량 거래 처리와 반복 업무에 적합합니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>수동분개</h3>
+        <ul>
+          <li>예외, 조정, 특수 처리처럼 담당자 판단이 필요한 경우 사용합니다.</li>
+          <li>입력 즉시 차대변, 계정, 금액 검증이 필요합니다.</li>
+          <li>사유와 근거를 남겨 후속 대사와 감사 추적이 가능해야 합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>7. 주요 원장과 분개장의 관계</h2>
+    <div class="grid3">
+      <div class="card">
+        <h3>분개장</h3>
+        <p>거래별 차변/대변 라인이 저장되는 출발점입니다. 계정별 누계의 근거가 됩니다.</p>
+      </div>
+      <div class="card">
+        <h3>계정원장</h3>
+        <p>분개장의 계정별 합계와 잔액을 관리합니다. 결산과 잔액 검증의 중심입니다.</p>
+      </div>
+      <div class="card">
+        <h3>보조원장</h3>
+        <p>상품, 거래, 보수, 평가 등 세부 내역을 관리합니다. 계정원장 잔액과 대사합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>8. 손익 유형</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>유형</th>
+          <th>성격</th>
+          <th>분개 관점</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>평가손익</td>
+          <td>보유 자산의 공정가 변동</td>
+          <td>아직 처분하지 않았지만 장부가 조정이 필요한 손익입니다.</td>
+        </tr>
+        <tr>
+          <td>환산손익</td>
+          <td>외화 금액을 원화로 환산할 때 발생하는 차이</td>
+          <td>환율 변동으로 인한 미실현 손익을 반영합니다.</td>
+        </tr>
+        <tr>
+          <td>매매손익</td>
+          <td>자산 처분 시 취득가와 처분가의 차이</td>
+          <td>거래가 확정되면서 실현 손익으로 인식합니다.</td>
+        </tr>
+        <tr>
+          <td>환차손익</td>
+          <td>외화 결제 시 실제 환율 차이</td>
+          <td>결제 시점의 환율 차이를 실현 손익으로 처리합니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>9. 검증 포인트</h2>
+    <ol>
+      <li>차변 합계와 대변 합계가 일치하는지 확인합니다.</li>
+      <li>거래유형에 맞는 분개모형이 존재하는지 확인합니다.</li>
+      <li>계정속성이 상품계정 매핑과 결합되어 실제 계정으로 확정되는지 확인합니다.</li>
+      <li>원천 거래의 금액, 수량, 환율, 평가값이 분개 라인에 올바르게 반영되는지 확인합니다.</li>
+      <li>분개장 합계와 계정원장, 보조원장 잔액이 서로 맞는지 대사합니다.</li>
+      <li>오류 수정 시 원분개, 역분개, 수정분개의 관계가 추적 가능해야 합니다.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>10. 오류 대응 흐름</h2>
+    <div class="flow">
+      <div class="step"><strong>오류 발견</strong><span>분개장, 원장, 대사 결과에서 불일치를 확인합니다.</span></div>
+      <div class="step"><strong>원인 분류</strong><span>분개모형, 매핑, 금액, 원천 거래, 마감 상태 중 어디 문제인지 나눕니다.</span></div>
+      <div class="step"><strong>영향 범위 확인</strong><span>해당 거래, 상품, 계정, 일자 범위를 확인합니다.</span></div>
+      <div class="step"><strong>정정 방식 결정</strong><span>재처리, 역분개, 수정분개, 매핑 보정 중 적절한 방법을 선택합니다.</span></div>
+      <div class="step"><strong>정정 처리</strong><span>통제 절차에 따라 수정하고 처리 이력을 남깁니다.</span></div>
+      <div class="step"><strong>재검증</strong><span>차대변, 원장 잔액, 보조원장 대사를 다시 확인합니다.</span></div>
+      <div class="step"><strong>기록 보관</strong><span>원인, 조치, 검증 결과를 교육/운영 자료로 남깁니다.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>핵심 요약</h2>
+    <div class="summary">
+      분개처리는 거래유형이 정한 분개모형과 상품/계정 매핑이 결합되어 만들어진다.
+      분개모형은 차변/대변 라인과 계정속성을 정하고, 상품계정 매핑은 그 계정속성을 실제 계정으로 바꾼다.
+      최종 분개장은 원천 거래, 분개모형, 실제 계정, 금액이 결합된 회계 처리 결과다.
+    </div>
+  </section>
+
+  <div class="footer">boasis_lab.(yyj assistant) · GitHub Pages 공유용</div>
+</main>
+</body>
+</html>
