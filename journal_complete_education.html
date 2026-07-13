@@ -250,7 +250,119 @@
   </div>
 
   <section class="section">
-    <h2>1. 분개처리란 무엇인가</h2>
+    <h2>1. 학습 순서</h2>
+    <div class="flow">
+      <div class="step"><strong>1. 발생 구조</strong><span>분개장이 왜 거래유형과 상품/계정 매핑의 결합 결과인지 먼저 잡습니다.</span></div>
+      <div class="step"><strong>2. 구성요소</strong><span>원천 거래, 거래유형, 분개모형, 계정속성, 상품계정 매핑의 역할을 구분합니다.</span></div>
+      <div class="step"><strong>3. 처리 순서</strong><span>원천값 수신부터 실제 계정 확정과 분개장 저장까지 순서대로 봅니다.</span></div>
+      <div class="step"><strong>4. 회계 원칙</strong><span>차변/대변, 복식부기, 자동/수동분개의 기준을 이해합니다.</span></div>
+      <div class="step"><strong>5. 후속 검증</strong><span>원장 반영, 손익 유형, 대사, 오류 대응 흐름으로 마무리합니다.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>2. 분개장 발생 핵심 구조</h2>
+    <div class="summary">
+      분개장은 거래유형이 정한 분개모형과 상품/계정 매핑이 결합되어 만들어진다.
+      분개모형은 차변/대변 라인과 계정속성을 정하고, 상품계정 매핑은 그 계정속성을 실제 계정으로 바꾼다.
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card">
+        <h3>거래유형 축</h3>
+        <ul>
+          <li>어떤 업무 거래인지 식별합니다.</li>
+          <li>분개 발생 대상인지 판단합니다.</li>
+          <li>분개모형을 통해 몇 줄의 차변/대변이 필요한지 정합니다.</li>
+          <li>각 분개 라인이 어떤 계정속성을 가져야 하는지 제공합니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>상품/계정 축</h3>
+        <ul>
+          <li>거래 대상 상품의 회계 분류를 확인합니다.</li>
+          <li>상품별 계정상품 기준을 찾습니다.</li>
+          <li>계정속성과 상품계정의 조합으로 실제 계정을 확정합니다.</li>
+          <li>같은 거래유형이라도 상품 성격에 따라 다른 계정으로 분기될 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>3. 전체 처리 흐름</h2>
+    <div class="flow">
+      <div class="step"><strong>1. 원천 거래 수신</strong><span>작업일자, 거래유형, 상품, 통화, 수량, 금액 등 입력값을 받습니다.</span></div>
+      <div class="step"><strong>2. 거래유형 확인</strong><span>분개 대상 여부와 어떤 분개모형을 사용할지 판단합니다.</span></div>
+      <div class="step"><strong>3. 분개모형 조회</strong><span>차변/대변 라인, 순번, 계정속성, 금액 기준을 가져옵니다.</span></div>
+      <div class="step"><strong>4. 상품계정 확인</strong><span>상품의 분류와 목적에 맞는 계정상품 기준을 찾습니다.</span></div>
+      <div class="step"><strong>5. 실제 계정 확정</strong><span>계정속성과 상품계정 매핑을 결합해 실제 계정을 정합니다.</span></div>
+      <div class="step"><strong>6. 금액 세팅</strong><span>원천 거래의 금액, 환율, 평가값 등을 분개 라인에 반영합니다.</span></div>
+      <div class="step"><strong>7. 분개장 저장</strong><span>검증을 통과한 결과를 분개장과 후속 원장 처리로 넘깁니다.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>4. 주요 구성요소 역할</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>구성요소</th>
+          <th>역할</th>
+          <th>교육 포인트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>원천 거래</td>
+          <td>분개 생성의 입력값을 제공합니다.</td>
+          <td>분개장은 원천 거래 없이 독립적으로 만들어지지 않습니다.</td>
+        </tr>
+        <tr>
+          <td>거래유형</td>
+          <td>어떤 분개모형을 읽을지 결정합니다.</td>
+          <td>거래유형은 계정코드를 직접 확정하기보다 분개 구조를 선택합니다.</td>
+        </tr>
+        <tr>
+          <td>분개모형</td>
+          <td>차변/대변, 순번, 계정속성, 금액 기준을 정의합니다.</td>
+          <td>분개모형은 실제 계정이 아니라 계정의 성격을 먼저 만듭니다.</td>
+        </tr>
+        <tr>
+          <td>계정속성</td>
+          <td>취득가, 미수수익, 손익, 예수금처럼 계정의 의미를 표현합니다.</td>
+          <td>분개모형과 실제 계정을 이어주는 중간 키입니다.</td>
+        </tr>
+        <tr>
+          <td>상품계정 매핑</td>
+          <td>상품 성격과 계정속성을 결합해 실제 계정을 찾습니다.</td>
+          <td>상품이 달라지면 같은 계정속성도 다른 계정으로 치환될 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>분개장</td>
+          <td>원천값, 분개모형 결과, 확정 계정, 금액이 저장되는 최종 결과입니다.</td>
+          <td>거래유형 축과 상품/계정 축의 결합 산출물입니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>5. 처리 순서 상세</h2>
+    <ol>
+      <li>원천 거래에서 작업일자, 거래유형, 상품, 통화, 수량, 금액 등을 수신합니다.</li>
+      <li>거래유형 기준으로 분개 발생 대상 여부를 확인합니다.</li>
+      <li>분개 대상이면 거래유형에 맞는 분개모형을 조회합니다.</li>
+      <li>분개모형에서 차변/대변 라인과 계정속성을 생성합니다.</li>
+      <li>상품 기준으로 계정상품 매핑을 확인합니다.</li>
+      <li>계정상품과 계정속성을 결합해 실제 계정을 확정합니다.</li>
+      <li>원천 금액과 분개 라인, 확정 계정을 조합합니다.</li>
+      <li>차변 합계와 대변 합계를 검증한 뒤 분개장에 저장합니다.</li>
+      <li>분개장 결과를 계정원장과 보조원장 대사 기준으로 활용합니다.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>6. 분개처리란 무엇인가</h2>
     <div class="grid">
       <div class="card">
         <h3>정의</h3>
@@ -264,7 +376,7 @@
   </section>
 
   <section class="section">
-    <h2>2. 복식부기 기본 원칙</h2>
+    <h2>7. 복식부기 기본 원칙</h2>
     <div class="dc">
       <div class="dc-side debit">
         <h3>차변</h3>
@@ -288,43 +400,7 @@
   </section>
 
   <section class="section">
-    <h2>3. 전체 처리 흐름</h2>
-    <div class="flow">
-      <div class="step"><strong>1. 원천 거래</strong><span>거래유형, 상품, 통화, 수량, 금액 등 입력값을 수신합니다.</span></div>
-      <div class="step"><strong>2. 분개 대상 판단</strong><span>해당 거래가 회계 분개를 생성해야 하는지 확인합니다.</span></div>
-      <div class="step"><strong>3. 분개모형 조회</strong><span>차변/대변 라인과 계정속성, 금액 기준을 가져옵니다.</span></div>
-      <div class="step"><strong>4. 상품계정 확인</strong><span>상품 성격과 투자 목적에 맞는 계정상품 기준을 찾습니다.</span></div>
-      <div class="step"><strong>5. 실제 계정 확정</strong><span>계정속성과 상품계정 매핑을 결합해 실제 계정을 결정합니다.</span></div>
-      <div class="step"><strong>6. 금액 세팅</strong><span>원천 거래의 금액, 환율, 평가값 등을 분개 라인에 반영합니다.</span></div>
-      <div class="step"><strong>7. 분개장 저장</strong><span>검증을 통과한 결과를 분개장과 후속 원장 처리로 넘깁니다.</span></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>4. 거래유형 축과 상품/계정 축</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>거래유형 축</h3>
-        <ul>
-          <li>거래가 매매, 결제, 이자, 배당, 평가, 보수 등 어떤 성격인지 식별합니다.</li>
-          <li>분개 대상 여부를 판단합니다.</li>
-          <li>거래유형에 맞는 분개모형을 선택합니다.</li>
-          <li>분개 라인의 차대변과 계정속성을 제공합니다.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>상품/계정 축</h3>
-        <ul>
-          <li>상품 분류와 계정상품 기준을 확인합니다.</li>
-          <li>동일한 계정속성이라도 상품 성격에 따라 다른 실제 계정으로 분기될 수 있습니다.</li>
-          <li>상품계정 매핑은 계정속성을 실제 계정으로 바꾸는 핵심 연결 고리입니다.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>5. 분개모형의 역할</h2>
+    <h2>8. 분개모형의 역할</h2>
     <table>
       <thead>
         <tr>
@@ -359,7 +435,7 @@
   </section>
 
   <section class="section">
-    <h2>6. 자동분개와 수동분개</h2>
+    <h2>9. 자동분개와 수동분개</h2>
     <div class="grid">
       <div class="card">
         <h3>자동분개</h3>
@@ -381,7 +457,7 @@
   </section>
 
   <section class="section">
-    <h2>7. 주요 원장과 분개장의 관계</h2>
+    <h2>10. 주요 원장과 분개장의 관계</h2>
     <div class="grid3">
       <div class="card">
         <h3>분개장</h3>
@@ -399,7 +475,7 @@
   </section>
 
   <section class="section">
-    <h2>8. 손익 유형</h2>
+    <h2>11. 손익 유형</h2>
     <table>
       <thead>
         <tr>
@@ -434,7 +510,7 @@
   </section>
 
   <section class="section">
-    <h2>9. 검증 포인트</h2>
+    <h2>12. 검증 포인트</h2>
     <ol>
       <li>차변 합계와 대변 합계가 일치하는지 확인합니다.</li>
       <li>거래유형에 맞는 분개모형이 존재하는지 확인합니다.</li>
@@ -446,7 +522,7 @@
   </section>
 
   <section class="section">
-    <h2>10. 오류 대응 흐름</h2>
+    <h2>13. 오류 대응 흐름</h2>
     <div class="flow">
       <div class="step"><strong>오류 발견</strong><span>분개장, 원장, 대사 결과에서 불일치를 확인합니다.</span></div>
       <div class="step"><strong>원인 분류</strong><span>분개모형, 매핑, 금액, 원천 거래, 마감 상태 중 어디 문제인지 나눕니다.</span></div>
