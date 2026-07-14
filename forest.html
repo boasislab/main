@@ -487,9 +487,9 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (PASSWORDS.includes(val)) {
-      showMain(); err.textContent = '';
+      showMaint(); err.textContent = '';
     } else if (val === PW_MAINT) {
-      sessionStorage.setItem('auth', 'maint'); showMaint(); err.textContent = '';
+      showMain(); err.textContent = '';
     } else {
       inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
       err.textContent = '비밀번호가 틀렸습니다.'; inp.value = '';
