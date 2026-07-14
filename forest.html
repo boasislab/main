@@ -456,7 +456,7 @@
 </div>
 
 <script>
-  const PW = 'forest18@@';
+  const PASSWORDS = ['forest18@@', 'forest18!@'];
   const PW_MAINT = '__maint_disabled__';
   const OWNER_KEY = 'yyj1201';
 
@@ -486,7 +486,7 @@
     const val = document.getElementById('pw').value;
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
-    if (val === PW) {
+    if (PASSWORDS.includes(val)) {
       sessionStorage.setItem('auth', '1'); showMain(); err.textContent = '';
     } else if (val === PW_MAINT) {
       sessionStorage.setItem('auth', 'maint'); showMaint(); err.textContent = '';
