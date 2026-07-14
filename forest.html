@@ -498,6 +498,7 @@
   }
   function logout() {
     sessionStorage.removeItem('auth');
+    localStorage.removeItem('owner_auth');
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
@@ -505,9 +506,8 @@
   }
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
-    localStorage.setItem('owner_auth', OWNER_KEY);
     history.replaceState({}, '', window.location.pathname + window.location.hash); showMain();
-  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { showMain(); }
+  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
   else if (sessionStorage.getItem('auth') === '1') { showMain(); }
   else if (sessionStorage.getItem('auth') === 'maint') { showMaint(); }
 
