@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>생명의 숲밧줄놀이 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.8;color:#222;background:#f0f7f2}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d6a4f,#40916c);color:white;padding:28px 24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.88}
+.score-board{background:white;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-item .label{font-size:12px;color:#666}
+.score-item .value{font-size:22px;font-weight:700;color:#2d6a4f}
+.section-header{background:#2d6a4f;color:white;padding:10px 18px;border-radius:8px;margin:20px 0 12px;font-weight:700;font-size:15px}
+.question-card{background:white;border-radius:10px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.question-num{font-size:12px;color:#888;margin-bottom:4px}
+.question-text{font-weight:700;font-size:15px;margin-bottom:12px;color:#1b4332}
+.options{list-style:none;display:flex;flex-direction:column;gap:6px}
+.options li{padding:8px 14px;border:1.5px solid #b7e4c7;border-radius:7px;cursor:pointer;font-size:14px;transition:background .15s,border-color .15s}
+.options li:hover{background:#f0fdf4;border-color:#40916c}
+.options li.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:700}
+.options li.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.options li.disabled{cursor:default;pointer-events:none}
+.answer-box{display:none;background:#f0fdf4;border-left:4px solid #40916c;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:13px;color:#1b4332}
+.answer-box .ans-label{font-weight:700;margin-bottom:4px}
+.star-hint{color:#b45309;font-size:12px;margin-left:6px}
+.btn-reset{background:#2d6a4f;color:white;border:0;padding:10px 22px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-reset:hover{background:#1b4332}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
+@media print{.forest-back-link{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link"><a href="forest.html?k=yyj1201#subject-14">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>생명의 숲밧줄놀이 — 기출문제집</h1><div class="meta">총 25문항 | 클릭하면 정답 확인 | 정리본 기반</div></header>
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+<div class="section-header">Part 1. 개념과 교육 효과 (1~6번)</div>
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">트리 플레잉(Tree Playing)의 의미로 가장 적절한 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">1. 나무와 로프 등을 이용한 모든 프로그램</li>
+    <li onclick="answer(this,'q1','2')">2. 나무 이름을 암기하는 실내 수업</li>
+    <li onclick="answer(this,'q1','3')">3. 목재 생산을 위한 벌채 실습</li>
+    <li onclick="answer(this,'q1','4')">4. 숲속에서 하는 일반 산책만을 뜻함</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">정답: 1번</div>
+    <div>트리 플레잉은 TREE와 PLAYING의 합성어로, 나무와 로프 등을 이용한 놀이·체험 프로그램을 뜻합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">밧줄놀이의 기대 효과로 보기 어려운 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">1. 체력 향상</li>
+    <li onclick="answer(this,'q2','2')">2. 협동심 발달</li>
+    <li onclick="answer(this,'q2','3')">3. 민첩성·모험심 향상</li>
+    <li onclick="answer(this,'q2','4')">4. 수목 벌채 기술 숙달</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">정답: 4번</div>
+    <div>밧줄놀이는 체력, 협동심, 민첩성, 모험심, 성취감 향상과 연결되며 벌채 기술 숙달이 목적은 아닙니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">밧줄놀이에서 아이들의 위험대처능력이 자라는 방식으로 알맞은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">1. 위험을 모두 제거한 뒤 보기만 한다</li>
+    <li onclick="answer(this,'q3','2')">2. 규칙 있는 체험 속에서 안전하게 경험한다</li>
+    <li onclick="answer(this,'q3','3')">3. 위험한 행동을 일부러 반복한다</li>
+    <li onclick="answer(this,'q3','4')">4. 장비 사용법을 설명하지 않는다</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">정답: 2번</div>
+    <div>안전한 규칙과 지도 안에서 체험을 통해 위험대처능력이 성장합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">밧줄놀이의 정서·사회성 효과로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">1. 혼자만 성공하는 경쟁심 강화</li>
+    <li onclick="answer(this,'q4','2')">2. 도전 후 성취감과 협동 경험</li>
+    <li onclick="answer(this,'q4','3')">3. 자연물 채집량 비교</li>
+    <li onclick="answer(this,'q4','4')">4. 암기 중심 지식 평가</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">정답: 2번</div>
+    <div>로프 활동은 도전정신, 성취감, 협동심, 소통 경험을 강화합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">밧줄놀이 지도에서 “안전은 반복해서 강조해도 지나치지 않다”는 말의 뜻은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">1. 참가자에게 위험 요소를 계속 인식시킨다</li>
+    <li onclick="answer(this,'q5','2')">2. 안전 설명은 한 번이면 충분하다</li>
+    <li onclick="answer(this,'q5','3')">3. 장비 점검보다 진행 속도가 중요하다</li>
+    <li onclick="answer(this,'q5','4')">4. 아이에게 모든 판단을 맡긴다</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장 안전은 사전 고지, 반복 안내, 장비·수목 점검이 함께 이루어져야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">밧줄놀이에서 성취감이 중요한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">1. 정답을 외우게 하기 위해</li>
+    <li onclick="answer(this,'q6','2')">2. 새로운 시도와 도전 경험을 긍정적으로 남기기 위해</li>
+    <li onclick="answer(this,'q6','3')">3. 장비 가격을 설명하기 위해</li>
+    <li onclick="answer(this,'q6','4')">4. 수목명만 기억시키기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">정답: 2번</div>
+    <div>도전 후 성공 경험은 정서 발달과 자신감 형성에 도움이 됩니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 2. 안전 기준과 장비 (7~14번)</div>
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">로프를 설치할 나무 가지의 기준으로 강의에서 제시된 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">1. 지름 약 5cm 이상</li>
+    <li onclick="answer(this,'q7','2')">2. 지름 약 10cm 이상</li>
+    <li onclick="answer(this,'q7','3')">3. 지름 약 15cm 이상</li>
+    <li onclick="answer(this,'q7','4')">4. 잎이 많으면 지름과 무관</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">정답: 3번</div>
+    <div>로프를 걸 수 있는 가지는 지름 약 15cm 이상을 기준으로 점검합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">로프 설치 수목의 나이 기준으로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">1. 1년 이상이면 충분</li>
+    <li onclick="answer(this,'q8','2')">2. 3년 이상이면 충분</li>
+    <li onclick="answer(this,'q8','3')">3. 10년 이상이 적절</li>
+    <li onclick="answer(this,'q8','4')">4. 나이는 고려하지 않음</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">정답: 3번</div>
+    <div>수목은 대체로 10년 이상, 이식목은 이식 후 3년 이상 경과 여부를 확인합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">이식한 나무에 로프를 설치할 때 확인할 기준은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">1. 이식 직후 바로 가능</li>
+    <li onclick="answer(this,'q9','2')">2. 이식 후 3년 이상 경과 여부</li>
+    <li onclick="answer(this,'q9','3')">3. 꽃이 피었는지만 확인</li>
+    <li onclick="answer(this,'q9','4')">4. 수피 색깔만 확인</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">정답: 2번</div>
+    <div>이식한 나무는 뿌리 안정성을 위해 이식 후 3년 이상 경과한 나무를 선택합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">밧줄놀이 전 바닥 상태 점검의 주된 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">1. 사진이 잘 나오게 하기 위해</li>
+    <li onclick="answer(this,'q10','2')">2. 낙상·미끄러짐·돌출물 사고를 예방하기 위해</li>
+    <li onclick="answer(this,'q10','3')">3. 곤충을 모두 제거하기 위해</li>
+    <li onclick="answer(this,'q10','4')">4. 로프 색을 고르기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">정답: 2번</div>
+    <div>체험장 바닥의 돌, 뿌리, 경사, 미끄러움 등은 낙상 사고와 직접 관련됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">수목보호대를 사용하는 이유로 가장 알맞은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">1. 나무와 로프의 마찰 손상을 줄이기 위해</li>
+    <li onclick="answer(this,'q11','2')">2. 로프 색을 돋보이게 하기 위해</li>
+    <li onclick="answer(this,'q11','3')">3. 참가자 수를 세기 위해</li>
+    <li onclick="answer(this,'q11','4')">4. 매듭을 생략하기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">정답: 1번</div>
+    <div>수목보호대는 수피와 로프 내부 가닥 손상을 줄이는 필수 안전 장비입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">밧줄놀이 운영 시 보험 가입이 강조되는 이유는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">1. 홍보 문구를 만들기 위해</li>
+    <li onclick="answer(this,'q12','2')">2. 사고 발생에 대비한 책임과 보상을 준비하기 위해</li>
+    <li onclick="answer(this,'q12','3')">3. 장비 구입비를 줄이기 위해</li>
+    <li onclick="answer(this,'q12','4')">4. 교육 시간을 줄이기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">정답: 2번</div>
+    <div>이용객을 받는 시설·프로그램은 사고 대비를 위해 보험 가입이 필요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">로프를 바닥에 방치하거나 밟지 않도록 하는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">1. 로프가 더러워지는 것만 문제라서</li>
+    <li onclick="answer(this,'q13','2')">2. 미끄러짐 사고와 장비 손상을 막기 위해</li>
+    <li onclick="answer(this,'q13','3')">3. 로프 길이를 줄이기 위해</li>
+    <li onclick="answer(this,'q13','4')">4. 매듭 이름을 외우기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">정답: 2번</div>
+    <div>바닥의 로프는 낙상 사고 원인이 되고 장비 손상도 생길 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">주로프와 보조로프의 일반적 굵기 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">1. 주로프 11~12mm, 보조로프 약 8mm</li>
+    <li onclick="answer(this,'q14','2')">2. 주로프 3mm, 보조로프 30mm</li>
+    <li onclick="answer(this,'q14','3')">3. 둘 다 반드시 같은 굵기</li>
+    <li onclick="answer(this,'q14','4')">4. 굵기는 안전과 무관</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">정답: 1번</div>
+    <div>강의에서는 메인 로프 약 11~12mm, 보조 로프 약 8mm를 언급했습니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 3. 매듭과 운영 (15~25번)</div>
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">스톱넛의 핵심 용도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">1. 줄 끝이 빠지지 않게 마무리</li>
+    <li onclick="answer(this,'q15','2')">2. 나무 높이 측정</li>
+    <li onclick="answer(this,'q15','3')">3. 곤충 채집</li>
+    <li onclick="answer(this,'q15','4')">4. 수목 나이 계산</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">정답: 1번</div>
+    <div>스톱넛은 줄 끝이 빠지지 않도록 끝처리에 쓰는 기본 매듭입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">8자고리매듭의 주된 용도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">1. 튼튼한 고리 만들기</li>
+    <li onclick="answer(this,'q16','2')">2. 두 나무의 나이 비교</li>
+    <li onclick="answer(this,'q16','3')">3. 낙엽층 관찰</li>
+    <li onclick="answer(this,'q16','4')">4. 수목 이름표 작성</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">정답: 1번</div>
+    <div>8자고리매듭은 간편하고 튼튼해 로프에 고리를 만들 때 많이 활용됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">피셔맨/더블피셔맨 매듭은 주로 언제 사용하는가?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">1. 로프와 로프를 연결할 때</li>
+    <li onclick="answer(this,'q17','2')">2. 나뭇잎을 분류할 때</li>
+    <li onclick="answer(this,'q17','3')">3. 참가자 출석 확인 때</li>
+    <li onclick="answer(this,'q17','4')">4. 나무껍질 색을 비교할 때</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">정답: 1번</div>
+    <div>피셔맨 계열 매듭은 두 줄을 연결하거나 로프로 고리를 만들 때 사용합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">클로브히치 사용 시 특히 주의할 점은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">1. 하중 방향 변화에 따른 미끄러짐</li>
+    <li onclick="answer(this,'q18','2')">2. 꽃 색 변화</li>
+    <li onclick="answer(this,'q18','3')">3. 곤충의 탈피 시기</li>
+    <li onclick="answer(this,'q18','4')">4. 물 온도</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">정답: 1번</div>
+    <div>클로브히치는 둥근 기둥 등에 묶을 때 쓰지만 장력 방향 변화에 주의해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">알파인 버터플라이 매듭의 활용으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">1. 로프 중간 고리 형성 또는 손상 구간 격리</li>
+    <li onclick="answer(this,'q19','2')">2. 나무 높이 계산</li>
+    <li onclick="answer(this,'q19','3')">3. 동물 발자국 식별</li>
+    <li onclick="answer(this,'q19','4')">4. 꽃잎 수 세기</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">정답: 1번</div>
+    <div>알파인 버터플라이는 로프 중간 고리나 손상 구간을 매듭 안으로 격리할 때 활용합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">푸르직히치/클램하이스트의 공통 핵심은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">1. 마찰을 이용한 고정·위치 조절</li>
+    <li onclick="answer(this,'q20','2')">2. 수피 채취</li>
+    <li onclick="answer(this,'q20','3')">3. 숲길 포장</li>
+    <li onclick="answer(this,'q20','4')">4. 나무 벌채</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">정답: 1번</div>
+    <div>두 매듭은 감는 횟수와 마찰을 이용해 고정이나 위치 조절에 활용됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">매듭 마무리에서 여유 줄을 충분히 남겨야 하는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">1. 예쁘게 보이기 위해</li>
+    <li onclick="answer(this,'q21','2')">2. 하중이 실릴 때 풀리거나 빠지는 위험을 줄이기 위해</li>
+    <li onclick="answer(this,'q21','3')">3. 로프를 짧게 만들기 위해</li>
+    <li onclick="answer(this,'q21','4')">4. 장비 수를 줄이기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">정답: 2번</div>
+    <div>여유 줄이 짧으면 하중이 실렸을 때 매듭이 풀릴 위험이 커집니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">매듭 드레싱의 의미로 가장 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">1. 매듭 모양과 조임 상태를 정리해 제 기능을 하게 함</li>
+    <li onclick="answer(this,'q22','2')">2. 매듭에 색칠함</li>
+    <li onclick="answer(this,'q22','3')">3. 매듭 이름표를 붙임</li>
+    <li onclick="answer(this,'q22','4')">4. 로프를 물에 적심</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">정답: 1번</div>
+    <div>드레싱은 매듭을 단단하고 바른 모양으로 정리해 안전성을 높이는 과정입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">밧줄놀이에서 금지해야 할 행동은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">1. 로프를 목에 감거나 휘두르는 행동</li>
+    <li onclick="answer(this,'q23','2')">2. 장갑 착용</li>
+    <li onclick="answer(this,'q23','3')">3. 수목보호대 설치</li>
+    <li onclick="answer(this,'q23','4')">4. 장비 제자리 정리</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">정답: 1번</div>
+    <div>로프를 목에 감거나 휘두르는 행동은 사고 위험이 있어 금지해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">놀이를 위해 나무를 뚫는 행위에 대한 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">1. 수목 보호를 위해 금지한다</li>
+    <li onclick="answer(this,'q24','2')">2. 항상 권장한다</li>
+    <li onclick="answer(this,'q24','3')">3. 어린 나무에만 허용한다</li>
+    <li onclick="answer(this,'q24','4')">4. 매듭을 잘하면 가능하다</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">정답: 1번</div>
+    <div>체험활동은 수목 보호를 전제로 하며, 놀이를 위해 나무를 뚫는 행위는 금지합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">밧줄놀이 실습 전 반드시 전달해야 할 내용은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">1. 설치기구의 안전 및 유의사항</li>
+    <li onclick="answer(this,'q25','2')">2. 참가자의 취향만</li>
+    <li onclick="answer(this,'q25','3')">3. 나무 가격 정보</li>
+    <li onclick="answer(this,'q25','4')">4. 숲의 소유자 이름만</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">정답: 1번</div>
+    <div>참가자에게 설치기구 안전과 유의사항을 충분히 안내해야 사고를 예방할 수 있습니다.</div>
+  </div>
+</div>
+<div style="text-align:center;padding:20px 0 30px"><button class="btn-reset" onclick="resetAll()">처음부터 다시</button></div>
+<p style="text-align:center;font-size:12px;color:#888;padding-bottom:20px">정리본 기반 기출문제집 | 생성: 2026-07-15</p>
+</div>
+<script>
+let correctCount=0;let wrongCount=0;const answers={q1:'1', q2:'4', q3:'2', q4:'2', q5:'1', q6:'2', q7:'3', q8:'3', q9:'2', q10:'2', q11:'1', q12:'2', q13:'2', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'2', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';}
+function resetAll(){correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}
+</script>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>

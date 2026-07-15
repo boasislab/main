@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자연생태놀이 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.8;color:#222;background:#f0f7f2}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d6a4f,#40916c);color:white;padding:28px 24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.88}
+.score-board{background:white;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-item .label{font-size:12px;color:#666}
+.score-item .value{font-size:22px;font-weight:700;color:#2d6a4f}
+.section-header{background:#2d6a4f;color:white;padding:10px 18px;border-radius:8px;margin:20px 0 12px;font-weight:700;font-size:15px}
+.question-card{background:white;border-radius:10px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.question-num{font-size:12px;color:#888;margin-bottom:4px}
+.question-text{font-weight:700;font-size:15px;margin-bottom:12px;color:#1b4332}
+.options{list-style:none;display:flex;flex-direction:column;gap:6px}
+.options li{padding:8px 14px;border:1.5px solid #b7e4c7;border-radius:7px;cursor:pointer;font-size:14px;transition:background .15s,border-color .15s}
+.options li:hover{background:#f0fdf4;border-color:#40916c}
+.options li.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:700}
+.options li.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.options li.disabled{cursor:default;pointer-events:none}
+.answer-box{display:none;background:#f0fdf4;border-left:4px solid #40916c;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:13px;color:#1b4332}
+.answer-box .ans-label{font-weight:700;margin-bottom:4px}
+.star-hint{color:#b45309;font-size:12px;margin-left:6px}
+.btn-reset{background:#2d6a4f;color:white;border:0;padding:10px 22px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-reset:hover{background:#1b4332}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
+@media print{.forest-back-link{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link"><a href="forest.html?k=yyj1201#subject-15">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>자연생태놀이 — 기출문제집</h1><div class="meta">총 25문항 | 클릭하면 정답 확인 | 정리본 기반</div></header>
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+<div class="section-header">Part 1. 놀이와 자연 (1~8번)</div>
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">자연생태놀이의 출발점으로 가장 적절한 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">1. 아이들이 자연 속에서 재미를 느끼고 발견으로 이어지게 하는 것</li>
+    <li onclick="answer(this,'q1','2')">2. 정해진 명칭을 빠르게 외우게 하는 것</li>
+    <li onclick="answer(this,'q1','3')">3. 채집량을 많이 늘리는 것</li>
+    <li onclick="answer(this,'q1','4')">4. 교사의 설명 시간을 길게 만드는 것</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연생태놀이는 재미와 발견을 통해 자연과 친해지게 하는 데서 출발합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">어린이에게 놀이의 의미로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">1. 발달에 필요한 기본 조건</li>
+    <li onclick="answer(this,'q2','2')">2. 시험이 끝난 뒤의 보상만</li>
+    <li onclick="answer(this,'q2','3')">3. 성인이 지시한 노동</li>
+    <li onclick="answer(this,'q2','4')">4. 항상 혼자 하는 활동</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">정답: 1번</div>
+    <div>어린이에게 놀이는 선택적 여가가 아니라 신체·정서·사회성 발달에 필요한 기본 조건입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">놀이가 주는 발달 효과가 아닌 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">1. 신체능력 발달</li>
+    <li onclick="answer(this,'q3','2')">2. 사회성 발달</li>
+    <li onclick="answer(this,'q3','3')">3. 집중력 향상</li>
+    <li onclick="answer(this,'q3','4')">4. 자연과의 관계 단절</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">정답: 4번</div>
+    <div>놀이는 신체, 사회성, 집중력, 정서 안정, 자존감 발달에 도움을 줍니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">사회성 발달의 핵심으로 강의에서 강조한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">1. 친구 수가 많은 것</li>
+    <li onclick="answer(this,'q4','2')">2. 다른 존재도 존중받을 존재임을 인정하는 태도</li>
+    <li onclick="answer(this,'q4','3')">3. 항상 이기는 것</li>
+    <li onclick="answer(this,'q4','4')">4. 혼자만 빠르게 움직이는 것</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">정답: 2번</div>
+    <div>사회성은 친구 수보다 다름을 인정하고 관계를 맺으려는 태도와 연결됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">자연환경의 치유 효과 사례로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">1. 자연이 보이는 병실 환자의 회복 사례</li>
+    <li onclick="answer(this,'q5','2')">2. 실내 조명 밝기만 높인 사례</li>
+    <li onclick="answer(this,'q5','3')">3. 소음 많은 환경에서 집중력 증가</li>
+    <li onclick="answer(this,'q5','4')">4. 화면 시청 시간이 늘어난 사례</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연 경관은 스트레스 완화와 회복에 긍정적 영향을 줄 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">바이오필리아의 뜻으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">1. 생명에 대한 사랑과 자연을 향한 끌림</li>
+    <li onclick="answer(this,'q6','2')">2. 도시 개발 속도</li>
+    <li onclick="answer(this,'q6','3')">3. 놀이기구의 안전 등급</li>
+    <li onclick="answer(this,'q6','4')">4. 식물 표본 제작법</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">정답: 1번</div>
+    <div>바이오필리아는 생명에 대한 사랑, 자연과 생명에 끌리는 인간의 성향을 뜻합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">비타민 N에서 N이 가리키는 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">1. Nature</li>
+    <li onclick="answer(this,'q7','2')">2. Number</li>
+    <li onclick="answer(this,'q7','3')">3. Noise</li>
+    <li onclick="answer(this,'q7','4')">4. Network</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">정답: 1번</div>
+    <div>비타민 N은 Nature, 즉 자연의 중요성을 비유적으로 표현한 개념입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">자연체험에서 자연놀이가 우선해야 할 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">1. 오감으로 느끼는 경험</li>
+    <li onclick="answer(this,'q8','2')">2. 전문용어 암기</li>
+    <li onclick="answer(this,'q8','3')">3. 채집 경쟁</li>
+    <li onclick="answer(this,'q8','4')">4. 긴 강의</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연놀이에서는 지식 전달보다 느끼기와 직접 경험이 우선입니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 2. 운영 원리 (9~17번)</div>
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">자연놀이의 의미로 알맞은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">1. 자연에서 자연물로 자연과 친해지는 놀이</li>
+    <li onclick="answer(this,'q9','2')">2. 교실에서만 하는 그림 수업</li>
+    <li onclick="answer(this,'q9','3')">3. 스마트폰 앱으로 하는 식물 게임</li>
+    <li onclick="answer(this,'q9','4')">4. 정답만 맞히는 문제 풀이</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연놀이는 자연 속에서 자연물을 활용해 자연과 친해지는 활동입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">생태놀이가 담아야 할 철학으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">1. 관계성·다양성·지속가능성</li>
+    <li onclick="answer(this,'q10','2')">2. 속도·경쟁·소비</li>
+    <li onclick="answer(this,'q10','3')">3. 채집·소유·전시</li>
+    <li onclick="answer(this,'q10','4')">4. 암기·평가·순위</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">정답: 1번</div>
+    <div>생태놀이는 생명 간 관계, 다양성, 지속가능성을 담아야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">숲이 자연놀이 장소로 자주 활용되는 이유가 아닌 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">1. 생활권에서 접근하기 쉽다</li>
+    <li onclick="answer(this,'q11','2')">2. 감각 자료가 다양하다</li>
+    <li onclick="answer(this,'q11','3')">3. 활동 범위를 정하기 쉽다</li>
+    <li onclick="answer(this,'q11','4')">4. 위험 관리가 불가능하다</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">정답: 4번</div>
+    <div>숲은 접근성, 다양성, 상대적 안전성 때문에 교육 현장으로 활용하기 좋습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">순수 자유놀이가 현실적으로 어렵다고 본 이유는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">1. 교사·부모의 관찰과 안전 책임이 있기 때문</li>
+    <li onclick="answer(this,'q12','2')">2. 아이들이 자연을 싫어하기 때문</li>
+    <li onclick="answer(this,'q12','3')">3. 숲에는 놀이 소재가 없기 때문</li>
+    <li onclick="answer(this,'q12','4')">4. 전래놀이는 규칙이 없기 때문</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장에서는 안전과 목적 때문에 일정한 기획과 관찰이 불가피합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">기획놀이의 장점으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">1. 참여자 수준에 맞게 난이도를 조절할 수 있다</li>
+    <li onclick="answer(this,'q13','2')">2. 자발성을 완전히 없앤다</li>
+    <li onclick="answer(this,'q13','3')">3. 안전 관리를 하지 않는다</li>
+    <li onclick="answer(this,'q13','4')">4. 반복 활동을 금지한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">정답: 1번</div>
+    <div>기획놀이는 대상 수준에 맞춰 난이도와 단계를 조절할 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">진짜 놀이의 핵심 조건으로 가장 중요한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">1. 자발성과 재미</li>
+    <li onclick="answer(this,'q14','2')">2. 교사의 긴 설명</li>
+    <li onclick="answer(this,'q14','3')">3. 정답 확인</li>
+    <li onclick="answer(this,'q14','4')">4. 채점표 작성</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">정답: 1번</div>
+    <div>놀이가 되려면 아이가 하고 싶을 때 참여할 수 있는 자발성과 재미가 중요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">반복 놀이의 의미로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">1. 같은 활동을 반복하며 몰입과 확장이 일어남</li>
+    <li onclick="answer(this,'q15','2')">2. 한 번 했으면 반드시 금지</li>
+    <li onclick="answer(this,'q15','3')">3. 오류를 의미</li>
+    <li onclick="answer(this,'q15','4')">4. 교사가 실패한 증거</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">정답: 1번</div>
+    <div>아이들은 반복을 통해 익숙해지고, 변형하며, 놀이를 자기 것으로 만듭니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">자연놀이 운영에서 위험을 보는 태도로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">1. 위험을 무조건 제거하기보다 관리 가능한 위험을 경험하게 한다</li>
+    <li onclick="answer(this,'q16','2')">2. 모든 위험을 방치한다</li>
+    <li onclick="answer(this,'q16','3')">3. 위험을 말하지 않는다</li>
+    <li onclick="answer(this,'q16','4')">4. 아이의 판단을 모두 금지한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">정답: 1번</div>
+    <div>안전한 범위의 도전과 위험 관리는 아이들의 판단력과 대처능력 형성에 도움이 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">채취 활동에서 지켜야 할 원칙은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">1. 생태 윤리와 최소 채취</li>
+    <li onclick="answer(this,'q17','2')">2. 많이 가져간 사람이 우수</li>
+    <li onclick="answer(this,'q17','3')">3. 희귀종 우선 채집</li>
+    <li onclick="answer(this,'q17','4')">4. 채집 후 방치</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연물 채취는 생명 존중과 생태계 영향을 고려해 최소화해야 합니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 3. 윤리와 시험 포인트 (18~25번)</div>
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">자연놀이 8대 영역을 활용하는 목적은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">1. 활동을 다양하게 구성하고 균형 있게 운영하기 위해</li>
+    <li onclick="answer(this,'q18','2')">2. 모든 놀이를 실내화하기 위해</li>
+    <li onclick="answer(this,'q18','3')">3. 아이들을 줄 세우기 위해</li>
+    <li onclick="answer(this,'q18','4')">4. 채점 기준만 만들기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">정답: 1번</div>
+    <div>활동 영역을 나누면 감각, 표현, 탐색, 신체 활동 등을 균형 있게 설계할 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">강사의 관찰 기록이 중요한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">1. 아이 반응과 다음 활동 개선 근거가 되기 때문</li>
+    <li onclick="answer(this,'q19','2')">2. 보고서 분량만 늘리기 위해</li>
+    <li onclick="answer(this,'q19','3')">3. 사진을 많이 찍기 위해</li>
+    <li onclick="answer(this,'q19','4')">4. 정답을 외우기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">정답: 1번</div>
+    <div>관찰 기록은 아이의 반응, 관심, 놀이 흐름을 파악해 다음 수업을 개선하는 자료가 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">인정 욕구와 예술 놀이를 연결한 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">1. 표현한 결과를 인정받는 경험이 자존감에 도움을 준다</li>
+    <li onclick="answer(this,'q20','2')">2. 예술 놀이는 경쟁만을 위한 것이다</li>
+    <li onclick="answer(this,'q20','3')">3. 작품은 반드시 교사가 고친다</li>
+    <li onclick="answer(this,'q20','4')">4. 자연물 표현은 금지한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연물로 표현하고 인정받는 경험은 아이의 자기 수용과 자존감에 긍정적입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">그린워싱 주의가 필요한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">1. 겉으로만 친환경처럼 보이는 활동을 경계해야 하기 때문</li>
+    <li onclick="answer(this,'q21','2')">2. 초록색 물감을 쓰면 안 되기 때문</li>
+    <li onclick="answer(this,'q21','3')">3. 숲 활동을 모두 금지하기 위해</li>
+    <li onclick="answer(this,'q21','4')">4. 환경 용어를 쓰면 안 되기 때문</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연·생태라는 이름만 붙이고 실제 생태적 의미가 없는 활동은 경계해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">자연생태놀이에서 지식 설명의 적절한 방식은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">1. 연령과 경험에 맞춰 놀이 속에서 자연스럽게 연결</li>
+    <li onclick="answer(this,'q22','2')">2. 어린 유아에게 생태철학을 길게 강의</li>
+    <li onclick="answer(this,'q22','3')">3. 정답 암기만 반복</li>
+    <li onclick="answer(this,'q22','4')">4. 전문용어를 최대한 많이 사용</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">정답: 1번</div>
+    <div>어린 연령에게는 무리한 철학 설명보다 재미있는 놀이 경험 속에서 의미를 느끼게 하는 것이 좋습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">자존감과 긍정성 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">1. 자신의 존재를 받아들이고 인정하는 힘</li>
+    <li onclick="answer(this,'q23','2')">2. 항상 1등을 해야 생기는 감정</li>
+    <li onclick="answer(this,'q23','3')">3. 실패 경험을 숨기는 태도</li>
+    <li onclick="answer(this,'q23','4')">4. 다른 사람보다 우월하다는 믿음</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">정답: 1번</div>
+    <div>긍정성은 무조건 낙천성이 아니라 자신을 수용하고 인정하는 힘과 연결됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">자연결핍이 아이들에게 줄 수 있는 영향으로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">1. 체력 저하, 면역력 저하, 우울감 등</li>
+    <li onclick="answer(this,'q24','2')">2. 무조건 학업 성취 향상</li>
+    <li onclick="answer(this,'q24','3')">3. 사회성 자동 향상</li>
+    <li onclick="answer(this,'q24','4')">4. 자연 친밀감 증가</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">정답: 1번</div>
+    <div>자연과 멀어지면 체력, 면역, 정서 측면의 결핍이 나타날 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">자연생태놀이 운영자의 핵심 역할은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">1. 재미·안전·생태 감수성을 함께 설계하는 것</li>
+    <li onclick="answer(this,'q25','2')">2. 아이를 통제만 하는 것</li>
+    <li onclick="answer(this,'q25','3')">3. 많이 채집하게 하는 것</li>
+    <li onclick="answer(this,'q25','4')">4. 교재 내용을 모두 읽어주는 것</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">정답: 1번</div>
+    <div>운영자는 재미와 자발성을 살리면서 안전과 생태 윤리를 함께 지켜야 합니다.</div>
+  </div>
+</div>
+<div style="text-align:center;padding:20px 0 30px"><button class="btn-reset" onclick="resetAll()">처음부터 다시</button></div>
+<p style="text-align:center;font-size:12px;color:#888;padding-bottom:20px">정리본 기반 기출문제집 | 생성: 2026-07-15</p>
+</div>
+<script>
+let correctCount=0;let wrongCount=0;const answers={q1:'1', q2:'1', q3:'4', q4:'2', q5:'1', q6:'1', q7:'1', q8:'1', q9:'1', q10:'1', q11:'4', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';}
+function resetAll(){correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}
+</script>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>

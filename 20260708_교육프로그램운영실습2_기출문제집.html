@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교육프로그램운영실습2 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.8;color:#222;background:#f0f7f2}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d6a4f,#40916c);color:white;padding:28px 24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.88}
+.score-board{background:white;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-item .label{font-size:12px;color:#666}
+.score-item .value{font-size:22px;font-weight:700;color:#2d6a4f}
+.section-header{background:#2d6a4f;color:white;padding:10px 18px;border-radius:8px;margin:20px 0 12px;font-weight:700;font-size:15px}
+.question-card{background:white;border-radius:10px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.question-num{font-size:12px;color:#888;margin-bottom:4px}
+.question-text{font-weight:700;font-size:15px;margin-bottom:12px;color:#1b4332}
+.options{list-style:none;display:flex;flex-direction:column;gap:6px}
+.options li{padding:8px 14px;border:1.5px solid #b7e4c7;border-radius:7px;cursor:pointer;font-size:14px;transition:background .15s,border-color .15s}
+.options li:hover{background:#f0fdf4;border-color:#40916c}
+.options li.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:700}
+.options li.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.options li.disabled{cursor:default;pointer-events:none}
+.answer-box{display:none;background:#f0fdf4;border-left:4px solid #40916c;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:13px;color:#1b4332}
+.answer-box .ans-label{font-weight:700;margin-bottom:4px}
+.star-hint{color:#b45309;font-size:12px;margin-left:6px}
+.btn-reset{background:#2d6a4f;color:white;border:0;padding:10px 22px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-reset:hover{background:#1b4332}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
+@media print{.forest-back-link{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link"><a href="forest.html?k=yyj1201#subject-20">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>교육프로그램운영실습2 — 기출문제집</h1><div class="meta">총 25문항 | 클릭하면 정답 확인 | 정리본 기반</div></header>
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+<div class="section-header">Part 1. 식별 기본 (1~8번)</div>
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">교육프로그램운영실습2의 핵심은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">1. 현장에서 구분하고 설명하는 힘</li>
+    <li onclick="answer(this,'q1','2')">2. 식물명만 무조건 암기</li>
+    <li onclick="answer(this,'q1','3')">3. 실내 강의만 듣기</li>
+    <li onclick="answer(this,'q1','4')">4. 정책 문서 작성</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">정답: 1번</div>
+    <div>실습2는 나무 이름 암기보다 현장에서 식별하고 설명하는 힘을 기르는 수업입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">풀과 나무를 구분하는 핵심 기준으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">1. 목질화와 나이테·부피생장 여부</li>
+    <li onclick="answer(this,'q2','2')">2. 꽃 색깔만</li>
+    <li onclick="answer(this,'q2','3')">3. 키가 큰 정도만</li>
+    <li onclick="answer(this,'q2','4')">4. 잎의 향기만</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">정답: 1번</div>
+    <div>나무는 형성층 활동으로 목질화, 부피생장, 나이테 형성이 나타납니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">대나무를 식물학적으로 풀로 보는 이유는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">1. 나이테가 없기 때문</li>
+    <li onclick="answer(this,'q3','2')">2. 키가 작기 때문</li>
+    <li onclick="answer(this,'q3','3')">3. 잎이 없기 때문</li>
+    <li onclick="answer(this,'q3','4')">4. 겨울에 사라지기 때문</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">정답: 1번</div>
+    <div>대나무는 오래 살고 이름에 나무가 붙지만 나이테가 없어 풀로 봅니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">침엽수와 활엽수 구분에서 함께 봐야 할 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">1. 잎 모양과 생식 구조</li>
+    <li onclick="answer(this,'q4','2')">2. 나무 가격</li>
+    <li onclick="answer(this,'q4','3')">3. 숲길 폭</li>
+    <li onclick="answer(this,'q4','4')">4. 꽃병 크기</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">정답: 1번</div>
+    <div>잎 모양뿐 아니라 겉씨·속씨 같은 생식 구조도 함께 이해해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">은행나무 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">1. 넓은 잎처럼 보이지만 겉씨식물로 다룬다</li>
+    <li onclick="answer(this,'q5','2')">2. 대표적인 속씨식물이다</li>
+    <li onclick="answer(this,'q5','3')">3. 나이테가 없다</li>
+    <li onclick="answer(this,'q5','4')">4. 풀에 속한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">정답: 1번</div>
+    <div>은행나무는 잎이 넓게 보이지만 겉씨식물로 다룹니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">소나무와 곰솔의 잎 개수는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">1. 2개</li>
+    <li onclick="answer(this,'q6','2')">2. 3개</li>
+    <li onclick="answer(this,'q6','3')">3. 5개</li>
+    <li onclick="answer(this,'q6','4')">4. 7개</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">정답: 1번</div>
+    <div>소나무와 곰솔은 잎이 2개씩 나는 대표 수종입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">리기다소나무와 백송의 잎 개수는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">1. 2개</li>
+    <li onclick="answer(this,'q7','2')">2. 3개</li>
+    <li onclick="answer(this,'q7','3')">3. 5개</li>
+    <li onclick="answer(this,'q7','4')">4. 1개</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">정답: 2번</div>
+    <div>리기다소나무와 백송은 잎 3개로 구분하는 포인트가 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">잣나무류의 잎 개수로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">1. 2개</li>
+    <li onclick="answer(this,'q8','2')">2. 3개</li>
+    <li onclick="answer(this,'q8','3')">3. 5개</li>
+    <li onclick="answer(this,'q8','4')">4. 6개</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">정답: 3번</div>
+    <div>잣나무, 스트로브잣나무, 섬잣나무는 잎 5개의 오엽송류로 기억합니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 2. 목재 구조와 천이 (9~18번)</div>
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">전나무·가문비·구상나무 구분에서 강의가 강조한 방법은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">1. 잎 촉감과 배열을 함께 보기</li>
+    <li onclick="answer(this,'q9','2')">2. 나무 높이만 보기</li>
+    <li onclick="answer(this,'q9','3')">3. 꽃 색만 보기</li>
+    <li onclick="answer(this,'q9','4')">4. 수피만 보기</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">정답: 1번</div>
+    <div>비슷한 수종은 잎이 따끔한지 부드러운지, 배열과 생육 위치를 함께 봅니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">주목 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">1. 붉은 열매 과육은 새가 좋아하지만 씨에는 독성이 있다</li>
+    <li onclick="answer(this,'q10','2')">2. 잎이 5개씩 난다</li>
+    <li onclick="answer(this,'q10','3')">3. 나이테가 없다</li>
+    <li onclick="answer(this,'q10','4')">4. 수생식물이다</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">정답: 1번</div>
+    <div>주목은 붉은 열매와 독성 있는 씨, 항암제 원료 이야기와 연결됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">비자나무와 연결되는 설명은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">1. 예전 구충제 이용과 제주 비자림 보전</li>
+    <li onclick="answer(this,'q11','2')">2. 로프 매듭</li>
+    <li onclick="answer(this,'q11','3')">3. 수서곤충 분류</li>
+    <li onclick="answer(this,'q11','4')">4. 조류 비행</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">정답: 1번</div>
+    <div>비자나무는 과거 이용과 남부·제주 비자림 보전 이야기로 설명할 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">목재 구조 중 나이테를 만드는 핵심 층은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">1. 형성층</li>
+    <li onclick="answer(this,'q12','2')">2. 수피 바깥 먼지</li>
+    <li onclick="answer(this,'q12','3')">3. 잎맥</li>
+    <li onclick="answer(this,'q12','4')">4. 열매껍질</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">정답: 1번</div>
+    <div>형성층은 세포분열을 통해 부피생장과 나이테 형성에 관여합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">심재의 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">1. 중심부 주변의 죽은 조직으로 나무를 지탱</li>
+    <li onclick="answer(this,'q13','2')">2. 수피 바깥의 잎</li>
+    <li onclick="answer(this,'q13','3')">3. 물가 식물</li>
+    <li onclick="answer(this,'q13','4')">4. 매년 떨어지는 꽃</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">정답: 1번</div>
+    <div>심재는 죽은 조직이지만 나무를 지탱하는 역할을 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">변재의 설명으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">1. 심재 바깥의 살아 있는 부분으로 물 이동과 관계</li>
+    <li onclick="answer(this,'q14','2')">2. 나무의 씨앗</li>
+    <li onclick="answer(this,'q14','3')">3. 낙엽층</li>
+    <li onclick="answer(this,'q14','4')">4. 수서동물</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">정답: 1번</div>
+    <div>변재는 살아 있는 목재 부분으로 물 이동과 관련이 깊습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">환상박피가 위험한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">1. 형성층을 끊어 물질 이동과 생장을 막기 때문</li>
+    <li onclick="answer(this,'q15','2')">2. 잎 색을 바꾸기 때문</li>
+    <li onclick="answer(this,'q15','3')">3. 나이테를 늘리기 때문</li>
+    <li onclick="answer(this,'q15','4')">4. 열매를 크게 하기 때문</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">정답: 1번</div>
+    <div>껍질을 둥글게 벗겨 형성층을 끊으면 나무가 죽을 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">춘재와 추재가 합쳐져 의미하는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">1. 1년의 나이테</li>
+    <li onclick="answer(this,'q16','2')">2. 한 장의 잎</li>
+    <li onclick="answer(this,'q16','3')">3. 한 개의 열매</li>
+    <li onclick="answer(this,'q16','4')">4. 하나의 꽃</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">정답: 1번</div>
+    <div>밝고 넓은 춘재와 진하고 좁은 추재가 합쳐져 한 해의 나이테를 이룹니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">나이테가 탄소중립 교육 소재가 되는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">1. 나무가 자라며 탄소를 저장한 시각적 증거이기 때문</li>
+    <li onclick="answer(this,'q17','2')">2. 탄소와 무관하기 때문</li>
+    <li onclick="answer(this,'q17','3')">3. 나무 나이를 숨기기 때문</li>
+    <li onclick="answer(this,'q17','4')">4. 나무를 더 빨리 베기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">정답: 1번</div>
+    <div>나이테는 광합성과 목재 형성, 탄소 저장을 설명하는 좋은 자료입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">숲의 천이란?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">1. 시간이 지나며 식생과 군집이 바뀌는 과정</li>
+    <li onclick="answer(this,'q18','2')">2. 나무를 베는 기술</li>
+    <li onclick="answer(this,'q18','3')">3. 곤충 채집법</li>
+    <li onclick="answer(this,'q18','4')">4. 로프 설치법</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">정답: 1번</div>
+    <div>천이는 토양, 빛, 교란, 관리 등에 따라 숲이 변화하는 과정입니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 3. 산림조사 도구 (19~25번)</div>
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">1차 천이의 출발로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">1. 식물이 없는 암석·모래 등</li>
+    <li onclick="answer(this,'q19','2')">2. 기존 숲의 산불 이후</li>
+    <li onclick="answer(this,'q19','3')">3. 성숙한 참나무 숲</li>
+    <li onclick="answer(this,'q19','4')">4. 도시 공원 잔디밭</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">정답: 1번</div>
+    <div>1차 천이는 토양과 생물이 거의 없는 곳에서 시작해 생태계가 만들어지는 과정입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">2차 천이에 해당하는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">1. 산불·벌채 뒤 기존 생태계가 회복되는 과정</li>
+    <li onclick="answer(this,'q20','2')">2. 암석에서 처음 시작</li>
+    <li onclick="answer(this,'q20','3')">3. 나무 높이 측정</li>
+    <li onclick="answer(this,'q20','4')">4. 매듭 실습</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">정답: 1번</div>
+    <div>2차 천이는 기존 생태계가 교란된 뒤 회복되는 흐름입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">천이 흐름에서 소나무 양수림 뒤에 들어오기 쉬운 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">1. 참나무류 음수림</li>
+    <li onclick="answer(this,'q21','2')">2. 한해살이풀만 영구 유지</li>
+    <li onclick="answer(this,'q21','3')">3. 수서생물</li>
+    <li onclick="answer(this,'q21','4')">4. 대나무만</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">정답: 1번</div>
+    <div>시간이 지나면 양수림에서 참나무류 등 그늘에 강한 수종으로 바뀌는 흐름을 설명합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">윤척의 용도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">1. 나무 직경 측정</li>
+    <li onclick="answer(this,'q22','2')">2. 나무 높이 측정</li>
+    <li onclick="answer(this,'q22','3')">3. 나이테 코어 채취</li>
+    <li onclick="answer(this,'q22','4')">4. 잎 색 기록</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">정답: 1번</div>
+    <div>윤척은 흉고직경 등 나무의 직경을 재는 도구입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">흉고직경 측정 높이로 정리본에 나온 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">1. 지상 약 1.2m</li>
+    <li onclick="answer(this,'q23','2')">2. 지상 10cm</li>
+    <li onclick="answer(this,'q23','3')">3. 나무 꼭대기</li>
+    <li onclick="answer(this,'q23','4')">4. 뿌리 아래</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">정답: 1번</div>
+    <div>흉고직경은 지상 약 1.2m 높이에서 측정한다고 정리되어 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">측고기의 용도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">1. 나무 높이 측정</li>
+    <li onclick="answer(this,'q24','2')">2. 로프 굵기 측정</li>
+    <li onclick="answer(this,'q24','3')">3. 동물 발자국 측정</li>
+    <li onclick="answer(this,'q24','4')">4. 꽃잎 수 측정</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">정답: 1번</div>
+    <div>측고기는 거리와 각도를 이용해 나무 높이를 재는 도구입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">생장추의 용도는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">1. 나무를 베지 않고 나이테 코어를 확인</li>
+    <li onclick="answer(this,'q25','2')">2. 나무를 베는 도구</li>
+    <li onclick="answer(this,'q25','3')">3. 잎을 말리는 도구</li>
+    <li onclick="answer(this,'q25','4')">4. 곤충을 잡는 도구</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">정답: 1번</div>
+    <div>생장추는 나무를 베지 않고 코어를 뽑아 나이테와 생장 상태를 확인하는 도구입니다.</div>
+  </div>
+</div>
+<div style="text-align:center;padding:20px 0 30px"><button class="btn-reset" onclick="resetAll()">처음부터 다시</button></div>
+<p style="text-align:center;font-size:12px;color:#888;padding-bottom:20px">정리본 기반 기출문제집 | 생성: 2026-07-15</p>
+</div>
+<script>
+let correctCount=0;let wrongCount=0;const answers={q1:'1', q2:'1', q3:'1', q4:'1', q5:'1', q6:'1', q7:'2', q8:'3', q9:'1', q10:'1', q11:'1', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';}
+function resetAll(){correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}
+</script>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>

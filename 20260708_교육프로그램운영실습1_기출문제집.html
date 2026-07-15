@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교육프로그램운영실습1 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.8;color:#222;background:#f0f7f2}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d6a4f,#40916c);color:white;padding:28px 24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.88}
+.score-board{background:white;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-item .label{font-size:12px;color:#666}
+.score-item .value{font-size:22px;font-weight:700;color:#2d6a4f}
+.section-header{background:#2d6a4f;color:white;padding:10px 18px;border-radius:8px;margin:20px 0 12px;font-weight:700;font-size:15px}
+.question-card{background:white;border-radius:10px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.question-num{font-size:12px;color:#888;margin-bottom:4px}
+.question-text{font-weight:700;font-size:15px;margin-bottom:12px;color:#1b4332}
+.options{list-style:none;display:flex;flex-direction:column;gap:6px}
+.options li{padding:8px 14px;border:1.5px solid #b7e4c7;border-radius:7px;cursor:pointer;font-size:14px;transition:background .15s,border-color .15s}
+.options li:hover{background:#f0fdf4;border-color:#40916c}
+.options li.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:700}
+.options li.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.options li.disabled{cursor:default;pointer-events:none}
+.answer-box{display:none;background:#f0fdf4;border-left:4px solid #40916c;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:13px;color:#1b4332}
+.answer-box .ans-label{font-weight:700;margin-bottom:4px}
+.star-hint{color:#b45309;font-size:12px;margin-left:6px}
+.btn-reset{background:#2d6a4f;color:white;border:0;padding:10px 22px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-reset:hover{background:#1b4332}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
+@media print{.forest-back-link{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link"><a href="forest.html?k=yyj1201#subject-19">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>교육프로그램운영실습1 — 기출문제집</h1><div class="meta">총 25문항 | 클릭하면 정답 확인 | 정리본 기반</div></header>
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+<div class="section-header">Part 1. 실습 운영 기본 (1~8번)</div>
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">교육프로그램운영실습1의 핵심 목적은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">1. 실제 현장 운영 흐름을 이해하고 실습하는 것</li>
+    <li onclick="answer(this,'q1','2')">2. 이론 용어만 암기하는 것</li>
+    <li onclick="answer(this,'q1','3')">3. 장비 판매 방법 학습</li>
+    <li onclick="answer(this,'q1','4')">4. 개별 등산 기록 측정</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">정답: 1번</div>
+    <div>운영실습은 실제 숲해설 프로그램의 준비, 진행, 관찰, 평가 흐름을 익히는 데 목적이 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">현장 실습 전 가장 먼저 확인할 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">1. 실습 장소와 대상, 시간, 안전 조건</li>
+    <li onclick="answer(this,'q2','2')">2. 점심 메뉴</li>
+    <li onclick="answer(this,'q2','3')">3. 사진 필터</li>
+    <li onclick="answer(this,'q2','4')">4. 참가자 순위</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">정답: 1번</div>
+    <div>실습 준비는 대상·장소·시간·안전 조건 확인에서 시작합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">프로그램 운영에서 대상자 파악이 필요한 이유는?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">1. 난이도와 활동 방식을 맞추기 위해</li>
+    <li onclick="answer(this,'q3','2')">2. 진행자를 돋보이게 하기 위해</li>
+    <li onclick="answer(this,'q3','3')">3. 자료를 줄이기 위해</li>
+    <li onclick="answer(this,'q3','4')">4. 출석부를 없애기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">정답: 1번</div>
+    <div>대상자 특성을 알아야 활동 수준, 언어, 이동 동선, 안전 기준을 맞출 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">운영 실습에서 지도자의 역할로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">1. 참여와 안전을 동시에 살피는 조력자</li>
+    <li onclick="answer(this,'q4','2')">2. 혼자 말하는 강사만</li>
+    <li onclick="answer(this,'q4','3')">3. 감독관만</li>
+    <li onclick="answer(this,'q4','4')">4. 참가자 대신 활동하는 사람</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">정답: 1번</div>
+    <div>숲해설사는 설명자이면서 안전 관리자, 참여 촉진자 역할을 함께 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">도입 활동의 주된 목적은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">1. 긴장을 낮추고 주제에 관심을 갖게 하기</li>
+    <li onclick="answer(this,'q5','2')">2. 가장 어려운 내용을 바로 설명하기</li>
+    <li onclick="answer(this,'q5','3')">3. 평가부터 실시하기</li>
+    <li onclick="answer(this,'q5','4')">4. 활동을 끝내기</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">정답: 1번</div>
+    <div>도입은 관계 형성과 관심 유도가 핵심입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">실습 프로그램에서 시간 배분이 중요한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">1. 도입·전개·마무리 흐름을 안정적으로 운영하기 위해</li>
+    <li onclick="answer(this,'q6','2')">2. 빨리 끝내기 위해</li>
+    <li onclick="answer(this,'q6','3')">3. 질문을 없애기 위해</li>
+    <li onclick="answer(this,'q6','4')">4. 기록을 생략하기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">정답: 1번</div>
+    <div>시간 배분이 맞아야 핵심 활동과 마무리 평가가 빠지지 않습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">운영 실습에서 조 편성이 필요한 경우 고려할 점은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">1. 인원, 연령, 관계, 활동 난이도</li>
+    <li onclick="answer(this,'q7','2')">2. 키 순서만</li>
+    <li onclick="answer(this,'q7','3')">3. 옷 색깔만</li>
+    <li onclick="answer(this,'q7','4')">4. 무작위가 항상 최선</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">정답: 1번</div>
+    <div>조 편성은 참여 기회와 안전, 협동 흐름을 고려해 정합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">현장 안내 시 반드시 포함할 내용은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">1. 안전 수칙과 이동 범위</li>
+    <li onclick="answer(this,'q8','2')">2. 개인 정보 공개</li>
+    <li onclick="answer(this,'q8','3')">3. 불필요한 농담만</li>
+    <li onclick="answer(this,'q8','4')">4. 전문용어 목록</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">정답: 1번</div>
+    <div>참가자가 지켜야 할 안전 행동과 이동 범위를 분명히 안내해야 합니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 2. 현장 관찰과 안전 (9~17번)</div>
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">현장 관찰의 핵심 태도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">1. 참가자 반응과 자연 요소를 함께 살핀다</li>
+    <li onclick="answer(this,'q9','2')">2. 정해진 대본만 본다</li>
+    <li onclick="answer(this,'q9','3')">3. 참가자 질문을 무시한다</li>
+    <li onclick="answer(this,'q9','4')">4. 위험 요소를 나중에 본다</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장에서는 자연 상황과 참가자 반응을 동시에 관찰하며 진행을 조정합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">비가 오거나 기상 조건이 나쁠 때 적절한 대응은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">1. 안전 기준에 따라 코스나 활동을 조정한다</li>
+    <li onclick="answer(this,'q10','2')">2. 무조건 예정대로 진행</li>
+    <li onclick="answer(this,'q10','3')">3. 안내 없이 취소</li>
+    <li onclick="answer(this,'q10','4')">4. 참가자에게 판단을 맡김</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">정답: 1번</div>
+    <div>날씨 변화는 안전과 직접 연결되므로 대체 활동과 코스 조정이 필요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">실습 중 위험 요소를 발견했을 때 가장 먼저 할 일은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">1. 활동을 멈추거나 동선을 조정해 안전 확보</li>
+    <li onclick="answer(this,'q11','2')">2. 사진 촬영</li>
+    <li onclick="answer(this,'q11','3')">3. 그대로 진행</li>
+    <li onclick="answer(this,'q11','4')">4. 나중에 기록만</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">정답: 1번</div>
+    <div>위험 발견 시 즉시 안전을 확보하고 필요하면 활동을 조정해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">참가자 반응이 예상과 다를 때 운영자는 어떻게 해야 하는가?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">1. 난이도와 설명 방식을 조정한다</li>
+    <li onclick="answer(this,'q12','2')">2. 무조건 계획만 고수한다</li>
+    <li onclick="answer(this,'q12','3')">3. 참가자를 탓한다</li>
+    <li onclick="answer(this,'q12','4')">4. 활동을 모두 생략한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장 운영은 계획을 바탕으로 하되 대상 반응에 맞춰 유연하게 조정합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">자연물 활동에서 지켜야 할 원칙은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">1. 생명 존중과 최소 훼손</li>
+    <li onclick="answer(this,'q13','2')">2. 많이 채집하기</li>
+    <li onclick="answer(this,'q13','3')">3. 희귀종 우선 사용</li>
+    <li onclick="answer(this,'q13','4')">4. 활동 후 방치</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">정답: 1번</div>
+    <div>숲해설 활동은 자연 훼손을 줄이고 생태 윤리를 지켜야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">실습 지도자가 질문을 던지는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">1. 관찰과 사고를 유도하기 위해</li>
+    <li onclick="answer(this,'q14','2')">2. 정답을 강요하기 위해</li>
+    <li onclick="answer(this,'q14','3')">3. 시간을 끌기 위해</li>
+    <li onclick="answer(this,'q14','4')">4. 참가자를 평가절하하기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">정답: 1번</div>
+    <div>질문은 참가자가 직접 보고 생각하게 만드는 핵심 도구입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">활동 자료를 준비할 때 중요한 점은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">1. 현장 이동성과 내구성</li>
+    <li onclick="answer(this,'q15','2')">2. 무조건 크고 무거움</li>
+    <li onclick="answer(this,'q15','3')">3. 한 번 쓰고 버림</li>
+    <li onclick="answer(this,'q15','4')">4. 자연과 무관한 화려함</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장 자료는 들고 이동하기 쉽고 반복 사용 가능해야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">실습에서 기록을 남기는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">1. 운영 결과를 평가하고 다음 개선에 활용하기 위해</li>
+    <li onclick="answer(this,'q16','2')">2. 보여주기용으로만</li>
+    <li onclick="answer(this,'q16','3')">3. 참가자를 비교하기 위해</li>
+    <li onclick="answer(this,'q16','4')">4. 자료를 감추기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">정답: 1번</div>
+    <div>기록은 활동 흐름, 반응, 문제점, 개선점을 남기는 근거입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">운영 후 평가에서 확인할 내용은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">1. 목표 달성, 안전, 참여도, 개선점</li>
+    <li onclick="answer(this,'q17','2')">2. 진행자 만족만</li>
+    <li onclick="answer(this,'q17','3')">3. 사진 수량만</li>
+    <li onclick="answer(this,'q17','4')">4. 시간 초과만</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">정답: 1번</div>
+    <div>평가는 목표, 대상 반응, 안전, 운영 흐름을 함께 점검해야 합니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 3. 기록·평가·운영 팁 (18~25번)</div>
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">마무리 활동의 좋은 방식은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">1. 소감 나누기와 되새김 질문</li>
+    <li onclick="answer(this,'q18','2')">2. 갑자기 종료</li>
+    <li onclick="answer(this,'q18','3')">3. 새로운 어려운 내용 시작</li>
+    <li onclick="answer(this,'q18','4')">4. 평가 없이 해산</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">정답: 1번</div>
+    <div>마무리는 경험을 정리하고 학습을 자기 언어로 바꾸는 시간입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">운영 실습에서 피드백을 받을 때 적절한 태도는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">1. 개선 자료로 받아들인다</li>
+    <li onclick="answer(this,'q19','2')">2. 방어적으로 무시한다</li>
+    <li onclick="answer(this,'q19','3')">3. 기록하지 않는다</li>
+    <li onclick="answer(this,'q19','4')">4. 다른 사람 탓만 한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">정답: 1번</div>
+    <div>피드백은 다음 운영을 개선하는 중요한 학습 자료입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">좋은 진행 멘트의 조건은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">1. 짧고 분명하며 대상자 언어에 맞음</li>
+    <li onclick="answer(this,'q20','2')">2. 길고 추상적임</li>
+    <li onclick="answer(this,'q20','3')">3. 전문용어만 사용</li>
+    <li onclick="answer(this,'q20','4')">4. 항상 같은 속도</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장 멘트는 대상자가 바로 이해하고 행동할 수 있어야 합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">현장 코스 설계에서 휴식 지점을 고려하는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">1. 참가자 체력과 안전을 배려하기 위해</li>
+    <li onclick="answer(this,'q21','2')">2. 프로그램을 느슨하게 만들기 위해</li>
+    <li onclick="answer(this,'q21','3')">3. 활동을 줄이기 위해</li>
+    <li onclick="answer(this,'q21','4')">4. 사진만 찍기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">정답: 1번</div>
+    <div>휴식 지점은 연령과 체력, 날씨, 화장실·음수대 접근성과 관련됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">실습생의 태도로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">1. 관찰하고 질문하며 적극적으로 참여한다</li>
+    <li onclick="answer(this,'q22','2')">2. 방관한다</li>
+    <li onclick="answer(this,'q22','3')">3. 기록하지 않는다</li>
+    <li onclick="answer(this,'q22','4')">4. 안전 수칙을 무시한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">정답: 1번</div>
+    <div>실습은 직접 참여와 관찰, 기록을 통해 운영 감각을 익히는 과정입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">프로그램 운영에서 유연성이 필요한 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">1. 현장 변수와 참가자 반응이 달라질 수 있기 때문</li>
+    <li onclick="answer(this,'q23','2')">2. 계획이 필요 없기 때문</li>
+    <li onclick="answer(this,'q23','3')">3. 안전을 생략하기 위해</li>
+    <li onclick="answer(this,'q23','4')">4. 평가를 피하기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">정답: 1번</div>
+    <div>숲 현장은 날씨, 참가자, 자연 상태가 달라지므로 유연한 조정이 필요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">실습 프로그램의 성공 기준으로 가장 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">1. 참가자가 안전하게 참여하고 핵심 경험을 얻는 것</li>
+    <li onclick="answer(this,'q24','2')">2. 진행자가 모든 말을 끝내는 것</li>
+    <li onclick="answer(this,'q24','3')">3. 정해진 자료를 모두 읽는 것</li>
+    <li onclick="answer(this,'q24','4')">4. 사진을 많이 남기는 것</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">정답: 1번</div>
+    <div>운영의 목적은 안전한 참여와 의미 있는 경험입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">교육프로그램운영실습1의 핵심 정리로 맞는 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">1. 준비–진행–관찰–평가의 현장 운영 흐름을 익힌다</li>
+    <li onclick="answer(this,'q25','2')">2. 나무 이름만 외운다</li>
+    <li onclick="answer(this,'q25','3')">3. 장비만 구입한다</li>
+    <li onclick="answer(this,'q25','4')">4. 실내 시험만 본다</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">정답: 1번</div>
+    <div>실습1은 숲해설 프로그램의 실제 운영 과정을 익히는 과목입니다.</div>
+  </div>
+</div>
+<div style="text-align:center;padding:20px 0 30px"><button class="btn-reset" onclick="resetAll()">처음부터 다시</button></div>
+<p style="text-align:center;font-size:12px;color:#888;padding-bottom:20px">정리본 기반 기출문제집 | 생성: 2026-07-15</p>
+</div>
+<script>
+let correctCount=0;let wrongCount=0;const answers={q1:'1', q2:'1', q3:'1', q4:'1', q5:'1', q6:'1', q7:'1', q8:'1', q9:'1', q10:'1', q11:'1', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';}
+function resetAll(){correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}
+</script>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>숲해설프로그램개발 — 기출문제집</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;font-size:15px;line-height:1.8;color:#222;background:#f0f7f2}
+.container{max-width:900px;margin:0 auto;padding:20px}
+header{background:linear-gradient(135deg,#2d6a4f,#40916c);color:white;padding:28px 24px;border-radius:12px;margin-bottom:24px}
+header h1{font-size:22px;font-weight:700;margin-bottom:6px}
+header .meta{font-size:13px;opacity:.88}
+.score-board{background:white;border-radius:10px;padding:16px 20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.score-item{text-align:center}
+.score-item .label{font-size:12px;color:#666}
+.score-item .value{font-size:22px;font-weight:700;color:#2d6a4f}
+.section-header{background:#2d6a4f;color:white;padding:10px 18px;border-radius:8px;margin:20px 0 12px;font-weight:700;font-size:15px}
+.question-card{background:white;border-radius:10px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.question-num{font-size:12px;color:#888;margin-bottom:4px}
+.question-text{font-weight:700;font-size:15px;margin-bottom:12px;color:#1b4332}
+.options{list-style:none;display:flex;flex-direction:column;gap:6px}
+.options li{padding:8px 14px;border:1.5px solid #b7e4c7;border-radius:7px;cursor:pointer;font-size:14px;transition:background .15s,border-color .15s}
+.options li:hover{background:#f0fdf4;border-color:#40916c}
+.options li.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:700}
+.options li.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.options li.disabled{cursor:default;pointer-events:none}
+.answer-box{display:none;background:#f0fdf4;border-left:4px solid #40916c;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:13px;color:#1b4332}
+.answer-box .ans-label{font-weight:700;margin-bottom:4px}
+.star-hint{color:#b45309;font-size:12px;margin-left:6px}
+.btn-reset{background:#2d6a4f;color:white;border:0;padding:10px 22px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-reset:hover{background:#1b4332}
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6}
+.forest-back-link a:hover{background:#e7f5eb}
+@media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
+@media print{.forest-back-link{display:none!important}}
+</style>
+</head>
+<body>
+<div class="forest-back-link"><a href="forest.html?k=yyj1201#subject-18">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<header><h1>숲해설프로그램개발 — 기출문제집</h1><div class="meta">총 25문항 | 클릭하면 정답 확인 | 정리본 기반</div></header>
+<div class="score-board">
+  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
+  <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626">0</div></div>
+  <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
+  <button class="btn-reset" onclick="resetAll()">처음부터</button>
+</div>
+<div class="section-header">Part 1. 해설과 프로그램 개발 (1~8번)</div>
+<div class="question-card" id="q1">
+  <div class="question-num">1번</div>
+  <div class="question-text">숲해설의 핵심으로 가장 적절한 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q1','1')">1. 식물명 암기만 전달</li>
+    <li onclick="answer(this,'q1','2')">2. 식물과 장소의 의미를 스토리텔링으로 전달</li>
+    <li onclick="answer(this,'q1','3')">3. 빠르게 이동하기</li>
+    <li onclick="answer(this,'q1','4')">4. 정답만 알려주기</li>
+  </ul>
+  <div class="answer-box" id="ans-q1">
+    <div class="ans-label">정답: 2번</div>
+    <div>숲해설은 단순 지식 전달이 아니라 자연과 장소가 가진 의미를 이야기로 연결하는 활동입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q2">
+  <div class="question-num">2번</div>
+  <div class="question-text">프로그램 개발의 기본 흐름으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q2','1')">1. 대상자 이해 → 주제 설정 → 장소 기획 → 진행 방법 구체화 → 실행 → 평가</li>
+    <li onclick="answer(this,'q2','2')">2. 평가 → 실행 → 대상자 이해</li>
+    <li onclick="answer(this,'q2','3')">3. 장소 선정 → 즉시 실행 → 주제 생략</li>
+    <li onclick="answer(this,'q2','4')">4. 교구 구입 → 홍보 → 종료</li>
+  </ul>
+  <div class="answer-box" id="ans-q2">
+    <div class="ans-label">정답: 1번</div>
+    <div>정리본의 핵심 개발 순서는 대상자 이해에서 시작해 평가로 마무리됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q3">
+  <div class="question-num">3번</div>
+  <div class="question-text">프로그램 기획 단계에서 중요하게 담아야 할 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q3','1')">1. 교육적·철학적·역사적 맥락</li>
+    <li onclick="answer(this,'q3','2')">2. 진행자 취향만</li>
+    <li onclick="answer(this,'q3','3')">3. 이동 거리만</li>
+    <li onclick="answer(this,'q3','4')">4. 사진 배경만</li>
+  </ul>
+  <div class="answer-box" id="ans-q3">
+    <div class="ans-label">정답: 1번</div>
+    <div>기획은 깊이 있게, 운영은 재미있게 구성하는 것이 핵심입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q4">
+  <div class="question-num">4번</div>
+  <div class="question-text">실제 운영 단계에서 우선해야 할 요소는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q4','1')">1. 재미와 참여</li>
+    <li onclick="answer(this,'q4','2')">2. 긴 이론 강의</li>
+    <li onclick="answer(this,'q4','3')">3. 자료 분량</li>
+    <li onclick="answer(this,'q4','4')">4. 전문용어</li>
+  </ul>
+  <div class="answer-box" id="ans-q4">
+    <div class="ans-label">정답: 1번</div>
+    <div>현장 운영에서는 대상자가 몰입할 수 있는 재미와 참여성이 중요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q5">
+  <div class="question-num">5번</div>
+  <div class="question-text">좋은 소재를 얻는 태도로 알맞은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q5','1')">1. 평소 관찰과 관심을 지속한다</li>
+    <li onclick="answer(this,'q5','2')">2. 필요할 때만 급히 찾는다</li>
+    <li onclick="answer(this,'q5','3')">3. 주변 소재를 무시한다</li>
+    <li onclick="answer(this,'q5','4')">4. 인터넷 자료만 그대로 읽는다</li>
+  </ul>
+  <div class="answer-box" id="ans-q5">
+    <div class="ans-label">정답: 1번</div>
+    <div>좋은 숲해설 소재는 평소 관찰과 관심에서 나옵니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q6">
+  <div class="question-num">6번</div>
+  <div class="question-text">숲과 신화를 도입에 활용하는 이유는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q6','1')">1. 인간과 자연의 연결성을 큰 틀에서 공감시키기 위해</li>
+    <li onclick="answer(this,'q6','2')">2. 종교 논쟁을 만들기 위해</li>
+    <li onclick="answer(this,'q6','3')">3. 시간을 때우기 위해</li>
+    <li onclick="answer(this,'q6','4')">4. 식물명을 생략하기 위해</li>
+  </ul>
+  <div class="answer-box" id="ans-q6">
+    <div class="ans-label">정답: 1번</div>
+    <div>단군신화, 계림, 세계수 등은 인간과 숲의 오래된 연결을 설명하는 도입 소재가 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q7">
+  <div class="question-num">7번</div>
+  <div class="question-text">산림 이용문화의 변화 흐름으로 맞는 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q7','1')">1. 목재 생산 → 다목적 이용 → 공익 기능 → 통합적 이용·생태서비스</li>
+    <li onclick="answer(this,'q7','2')">2. 생태서비스 → 목재 생산 → 공익 기능</li>
+    <li onclick="answer(this,'q7','3')">3. 휴양만 → 벌채만</li>
+    <li onclick="answer(this,'q7','4')">4. 변화 없음</li>
+  </ul>
+  <div class="answer-box" id="ans-q7">
+    <div class="ans-label">정답: 1번</div>
+    <div>산림 이용은 목재 중심에서 공익 기능과 생태서비스 중심으로 확장되었습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q8">
+  <div class="question-num">8번</div>
+  <div class="question-text">산림복지서비스 4가지 영역에 해당하지 않는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q8','1')">1. 산림휴양서비스</li>
+    <li onclick="answer(this,'q8','2')">2. 산림교육서비스</li>
+    <li onclick="answer(this,'q8','3')">3. 산림치유서비스</li>
+    <li onclick="answer(this,'q8','4')">4. 광산개발서비스</li>
+  </ul>
+  <div class="answer-box" id="ans-q8">
+    <div class="ans-label">정답: 4번</div>
+    <div>산림복지서비스는 산림휴양, 산림교육, 산림치유, 산림문화서비스로 정리됩니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 2. 대상·장소·사례 (9~18번)</div>
+<div class="question-card" id="q9">
+  <div class="question-num">9번</div>
+  <div class="question-text">틸든의 해설 6원칙에 포함되는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q9','1')">1. 관련성</li>
+    <li onclick="answer(this,'q9','2')">2. 무관심</li>
+    <li onclick="answer(this,'q9','3')">3. 정보 은폐</li>
+    <li onclick="answer(this,'q9','4')">4. 대상 무시</li>
+  </ul>
+  <div class="answer-box" id="ans-q9">
+    <div class="ans-label">정답: 1번</div>
+    <div>틸든의 원칙에는 관련성, 정보와 해설의 차이, 예술성, 도발성, 전체상, 대상별 차별화가 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q10">
+  <div class="question-num">10번</div>
+  <div class="question-text">정보와 해설의 차이를 바르게 설명한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q10','1')">1. 정보는 사실 나열, 해설은 숨은 의미를 드러냄</li>
+    <li onclick="answer(this,'q10','2')">2. 해설은 사실을 쓰지 않음</li>
+    <li onclick="answer(this,'q10','3')">3. 정보와 해설은 완전히 동일</li>
+    <li onclick="answer(this,'q10','4')">4. 정보는 항상 틀림</li>
+  </ul>
+  <div class="answer-box" id="ans-q10">
+    <div class="ans-label">정답: 1번</div>
+    <div>해설은 단순 정보에 의미와 관계, 맥락을 더하는 과정입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q11">
+  <div class="question-num">11번</div>
+  <div class="question-text">대상자 분석에 포함할 내용이 아닌 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q11','1')">1. 연령·인원·목적</li>
+    <li onclick="answer(this,'q11','2')">2. 신체·정서 특성</li>
+    <li onclick="answer(this,'q11','3')">3. 이전 경험과 요구사항</li>
+    <li onclick="answer(this,'q11','4')">4. 진행자의 점심 메뉴</li>
+  </ul>
+  <div class="answer-box" id="ans-q11">
+    <div class="ans-label">정답: 4번</div>
+    <div>대상자 분석은 프로그램 난이도, 안전, 동선, 활동 방식을 정하는 근거입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q12">
+  <div class="question-num">12번</div>
+  <div class="question-text">조현병 환자 대상 프로그램 사례에서 고려한 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q12','1')">1. 약 복용으로 인한 갈증, 음수대와 화장실 위치</li>
+    <li onclick="answer(this,'q12','2')">2. 나무 이름 시험</li>
+    <li onclick="answer(this,'q12','3')">3. 빠른 등산</li>
+    <li onclick="answer(this,'q12','4')">4. 채집 경쟁</li>
+  </ul>
+  <div class="answer-box" id="ans-q12">
+    <div class="ans-label">정답: 1번</div>
+    <div>대상자 이해는 안전과 존중의 문제이며 음수대·화장실 같은 실제 배려가 필요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q13">
+  <div class="question-num">13번</div>
+  <div class="question-text">장소 사전조사에서 확인할 항목은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q13','1')">1. 노면 상태, 법정구역, 시설물, 위험 요소</li>
+    <li onclick="answer(this,'q13','2')">2. 참가자 취향만</li>
+    <li onclick="answer(this,'q13','3')">3. 날씨와 무관</li>
+    <li onclick="answer(this,'q13','4')">4. 사진 촬영 각도만</li>
+  </ul>
+  <div class="answer-box" id="ans-q13">
+    <div class="ans-label">정답: 1번</div>
+    <div>장소 조사는 교육 목표, 안전, 접근성, 이동 흐름을 함께 고려합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q14">
+  <div class="question-num">14번</div>
+  <div class="question-text">장소 기록 방법으로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q14','1')">1. 기점·분기점·GPS 번호와 사진 기록</li>
+    <li onclick="answer(this,'q14','2')">2. 기억에만 의존</li>
+    <li onclick="answer(this,'q14','3')">3. 마지막에 대충 작성</li>
+    <li onclick="answer(this,'q14','4')">4. 참가자에게 맡김</li>
+  </ul>
+  <div class="answer-box" id="ans-q14">
+    <div class="ans-label">정답: 1번</div>
+    <div>기점(P1), 분기점(O1), GPS 번호와 사진을 기록하면 코스 관리에 도움이 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q15">
+  <div class="question-num">15번</div>
+  <div class="question-text">전주 숲속 탐험대 사례의 특징은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q15','1')">1. 지속적·체계적 환경교육</li>
+    <li onclick="answer(this,'q15','2')">2. 일회성 실내 강의</li>
+    <li onclick="answer(this,'q15','3')">3. 성인 대상 회계 교육</li>
+    <li onclick="answer(this,'q15','4')">4. 장비 판매 행사</li>
+  </ul>
+  <div class="answer-box" id="ans-q15">
+    <div class="ans-label">정답: 1번</div>
+    <div>전주 숲속 탐험대는 초등학생을 대상으로 1년간 지속 운영된 환경교육 사례입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q16">
+  <div class="question-num">16번</div>
+  <div class="question-text">전주 숲속 탐험대에서 활용한 교육 방법으로 맞는 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q16','1')">1. 빗물 침투 실험, 토양 답압 비유 실험</li>
+    <li onclick="answer(this,'q16','2')">2. 정답만 암기</li>
+    <li onclick="answer(this,'q16','3')">3. 강의실 필기만</li>
+    <li onclick="answer(this,'q16','4')">4. 모든 장소 생략</li>
+  </ul>
+  <div class="answer-box" id="ans-q16">
+    <div class="ans-label">정답: 1번</div>
+    <div>실험과 활동지를 통해 이야기를 체험으로 연결했습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q17">
+  <div class="question-num">17번</div>
+  <div class="question-text">프로그램 평가 단계의 의미는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q17','1')">1. 마무리와 다음 개선으로 이어지는 필수 단계</li>
+    <li onclick="answer(this,'q17','2')">2. 선택 사항이라 항상 생략</li>
+    <li onclick="answer(this,'q17','3')">3. 처음에만 하는 절차</li>
+    <li onclick="answer(this,'q17','4')">4. 홍보 문구 작성</li>
+  </ul>
+  <div class="answer-box" id="ans-q17">
+    <div class="ans-label">정답: 1번</div>
+    <div>평가는 프로그램을 마무리하고 개선점을 찾는 중요한 단계입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q18">
+  <div class="question-num">18번</div>
+  <div class="question-text">한 소재를 도입–전개–절정–마무리로 구성할 때 절정 단계의 역할은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q18','1')">1. 가장 몰입도 높은 활동 배치</li>
+    <li onclick="answer(this,'q18','2')">2. 출석 확인</li>
+    <li onclick="answer(this,'q18','3')">3. 자료 배부만</li>
+    <li onclick="answer(this,'q18','4')">4. 코스 종료 후 청소만</li>
+  </ul>
+  <div class="answer-box" id="ans-q18">
+    <div class="ans-label">정답: 1번</div>
+    <div>절정 단계에는 참가자의 몰입이 가장 높은 핵심 활동을 배치합니다.</div>
+  </div>
+</div>
+<div class="section-header">Part 3. 구성과 운영 팁 (19~25번)</div>
+<div class="question-card" id="q19">
+  <div class="question-num">19번</div>
+  <div class="question-text">도입 단계에서 중요한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q19','1')">1. 관심 유도와 관계 형성</li>
+    <li onclick="answer(this,'q19','2')">2. 복잡한 설명부터 시작</li>
+    <li onclick="answer(this,'q19','3')">3. 평가표 작성</li>
+    <li onclick="answer(this,'q19','4')">4. 긴 법률 강의</li>
+  </ul>
+  <div class="answer-box" id="ans-q19">
+    <div class="ans-label">정답: 1번</div>
+    <div>도입은 흥미와 참여를 먼저 열어주는 단계입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q20">
+  <div class="question-num">20번</div>
+  <div class="question-text">마무리 단계에서 해야 할 일은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q20','1')">1. 정리, 소감, 되새김, 평가</li>
+    <li onclick="answer(this,'q20','2')">2. 새 주제 시작</li>
+    <li onclick="answer(this,'q20','3')">3. 가장 어려운 활동 시작</li>
+    <li onclick="answer(this,'q20','4')">4. 참가자 질문 차단</li>
+  </ul>
+  <div class="answer-box" id="ans-q20">
+    <div class="ans-label">정답: 1번</div>
+    <div>마무리는 경험을 자기 언어로 정리하고 평가로 이어지는 단계입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q21">
+  <div class="question-num">21번</div>
+  <div class="question-text">시나리오 작성 연습의 장점은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q21','1')">1. 반복 표현과 장황한 부분을 점검할 수 있다</li>
+    <li onclick="answer(this,'q21','2')">2. 현장에서 반드시 읽기만 한다</li>
+    <li onclick="answer(this,'q21','3')">3. 즉흥성을 완전히 없앤다</li>
+    <li onclick="answer(this,'q21','4')">4. 소재 조사를 생략한다</li>
+  </ul>
+  <div class="answer-box" id="ans-q21">
+    <div class="ans-label">정답: 1번</div>
+    <div>진행 멘트를 써보고 녹음해 들으면 전달력을 다듬을 수 있습니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q22">
+  <div class="question-num">22번</div>
+  <div class="question-text">교재교구 선택 시 고려할 점은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q22','1')">1. 이동성, 내구성, 자연친화성</li>
+    <li onclick="answer(this,'q22','2')">2. 가격만</li>
+    <li onclick="answer(this,'q22','3')">3. 크기만</li>
+    <li onclick="answer(this,'q22','4')">4. 화려함만</li>
+  </ul>
+  <div class="answer-box" id="ans-q22">
+    <div class="ans-label">정답: 1번</div>
+    <div>교재교구는 교육 목표 달성을 돕는 도구이므로 이동성과 현장성도 중요합니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q23">
+  <div class="question-num">23번</div>
+  <div class="question-text">곤충 게임 사례의 교육적 의미는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q23','1')">1. 놀이 속에서 곤충의 몸 크기와 생존 전략을 체득</li>
+    <li onclick="answer(this,'q23','2')">2. 곤충을 모두 잡는 활동</li>
+    <li onclick="answer(this,'q23','3')">3. 정답표만 외우는 활동</li>
+    <li onclick="answer(this,'q23','4')">4. 실내 장식 만들기</li>
+  </ul>
+  <div class="answer-box" id="ans-q23">
+    <div class="ans-label">정답: 1번</div>
+    <div>나무집게 게임은 곤충의 크기와 포식 회피를 놀이로 이해하게 한 사례입니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q24">
+  <div class="question-num">24번</div>
+  <div class="question-text">소재 발굴 팁으로 적절한 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q24','1')">1. 지역 역사·문화·촬영지·유적을 숲과 연결</li>
+    <li onclick="answer(this,'q24','2')">2. 유명 수종만 사용</li>
+    <li onclick="answer(this,'q24','3')">3. 지역 소재 배제</li>
+    <li onclick="answer(this,'q24','4')">4. 새 자료만 고집</li>
+  </ul>
+  <div class="answer-box" id="ans-q24">
+    <div class="ans-label">정답: 1번</div>
+    <div>지역의 역사와 문화 요소를 자연과 연결하면 풍부한 해설 소재가 됩니다.</div>
+  </div>
+</div>
+<div class="question-card" id="q25">
+  <div class="question-num">25번</div>
+  <div class="question-text">숲해설프로그램개발의 운영 핵심 문장으로 맞는 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q25','1')">1. 기획은 깊이 있게, 진행은 재미있게</li>
+    <li onclick="answer(this,'q25','2')">2. 기획은 생략하고 설명은 길게</li>
+    <li onclick="answer(this,'q25','3')">3. 재미보다 암기만</li>
+    <li onclick="answer(this,'q25','4')">4. 대상자 분석은 불필요</li>
+  </ul>
+  <div class="answer-box" id="ans-q25">
+    <div class="ans-label">정답: 1번</div>
+    <div>정리본의 핵심은 깊이 있는 기획과 재미있는 현장 운영의 균형입니다.</div>
+  </div>
+</div>
+<div style="text-align:center;padding:20px 0 30px"><button class="btn-reset" onclick="resetAll()">처음부터 다시</button></div>
+<p style="text-align:center;font-size:12px;color:#888;padding-bottom:20px">정리본 기반 기출문제집 | 생성: 2026-07-15</p>
+</div>
+<script>
+let correctCount=0;let wrongCount=0;const answers={q1:'2', q2:'1', q3:'1', q4:'1', q5:'1', q6:'1', q7:'1', q8:'4', q9:'1', q10:'1', q11:'4', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';}
+function resetAll(){correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}
+</script>
+<div style="text-align:center;color:#aaa;font-size:.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px">- boasis_lab.(yyj assistant)</div>
+</body>
+</html>
