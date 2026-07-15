@@ -487,7 +487,7 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (PASSWORDS.includes(val)) {
-      showMaint(); err.textContent = '';
+      showMain(); err.textContent = '';
     } else if (val === PW_MAINT) {
       showMain(); err.textContent = '';
     } else {
