@@ -228,6 +228,77 @@
   .card.green { background: var(--green-soft); border-color: #cde8dc; }
   .card.gold { background: var(--gold-soft); border-color: #f0dfb8; }
   .card.violet { background: var(--violet-soft); border-color: #ddd5f2; }
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .resource-card {
+    display: grid;
+    gap: 8px;
+    border: 1px solid #dbe5ef;
+    border-radius: 8px;
+    padding: 16px;
+    background: linear-gradient(180deg, #ffffff, #f8fbff);
+    text-decoration: none;
+    color: inherit;
+    min-height: 132px;
+  }
+  .resource-card:hover {
+    border-color: #9bb9d8;
+    box-shadow: 0 10px 26px rgba(38, 78, 118, 0.12);
+    transform: translateY(-1px);
+  }
+  .resource-card b { color: #173047; font-size: 1rem; }
+  .resource-card small { color: var(--muted); line-height: 1.45; }
+  .resource-card span {
+    color: var(--blue);
+    font-weight: 900;
+    font-size: 0.84rem;
+    align-self: end;
+  }
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  details.coverage {
+    border: 1px solid #e1e8f0;
+    border-radius: 8px;
+    background: #fbfcfe;
+    padding: 0;
+    overflow: hidden;
+  }
+  details.coverage summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 16px;
+    font-weight: 900;
+    color: #21374d;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+  details.coverage summary::-webkit-details-marker { display: none; }
+  details.coverage summary::after {
+    content: '+';
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: #eef4fa;
+    color: var(--blue);
+  }
+  details.coverage[open] summary::after { content: '-'; }
+  .coverage-body {
+    border-top: 1px solid #e1e8f0;
+    padding: 12px 16px 14px;
+    color: #415164;
+  }
+  .coverage-body ul { margin-top: 0; }
+  .coverage-body li { margin: 6px 0; }
   .summary {
     background: #eef4fb;
     border: 1px solid #d5e4f3;
@@ -375,6 +446,7 @@
         <a href="#assign">ASSIGN/ARG</a>
         <a href="#closing">마감</a>
         <a href="#errors">오류</a>
+        <a href="#original-html">기존HTML</a>
         <a href="#sources">원천자료</a>
       </div>
       <a class="home-link" href="index.html">메인으로</a>
@@ -760,6 +832,200 @@
         <div class="source"><b>NPF_분개처리_매핑정리.html</b><small>분개처리 매핑 정리</small></div>
         <div class="source"><b>NPF_분개처리_완전판_PT_v3.html</b><small>분개처리 완전판 발표자료</small></div>
         <div class="source"><b>20260715_journal_training_material.log</b><small>교육자료 생성 작업 로그</small></div>
+      </div>
+    </section>
+
+    <section id="original-html">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Original HTML</div>
+          <h2>14. 기존 HTML 교육자료 원문 바로가기</h2>
+        </div>
+        <span class="meta-pill">기존 페이지 보존</span>
+      </div>
+      <p>
+        아래 4개 HTML은 공유페이지에 이미 존재하던 분개 관련 원문형 페이지입니다.
+        이번 LV4 마스터 페이지는 이 자료들을 보기 좋게 재구성한 허브이고, 세부 문장과 기존 화면 구성은 아래 원문에서 바로 확인할 수 있습니다.
+      </p>
+      <div class="resource-grid">
+        <a class="resource-card" href="journal_education.html">
+          <b>분개장 발생 구조 교육자료</b>
+          <small>거래유형 축과 상품/계정 축이 결합되어 분개장이 만들어지는 구조를 가장 짧고 명확하게 설명한 기초 페이지입니다.</small>
+          <span>열기</span>
+        </a>
+        <a class="resource-card" href="journal_integrated_education.html">
+          <b>회사 분개처리 통합교육자료</b>
+          <small>분개장 발생 구조, 복식부기, 분개모형, ASSIGN/ARG, 원장, 손익, 외화, 마감 흐름을 통합한 기존 본문형 자료입니다.</small>
+          <span>열기</span>
+        </a>
+        <a class="resource-card" href="journal_complete_education.html">
+          <b>회사 분개처리 완전교육자료</b>
+          <small>통합교육자료를 확장해 외화 자산, 검증 포인트, 오류 대응, 핵심 키워드까지 담은 상세 교육 페이지입니다.</small>
+          <span>열기</span>
+        </a>
+        <a class="resource-card" href="npf_journal_er.html">
+          <b>분개모형 ER 다이어그램</b>
+          <small>분개모형 추출 흐름과 참조 테이블 관계를 시각적으로 확인하는 ER 중심 보조 자료입니다.</small>
+          <span>열기</span>
+        </a>
+      </div>
+      <div class="notice" style="margin-top:16px">
+        <b>확인 결과</b>
+        <span>기존 HTML 파일은 삭제되지 않았습니다. 다만 LV4 마스터 페이지 안에 원문 링크와 세부 목차가 부족해서 내용이 빠진 것처럼 보였습니다.</span>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Coverage Check</div>
+          <h2>15. 기존 자료별 세부 목차 반영 확인</h2>
+        </div>
+        <span class="meta-pill">HTML 12개 점검</span>
+      </div>
+      <p>
+        기존 HTML 자료의 주요 제목을 다시 뽑아 확인한 목록입니다. 이 목차를 기준으로 LV4 마스터 본문에 요약 반영했고,
+        원문형 흐름이 필요한 경우 위의 기존 HTML 페이지를 함께 열어 보면 됩니다.
+      </p>
+      <div class="coverage-grid">
+        <details class="coverage" open>
+          <summary>journal_education.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>전체 흐름</li>
+              <li>거래유형 축과 상품/계정 축</li>
+              <li>주요 구성요소 역할</li>
+              <li>처리 순서</li>
+              <li>분개장은 거래유형과 상품/계정 매핑의 결합 결과라는 핵심 문장</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage" open>
+          <summary>journal_integrated_education.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>학습 순서, 분개장 발생 핵심 구조, 전체 처리 흐름</li>
+              <li>분개처리 정의와 목적, 복식부기 기본 원칙</li>
+              <li>분개모형 역할, ASSIGN / ARG 금액 세팅 방식</li>
+              <li>자동분개와 수동분개, 주요 원장과 분개장의 관계</li>
+              <li>평가손익, 환산손익, 매매손익 등 손익 유형</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>journal_complete_education.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개장 발생 핵심 구조와 주요 구성요소 역할</li>
+              <li>복식부기, 분개모형, 자동분개와 수동분개</li>
+              <li>주요 원장과 분개장의 관계, 손익 유형</li>
+              <li>외화 자산 분개 처리</li>
+              <li>일일 처리와 마감 흐름, 검증 포인트, 오류 대응 흐름</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>npf_journal_er.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개모형 추출과정 ER 다이어그램</li>
+              <li>분개모형 추출 흐름</li>
+              <li>참조 테이블 요약</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개처리_교육자료_PPT.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개처리 정의 및 원칙, 분개처리 유형 분류</li>
+              <li>분개장 처리 단계, 원장 반영 전체 흐름</li>
+              <li>분개모형 정의와 설정 절차</li>
+              <li>Assign 방식 vs Argument 방식</li>
+              <li>5대 원장 산출물, 결산 프로세스, 오류 처리, 손익 유형, 핵심 키워드</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개처리_종합교육자료.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개처리 정의, 목적, 전체 흐름</li>
+              <li>복식부기와 차대변 원리, 채권 매입/처분 예시</li>
+              <li>자동분개 vs 수동분개, 분개모형 구조와 설정</li>
+              <li>매핑체인, COA 계정코드 체계, 일일마감 7단계</li>
+              <li>5대 원장, 결산 처리, 손익 유형, 오류처리, 화면번호 가이드, 핵심 키워드</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개처리_완전교육자료.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개 정의와 목적, 전체 흐름</li>
+              <li>거래코드 체계와 분개 연결</li>
+              <li>매핑체인, COA, 분개모형 구조와 설정 실무</li>
+              <li>Assign / Argument 상세, 일일마감, 5대 원장, 결산</li>
+              <li>손익 유형, 외화 자산 분개, 오류처리, 화면번호, 핵심 키워드</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개장_교육자료_통합본_v1.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개를 이해하는 4층위</li>
+              <li>분개장 처리 교육 목차</li>
+              <li>LV3 로컬 전용 통합본 성격의 보강 자료</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개장_발생원리_PT.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개장과 분개의 개념, 분개장 발생 원리</li>
+              <li>자동 전개 파이프라인</li>
+              <li>마스터 정보와 거래코드 컬럼의 스위치 역할</li>
+              <li>관리 화면, 값과 효과, 신규 분개모형 준비 7단계</li>
+              <li>전산적 테이블 구조와 참조 관계</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>분개장_발생원리_교육자료_v2.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개장의 개념과 발생 원리</li>
+              <li>필수정보 관리, 유의사항, 특징</li>
+              <li>거래코드 컬럼의 기능</li>
+              <li>관리 화면별 값과 효과</li>
+              <li>회계모형 발생을 위한 7단계 체크리스트와 테이블 구조</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>NPF_분개처리_매핑정리.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>분개처리 매핑 흐름 정리</li>
+              <li>계정 결정 흐름과 매핑 관점</li>
+              <li>분개처리 관련 코드와 계정 연결 구조</li>
+            </ul>
+          </div>
+        </details>
+        <details class="coverage">
+          <summary>NPF_분개처리_완전판_PT_v3.html</summary>
+          <div class="coverage-body">
+            <ul>
+              <li>회계 분개의 기본과 NPF 코드 체계 4종</li>
+              <li>분개 생성의 7테이블 사슬</li>
+              <li>계정상품코드와 계정속성의 관계</li>
+              <li>채권매수 예시, 채권 vs 주식, 거래처리 엔진</li>
+              <li>전체 종합과 참여 테이블 요약</li>
+            </ul>
+          </div>
+        </details>
       </div>
     </section>
 
