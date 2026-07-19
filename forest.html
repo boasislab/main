@@ -117,6 +117,8 @@
   /* 기출문제 버튼 — 공통 노란 계열 */
   .btn-quiz { border-color: #e8d040; }
   .btn-quiz:hover { border-color: #c9a800; background: #fffde8; }
+  .btn-quiz.is-construction { border-color: #f0b84a; background: #fff8e8; }
+  .btn-quiz.is-construction:hover { border-color: #d99116; background: #fff3d6; }
 
   /* 부가자료 버튼 */
   .btn-extra { border-color: #ddd; }
@@ -465,6 +467,26 @@
   const PASSWORDS = ['forest18@@'];
   const PW_MAINT = 'yyj123';
   const OWNER_KEY = 'yyj1201';
+  const EXAM_CONSTRUCTION_PAGE = 'forest_exam_under_construction.html';
+
+  function setExamConstructionMode(enabled) {
+    document.querySelectorAll('.btn-quiz').forEach((btn) => {
+      const sub = btn.querySelector('.sub');
+      if (!btn.dataset.originalHref) btn.dataset.originalHref = btn.getAttribute('href') || '';
+      if (sub && !sub.dataset.originalText) sub.dataset.originalText = sub.textContent || '';
+
+      if (enabled) {
+        const originalHref = btn.dataset.originalHref || 'forest.html';
+        btn.href = EXAM_CONSTRUCTION_PAGE + '?from=' + encodeURIComponent(originalHref);
+        btn.classList.add('is-construction');
+        if (sub) sub.textContent = '공사중 · 준비 중입니다';
+      } else {
+        btn.href = btn.dataset.originalHref || btn.href;
+        btn.classList.remove('is-construction');
+        if (sub) sub.textContent = sub.dataset.originalText || sub.textContent;
+      }
+    });
+  }
 
   function restoreReturnTarget() {
     const targetId = decodeURIComponent((window.location.hash || '').replace(/^#/, ''));
@@ -477,10 +499,11 @@
       setTimeout(() => target.classList.remove('return-highlight'), 1800);
     }, 80);
   }
-  function showMain() {
+  function showMain(options = {}) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
+    setExamConstructionMode(Boolean(options.examConstruction));
     restoreReturnTarget();
   }
   function showMaint() {
@@ -493,9 +516,9 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (PASSWORDS.includes(val)) {
-      showMain(); err.textContent = '';
+      showMain({ examConstruction: true }); err.textContent = '';
     } else if (val === PW_MAINT) {
-      showMain(); err.textContent = '';
+      showMain({ examConstruction: false }); err.textContent = '';
     } else {
       inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
       err.textContent = '비밀번호가 틀렸습니다.'; inp.value = '';
@@ -505,6 +528,7 @@
   function logout() {
     sessionStorage.removeItem('auth');
     localStorage.removeItem('owner_auth');
+    setExamConstructionMode(false);
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
@@ -512,7 +536,7 @@
   }
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
-    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain();
+    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false });
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
