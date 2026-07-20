@@ -332,6 +332,61 @@
   .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
   .step strong { display: block; color: #1f4f7c; margin-bottom: 5px; }
   .step span { color: var(--muted); font-size: 0.91rem; }
+  .visual-board {
+    border: 1px solid #d9e4ef;
+    border-radius: 8px;
+    background: #fbfdff;
+    padding: 16px;
+    margin-top: 14px;
+  }
+  .call-chain { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+  .call-card {
+    position: relative;
+    min-height: 132px;
+    border: 1px solid #dfe7ef;
+    border-radius: 8px;
+    background: #fff;
+    padding: 14px;
+  }
+  .call-card::after {
+    content: "→";
+    position: absolute;
+    right: -17px;
+    top: 44%;
+    color: #7d8998;
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+  .call-card:nth-child(4n)::after, .call-card:last-child::after { content: ""; }
+  .call-card b { display: block; color: #1e4265; margin-bottom: 6px; word-break: break-word; }
+  .call-card small { display: block; color: var(--muted); margin-top: 7px; line-height: 1.45; }
+  .call-card.input { background: #fff8e8; border-color: #f0dfb8; }
+  .call-card.engine { background: #edf5fd; border-color: #d1e3f5; }
+  .call-card.rule { background: #eef8f3; border-color: #cde8dc; }
+  .call-card.save { background: #fff2f5; border-color: #f1cbd2; }
+  .split-diagram { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 14px; margin-top: 14px; align-items: start; }
+  .split-panel { border: 1px solid #dfe7ef; border-radius: 8px; background: #fff; padding: 14px; }
+  .split-panel h3 { margin-top: 0; }
+  .line-list { display: grid; gap: 7px; }
+  .line-item {
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid #e3eaf2;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: #fbfcfe;
+    font-size: .88rem;
+  }
+  .line-item .side { border-radius: 999px; padding: 4px 7px; text-align: center; font-weight: 900; color: #fff; font-size: .75rem; }
+  .line-item.debit .side { background: #2f765a; }
+  .line-item.credit .side { background: #934052; }
+  .total-check { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
+  .total-box { border: 1px solid #dfe7ef; border-radius: 8px; padding: 12px; background: #fff; text-align: center; font-weight: 900; }
+  .total-box.debit { color: #2f765a; }
+  .total-box.credit { color: #934052; }
+  .equal-mark { font-size: 1.4rem; font-weight: 900; color: #7d8998; }
   .timeline {
     position: relative;
     display: grid;
@@ -402,8 +457,11 @@
   .final-callout .summary { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff; }
   .footer { text-align: center; color: #8a98a8; font-size: 0.84rem; margin: 32px 0 10px; }
   @media (max-width: 980px) {
-    .hero-grid, .map { grid-template-columns: 1fr; }
+    .hero-grid, .map, .call-chain, .split-diagram { grid-template-columns: 1fr; }
     .arrow { transform: rotate(90deg); min-height: 26px; }
+    .call-card::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -18px; transform: translateX(-50%); }
+    .call-card:nth-child(4n)::after { content: "↓"; }
+    .call-card:last-child::after { content: ""; }
     .kpi-grid, .grid4, .grid3, .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 720px) {
@@ -413,7 +471,7 @@
     section { padding: 18px; }
     .section-head { display: block; }
     .meta-pill { display: inline-block; margin-top: 8px; }
-    .kpi-grid, .grid4, .grid3, .grid, .grid2, .flow, .checklist, .source-list { grid-template-columns: 1fr; }
+    .kpi-grid, .grid4, .grid3, .grid, .grid2, .flow, .checklist, .source-list, .total-check { grid-template-columns: 1fr; }
     .timeline-item { grid-template-columns: 1fr; }
     .timeline-key { text-align: left; }
     table { display: block; overflow-x: auto; white-space: nowrap; }
@@ -611,6 +669,51 @@
         국내채권 매수 프로그램은 차변/대변을 직접 하드코딩해 저장하지 않는다. 거래처리 PROC가 분개에 필요한 키와 원천값을
         JOURNAL_DATA에 담아 공통 분개엔진으로 넘기고, 공통 분개엔진이 분개모형과 계정매핑을 읽어 분개장을 생성한다.
       </div>
+      <div class="visual-board">
+        <h3>프로그램 호출구조 시각화</h3>
+        <div class="call-chain">
+          <div class="call-card input">
+            <b>L_AM_BNK_010_013</b>
+            국내채권 매수 거래를 처리하고 원천 거래값을 준비한다.
+            <small>거래 처리, 금액 계산, 원장 반영 후 분개 입력값 준비</small>
+          </div>
+          <div class="call-card input">
+            <b>P_LOCAL_JOURNAL_SET</b>
+            BND010K, BN110, A, L, BNDK, FAMBN0110TRA 값을 JOURNAL_DATA에 세팅한다.
+            <small>거래처리 PROC와 공통 분개엔진 사이의 브릿지</small>
+          </div>
+          <div class="call-card engine">
+            <b>JOURNAL_DATA</b>
+            거래코드, 상품코드, 투자목적, 장단기, 자산구분, 참조 테이블을 전달한다.
+            <small>분개모형 조회와 금액 산출의 입력 키 묶음</small>
+          </div>
+          <div class="call-card engine">
+            <b>L_AM_ACC_JNL_COMMON</b>
+            공통 분개엔진으로 진입해 분개모형 조회, 계정 확정, 금액 산출을 수행한다.
+            <small>매수 본선 시나리오의 핵심 엔진</small>
+          </div>
+          <div class="call-card rule">
+            <b>P_JOURNAL_READ</b>
+            거래코드와 상품 조건으로 분개모형 및 계정매핑 기준을 읽는다.
+            <small>BND010K 기준 11개 분개행 전개</small>
+          </div>
+          <div class="call-card rule">
+            <b>P_JOURNAL_GETADDR</b>
+            FAMBN0110TRA의 금액 컬럼 또는 산식 기준으로 라인별 금액을 산출한다.
+            <small>ACQ_AMT + ALT_PFIT_AMT 같은 산식 처리</small>
+          </div>
+          <div class="call-card engine">
+            <b>P_JOURNAL_COMMON_SET</b>
+            확정된 계정, 차대구분, 금액을 famac0035nta 구조체에 세팅한다.
+            <small>저장 직전 분개장 라인 구성</small>
+          </div>
+          <div class="call-card save">
+            <b>FAMAC0035NTA</b>
+            L_AM_SET_INSERT_FAMAC0035NTA를 통해 최종 공통 분개장을 저장한다.
+            <small>거래 1건이 여러 분개장 라인으로 기록</small>
+          </div>
+        </div>
+      </div>
       <table>
         <thead><tr><th>샘플 키</th><th>값</th><th>교육용 의미</th></tr></thead>
         <tbody>
@@ -741,6 +844,45 @@
         아래 표는 BND010K 국내채권 매수 분개모형 11행이 어떤 항목으로 전개되는지 보여주는 교육용 절차표입니다.
         금액은 실제 운영값이 아니라 절차 설명용이며, 실증 자료 작성 시에는 샘플 FAMBN0110TRA 거래 1건과 FAMAC0035NTA 저장 결과로 대체합니다.
       </p>
+      <div class="visual-board">
+        <h3>분개모형 11행 전개 시각화</h3>
+        <div class="split-diagram">
+          <div class="split-panel">
+            <h3>입력 키</h3>
+            <div class="line-list">
+              <div class="line-item"><span class="side" style="background:#255f91">tr</span><span>BND010K</span></div>
+              <div class="line-item"><span class="side" style="background:#255f91">prd</span><span>BN110</span></div>
+              <div class="line-item"><span class="side" style="background:#255f91">목적</span><span>A - 매도가능</span></div>
+              <div class="line-item"><span class="side" style="background:#255f91">기간</span><span>L - 장기</span></div>
+              <div class="line-item"><span class="side" style="background:#255f91">원천</span><span>FAMBN0110TRA</span></div>
+            </div>
+          </div>
+          <div class="split-panel">
+            <h3>BND010K 분개모형</h3>
+            <div class="line-list">
+              <div class="line-item debit"><span class="side">차변</span><span>A00 취득가: ACQ_AMT + ALT_PFIT_AMT</span></div>
+              <div class="line-item debit"><span class="side">차변</span><span>A20 기경과이자: 일반/할인/할증 3개 라인</span></div>
+              <div class="line-item credit"><span class="side">대변</span><span>B10/Z00/Z90: 미지급액, 지급액, 지급액 대체</span></div>
+              <div class="line-item credit"><span class="side">대변</span><span>B21: 선수이자</span></div>
+              <div class="line-item credit"><span class="side">대변</span><span>B30: 예수원천세 일반/할인/할증 3개 라인</span></div>
+            </div>
+            <div class="total-check">
+              <div class="total-box debit">차변 4개 라인</div>
+              <div class="equal-mark">검증</div>
+              <div class="total-box credit">대변 7개 라인</div>
+            </div>
+          </div>
+          <div class="split-panel">
+            <h3>저장 결과</h3>
+            <div class="line-list">
+              <div class="line-item"><span class="side" style="background:#92651f">계정</span><span>BN110 + A + L + 계정속성으로 실제 계정 확정</span></div>
+              <div class="line-item"><span class="side" style="background:#92651f">금액</span><span>FAMBN0110TRA 컬럼과 산식으로 금액 세팅</span></div>
+              <div class="line-item"><span class="side" style="background:#92651f">검증</span><span>차변 합계와 대변 합계 검증</span></div>
+              <div class="line-item"><span class="side" style="background:#92651f">저장</span><span>FAMAC0035NTA에 최종 분개장 라인 저장</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <table>
         <thead><tr><th>순번</th><th>차대</th><th>계정속성</th><th>분개 의미</th><th>금액 원천/산식</th><th>저장 방향</th></tr></thead>
         <tbody>
