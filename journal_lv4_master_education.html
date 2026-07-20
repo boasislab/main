@@ -443,6 +443,8 @@
         <a href="#overview">개요</a>
         <a href="#bookkeeping">복식부기</a>
         <a href="#engine">자동분개</a>
+        <a href="#bnd-scenario">채권매수</a>
+        <a href="#simulation">시뮬레이션</a>
         <a href="#assign">ASSIGN/ARG</a>
         <a href="#closing">마감</a>
         <a href="#errors">오류</a>
@@ -497,13 +499,13 @@
           <div class="eyebrow">Overview</div>
           <h2>1. 이 페이지가 묶은 범위</h2>
         </div>
-        <span class="meta-pill">20개 원천자료 기반</span>
+        <span class="meta-pill">25개 원천자료 기반</span>
       </div>
       <div class="kpi-grid">
-        <div class="kpi"><strong>20</strong><span>반영한 교육·학습 원천자료</span></div>
+        <div class="kpi"><strong>25</strong><span>반영한 교육·학습 원천자료</span></div>
         <div class="kpi"><strong>4</strong><span>회계 기초에서 운영 검증까지 큰 단계</span></div>
         <div class="kpi"><strong>2</strong><span>금액 세팅 핵심 방식 ASSIGN / ARG</span></div>
-        <div class="kpi"><strong>LV4</strong><span>회사 업무관리 전용 교육 허브</span></div>
+        <div class="kpi"><strong>BND010K</strong><span>국내채권 매수 샘플 시나리오</span></div>
       </div>
       <div class="summary" style="margin-top:16px">
         분개처리는 거래 데이터를 회계 언어로 바꾸는 과정이다. 시스템 관점에서는 원천 거래, 거래유형,
@@ -597,11 +599,51 @@
       </div>
     </section>
 
+    <section id="bnd-scenario">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Scenario</div>
+          <h2>5. 국내채권 매수 샘플로 보는 호출구조</h2>
+        </div>
+        <span class="meta-pill">BND010K + BN110</span>
+      </div>
+      <div class="summary">
+        국내채권 매수 프로그램은 차변/대변을 직접 하드코딩해 저장하지 않는다. 거래처리 PROC가 분개에 필요한 키와 원천값을
+        JOURNAL_DATA에 담아 공통 분개엔진으로 넘기고, 공통 분개엔진이 분개모형과 계정매핑을 읽어 분개장을 생성한다.
+      </div>
+      <table>
+        <thead><tr><th>샘플 키</th><th>값</th><th>교육용 의미</th></tr></thead>
+        <tbody>
+          <tr><td>거래코드</td><td>BND010K</td><td>국내채권 매수 거래유형. 어떤 분개모형을 읽을지 결정한다.</td></tr>
+          <tr><td>상품코드</td><td>BN110</td><td>상품계정 매핑을 찾는 핵심 축이다.</td></tr>
+          <tr><td>투자목적</td><td>A - 매도가능</td><td>상품의 회계 분류를 세분화한다.</td></tr>
+          <tr><td>장단기</td><td>L - 장기</td><td>계정상품 또는 실제 계정 결정 조건으로 쓰인다.</td></tr>
+          <tr><td>자산구분</td><td>BNDK</td><td>국내채권 자산군을 식별한다.</td></tr>
+          <tr><td>참조 테이블</td><td>FAMBN0110TRA</td><td>분개모형의 금액 컬럼을 읽어올 원천 거래 테이블이다.</td></tr>
+        </tbody>
+      </table>
+      <h3>호출 흐름</h3>
+      <div class="flow">
+        <div class="step"><strong>L_AM_BNK_010_013</strong><span>국내채권 매수 거래를 처리하고 원천 거래값을 준비한다.</span></div>
+        <div class="step"><strong>P_LOCAL_JOURNAL_SET</strong><span>거래코드, 상품, 투자목적, 장단기, 테이블명을 JOURNAL_DATA에 담는다.</span></div>
+        <div class="step"><strong>JOURNAL_DATA</strong><span>거래처리 PROC와 공통 분개엔진 사이의 전달 구조체 역할을 한다.</span></div>
+        <div class="step"><strong>L_AM_ACC_JNL_COMMON</strong><span>분개모형 조회, 계정 확정, 금액 산출, 차대 검증을 수행한다.</span></div>
+        <div class="step"><strong>P_JOURNAL_READ</strong><span>거래코드와 상품 조건으로 분개모형 및 계정매핑 기준을 읽는다.</span></div>
+        <div class="step"><strong>P_JOURNAL_GETADDR</strong><span>분개모형에 정의된 table/column 또는 ARG 기준으로 금액을 산출한다.</span></div>
+        <div class="step"><strong>P_JOURNAL_COMMON_SET</strong><span>분개 라인을 분개장 저장 구조체에 세팅한다.</span></div>
+        <div class="step"><strong>FAMAC0035NTA</strong><span>최종 공통 분개장이 저장되는 테이블이다.</span></div>
+      </div>
+      <div class="notice" style="margin-top:16px">
+        <b>경로 분리</b>
+        <span>L_AM_ACC_JNL_PRD_COMMON은 이자계산, 평가처리 등에서 종목별 분개를 집계하는 별도 집합분개 함수다. 국내채권 매수 본선 시나리오에는 넣지 않는다.</span>
+      </div>
+    </section>
+
     <section id="axes">
       <div class="section-head">
         <div>
           <div class="eyebrow">Two Axes</div>
-          <h2>5. 거래유형 축과 상품/계정 축을 분리해서 본다</h2>
+          <h2>6. 거래유형 축과 상품/계정 축을 분리해서 본다</h2>
         </div>
         <span class="meta-pill">구조 이해의 핵심</span>
       </div>
@@ -634,7 +676,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Journal Model</div>
-          <h2>6. 분개모형은 구조를 만들고, 계정매핑은 실제 계정을 정한다</h2>
+          <h2>7. 분개모형은 구조를 만들고, 계정매핑은 실제 계정을 정한다</h2>
         </div>
       </div>
       <table>
@@ -653,7 +695,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Amount Binding</div>
-          <h2>7. ASSIGN / ARG는 금액을 채우는 방식이다</h2>
+          <h2>8. ASSIGN / ARG는 금액을 채우는 방식이다</h2>
         </div>
       </div>
       <div class="grid">
@@ -687,11 +729,56 @@
       </table>
     </section>
 
+    <section id="simulation">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Procedure Simulation</div>
+          <h2>9. 분개처리절차 시뮬레이션</h2>
+        </div>
+        <span class="meta-pill">교육용 샘플</span>
+      </div>
+      <p>
+        아래 표는 BND010K 국내채권 매수 분개모형 11행이 어떤 항목으로 전개되는지 보여주는 교육용 절차표입니다.
+        금액은 실제 운영값이 아니라 절차 설명용이며, 실증 자료 작성 시에는 샘플 FAMBN0110TRA 거래 1건과 FAMAC0035NTA 저장 결과로 대체합니다.
+      </p>
+      <table>
+        <thead><tr><th>순번</th><th>차대</th><th>계정속성</th><th>분개 의미</th><th>금액 원천/산식</th><th>저장 방향</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>대변</td><td>B10</td><td>미지급액</td><td>USTL_AMT</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>2</td><td>대변</td><td>Z00</td><td>지급액</td><td>CASH_STL_AMT</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>3</td><td>대변</td><td>Z90</td><td>지급액 대체</td><td>ALT_PAMT</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>4</td><td>차변</td><td>A00</td><td>취득가</td><td>ACQ_AMT + ALT_PFIT_AMT</td><td>FAMAC0035NTA 차변 라인</td></tr>
+          <tr><td>5</td><td>대변</td><td>B21</td><td>선수이자</td><td>RMN_ARCT_INT</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>6</td><td>차변</td><td>A20</td><td>기경과이자 일반</td><td>GENL_PASS_INT</td><td>FAMAC0035NTA 차변 라인</td></tr>
+          <tr><td>7</td><td>차변</td><td>A20</td><td>기경과이자 할인</td><td>DCNT_PASS_INT</td><td>FAMAC0035NTA 차변 라인</td></tr>
+          <tr><td>8</td><td>차변</td><td>A20</td><td>기경과이자 할증</td><td>PMIM_PASS_INT</td><td>FAMAC0035NTA 차변 라인</td></tr>
+          <tr><td>9</td><td>대변</td><td>B30</td><td>예수원천세 일반</td><td>PASS_INT_GENL_PCTAX</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>10</td><td>대변</td><td>B30</td><td>예수원천세 할인</td><td>PASS_INT_DCNT_PCTAX</td><td>FAMAC0035NTA 대변 라인</td></tr>
+          <tr><td>11</td><td>대변</td><td>B30</td><td>예수원천세 할증</td><td>PASS_INT_PMIM_PCTAX</td><td>FAMAC0035NTA 대변 라인</td></tr>
+        </tbody>
+      </table>
+      <h3>시뮬레이션에서 봐야 할 주요 항목</h3>
+      <table>
+        <thead><tr><th>항목</th><th>역할</th><th>확인 포인트</th></tr></thead>
+        <tbody>
+          <tr><td>JOURNAL_DATA</td><td>거래처리 PROC에서 공통 분개엔진으로 넘기는 입력 구조</td><td>거래코드, 상품코드, 투자목적, 장단기, 참조 테이블명이 정확히 세팅됐는지 확인</td></tr>
+          <tr><td>분개모형</td><td>한 거래가 몇 개의 차변/대변 라인으로 전개될지 정의</td><td>BND010K 기준 11개 행이 의도한 의미로 조회되는지 확인</td></tr>
+          <tr><td>계정속성</td><td>실제 계정코드 전 단계의 회계 성격</td><td>BN110 + A + L + 계정속성 조합이 실제 계정으로 치환되는지 확인</td></tr>
+          <tr><td>금액 컬럼</td><td>각 분개 라인에 들어갈 금액 원천</td><td>FAMBN0110TRA 컬럼 의미와 산식이 분개 의미와 맞는지 확인</td></tr>
+          <tr><td>차대 검증</td><td>저장 전 마지막 회계 검증</td><td>차변 합계와 대변 합계가 일치하지 않으면 저장하지 않는 구조로 설명</td></tr>
+          <tr><td>FAMAC0035NTA</td><td>최종 공통 분개장 저장 테이블</td><td>거래 1건이 여러 분개장 라인으로 저장된다는 점을 확인</td></tr>
+        </tbody>
+      </table>
+      <div class="summary" style="margin-top:14px">
+        교육 포인트는 “PROC가 분개를 직접 만드는 것이 아니라, 분개에 필요한 키를 넘기고 공통 분개엔진이 모형 기반으로 전표를 만든다”는 점이다.
+      </div>
+    </section>
+
     <section id="ledger2">
       <div class="section-head">
         <div>
           <div class="eyebrow">Ledger & P/L</div>
-          <h2>8. 원장, 손익, 외화 처리는 분개 이후의 검증 지점이다</h2>
+          <h2>10. 원장, 손익, 외화 처리는 분개 이후의 검증 지점이다</h2>
         </div>
       </div>
       <div class="grid3">
@@ -718,7 +805,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Daily Closing</div>
-          <h2>9. 일일 처리와 마감 흐름</h2>
+          <h2>11. 일일 처리와 마감 흐름</h2>
         </div>
       </div>
       <div class="timeline">
@@ -735,7 +822,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Operation Checklist</div>
-          <h2>10. 운영 점검 체크리스트</h2>
+          <h2>12. 운영 점검 체크리스트</h2>
         </div>
       </div>
       <div class="checklist">
@@ -758,7 +845,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Error Handling</div>
-          <h2>11. 오류 대응은 원인 분류부터 시작한다</h2>
+          <h2>13. 오류 대응은 원인 분류부터 시작한다</h2>
         </div>
       </div>
       <div class="flow">
@@ -777,7 +864,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Teaching Flow</div>
-          <h2>12. 교육 진행 순서</h2>
+          <h2>14. 교육 진행 순서</h2>
         </div>
       </div>
       <div class="grid">
@@ -806,9 +893,9 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Sources</div>
-          <h2>13. 반영한 원천자료 목록</h2>
+          <h2>15. 반영한 원천자료 목록</h2>
         </div>
-        <span class="meta-pill">20 files</span>
+        <span class="meta-pill">25 files</span>
       </div>
       <p>아래 자료를 기준으로 총망라 페이지를 구성했습니다. LV3 원문은 로컬 보관용이며, 이 페이지에는 교육 흐름 중심으로 재구성했습니다.</p>
       <div class="source-list">
@@ -832,6 +919,11 @@
         <div class="source"><b>NPF_분개처리_매핑정리.html</b><small>분개처리 매핑 정리</small></div>
         <div class="source"><b>NPF_분개처리_완전판_PT_v3.html</b><small>분개처리 완전판 발표자료</small></div>
         <div class="source"><b>20260715_journal_training_material.log</b><small>교육자료 생성 작업 로그</small></div>
+        <div class="source"><b>LV4_BND010K_journal_call_training_material_20260720.md</b><small>국내채권 매수 호출구조와 분개처리 교육자료</small></div>
+        <div class="source"><b>LV4_BND010K_call_structure_analysis_20260720.md</b><small>BND010K + BN110 샘플 호출구조 분석</small></div>
+        <div class="source"><b>LV4_FAMAC0035NTA_save_concept_20260720.md</b><small>공통 분개장 저장 개념 정리</small></div>
+        <div class="source"><b>LV4_L_AM_BNK_010_013_journal_proc_analysis.md</b><small>국내채권 매수 PROC의 JOURNAL_DATA 세팅 및 호출부 분석</small></div>
+        <div class="source"><b>LV4_L_AM_ACC_JNL_COMMON_20260720 OCR set</b><small>공통 분개엔진 OCR 적재, 페이지 순서표, 함수 경로 분석</small></div>
       </div>
     </section>
 
@@ -839,7 +931,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Original HTML</div>
-          <h2>14. 기존 HTML 교육자료 원문 바로가기</h2>
+          <h2>16. 기존 HTML 교육자료 원문 바로가기</h2>
         </div>
         <span class="meta-pill">기존 페이지 보존</span>
       </div>
@@ -879,7 +971,7 @@
       <div class="section-head">
         <div>
           <div class="eyebrow">Coverage Check</div>
-          <h2>15. 기존 자료별 세부 목차 반영 확인</h2>
+          <h2>17. 기존 자료별 세부 목차 반영 확인</h2>
         </div>
         <span class="meta-pill">HTML 12개 점검</span>
       </div>
@@ -1035,10 +1127,11 @@
         금융기관이 복식부기를 쓰는 이유는 하나의 거래가 여러 자산, 부채, 손익 항목에 동시에 영향을 주기 때문이다.
         분개는 그 복식부기의 첫 단계로, 거래를 차변과 대변으로 나누어 계정과 금액을 확정하는 작업이다.
         업무 시스템의 자동분개는 이 판단을 거래유형, 상품, 분개모형, 계정매핑, ASSIGN/ARG 금액 세팅 방식으로 자동화한 것이다.
+        국내채권 매수 샘플에서는 L_AM_BNK_010_013이 JOURNAL_DATA를 세팅하고 L_AM_ACC_JNL_COMMON이 분개모형 11행을 전개해 FAMAC0035NTA에 저장한다.
       </div>
     </section>
 
-    <div class="footer">boasis_lab.(yyj assistant) · LV4 교육 허브 · 2026-07-15</div>
+    <div class="footer">boasis_lab.(yyj assistant) · LV4 교육 허브 · 2026-07-20</div>
   </main>
 </div>
 
