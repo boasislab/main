@@ -19,6 +19,58 @@
     line-height:1.66;
     letter-spacing:0;
   }
+  #login-screen {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:
+      linear-gradient(135deg,rgba(31,42,54,.95),rgba(49,66,84,.92)),
+      linear-gradient(120deg,#17212f,#28415a 60%,#7e3b4c);
+  }
+  .login-card {
+    width:min(460px,100%);
+    background:rgba(255,255,255,.98);
+    border:1px solid rgba(255,255,255,.6);
+    border-radius:14px;
+    padding:34px 30px;
+    box-shadow:0 22px 64px rgba(0,0,0,.30);
+  }
+  .login-card .seal {
+    display:inline-flex;
+    align-items:center;
+    padding:5px 10px;
+    border-radius:999px;
+    background:#fff2f5;
+    color:var(--red);
+    font-size:.78rem;
+    font-weight:900;
+    margin-bottom:12px;
+  }
+  .login-card h1 { margin:0 0 8px; font-size:1.42rem; line-height:1.25; }
+  .login-card p { margin:0 0 20px; color:var(--muted); font-size:.92rem; }
+  .pw-row { display:flex; gap:8px; }
+  .pw-row input {
+    flex:1;
+    min-width:0;
+    border:1.5px solid #d6dee8;
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:1rem;
+    outline:none;
+  }
+  .pw-row input:focus { border-color:var(--red); box-shadow:0 0 0 4px rgba(147,64,82,.12); }
+  .pw-row button {
+    border:0;
+    border-radius:10px;
+    background:var(--red);
+    color:#fff;
+    padding:0 18px;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .err { min-height:20px; color:#b00020; font-size:.86rem; margin-top:10px; }
   .topbar { position:sticky; top:0; z-index:5; background:rgba(32,48,64,.96); color:#fff; border-bottom:1px solid rgba(255,255,255,.14); }
   .topbar-inner { max-width:1220px; margin:0 auto; padding:12px 18px; display:flex; gap:14px; justify-content:space-between; align-items:center; }
   .brand { font-weight:900; white-space:nowrap; }
@@ -100,6 +152,20 @@
 </style>
 </head>
 <body>
+<div id="login-screen">
+  <div class="login-card">
+    <div class="seal">비밀번호 필요</div>
+    <h1>분개처리 자료 허브</h1>
+    <p>분개처리 자료 허브는 비밀번호 입력 후 열람할 수 있습니다.</p>
+    <div class="pw-row">
+      <input type="password" id="pw" placeholder="비밀번호" onkeydown="if(event.key==='Enter') login()">
+      <button onclick="login()">열기</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div id="page" style="display:none">
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">분개처리 자료 허브</div>
@@ -330,5 +396,27 @@
 
   <div class="footer">boasis_lab.(yyj assistant) · 분개처리 자료 허브 · 2026-07-20</div>
 </main>
+</div>
+<script>
+  const HUB_PASSWORD = 'yyj123';
+  const WORK_KEY = 'auth_nps_level';
+  function showPage() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('page').style.display = 'block';
+  }
+  function login() {
+    const pw = document.getElementById('pw').value.trim();
+    if (pw === HUB_PASSWORD) {
+      sessionStorage.setItem(WORK_KEY, '4');
+      showPage();
+      return;
+    }
+    document.getElementById('err').textContent = '비밀번호를 확인해주세요.';
+  }
+  (function init() {
+    const level = parseInt(sessionStorage.getItem(WORK_KEY) || '0', 10);
+    if (level >= 4) showPage();
+  })();
+</script>
 </body>
 </html>
