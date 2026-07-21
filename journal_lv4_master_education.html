@@ -773,6 +773,31 @@
         <div class="step"><strong>P_JOURNAL_COMMON_SET</strong><span>분개 라인을 분개장 저장 구조체에 세팅한다.</span></div>
         <div class="step"><strong>FAMAC0035NTA</strong><span>최종 공통 분개장이 저장되는 테이블이다.</span></div>
       </div>
+      <div class="visual-board" style="margin-top:18px">
+        <h3>L_AM_ACC_JNL_COMMON 내부 처리</h3>
+        <div class="summary">
+          공통 분개엔진은 거래처리 프로그램이 넘긴 값을 그대로 저장하지 않는다. 먼저 코드와 분개모형을 검증하고, 계정속성을 실제 계정으로
+          치환한 뒤, 분개모형에 적힌 테이블/컬럼 또는 ARG 값에서 금액을 추출해 분개장 라인을 만든다.
+        </div>
+        <table>
+          <thead><tr><th>처리 단계</th><th>읽는 기준/테이블</th><th>추출 또는 확정하는 값</th></tr></thead>
+          <tbody>
+            <tr><td>상품·거래 검증</td><td>FBCCD0016CDA, FBCCD0009NTA</td><td>상품코드, 거래코드, 거래범주 일치 여부</td></tr>
+            <tr><td>분개모형 조회</td><td>FAMCD0036NTA</td><td>분개행 순번, 차대구분, 계정속성, 금액 컬럼, 산식 연산자</td></tr>
+            <tr><td>계정상품 확인</td><td>FAMCD0136NTA</td><td>상품코드 + 투자목적 + 장단기구분에 해당하는 계정상품코드</td></tr>
+            <tr><td>실제 계정 확정</td><td>FAMCD0135NTA, FAMCD0130CDA</td><td>계정상품코드 + 계정속성으로 실제 계정코드 확정, 사용 여부 검증</td></tr>
+            <tr><td>금액 추출</td><td>FAMBN0110TRA 또는 JOURNAL_ARG</td><td>분개행별 원천 금액, 예: USTL_AMT, CASH_STL_AMT, ACQ_AMT + ALT_PFIT_AMT</td></tr>
+            <tr><td>분개장 저장</td><td>FAMAC0035NTA</td><td>차대구분, 계정코드, 원화/외화 금액이 확정된 최종 공통 분개장 라인</td></tr>
+          </tbody>
+        </table>
+        <div class="flow" style="margin-top:14px">
+          <div class="step"><strong>1. P_JOURNAL_READ</strong><span>FAMCD0036NTA에서 BND010K 분개모형 행을 읽고, 계정매핑 기준을 준비한다.</span></div>
+          <div class="step"><strong>2. P_JOURNAL_GETADDR</strong><span>분개모형의 table/column 또는 ARG 정의를 따라 원천 금액을 가져온다.</span></div>
+          <div class="step"><strong>3. 산식 처리</strong><span>컬럼이 둘이면 +, -, *, / 연산자로 분개금액을 계산한다.</span></div>
+          <div class="step"><strong>4. 차대 검증</strong><span>차변 합계와 대변 합계가 맞는지 원화와 외화 기준으로 확인한다.</span></div>
+          <div class="step"><strong>5. 저장</strong><span>P_JOURNAL_COMMON_SET이 famac0035nta를 구성하고 INSERT 함수가 저장한다.</span></div>
+        </div>
+      </div>
       <div class="notice" style="margin-top:16px">
         <b>경로 분리</b>
         <span>L_AM_ACC_JNL_PRD_COMMON은 이자계산, 평가처리 등에서 종목별 분개를 집계하는 별도 집합분개 함수다. 국내채권 매수 본선 시나리오에는 넣지 않는다.</span>
