@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>분개처리 LV4 마스터 교육자료</title>
+<title>기금 시스템 회계처리 교육자료</title>
 <style>
   :root {
     --ink: #17212f;
@@ -482,7 +482,7 @@
 <div id="login-screen">
   <div class="login-card">
     <div class="seal">LV4 전용</div>
-    <h1>분개처리 마스터 교육자료</h1>
+    <h1>기금 시스템 회계처리 교육자료</h1>
     <p>회사 업무관리 LV4 비밀번호가 필요합니다.</p>
     <div class="pw-row">
       <input type="password" id="pw" placeholder="비밀번호" onkeydown="if(event.key==='Enter') login()">
@@ -496,9 +496,9 @@
 <div id="page">
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="topbar-title">분개처리 LV4 마스터</div>
+      <div class="topbar-title">기금 시스템 회계처리 교육자료</div>
       <div class="nav-links">
-        <a href="#overview">개요</a>
+        <a href="#overview">분개정의</a>
         <a href="#bookkeeping">복식부기</a>
         <a href="#engine">자동분개</a>
         <a href="#bnd-scenario">채권매수</a>
@@ -517,11 +517,11 @@
     <div class="hero-inner">
       <div class="hero-grid">
         <div>
-          <div class="kicker"><span class="lv4-pill">LV4</span> 회사업무관리 · 분개처리 총망라</div>
+          <div class="kicker"><span class="lv4-pill">LV4</span> 회사업무관리 · 회계처리 교육 준비</div>
           <h1>거래가 장부가 되는 과정을 한 화면에 정리한다</h1>
           <p>
             부기와 복식부기에서 출발해 거래유형, 분개모형, 계정매핑, ASSIGN/ARG, 원장 대사와 마감까지
-            운영자가 실제로 점검해야 할 흐름으로 재구성한 마스터 교육 페이지입니다.
+            운영자가 실제로 점검해야 할 흐름으로 재구성한 회계처리 교육 페이지입니다.
           </p>
           <div class="badges">
             <span class="chip">복식부기</span>
@@ -554,21 +554,45 @@
     <section id="overview">
       <div class="section-head">
         <div>
-          <div class="eyebrow">Overview</div>
-          <h2>1. 이 페이지가 묶은 범위</h2>
+          <div class="eyebrow">Journal Entry</div>
+          <h2>1. 분개란 무엇인가?</h2>
         </div>
-        <span class="meta-pill">25개 원천자료 기반</span>
+        <span class="meta-pill">정의와 구성요소</span>
       </div>
-      <div class="kpi-grid">
-        <div class="kpi"><strong>25</strong><span>반영한 교육·학습 원천자료</span></div>
-        <div class="kpi"><strong>4</strong><span>회계 기초에서 운영 검증까지 큰 단계</span></div>
-        <div class="kpi"><strong>2</strong><span>금액 세팅 핵심 방식 ASSIGN / ARG</span></div>
-        <div class="kpi"><strong>BND010K</strong><span>국내채권 매수 샘플 시나리오</span></div>
+      <div class="summary">
+        분개는 하나의 거래를 회계 장부에 기록하기 위해 차변 계정, 대변 계정, 금액, 거래 식별값을 정하는 작업이다.
+        시스템에서는 거래처리 프로그램이 만든 원천 데이터가 분개모형과 계정매핑을 거쳐 분개장 라인으로 전환된다.
       </div>
-      <div class="summary" style="margin-top:16px">
-        분개처리는 거래 데이터를 회계 언어로 바꾸는 과정이다. 시스템 관점에서는 원천 거래, 거래유형,
-        분개모형, 계정속성, 상품/계정 매핑, 금액 세팅 방식이 결합되어 최종 분개장이 만들어진다.
+      <div class="grid" style="margin-top:16px">
+        <div class="card blue">
+          <h3>업무 관점의 정의</h3>
+          <p>거래가 발생했을 때 무엇이 증가하고 무엇이 감소했는지를 차변과 대변으로 나누어 표현하는 회계 처리의 출발점이다.</p>
+          <ul>
+            <li>거래의 경제적 의미를 계정으로 번역한다.</li>
+            <li>차변과 대변 금액이 일치해야 한다.</li>
+            <li>분개 결과는 분개장과 원장 대사의 기준이 된다.</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>시스템 관점의 정의</h3>
+          <p>거래코드, 상품코드, 투자목적, 장단기, 원천 금액을 입력값으로 받아 분개모형을 조회하고 저장용 분개장 구조를 만드는 처리다.</p>
+          <ul>
+            <li>거래코드는 어떤 분개모형을 사용할지 정한다.</li>
+            <li>상품/계정 매핑은 실제 계정을 확정한다.</li>
+            <li>ASSIGN/ARG는 금액을 어디서 가져올지 정한다.</li>
+          </ul>
+        </div>
       </div>
+      <table>
+        <thead><tr><th>구성요소</th><th>의미</th><th>교육 포인트</th></tr></thead>
+        <tbody>
+          <tr><td>차변/대변</td><td>거래를 양쪽 회계 효과로 나누는 구분</td><td>합계 일치 여부가 첫 번째 검증 포인트다.</td></tr>
+          <tr><td>계정</td><td>거래 효과를 분류하는 회계 항목</td><td>계정속성과 상품조건이 결합되어 실제 계정이 정해진다.</td></tr>
+          <tr><td>금액</td><td>원천 거래 컬럼 또는 산식으로 산출되는 값</td><td>금액 컬럼, 부호, 통화, 산식 방향을 함께 확인한다.</td></tr>
+          <tr><td>분개모형</td><td>거래유형별 분개 라인 설계도</td><td>거래 1건이 몇 개의 분개장 라인으로 전개되는지 보여준다.</td></tr>
+          <tr><td>분개장</td><td>확정된 분개 결과가 저장되는 장부</td><td>원장, 결산, 대외보고의 기초 자료가 된다.</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="bookkeeping">
@@ -1079,7 +1103,7 @@
       </div>
       <p>
         아래 4개 HTML은 공유페이지에 이미 존재하던 분개 관련 원문형 페이지입니다.
-        이번 LV4 마스터 페이지는 이 자료들을 보기 좋게 재구성한 허브이고, 세부 문장과 기존 화면 구성은 아래 원문에서 바로 확인할 수 있습니다.
+        이번 상세 교육 페이지는 이 자료들을 보기 좋게 재구성한 허브이고, 세부 문장과 기존 화면 구성은 아래 원문에서 바로 확인할 수 있습니다.
       </p>
       <div class="resource-grid">
         <a class="resource-card" href="journal_education.html">
@@ -1105,7 +1129,7 @@
       </div>
       <div class="notice" style="margin-top:16px">
         <b>확인 결과</b>
-        <span>기존 HTML 파일은 삭제되지 않았습니다. 다만 LV4 마스터 페이지 안에 원문 링크와 세부 목차가 부족해서 내용이 빠진 것처럼 보였습니다.</span>
+        <span>기존 HTML 파일은 삭제되지 않았습니다. 다만 상세 교육 페이지 안에 원문 링크와 세부 목차가 부족해서 내용이 빠진 것처럼 보였습니다.</span>
       </div>
     </section>
 
@@ -1118,7 +1142,7 @@
         <span class="meta-pill">HTML 12개 점검</span>
       </div>
       <p>
-        기존 HTML 자료의 주요 제목을 다시 뽑아 확인한 목록입니다. 이 목차를 기준으로 LV4 마스터 본문에 요약 반영했고,
+        기존 HTML 자료의 주요 제목을 다시 뽑아 확인한 목록입니다. 이 목차를 기준으로 상세 교육 본문에 요약 반영했고,
         원문형 흐름이 필요한 경우 위의 기존 HTML 페이지를 함께 열어 보면 됩니다.
       </p>
       <div class="coverage-grid">
