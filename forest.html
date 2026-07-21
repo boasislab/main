@@ -516,7 +516,7 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (PASSWORDS.includes(val)) {
-      showMain({ examConstruction: true }); err.textContent = '';
+      showMain({ examConstruction: false }); err.textContent = '';
     } else if (val === PW_MAINT) {
       showMain({ examConstruction: false }); err.textContent = '';
     } else {
