@@ -125,6 +125,25 @@
   th, td { border:1px solid #dfe6ee; padding:10px 11px; vertical-align:top; }
   th { background:#eef3f8; color:#26394d; text-align:left; }
   .visual-board { border:1px solid #d9e4ef; border-radius:8px; background:#fbfdff; padding:16px; margin-top:14px; }
+  .sample-image {
+    margin-top:14px;
+    border:1px solid #d9e4ef;
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+  }
+  .sample-image img {
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:6px;
+  }
+  .sample-image figcaption {
+    margin-top:8px;
+    color:var(--muted);
+    font-size:.84rem;
+    text-align:center;
+  }
   .split-diagram { display:grid; grid-template-columns:1fr 1.15fr 1fr; gap:14px; margin-top:14px; align-items:start; }
   .split-panel { border:1px solid #dfe7ef; border-radius:8px; background:#fff; padding:14px; }
   .split-panel h3 { margin-top:0; }
@@ -406,6 +425,10 @@
         <div class="step"><strong>분개장 저장</strong><span>최종 공통 분개장에 저장한다.</span></div>
       </div>
     </div>
+    <figure class="sample-image">
+      <img src="journal_call_flow_preview_20260721.jpg" alt="국내채권 매수 거래 샘플의 프로그램 호출 순서와 데이터 흐름">
+      <figcaption>국내채권 매수 거래 샘플 기준 프로그램 호출 순서, 공통 분개엔진 내부 처리, 데이터 흐름 요약도</figcaption>
+    </figure>
     <div class="notice" style="margin-top:14px">
       <b>내부 상세</b>
       <span>실제 함수명 기준 흐름은 LV4 마스터 자료에 별도 정리되어 있다. 매수 본선은 일반 공통분개 경로이며, 이자/평가 집합분개 경로와 분리해서 설명한다.</span>
