@@ -798,6 +798,35 @@
           <div class="step"><strong>5. 저장</strong><span>P_JOURNAL_COMMON_SET이 famac0035nta를 구성하고 INSERT 함수가 저장한다.</span></div>
         </div>
       </div>
+      <div class="visual-board" style="margin-top:18px">
+        <h3>L_AM_ACC_JNL_GOV 연계 구조</h3>
+        <div class="summary">
+          정부회계 공통분개는 공통 분개엔진과 같은 방식으로 분개모형, 계정매핑, 금액 추출 단계를 거치지만, 저장 이후에 재무회계 분개장과
+          수입지출원장 처리가 함께 이어진다. 그래서 단순히 분개장 저장으로 끝나는 것이 아니라, 재무회계 차대 검증 후 현금회계와
+          수입·지출 예산 흐름까지 연결되는 구조로 이해해야 한다.
+        </div>
+        <div class="flow" style="margin-top:14px">
+          <div class="step"><strong>JOURNAL_DATA</strong><span>거래코드, 상품, 투자목적, 장단기, 원천 테이블, 수입지출 구분 정보를 정부회계 엔진에 전달한다.</span></div>
+          <div class="step"><strong>L_AM_ACC_JNL_GOV</strong><span>정부회계 공통 분개내역 생성을 시작하고 분개모형 확인 및 기초자료 생성을 수행한다.</span></div>
+          <div class="step"><strong>P_JOURNAL_READ</strong><span>분개모형, 재무회계 계정, 수입/지출 계정 기준을 읽고 정부회계용 분개 레코드를 구성한다.</span></div>
+          <div class="step"><strong>P_JOURNAL_GETADDR</strong><span>원천 테이블 컬럼 또는 ARG 기준으로 원화/외화 금액을 산출한다.</span></div>
+          <div class="step"><strong>P_JOURNAL_COMMON_SET</strong><span>일반 재무회계 분개장 공통 필드와 수입지출원장 공통 필드를 세팅한다.</span></div>
+          <div class="step"><strong>P_JOURNAL_GOV_SAVE</strong><span>일반 정부회계 분개 경로에서 재무회계 분개장 금액과 NET 정보를 저장한다.</span></div>
+          <div class="step"><strong>P_ITEM_JOURNAL_GOV_SAVE</strong><span>종목별 분개 대상이면 종목별 재무회계 분개장 기준으로 금액을 산출하고 저장한다.</span></div>
+          <div class="step"><strong>P_REVEXP_SAVE_*</strong><span>수입(이익), 수입(손실), 지출 유형별로 예산과목과 수입지출원장 금액을 산출한다.</span></div>
+          <div class="step"><strong>P_REVEXP_NETTING_PROC</strong><span>NET명 기준 금액을 정리한 뒤 정부회계 메인 처리를 종료한다.</span></div>
+        </div>
+        <table>
+          <thead><tr><th>구분</th><th>주요 저장/조회 대상</th><th>역할</th></tr></thead>
+          <tbody>
+            <tr><td>재무회계 일반 분개</td><td>FAMAC0131NTA</td><td>정부회계 재무회계 분개장 라인을 저장하는 중심 경로</td></tr>
+            <tr><td>종목별 재무회계 분개</td><td>FAMAC0133NTA</td><td>종목별 분개 대상일 때 종목 단위 금액과 차대 합계를 관리</td></tr>
+            <tr><td>수입지출원장</td><td>FAMRE0030NTA</td><td>수입, 손실, 지출, 결제반영분 등 현금회계 원장성 데이터를 저장</td></tr>
+            <tr><td>예산과목 매핑</td><td>P_REVEXP_SET_BDG_CODE</td><td>수입/지출 유형에 맞는 예산과목 정보를 결정</td></tr>
+            <tr><td>금액반영구분</td><td>P_REVEXP_SET_AMT_APPL_TYPE</td><td>징수결정, 수납, 불납결손, 미수납 등 수입지출 금액 반영 방식을 확정</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div class="notice" style="margin-top:16px">
         <b>경로 분리</b>
         <span>L_AM_ACC_JNL_PRD_COMMON은 이자계산, 평가처리 등에서 종목별 분개를 집계하는 별도 집합분개 함수다. 국내채권 매수 본선 시나리오에는 넣지 않는다.</span>
