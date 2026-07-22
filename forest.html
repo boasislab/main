@@ -105,6 +105,7 @@
   .file-btn .ico { font-size: 1.6em; flex-shrink: 0; }
   .file-btn .info .label { font-weight: 700; font-size: 0.93em; }
   .file-btn .info .sub   { font-size: 0.74em; color: #999; margin-top: 2px; }
+  .print-pack-only { display: none; }
   .print-pack .file-list { grid-template-columns: 1fr; }
   .print-note { padding: 0 16px 14px; color: #777; font-size: 0.82em; line-height: 1.6; }
 
@@ -458,9 +459,9 @@
     </div>
   </div>
 
-  <div class="cat cat-etc">🖨️ 기출문제 인쇄용 묶음 <span class="badge">ZIP 다운로드</span></div>
+  <div class="cat cat-etc print-pack-only">🖨️ 기출문제 인쇄용 묶음 <span class="badge">ZIP 다운로드</span></div>
 
-  <div class="subject-block print-pack" id="exam-print-pack">
+  <div class="subject-block print-pack print-pack-only" id="exam-print-pack">
     <div class="subject-title title-etc">전체 기출문제 인쇄용 <span class="date">2026-07-14</span></div>
     <div class="file-list">
       <a class="file-btn btn-quiz" href="forest_exam_questions_no_answers_complete_20260714.zip" target="_blank" download>
@@ -521,6 +522,9 @@
     document.getElementById('maint-screen').style.display = 'none';
     document.getElementById('main-screen').style.display = 'block';
     setExamConstructionMode(Boolean(options.examConstruction));
+    document.querySelectorAll('.print-pack-only').forEach((el) => {
+      el.style.display = options.showPrintPack ? '' : 'none';
+    });
     restoreReturnTarget();
   }
   function showMaint() {
@@ -533,9 +537,9 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (PASSWORDS.includes(val)) {
-      showMain({ examConstruction: false }); err.textContent = '';
+      showMain({ examConstruction: false, showPrintPack: false }); err.textContent = '';
     } else if (val === PW_MAINT) {
-      showMain({ examConstruction: false }); err.textContent = '';
+      showMain({ examConstruction: false, showPrintPack: true }); err.textContent = '';
     } else {
       inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
       err.textContent = '비밀번호가 틀렸습니다.'; inp.value = '';
@@ -553,7 +557,7 @@
   }
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
-    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false });
+    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true });
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
