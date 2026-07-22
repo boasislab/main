@@ -105,6 +105,8 @@
   .file-btn .ico { font-size: 1.6em; flex-shrink: 0; }
   .file-btn .info .label { font-weight: 700; font-size: 0.93em; }
   .file-btn .info .sub   { font-size: 0.74em; color: #999; margin-top: 2px; }
+  .print-pack .file-list { grid-template-columns: 1fr; }
+  .print-note { padding: 0 16px 14px; color: #777; font-size: 0.82em; line-height: 1.6; }
 
   /* 강의내용 버튼 — 카테고리별 색상 */
   .btn-common  { border-color: #b8dfc8; }
@@ -454,6 +456,21 @@
         <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">핵심 요약 · 10 KB</div></div>
       </a>
     </div>
+  </div>
+
+  <div class="cat cat-etc">🖨️ 기출문제 인쇄용 묶음 <span class="badge">ZIP 다운로드</span></div>
+
+  <div class="subject-block print-pack" id="exam-print-pack">
+    <div class="subject-title title-etc">전체 기출문제 인쇄용 <span class="date">2026-07-14</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-quiz" href="forest_exam_questions_no_answers_complete_20260714.zip" target="_blank" download>
+        <span class="ico">📝</span><div class="info"><div class="label">해설답안 없는 버전</div><div class="sub">문제만 인쇄 · 16개 HTML · 92 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="forest_exam_questions_with_answers_complete_20260714.zip" target="_blank" download>
+        <span class="ico">✅</span><div class="info"><div class="label">해설답안 있는 버전</div><div class="sub">문제 + 정답/해설 인쇄 · 16개 HTML · 123 KB</div></div>
+      </a>
+    </div>
+    <p class="print-note">압축을 풀어 과목별 HTML을 열고 브라우저 인쇄 기능으로 출력하면 됩니다.</p>
   </div>
 
   <div class="footer">
