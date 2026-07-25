@@ -36,7 +36,7 @@ header .meta{font-size:13px;opacity:.88}
 @media(max-width:600px){.score-board{gap:10px}.score-item .value{font-size:18px}}
 @media print{.forest-back-link{display:none!important}}
 
-.perfect-celebration{position:fixed;inset:0;z-index:20000;pointer-events:none;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(18,28,22,.18);animation:celebrationFade 3.8s ease forwards}.perfect-celebration-card{pointer-events:none;background:rgba(255,255,255,.94);color:#1f5130;border:2px solid #7cc47f;border-radius:10px;padding:22px 28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.22);transform:scale(.92);animation:celebrationPop .5s ease forwards}.perfect-celebration-title{font-size:1.55rem;font-weight:900;margin-bottom:6px}.perfect-celebration-sub{font-size:.98rem;color:#475d4c;font-weight:700}.confetti-piece{position:fixed;top:-18px;width:10px;height:16px;border-radius:2px;animation:confettiFall 3.2s linear forwards}.firework-spark{position:fixed;width:8px;height:8px;border-radius:50%;animation:fireworkBurst .9s ease-out forwards}@keyframes celebrationPop{to{transform:scale(1)}}@keyframes celebrationFade{0%,82%{opacity:1}100%{opacity:0;visibility:hidden}}@keyframes confettiFall{to{transform:translate3d(var(--drift),105vh,0) rotate(720deg);opacity:.95}}@keyframes fireworkBurst{to{transform:translate(var(--x),var(--y)) scale(.25);opacity:0}}@media(prefers-reduced-motion:reduce){.perfect-celebration,.perfect-celebration-card,.confetti-piece,.firework-spark{animation-duration:.01ms!important}}
+.perfect-celebration{position:fixed;inset:0;z-index:20000;pointer-events:none;overflow:hidden;display:flex;align-items:center;justify-content:center;background:rgba(18,28,22,.18);animation:celebrationFade 5.2s ease forwards}.perfect-celebration-card{pointer-events:none;background:rgba(255,255,255,.94);color:#1f5130;border:2px solid #7cc47f;border-radius:10px;padding:22px 28px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.22);transform:scale(.92);animation:celebrationPop .5s ease forwards}.perfect-celebration-title{font-size:1.55rem;font-weight:900;margin-bottom:6px}.perfect-celebration-sub{font-size:.98rem;color:#475d4c;font-weight:700}.confetti-piece{position:fixed;top:-18px;width:12px;height:20px;border-radius:2px;animation:confettiFall 4.4s linear forwards}.firework-spark{position:fixed;width:10px;height:10px;border-radius:50%;box-shadow:0 0 14px currentColor;animation:fireworkBurst 1.25s ease-out forwards}@keyframes celebrationPop{to{transform:scale(1)}}@keyframes celebrationFade{0%,88%{opacity:1}100%{opacity:0;visibility:hidden}}@keyframes confettiFall{to{transform:translate3d(var(--drift),105vh,0) rotate(1080deg);opacity:.95}}@keyframes fireworkBurst{to{transform:translate(var(--x),var(--y)) scale(.25);opacity:0}}@media(prefers-reduced-motion:reduce){.perfect-celebration,.perfect-celebration-card,.confetti-piece,.firework-spark{animation-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -412,15 +412,15 @@ var perfectCelebrationShown = false;
 function launchPerfectCelebration(){
   if(perfectCelebrationShown)return;
   perfectCelebrationShown=true;
-  var colors=['#ff4d6d','#ffd166','#06d6a0','#4dabf7','#845ef7','#ff922b'];
+  var colors=['#ff1744','#ffea00','#00e676','#00b0ff','#7c4dff','#ff6d00','#ff4081','#18ffff','#ffffff'];
   var overlay=document.createElement('div');
   overlay.className='perfect-celebration';
-  overlay.innerHTML='<div class="perfect-celebration-card"><div class="perfect-celebration-title">팡파레! 전부 정답!</div><div class="perfect-celebration-sub">모든 문제를 완벽하게 맞췄습니다.</div></div>';
+  overlay.innerHTML='<div class="perfect-celebration-card"><div class="perfect-celebration-title">축하합니다</div></div>';
   document.body.appendChild(overlay);
-  for(var i=0;i<120;i++){var piece=document.createElement('span');piece.className='confetti-piece';piece.style.left=Math.random()*100+'vw';piece.style.background=colors[i%colors.length];piece.style.animationDelay=Math.random()*.7+'s';piece.style.setProperty('--drift',Math.random()*220-110+'px');overlay.appendChild(piece)}
-  function burst(cx,cy){for(var j=0;j<28;j++){var spark=document.createElement('span');var angle=Math.PI*2*j/28;var distance=70+Math.random()*80;spark.className='firework-spark';spark.style.left=cx+'px';spark.style.top=cy+'px';spark.style.background=colors[j%colors.length];spark.style.setProperty('--x',Math.cos(angle)*distance+'px');spark.style.setProperty('--y',Math.sin(angle)*distance+'px');overlay.appendChild(spark)}}
-  burst(window.innerWidth*.28,window.innerHeight*.32);burst(window.innerWidth*.72,window.innerHeight*.34);burst(window.innerWidth*.5,window.innerHeight*.22);
-  setTimeout(function(){overlay.remove()},4200);
+  for(var i=0;i<220;i++){var piece=document.createElement('span');piece.className='confetti-piece';piece.style.left=Math.random()*100+'vw';piece.style.background=colors[i%colors.length];piece.style.animationDelay=Math.random()*1.2+'s';piece.style.setProperty('--drift',Math.random()*360-180+'px');overlay.appendChild(piece)}
+  function burst(cx,cy){for(var j=0;j<48;j++){var spark=document.createElement('span');var angle=Math.PI*2*j/48;var distance=110+Math.random()*170;spark.className='firework-spark';spark.style.left=cx+'px';spark.style.top=cy+'px';spark.style.background=colors[j%colors.length];spark.style.color=spark.style.background;spark.style.setProperty('--x',Math.cos(angle)*distance+'px');spark.style.setProperty('--y',Math.sin(angle)*distance+'px');overlay.appendChild(spark)}}
+  var points=[[.18,.28],[.36,.18],[.58,.25],[.78,.30],[.26,.55],[.50,.48],[.74,.58]];points.forEach(function(pt,idx){setTimeout(function(){burst(window.innerWidth*pt[0],window.innerHeight*pt[1])},idx*160)});setTimeout(function(){burst(window.innerWidth*.5,window.innerHeight*.36)},1300);
+  setTimeout(function(){overlay.remove()},5600);
 }
 
 let correctCount=0;let wrongCount=0;const answers={q1:'1', q2:'1', q3:'4', q4:'2', q5:'1', q6:'1', q7:'1', q8:'1', q9:'1', q10:'1', q11:'4', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
