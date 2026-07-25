@@ -25,8 +25,58 @@
   .explanation.show { display: block; }
   .answered-correct .q-num { background: #28a745; }
   .answered-wrong .q-num { background: #dc3545; }
+
+  .perfect-celebration { position: fixed; inset: 0; z-index: 20000; pointer-events: none; overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(18, 28, 22, 0.18); animation: celebrationFade 3.8s ease forwards; }
+  .perfect-celebration-card { pointer-events: none; background: rgba(255,255,255,0.94); color: #1f5130; border: 2px solid #7cc47f; border-radius: 10px; padding: 22px 28px; text-align: center; box-shadow: 0 18px 50px rgba(0,0,0,0.22); transform: scale(.92); animation: celebrationPop .5s ease forwards; }
+  .perfect-celebration-title { font-size: 1.55rem; font-weight: 900; margin-bottom: 6px; }
+  .perfect-celebration-sub { font-size: .98rem; color: #475d4c; font-weight: 700; }
+  .confetti-piece { position: fixed; top: -18px; width: 10px; height: 16px; border-radius: 2px; animation: confettiFall 3.2s linear forwards; }
+  .firework-spark { position: fixed; width: 8px; height: 8px; border-radius: 50%; animation: fireworkBurst .9s ease-out forwards; }
+  @keyframes celebrationPop { to { transform: scale(1); } }
+  @keyframes celebrationFade { 0%, 82% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+  @keyframes confettiFall { to { transform: translate3d(var(--drift), 105vh, 0) rotate(720deg); opacity: .95; } }
+  @keyframes fireworkBurst { to { transform: translate(var(--x), var(--y)) scale(.25); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .perfect-celebration, .perfect-celebration-card, .confetti-piece, .firework-spark { animation-duration: .01ms !important; } }
 </style>
 <script>
+
+var perfectCelebrationShown = false;
+function launchPerfectCelebration() {
+  if (perfectCelebrationShown) return;
+  perfectCelebrationShown = true;
+  var colors = ['#ff4d6d', '#ffd166', '#06d6a0', '#4dabf7', '#845ef7', '#ff922b'];
+  var overlay = document.createElement('div');
+  overlay.className = 'perfect-celebration';
+  overlay.innerHTML = '<div class="perfect-celebration-card"><div class="perfect-celebration-title">팡파레! 전부 정답!</div><div class="perfect-celebration-sub">모든 문제를 완벽하게 맞췄습니다.</div></div>';
+  document.body.appendChild(overlay);
+  for (var i = 0; i < 120; i++) {
+    var piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[i % colors.length];
+    piece.style.animationDelay = (Math.random() * 0.7) + 's';
+    piece.style.setProperty('--drift', ((Math.random() * 220) - 110) + 'px');
+    overlay.appendChild(piece);
+  }
+  function burst(cx, cy) {
+    for (var j = 0; j < 28; j++) {
+      var spark = document.createElement('span');
+      var angle = (Math.PI * 2 * j) / 28;
+      var distance = 70 + Math.random() * 80;
+      spark.className = 'firework-spark';
+      spark.style.left = cx + 'px';
+      spark.style.top = cy + 'px';
+      spark.style.background = colors[j % colors.length];
+      spark.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+      spark.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+      overlay.appendChild(spark);
+    }
+  }
+  burst(window.innerWidth * 0.28, window.innerHeight * 0.32);
+  burst(window.innerWidth * 0.72, window.innerHeight * 0.34);
+  burst(window.innerWidth * 0.5, window.innerHeight * 0.22);
+  setTimeout(function() { overlay.remove(); }, 4200);
+}
 var answered = 0, correct_count = 0, total = 50;
 function checkAnswer(qNum, selected, correctLetter) {
   var opts = document.querySelectorAll('.q' + qNum + ' .option');
@@ -62,6 +112,7 @@ function checkAnswer(qNum, selected, correctLetter) {
   var pct = Math.round(answered / total * 100);
   document.querySelector('.progress-bar').style.width = pct + '%';
   document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+  if (answered === total && correct_count === total) launchPerfectCelebration();
 }
 </script>
 

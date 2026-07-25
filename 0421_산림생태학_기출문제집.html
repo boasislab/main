@@ -30,6 +30,44 @@
   .cat-btn.active { background: #2d6a4f; color: white; }
 </style>
 <script>
+
+var perfectCelebrationShown = false;
+function launchPerfectCelebration() {
+  if (perfectCelebrationShown) return;
+  perfectCelebrationShown = true;
+  var colors = ['#ff4d6d', '#ffd166', '#06d6a0', '#4dabf7', '#845ef7', '#ff922b'];
+  var overlay = document.createElement('div');
+  overlay.className = 'perfect-celebration';
+  overlay.innerHTML = '<div class="perfect-celebration-card"><div class="perfect-celebration-title">팡파레! 전부 정답!</div><div class="perfect-celebration-sub">모든 문제를 완벽하게 맞췄습니다.</div></div>';
+  document.body.appendChild(overlay);
+  for (var i = 0; i < 120; i++) {
+    var piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[i % colors.length];
+    piece.style.animationDelay = (Math.random() * 0.7) + 's';
+    piece.style.setProperty('--drift', ((Math.random() * 220) - 110) + 'px');
+    overlay.appendChild(piece);
+  }
+  function burst(cx, cy) {
+    for (var j = 0; j < 28; j++) {
+      var spark = document.createElement('span');
+      var angle = (Math.PI * 2 * j) / 28;
+      var distance = 70 + Math.random() * 80;
+      spark.className = 'firework-spark';
+      spark.style.left = cx + 'px';
+      spark.style.top = cy + 'px';
+      spark.style.background = colors[j % colors.length];
+      spark.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+      spark.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+      overlay.appendChild(spark);
+    }
+  }
+  burst(window.innerWidth * 0.28, window.innerHeight * 0.32);
+  burst(window.innerWidth * 0.72, window.innerHeight * 0.34);
+  burst(window.innerWidth * 0.5, window.innerHeight * 0.22);
+  setTimeout(function() { overlay.remove(); }, 4200);
+}
 var answered = 0, correct_count = 0, total = 50;
 function checkAnswer(qNum, selected, correctLetter) {
   var opts = document.querySelectorAll('.q' + qNum + ' .option');
@@ -65,6 +103,7 @@ function checkAnswer(qNum, selected, correctLetter) {
   var pct = Math.round(answered / total * 100);
   document.querySelector('.progress-bar').style.width = pct + '%';
   document.getElementById('score-display').textContent = '진행: ' + answered + '/' + total + '  |  정답: ' + correct_count + '문항 (' + Math.round(correct_count/answered*100) + '%)';
+  if (answered === total && correct_count === total) launchPerfectCelebration();
 }
 </script>
 
