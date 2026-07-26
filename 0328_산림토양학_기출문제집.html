@@ -34,7 +34,8 @@
 var perfectCelebrationShown = false;
 function launchPerfectCelebration(){
   if(perfectCelebrationShown)return;
-  perfectCelebrationShown=true;
+  perfectCelebrationShown = true;
+  try { var fanfare = new Audio('assets/forest/forest_quiz_fanfare.mp3'); fanfare.volume = 0.75; fanfare.play().catch(function(){}); } catch (e) {}
   var colors=['#ff1744','#ffea00','#00e676','#00b0ff','#7c4dff','#ff6d00','#ff4081','#18ffff','#ffffff'];
   var overlay=document.createElement('div');
   overlay.className='perfect-celebration';
