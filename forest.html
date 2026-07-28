@@ -37,6 +37,95 @@
   .site-header h1 { color: #2d6a4f; font-size: 1.6em; margin-bottom: 6px; }
   .site-header p { color: #666; font-size: 0.92em; }
 
+  .study-dashboard {
+    background: #fff;
+    border: 1px solid #dce8df;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 26px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .summary-item {
+    background: #f7faf7;
+    border: 1px solid #e3ede5;
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 62px;
+  }
+  .summary-item .num { display: block; color: #1f6b4b; font-size: 1.25em; font-weight: 800; line-height: 1.1; }
+  .summary-item .txt { display: block; color: #66756b; font-size: 0.76em; line-height: 1.35; margin-top: 4px; }
+  .tool-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-input {
+    width: 100%;
+    border: 1.5px solid #cfded3;
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 0.95em;
+    outline: none;
+    background: #fff;
+  }
+  .search-input:focus { border-color: #2d8a5f; box-shadow: 0 0 0 3px rgba(45,138,95,0.1); }
+  .view-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 3px;
+    border: 1px solid #d9e5dc;
+    border-radius: 10px;
+    background: #f5f8f6;
+  }
+  .view-tab {
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #66756b;
+    cursor: pointer;
+    font-size: 0.82em;
+    font-weight: 700;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+  .view-tab.active { background: #2d8a5f; color: #fff; }
+  .study-route {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .route-chip {
+    border-left: 4px solid #2d8a5f;
+    background: #f4faf6;
+    border-radius: 8px;
+    padding: 9px 10px;
+    color: #415349;
+    font-size: 0.78em;
+    line-height: 1.45;
+  }
+  .route-chip strong { display: block; color: #224f39; font-size: 1.02em; margin-bottom: 2px; }
+  .no-results {
+    display: none;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #cbd8cf;
+    border-radius: 12px;
+    color: #77867c;
+    padding: 22px 14px;
+    margin: 10px 0 22px;
+    font-size: 0.9em;
+  }
+  .filtered-hidden { display: none !important; }
+  mark.search-hit { background: #fff2a8; border-radius: 3px; padding: 0 2px; }
+
   /* ── Lv1: 대분류 헤더 ── */
   .cat {
     display: flex; align-items: center; gap: 10px;
@@ -89,6 +178,11 @@
     body { display: block; }
     #main-screen { width: 100%; max-width: none; margin: 0; padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
     .file-list { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .tool-row { grid-template-columns: 1fr; }
+    .view-tabs { width: 100%; overflow-x: auto; }
+    .view-tab { flex: 1; }
+    .study-route { grid-template-columns: 1fr; }
     .subject-title { flex-wrap: wrap; }
     .subject-title .date { margin-left: 0; }
     .file-btn { min-width: 0; }
@@ -164,6 +258,31 @@
     <h1><img src="forest-icon.jpg" alt="숲해설" style="height:1.2em;vertical-align:middle;margin-right:8px;">숲해설가 18기 강의자료</h1>
     <p>각 과목의 정리본과 기출문제집을 클릭하면 바로 열립니다</p>
   </div>
+
+  <section class="study-dashboard" aria-label="학습자료 현황과 빠른 찾기">
+    <div class="summary-grid">
+      <div class="summary-item"><span class="num">23</span><span class="txt">등록 과목</span></div>
+      <div class="summary-item"><span class="num">23</span><span class="txt">강의내용 정리본</span></div>
+      <div class="summary-item"><span class="num">22</span><span class="txt">기출문제집</span></div>
+      <div class="summary-item"><span class="num">2</span><span class="txt">인쇄용 ZIP 묶음</span></div>
+    </div>
+    <div class="tool-row">
+      <input type="search" class="search-input" id="subject-search" placeholder="과목명, 날짜, 키워드로 찾기" autocomplete="off">
+      <div class="view-tabs" aria-label="자료 분류 보기">
+        <button type="button" class="view-tab active" data-filter="all">전체</button>
+        <button type="button" class="view-tab" data-filter="common">공통</button>
+        <button type="button" class="view-tab" data-filter="select2">선택2</button>
+        <button type="button" class="view-tab" data-filter="etc">개인심화</button>
+      </div>
+    </div>
+    <div class="study-route" aria-label="학습 순서">
+      <div class="route-chip"><strong>1. 기본 흐름</strong>산림교육론 → 숲해설개론</div>
+      <div class="route-chip"><strong>2. 생태 기초</strong>산림생태학 → 식물·토양</div>
+      <div class="route-chip"><strong>3. 현장 대응</strong>응급처치 → 야외활동지도</div>
+      <div class="route-chip"><strong>4. 문제 확인</strong>과목별 기출문제 반복</div>
+    </div>
+  </section>
+  <div class="no-results" id="no-results">검색 조건에 맞는 과목이 없습니다.</div>
 
   <!-- ══════════════ 공통 ══════════════ -->
   <div class="cat cat-common">🌿 공통 <span class="badge">필수 이수 과목</span></div>
@@ -517,6 +636,101 @@
       setTimeout(() => target.classList.remove('return-highlight'), 1800);
     }, 80);
   }
+
+  function normalizeText(text) {
+    return (text || '').toLowerCase().replace(/\s+/g, '');
+  }
+
+  function getSubjectCategory(block) {
+    let current = block.previousElementSibling;
+    while (current) {
+      if (current.classList && current.classList.contains('cat-common')) return 'common';
+      if (current.classList && current.classList.contains('cat-select2')) return 'select2';
+      if (current.classList && current.classList.contains('cat-etc')) return 'etc';
+      current = current.previousElementSibling;
+    }
+    return 'all';
+  }
+
+  function clearSearchMarks() {
+    document.querySelectorAll('mark.search-hit').forEach((mark) => {
+      mark.replaceWith(document.createTextNode(mark.textContent || ''));
+    });
+  }
+
+  function highlightTitle(block, query) {
+    if (!query) return;
+    const title = block.querySelector('.subject-title');
+    if (!title) return;
+    const date = title.querySelector('.date');
+    const dateText = date ? date.outerHTML : '';
+    const titleText = Array.from(title.childNodes)
+      .filter((node) => node.nodeType === Node.TEXT_NODE)
+      .map((node) => node.textContent)
+      .join('');
+    const index = normalizeText(titleText).indexOf(normalizeText(query));
+    if (index < 0) return;
+    const raw = titleText.trim();
+    const safeQuery = query.trim();
+    const rawIndex = raw.toLowerCase().indexOf(safeQuery.toLowerCase());
+    if (rawIndex < 0) return;
+    const before = raw.slice(0, rawIndex);
+    const hit = raw.slice(rawIndex, rawIndex + safeQuery.length);
+    const after = raw.slice(rawIndex + safeQuery.length);
+    title.innerHTML = before + '<mark class="search-hit">' + hit + '</mark>' + after + ' ' + dateText;
+  }
+
+  function applySubjectFilters() {
+    const search = document.getElementById('subject-search');
+    const query = normalizeText(search ? search.value : '');
+    const activeTab = document.querySelector('.view-tab.active');
+    const filter = activeTab ? activeTab.dataset.filter : 'all';
+    let visibleCount = 0;
+
+    clearSearchMarks();
+    document.querySelectorAll('.subject-block').forEach((block) => {
+      if (block.classList.contains('print-pack')) return;
+      const text = normalizeText(block.textContent);
+      const category = getSubjectCategory(block);
+      const matchesText = !query || text.includes(query);
+      const matchesFilter = filter === 'all' || category === filter;
+      const visible = matchesText && matchesFilter;
+      block.classList.toggle('filtered-hidden', !visible);
+      if (visible) {
+        visibleCount += 1;
+        highlightTitle(block, search ? search.value : '');
+      }
+    });
+
+    document.querySelectorAll('.subgroup, .cat').forEach((heading) => {
+      let next = heading.nextElementSibling;
+      let hasVisibleSubject = false;
+      while (next && !(next.classList && next.classList.contains('cat')) && !(heading.classList.contains('subgroup') && next.classList && next.classList.contains('subgroup'))) {
+        if (next.classList && next.classList.contains('subject-block') && !next.classList.contains('filtered-hidden') && !next.classList.contains('print-pack')) {
+          hasVisibleSubject = true;
+          break;
+        }
+        next = next.nextElementSibling;
+      }
+      heading.classList.toggle('filtered-hidden', !hasVisibleSubject);
+    });
+
+    const noResults = document.getElementById('no-results');
+    if (noResults) noResults.style.display = visibleCount ? 'none' : 'block';
+  }
+
+  function initSubjectTools() {
+    const search = document.getElementById('subject-search');
+    if (search) search.addEventListener('input', applySubjectFilters);
+    document.querySelectorAll('.view-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.view-tab').forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        applySubjectFilters();
+      });
+    });
+  }
+
   function showMain(options = {}) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
@@ -525,6 +739,8 @@
     document.querySelectorAll('.print-pack-only').forEach((el) => {
       el.style.display = options.showPrintPack ? '' : 'none';
     });
+    initSubjectTools();
+    applySubjectFilters();
     restoreReturnTarget();
   }
   function showMaint() {
