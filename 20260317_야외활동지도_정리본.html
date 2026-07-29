@@ -24,6 +24,13 @@ p { margin:7px 0; white-space:pre-wrap; }
 .hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 5px;border-radius:4px}
 .hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 5px;border-radius:4px}
 .key-line{background:#f8fbff;border-left:4px solid #3679b5;padding:8px 10px;border-radius:4px}
+.safety-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.safety-card{border:1px solid #dbe7f2;background:#f8fbff;border-left:4px solid #3679b5;border-radius:6px;padding:12px 14px}
+.safety-card strong{color:#183a5a}
+.safety-card ul{margin:8px 0 0;padding-left:18px}
+.safety-card li{margin:4px 0}
+.safety-alert{background:#fff4db;border-left:4px solid #d89000;padding:10px 12px;border-radius:6px;font-weight:700}
+@media(max-width:720px){.safety-grid{grid-template-columns:1fr}}
 .space { height:8px; }
 footer { margin-top:20px; color:#687786; font-size:.92rem; }
 </style>
@@ -171,8 +178,43 @@ figure{break-inside:avoid;}
 <div class="space"></div>
 <div class="space"></div>
 <h3>4. 야외에서의 안전 점검 및 준비(472~473p) → 응급처치 과목 참고</h3>
-<div class="space"></div>
-<div class="space"></div>
+<p class="key-line">산림현장은 응급사고 발생 시 구조대 접근성이 떨어질 수 있으므로, 산림복지 전문가는 <span class="hl-red">신속하고 정확한 행동</span>으로 부상자의 생명 보호, 회복기간 단축, 장애의 일시적·영구적 영향을 줄이는 역할을 해야 한다.</p>
+<div class="safety-grid">
+  <div class="safety-card">
+    <strong>응급상황 발생 전 준비사항</strong>
+    <ul>
+      <li>응급상황 시 역할 분담 숙지</li>
+      <li>전화번호: 병원, 약국, 책임자 등 비상연락망 숙지</li>
+      <li>안전·재난대응 매뉴얼 숙지, 비치 및 상비의약품 준비</li>
+      <li>참여자 개인정보와 응급상황 발생 시 사전 동의 확인</li>
+      <li>사고 발생 24시간 이내 보고서 작성 후 보호자·관계 기관 공유</li>
+    </ul>
+  </div>
+  <div class="safety-card">
+    <strong>산림 안전사고 유형</strong>
+    <ul>
+      <li><span class="hl-blue">자연적 유형</span>: 기상(비·바람·기온·벼락·일몰·눈), 지형(낙석·계곡·잡목 숲), 동식물(낙지·독사·독충·독버섯·독성식물)</li>
+      <li><span class="hl-red">인위적 유형</span>: 방심, 계획·경험·준비 부족, 건강관리 부족, 안전의식 부족</li>
+      <li>예: 목포 용해동 바닷가 영아 사망사고</li>
+    </ul>
+  </div>
+  <div class="safety-card">
+    <strong>안전사고 관리방법</strong>
+    <ul>
+      <li>조난대책: 길을 잃거나 밤을 새울 경우 구조요청 방법 숙지</li>
+      <li>리더십: 현장 판단, 역할 분담, 참여자 통제</li>
+      <li>산 선택, 등산계획, 장비, 식량, 의류, 걷기와 휴식, 위험지역 산행, 야영지 선택 시 안전 기준 확인</li>
+    </ul>
+  </div>
+  <div class="safety-card">
+    <strong>사고 발생 시 대처 요령</strong>
+    <ul>
+      <li>의식이 있을 때와 없을 때를 구분해 대응</li>
+      <li>저체온증, 탈진, 일사병, 열사병, 동상, 낙석·벼락, 산사태 등 상황별 처치 요령 숙지</li>
+    </ul>
+  </div>
+</div>
+<p class="safety-alert">핵심 암기: 사전 준비는 <span class="hl-blue">역할 분담·비상연락망·매뉴얼·상비의약품·사전 동의·24시간 이내 보고</span>까지 한 묶음으로 본다.</p>
 <h3>5. 야외활동 위험요소 및 대처 방안</h3>
 <p class="subline">1) 안전지침</p>
 <p class="subline">(1) 사전준비</p>
