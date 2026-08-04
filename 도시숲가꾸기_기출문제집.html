@@ -50,11 +50,11 @@
 
 <header>
   <h1>🌳 도시숲 가꾸기의 이해 — 기출문제집</h1>
-  <div class="meta">총 25문항 | 클릭하면 정답 확인 | 출처: 음성정리 + Gnote OCR</div>
+  <div class="meta">총 35문항 | 클릭하면 정답 확인 | 출처: 음성정리 + Gnote OCR + 통합 보강 정리</div>
 </header>
 
 <div class="score-board">
-  <div class="score-item"><div class="label">총 문항</div><div class="value">25</div></div>
+  <div class="score-item"><div class="label">총 문항</div><div class="value">35</div></div>
   <div class="score-item"><div class="label">맞힌 수</div><div class="value" id="correct-count">0</div></div>
   <div class="score-item"><div class="label">틀린 수</div><div class="value" id="wrong-count" style="color:#dc2626;">0</div></div>
   <div class="score-item"><div class="label">점수</div><div class="value" id="score-pct">0%</div></div>
@@ -249,7 +249,7 @@
   <div class="question-text">우리나라에 천연림과 인공림 외에 존재하지 않는 것은?</div>
   <ul class="options">
     <li onclick="answer(this,'q12','1')">① 원시림</li>
-    <li onclick="answer(this,'q12','2')">③ 천연림</li>
+    <li onclick="answer(this,'q12','2')">② 천연림</li>
     <li onclick="answer(this,'q12','3')">③ 인공림</li>
     <li onclick="answer(this,'q12','4')">④ 혼효림</li>
   </ul>
@@ -476,11 +476,174 @@
   </div>
 </div>
 
+<!-- 섹션 6: 통합 보강 문제 -->
+<div class="section-header">🧩 Part 6. 통합 보강 핵심 (26~35번)</div>
+
+<!-- Q26 -->
+<div class="question-card" id="q26">
+  <div class="question-num">26번</div>
+  <div class="question-text">나무의 크기별 구분에서 2m 이하 낮게 자라는 나무를 무엇이라고 하는가?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q26','1')">① 교목</li>
+    <li onclick="answer(this,'q26','2')">② 아교목</li>
+    <li onclick="answer(this,'q26','3')">③ 관목</li>
+    <li onclick="answer(this,'q26','4')">④ 임목</li>
+  </ul>
+  <div class="answer-box" id="ans-q26">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>크기별 구분: 교목은 5m 이상, 아교목은 2~5m, 관목은 2m 이하. 진달래·국수나무·싸리 등이 관목 예시.</div>
+  </div>
+</div>
+
+<!-- Q27 -->
+<div class="question-card" id="q27">
+  <div class="question-num">27번</div>
+  <div class="question-text">공·사유림 기준으로 참나무류의 벌기령은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q27','1')">① 3년</li>
+    <li onclick="answer(this,'q27','2')">② 25년</li>
+    <li onclick="answer(this,'q27','3')">③ 40년</li>
+    <li onclick="answer(this,'q27','4')">④ 60년</li>
+  </ul>
+  <div class="answer-box" id="ans-q27">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>주요 수종별 벌기령에서 참나무류는 국유림 60년, 공·사유림 25년. 포플러류는 3년, 편백은 공·사유림 40년.</div>
+  </div>
+</div>
+
+<!-- Q28 -->
+<div class="question-card" id="q28">
+  <div class="question-num">28번</div>
+  <div class="question-text">연못 주변에 적합한 대표 수종으로 정리된 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q28','1')">① 버드나무·왕버들·갯버들</li>
+    <li onclick="answer(this,'q28','2')">② 소나무·노간주·산초나무</li>
+    <li onclick="answer(this,'q28','3')">③ 편백·삼나무·리기다소나무</li>
+    <li onclick="answer(this,'q28','4')">④ 플라타너스·은행나무·메타세쿼이아</li>
+  </ul>
+  <div class="answer-box" id="ans-q28">
+    <div class="ans-label">✅ 정답: ①</div>
+    <div>연못 주변에는 물을 좋아하는 버드나무류가 대표적이다. 정리본에는 버드나무·왕버들·갯버들, 보리수나무, 콩배나무, 돌배나무, 붉나무 등이 제시됐다.</div>
+  </div>
+</div>
+
+<!-- Q29 -->
+<div class="question-card" id="q29">
+  <div class="question-num">29번</div>
+  <div class="question-text">도시숲 유형 중 미세먼지 저감형의 핵심 기능은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q29','1')">① 역사와 문화 보존</li>
+    <li onclick="answer(this,'q29','2')">② 오염물질 차단·흡수·침강</li>
+    <li onclick="answer(this,'q29','3')">③ 생태축 연결만 담당</li>
+    <li onclick="answer(this,'q29','4')">④ 목재 생산량 증대</li>
+  </ul>
+  <div class="answer-box" id="ans-q29">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>미세먼지 저감형 도시숲은 미세먼지 등 오염물질을 차단·흡수·침강시키는 기능을 한다. 역사·문화형, 생태계 보전형과 구분해야 한다.</div>
+  </div>
+</div>
+
+<!-- Q30 -->
+<div class="question-card" id="q30">
+  <div class="question-num">30번</div>
+  <div class="question-text">1차 천이에 대한 설명으로 옳은 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q30','1')">① 기존 생태계가 산불 후 다시 회복되는 과정</li>
+    <li onclick="answer(this,'q30','2')">② 암석 풍화와 토양 형성 이후 생태계가 새로 형성되는 과정</li>
+    <li onclick="answer(this,'q30','3')">③ 숲이 안정 상태에 이른 최종 단계</li>
+    <li onclick="answer(this,'q30','4')">④ 방해목을 골라 베어내는 숲가꾸기 작업</li>
+  </ul>
+  <div class="answer-box" id="ans-q30">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>1차 천이는 암석 풍화와 토양 형성 이후 생태계가 새로 형성되는 과정. 산불 등으로 파괴된 뒤 다시 형성되는 과정은 2차 천이다.</div>
+  </div>
+</div>
+
+<!-- Q31 -->
+<div class="question-card" id="q31">
+  <div class="question-num">31번</div>
+  <div class="question-text">벌목 시 앞으로 키워야 할 우량목을 무엇이라고 하는가?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q31','1')">① 미래목</li>
+    <li onclick="answer(this,'q31','2')">② 방해목</li>
+    <li onclick="answer(this,'q31','3')">③ 하층목</li>
+    <li onclick="answer(this,'q31','4')">④ 악연목</li>
+  </ul>
+  <div class="answer-box" id="ans-q31">
+    <div class="ans-label">✅ 정답: ①</div>
+    <div>미래목은 앞으로 키워야 할 우량목이다. 방해목은 미래목의 생장을 방해해 제거 대상이 되는 나무, 하층목은 아래층에서 자라는 낮은 나무다.</div>
+  </div>
+</div>
+
+<!-- Q32 -->
+<div class="question-card" id="q32">
+  <div class="question-num">32번</div>
+  <div class="question-text">나무 측정 용어 중 수관이 시작되는 높이부터 꼭대기까지의 높이는?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q32','1')">① 수고</li>
+    <li onclick="answer(this,'q32','2')">② 수관폭</li>
+    <li onclick="answer(this,'q32','3')">③ 수관고</li>
+    <li onclick="answer(this,'q32','4')">④ 근원직경</li>
+  </ul>
+  <div class="answer-box" id="ans-q32">
+    <div class="ans-label">✅ 정답: ③</div>
+    <div>수관고는 수관이 시작되는 높이부터 꼭대기까지의 높이다. 수고는 나무 전체 높이, 수관폭은 나뭇잎이 퍼진 가로 폭이다.</div>
+  </div>
+</div>
+
+<!-- Q33 -->
+<div class="question-card" id="q33">
+  <div class="question-num">33번</div>
+  <div class="question-text">그린짐 활동 순서로 가장 알맞은 것은?<span class="star-hint">★</span></div>
+  <ul class="options">
+    <li onclick="answer(this,'q33','1')">① 활동 → 작업 설명 → 준비운동 → 정리운동</li>
+    <li onclick="answer(this,'q33','2')">② 상호 인사 → 준비운동 → 작업 방법·도구 설명 → 활동 → 중간 휴식 → 활동 → 정리운동</li>
+    <li onclick="answer(this,'q33','3')">③ 장비 지급 → 해산 → 참가자 모집 → 작업 설명</li>
+    <li onclick="answer(this,'q33','4')">④ 중간 휴식 → 활동 → 상호 인사 → 준비운동</li>
+  </ul>
+  <div class="answer-box" id="ans-q33">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>정리본의 그린짐 순서: 상호 인사 → 준비운동 → 작업 방법 및 도구 설명 → 작업 내용 설명 → 활동 → 중간 휴식 → 활동 → 정리운동.</div>
+  </div>
+</div>
+
+<!-- Q34 -->
+<div class="question-card" id="q34">
+  <div class="question-num">34번</div>
+  <div class="question-text">그린짐 안전 관리를 위한 리더 배치 기준으로 정리된 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q34','1')">① 참여자 2명당 리더 1명</li>
+    <li onclick="answer(this,'q34','2')">② 참여자 5명당 리더 1명</li>
+    <li onclick="answer(this,'q34','3')">③ 참여자 10명당 리더 1명</li>
+    <li onclick="answer(this,'q34','4')">④ 참여자 20명당 리더 1명</li>
+  </ul>
+  <div class="answer-box" id="ans-q34">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>그린짐 리더 배치 비율은 참여자 5명당 리더 1명으로 정리됐다. 숲해설가 자격을 갖춘 리더와 안전 관리가 중요하다.</div>
+  </div>
+</div>
+
+<!-- Q35 -->
+<div class="question-card" id="q35">
+  <div class="question-num">35번</div>
+  <div class="question-text">솔잎 긁기를 하는 이유로 정리본 내용과 가장 가까운 것은?</div>
+  <ul class="options">
+    <li onclick="answer(this,'q35','1')">① 솔잎을 모두 제거해야 경관이 밝아져 관광객이 늘기 때문</li>
+    <li onclick="answer(this,'q35','2')">② 솔잎이 쌓이면 소나무 뿌리 호흡과 토양 균 활동에 좋지 않을 수 있기 때문</li>
+    <li onclick="answer(this,'q35','3')">③ 솔잎은 항상 병해충의 직접 원인이기 때문</li>
+    <li onclick="answer(this,'q35','4')">④ 솔잎은 목재 생산량을 직접 감소시키기 때문</li>
+  </ul>
+  <div class="answer-box" id="ans-q35">
+    <div class="ans-label">✅ 정답: ②</div>
+    <div>솔잎이 과하게 쌓이면 소나무 뿌리가 숨을 못 쉬고 토양 균 활동에도 좋지 않을 수 있다. 솔잎 긁기는 소나무가 건강하게 자라도록 돕는 관리 활동이다.</div>
+  </div>
+</div>
+
 <div style="text-align:center; padding: 20px 0 30px;">
   <button class="btn-reset" onclick="resetAll()">🔄 처음부터 다시</button>
 </div>
 
-<p style="text-align:center; font-size:12px; color:#888; padding-bottom: 20px;">소스: 도시숲가꾸기_음성정리.txt + 도시숲가꾸기_Gnote_OCR.txt | 생성: 2026-06-20</p>
+<p style="text-align:center; font-size:12px; color:#888; padding-bottom: 20px;">소스: 도시숲가꾸기_음성정리.txt + 도시숲가꾸기_Gnote_OCR.txt + 통합 보강 정리본 | 보강: 2026-08-04</p>
 
 </div>
 
@@ -509,7 +672,9 @@ const answers = {
   q7:'3', q8:'2', q9:'3', q10:'3', q11:'2', q12:'1', q13:'3',
   q14:'4', q15:'3', q16:'4', q17:'4',
   q18:'1', q19:'3', q20:'2', q21:'3', q22:'2',
-  q23:'2', q24:'3', q25:'2'
+  q23:'2', q24:'3', q25:'2',
+  q26:'3', q27:'2', q28:'1', q29:'2', q30:'2',
+  q31:'1', q32:'3', q33:'2', q34:'2', q35:'2'
 };
 const answered = {};
 
