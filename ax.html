@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AX 자료실 · boasis lab</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1f2933;
+    --muted: #667085;
+    --line: #d9e2ec;
+    --paper: #ffffff;
+    --bg: #eef3f8;
+    --blue: #2557a7;
+    --blue2: #0f766e;
+    --green: #2d6a4f;
+    --amber: #b7791f;
+  }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+  }
+  a { color: inherit; }
+
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px;
+    background:
+      linear-gradient(rgba(18, 36, 61, 0.72), rgba(18, 36, 61, 0.72)),
+      radial-gradient(circle at 20% 20%, #d9f99d 0, transparent 28%),
+      linear-gradient(135deg, #0f172a, #0f766e 58%, #2d6a4f);
+  }
+  .login-card {
+    width: 100%;
+    max-width: 390px;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 18px;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.25);
+    padding: 38px 30px 32px;
+    text-align: center;
+  }
+  .login-icon { font-size: 3em; margin-bottom: 10px; }
+  .login-card h1 { color: #17324d; font-size: 1.35em; margin-bottom: 6px; }
+  .login-card p { color: var(--muted); font-size: 0.9em; margin-bottom: 22px; }
+  .pw-input {
+    width: 100%;
+    border: 2px solid #c8d3df;
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 1em;
+    text-align: center;
+    outline: none;
+    letter-spacing: 2px;
+  }
+  .pw-input:focus { border-color: var(--blue2); box-shadow: 0 0 0 4px rgba(15,118,110,0.12); }
+  .login-btn {
+    width: 100%;
+    margin-top: 12px;
+    border: 0;
+    border-radius: 10px;
+    padding: 13px 14px;
+    background: #0f766e;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .error-msg { min-height: 20px; margin-top: 9px; color: #c53030; font-size: 0.86em; }
+
+  #main-screen { display: none; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .brand { display: flex; align-items: center; gap: 9px; font-weight: 800; color: #17324d; }
+  .brand span:first-child { font-size: 1.3em; }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .nav a, .nav button {
+    border: 1px solid #cad6e2;
+    background: #fff;
+    color: #314155;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 0.78em;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .hero {
+    background:
+      linear-gradient(rgba(11, 27, 45, 0.74), rgba(11, 27, 45, 0.68)),
+      url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=80') center/cover;
+    color: #fff;
+  }
+  .hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 72px 18px 52px;
+  }
+  .eyebrow {
+    font-size: 0.78em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c7f9cc;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 5vw, 4.4rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+    max-width: 860px;
+  }
+  .hero p {
+    margin-top: 18px;
+    max-width: 720px;
+    color: rgba(255,255,255,0.82);
+    font-size: 1.04em;
+  }
+  .source-note {
+    margin-top: 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 8px 13px;
+    font-size: 0.84em;
+  }
+
+  main.content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 30px 18px 60px;
+  }
+  .section {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(15,23,42,0.04);
+  }
+  .section h2 {
+    color: #17324d;
+    font-size: 1.35em;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .section h3 {
+    color: #24415f;
+    font-size: 1.05em;
+    margin: 18px 0 8px;
+  }
+  .section p { color: #3d4b5c; margin-bottom: 10px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .grid.two { grid-template-columns: repeat(2, 1fr); }
+  .mini-card {
+    border: 1px solid #dbe5ef;
+    background: #f8fbfd;
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .mini-card strong {
+    display: block;
+    color: #17324d;
+    margin-bottom: 5px;
+  }
+  .mini-card p { color: #536273; font-size: 0.9em; margin: 0; }
+  .tag {
+    display: inline-block;
+    color: #0f5132;
+    background: #d8f3dc;
+    border: 1px solid #b7e4c7;
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 0.75em;
+    font-weight: 800;
+    margin: 0 5px 6px 0;
+  }
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .flow div {
+    background: #17324d;
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    font-weight: 800;
+  }
+  .flow small {
+    display: block;
+    margin-top: 3px;
+    color: rgba(255,255,255,0.72);
+    font-weight: 600;
+  }
+  .framework-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin-top: 12px;
+  }
+  .framework-table th, .framework-table td {
+    border: 1px solid #dbe5ef;
+    padding: 9px 10px;
+    vertical-align: top;
+  }
+  .framework-table th {
+    background: #edf4fb;
+    color: #17324d;
+    text-align: left;
+  }
+  ul { padding-left: 19px; color: #3d4b5c; }
+  li { margin: 5px 0; }
+  .source-list a {
+    display: block;
+    color: #1f5fbf;
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid #eef2f6;
+    overflow-wrap: anywhere;
+  }
+  .source-list a:hover { text-decoration: underline; }
+  .footer {
+    text-align: center;
+    color: #7b8794;
+    font-size: 0.78em;
+    padding: 0 18px 30px;
+  }
+  @media (max-width: 760px) {
+    .topbar-inner { align-items: flex-start; flex-direction: column; }
+    .nav { justify-content: flex-start; }
+    .grid, .grid.two, .flow { grid-template-columns: 1fr; }
+    .section { padding: 18px; }
+    .framework-table { display: block; overflow-x: auto; white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+<section id="login-screen">
+  <div class="login-card">
+    <div class="login-icon">🤖</div>
+    <h1>AX 자료실</h1>
+    <p>AI 전환·업무혁신 정리 페이지</p>
+    <input class="pw-input" id="pw" type="password" placeholder="비밀번호" onkeydown="if(event.key==='Enter') login()">
+    <button class="login-btn" onclick="login()">입장</button>
+    <div class="error-msg" id="err"></div>
+  </div>
+</section>
+
+<div id="main-screen">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span>🤖</span><span>AX 자료실</span></div>
+      <nav class="nav">
+        <a href="index.html">홈</a>
+        <a href="#framework">AX 5x5</a>
+        <a href="#workmap">Work Map</a>
+        <a href="#sources">출처</a>
+        <button type="button" onclick="logout()">로그아웃</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">AI Transformation Archive</div>
+      <h1>AI를 붙이기 전에, 일을 다시 설계한다</h1>
+      <p>seigniter 사이트의 공개 AX·AI 전환 자료를 바탕으로 핵심 관점만 요약한 개인 학습용 정리 페이지입니다. 원문은 링크로 남기고, 이 페이지는 나중에 참고하기 쉬운 실행 관점 중심으로 재구성했습니다.</p>
+      <div class="source-note">출처: seigniter.com 공개 페이지 · 정리일: 2026-08-12</div>
+    </div>
+  </section>
+
+  <main class="content">
+    <section class="section">
+      <h2>핵심 요약</h2>
+      <p>AX는 단순히 AI 도구를 많이 쓰게 만드는 캠페인이 아니라, 조직의 업무 구조를 AI가 들어갈 수 있는 실행 단위로 다시 설계하고 운영체계로 정착시키는 일에 가깝다.</p>
+      <div>
+        <span class="tag">Work First</span>
+        <span class="tag">Process to Agent</span>
+        <span class="tag">Co-Build</span>
+        <span class="tag">Governance</span>
+        <span class="tag">Learning Velocity</span>
+      </div>
+      <div class="grid">
+        <div class="mini-card">
+          <strong>도구보다 업무</strong>
+          <p>AI 도입의 출발점은 모델 선택이 아니라 어떤 업무가 병목인지, 어떤 산출물이 가치인지 정의하는 것이다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>자동화보다 재설계</strong>
+          <p>비효율적인 절차를 그대로 자동화하면 비효율도 함께 굳는다. 제거, 단순화, 통합 후 AI를 붙이는 순서가 중요하다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>사용률보다 성과</strong>
+          <p>AI 사용 횟수보다 리드타임, 처리량, 품질, 재작업 감소, 의사결정 속도 같은 업무 성과로 봐야 한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="framework">
+      <h2>AX 5x5 Framework</h2>
+      <p>seigniter의 AX 5x5 프레임은 전환 단계를 E-PAST 흐름으로 보고, 5개 관점에서 조직의 준비와 실행을 함께 점검한다.</p>
+      <div class="flow">
+        <div>Explore<small>탐색</small></div>
+        <div>Pilot<small>검증</small></div>
+        <div>Adopt<small>적용</small></div>
+        <div>Scale<small>확산</small></div>
+        <div>Transform<small>전환</small></div>
+      </div>
+      <table class="framework-table">
+        <thead>
+          <tr><th>관점</th><th>봐야 할 질문</th><th>실행 포인트</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>전략·포트폴리오</td><td>어떤 사업 KPI와 AI 투자를 연결할 것인가?</td><td>가치 창출 기회와 우선순위를 정하고 실행 포트폴리오로 관리한다.</td></tr>
+          <tr><td>업무·워크플로우</td><td>어떤 업무 흐름을 AI 실행 단위로 바꿀 것인가?</td><td>Process, Task, Activity 단위로 업무를 쪼개 병목과 자동화 지점을 찾는다.</td></tr>
+          <tr><td>사람·조직</td><td>누가 배우고, 누가 전파하고, 누가 책임지는가?</td><td>챔피언, 교육, 평가체계, 역할 변화를 함께 설계한다.</td></tr>
+          <tr><td>데이터·AI 플랫폼</td><td>AI가 안전하게 쓸 데이터와 시스템 연결은 준비됐는가?</td><td>보안, 권한, 원천 시스템 연동, 운영 로그를 초기부터 고려한다.</td></tr>
+          <tr><td>거버넌스·성과관리</td><td>무엇을 성공으로 볼 것인가?</td><td>KPI, ROI, 품질 기준, 위험 허용 범위, 감사 가능성을 정한다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="workmap">
+      <h2>Work Map: 직무보다 작은 업무 단위로 내려가기</h2>
+      <p>AI에게 일을 맡기려면 직무기술서 수준으로는 부족하다. 실제 업무를 입력, 판단, 산출물, 담당자, 예외 처리까지 포함한 지도처럼 그려야 한다.</p>
+      <div class="grid two">
+        <div class="mini-card">
+          <strong>업무 분해</strong>
+          <p>직무 → 프로세스 → 태스크 → 액티비티로 내려가며 반복, 대기, 재작업, 승인, 판단 구간을 구분한다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>병목 식별</strong>
+          <p>어디서 일이 멈추는지, 어디서 같은 정보가 다시 입력되는지, 어느 판단이 특정 사람에게만 의존하는지 찾는다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>AI 적용 판단</strong>
+          <p>없앨 일, 합칠 일, 규칙으로 처리할 일, AI가 보조할 일, 사람이 끝까지 봐야 할 일을 구분한다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>실행 단위화</strong>
+          <p>에이전트가 조회, 초안 작성, 알림, 상태 갱신, 다음 단계 제안을 할 수 있는 단위로 업무를 바꾼다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Co-Build: 현업과 함께 만드는 방식</h2>
+      <p>좋은 AX는 개발팀이 혼자 만드는 자동화가 아니라 현업의 판단 기준과 엔지니어링을 함께 묶는 방식이다. 현업은 업무 기준과 예외를 설명하고, 엔지니어는 도구·데이터·보안·운영 구조를 만든다.</p>
+      <h3>진행 흐름</h3>
+      <ul>
+        <li>문제 정의: 현업이 느끼는 불편과 해결하려는 업무 목표 확인</li>
+        <li>페인 포인트 확인: 표면 불편과 실제 병목 구분</li>
+        <li>워크플로우 분해: 입력, 판단, 산출물, 담당자, 시스템 확인</li>
+        <li>통합·대체·축소·삭제 결정: 현재 절차를 그대로 자동화하지 않기</li>
+        <li>PoC 구축: 현업 담당자와 엔지니어가 함께 작게 검증</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>AI 솔루션과 에이전트 설계 원칙</h2>
+      <p>PoC는 가능성을 보여주지만, 업무 성과를 바꾸려면 권한, 데이터, 로그, 비용, 품질, 예외 처리까지 포함한 시스템으로 확장해야 한다.</p>
+      <div class="grid">
+        <div class="mini-card">
+          <strong>단순한 구조 우선</strong>
+          <p>제거 → 단순화·통합 → 규칙 기반 자동화 → 고정형 AI 워크플로 → 인간-AI 공동 판단 → 자율 에이전트 순서로 검토한다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>모델은 일부일 뿐</strong>
+          <p>모델보다 오래 남는 자산은 오케스트레이션, 시스템 연동, 권한·보안, 관측·비용 관리 구조다.</p>
+        </div>
+        <div class="mini-card">
+          <strong>상태와 로그</strong>
+          <p>에이전트가 여러 단계를 처리하려면 현재 상태, 실패 기록, 재시도 기준, 사람 승인 내역을 남겨야 한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>성과와 문화: Learning Velocity</h2>
+      <p>AI 사용률을 KPI로 삼으면 겉으로만 쓰는 행동이 늘 수 있다. 조직이 실제로 빨리 배우고, 실패를 업무 규칙으로 반영하고, 평가 기준을 바꾸는 속도가 더 중요하다.</p>
+      <ul>
+        <li>성과 지표: 리드타임 단축, 처리량 증가, 재작업 감소, 품질 안정, 예외 처리 속도</li>
+        <li>문화 지표: 실험 결과 공유, 좋은 사용법의 표준화, 실패 사례의 재발 방지</li>
+        <li>운영 지표: 품질 평가셋, 비용 모니터링, 권한·보안 로그, 책임 경계</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>개인·팀 적용 체크리스트</h2>
+      <div class="grid two">
+        <div class="mini-card">
+          <strong>바로 적용할 질문</strong>
+          <ul>
+            <li>매주 반복해서 다시 만드는 자료는 무엇인가?</li>
+            <li>같은 정보를 여러 시스템에 다시 넣는 구간은 어디인가?</li>
+            <li>특정 사람의 판단 때문에 멈추는 일은 무엇인가?</li>
+            <li>AI보다 먼저 없애야 할 불필요한 업무는 무엇인가?</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <strong>작은 PoC 후보</strong>
+          <ul>
+            <li>회의록·보고서 초안 표준화</li>
+            <li>문서 검색과 근거 요약</li>
+            <li>반복 민원·문의 분류</li>
+            <li>업무 체크리스트와 예외 알림</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <h2>원문 링크</h2>
+      <p>아래 링크는 seigniter 공개 페이지입니다. 이 페이지는 원문 보존용 복제가 아니라 개인 학습용 요약과 인덱스입니다.</p>
+      <div class="source-list">
+        <a href="https://www.seigniter.com/" target="_blank" rel="noopener">seigniter 메인: AX 5x5 Framework, E-PAST</a>
+        <a href="https://www.seigniter.com/co-build" target="_blank" rel="noopener">Co-Build: 현업과 함께 업무를 다시 설계</a>
+        <a href="https://www.seigniter.com/ai-solution" target="_blank" rel="noopener">AI 솔루션 개발: 프로세스를 시스템 레벨로 혁신</a>
+        <a href="https://www.seigniter.com/services/ax-consulting" target="_blank" rel="noopener">AX 컨설팅: AI 전환 전략·성숙도 진단</a>
+        <a href="https://www.seigniter.com/perspectives/ax-learning-velocity" target="_blank" rel="noopener">완벽한 AX 로드맵을 가진 조직이 실패하는 이유</a>
+        <a href="https://www.seigniter.com/perspectives/ax-work-map" target="_blank" rel="noopener">AI를 도입하기 전에, 우리는 우리의 일을 알고 있는가</a>
+        <a href="https://www.seigniter.com/perspectives/ax-work-transformation" target="_blank" rel="noopener">AI에 집중할수록 AX는 실패한다</a>
+        <a href="https://www.seigniter.com/perspectives/ai-first-strategy-questions" target="_blank" rel="noopener">AI-First 전략을 검토할 때 던질 질문</a>
+        <a href="https://www.seigniter.com/perspectives/samsung-ax-process-to-agent" target="_blank" rel="noopener">삼성 AX 전환: Process-to-Agent 운영모델</a>
+        <a href="https://www.seigniter.com/perspectives/ai-skill-design" target="_blank" rel="noopener">AI Skill은 반복 업무를 시스템화하는 출발점</a>
+        <a href="https://www.seigniter.com/perspectives/ai-application-architecture" target="_blank" rel="noopener">AI 애플리케이션은 모델이 아니라 시스템으로 설계된다</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">boasis_lab · yyj assistant · AX archive</div>
+</div>
+
+<script>
+  const PASSWORD = 'yyj123';
+  const KEY = 'auth_ax_yyj';
+
+  function login() {
+    const value = document.getElementById('pw').value.trim();
+    if (value !== PASSWORD) {
+      document.getElementById('err').textContent = '비밀번호가 올바르지 않습니다';
+      return;
+    }
+    sessionStorage.setItem(KEY, '1');
+    showMain();
+  }
+
+  function showMain() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'block';
+  }
+
+  function logout() {
+    sessionStorage.removeItem(KEY);
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pw').value = '';
+  }
+
+  if (sessionStorage.getItem(KEY) === '1') showMain();
+</script>
+</body>
+</html>
