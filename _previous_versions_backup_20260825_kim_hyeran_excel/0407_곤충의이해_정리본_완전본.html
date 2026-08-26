@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>곤충의 이해</title>
+<style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            background: #fafbfc;
+        }
+        h1 {
+            color: #1a3a52;
+            border-bottom: 4px solid #2c5aa0;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #2c5aa0;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2c5aa0;
+            padding-left: 15px;
+            font-size: 1.3em;
+            page-break-before: avoid;
+        }
+        h3 {
+            color: #4a7ba7;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        h4 {
+            color: #5a8db8;
+            margin-top: 18px;
+            font-size: 1.05em;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+            line-height: 1.9;
+        }
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        strong {
+            color: #d32f2f;
+            font-weight: 700;
+        }
+        .section {
+            background: #ffffff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            border-left: 5px solid #2c5aa0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        .subsection {
+            background: #f5f8fb;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #5a8db8;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        th, td {
+            border: 1px solid #d0d0d0;
+            padding: 14px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        th {
+            background: #2c5aa0;
+            color: white;
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background: #f9fafc;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .highlight-red {
+            color: #d32f2f;
+            font-weight: 700;
+        }
+        .important-box {
+            background: #ffebee;
+            padding: 18px;
+            border-left: 5px solid #d32f2f;
+            border-right: 2px solid #d32f2f;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .important-box strong {
+            color: #b71c1c;
+        }
+        .exam-key {
+            background: #e8f5e9;
+            padding: 12px 15px;
+            border-left: 4px solid #2e7d32;
+            margin: 10px 0;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+        .note {
+            background: #fff8e1;
+            padding: 15px;
+            border-left: 4px solid #f57f17;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .metadata {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 40px;
+            border-left: 5px solid #2196f3;
+        }
+        .metadata p {
+            margin: 8px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+        .toc {
+            background: #f5f8fb;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2c5aa0;
+        }
+        .toc ul {
+            margin: 0;
+        }
+        .diagram-container {
+            background: white;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-top: 4px solid #2c5aa0;
+        }
+        .diagram-title {
+            color: #2c5aa0;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+
+<style id="cell-readability-fix-20260708">
+:root{--cell-line:#d9e2ec;--cell-head:#eef5fb;--cell-bg:#ffffff;}
+table{width:100%;border-collapse:collapse;table-layout:auto;margin:14px 0;background:var(--cell-bg);font-size:15px;}
+th,td{border:1px solid var(--cell-line);padding:10px 12px;vertical-align:top;line-height:1.65;white-space:normal!important;word-break:keep-all;overflow-wrap:anywhere;letter-spacing:0;}
+th{background:var(--cell-head);font-weight:800;color:#183a5a;}
+td p,th p{margin:.25rem 0!important;white-space:normal!important;}
+p{white-space:normal!important;word-break:keep-all;overflow-wrap:break-word;}
+.source{white-space:pre-line!important;word-break:keep-all;overflow-wrap:break-word;line-height:1.7;}
+.integrated-team-pdf .source{white-space:pre-line!important;}
+img{max-width:100%;height:auto;}
+figure{break-inside:avoid;}
+@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:120px;padding:9px 10px}}
+</style>
+
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201#subject-07">← 공유페이지로 돌아가기</a></div>
+
+<h1>곤충의 이해</h1>
+<p style="text-align: center;"><strong>강의 교수:</strong> 김종만 (전북특별자치도자연환경연수원 원장)</p>
+<p style="text-align: center;"><strong>작성일:</strong> 2026-07-06 | <strong>정리 원칙:</strong> 제공된 3개 강의자료의 모든 내용 100% 보존 + SVG 시각 자료 추가</p>
+<div class="toc">
+<h3 style="margin-top: 0;">📋 목차 및 구성</h3>
+<ul>
+<li>Ⅰ. 곤충의 역사</li>
+<li>Ⅱ. 곤충의 정의와 특징</li>
+<li>Ⅲ. 곤충의 구조 <strong style="color: #d32f2f;">【시각 자료 1포함】</strong></li>
+<li>Ⅳ. 곤충의 입과 먹이 방식 <strong style="color: #d32f2f;">【시각 자료 3포함】</strong></li>
+<li>Ⅴ. 곤충의 번식과 탈바꿈 <strong style="color: #d32f2f;">【시각 자료 2포함】</strong></li>
+<li>Ⅵ. 곤충과 식물의 관계 <strong style="color: #d32f2f;">【시각 자료 5포함】</strong></li>
+<li>Ⅶ. 곤충의 생존 전략 <strong style="color: #d32f2f;">【시각 자료 4포함】</strong></li>
+<li>Ⅷ. 곤충의 분류</li>
+</ul>
+</div>
+<hr/>
+<h2>Ⅰ. 곤충의 역사</h2>
+<h3>1. 지구와 생명의 출현 시계열</h3>
+<div class="section">
+<ul>
+<li><strong>지구의 출현:</strong> 약 46억 년 전</li>
+<li><strong>최초의 생명체:</strong> 약 40억 년 전</li>
+<li><strong>고생대:</strong> 약 8억 6천만 년 전부터 2억 2500만 년 전까지 지구상에 동물이 출현하기 시작한 시기</li>
+<li><strong>육상식물의 출현:</strong> 약 4억 4천만 년 전</li>
+<li><strong>곤충의 출현:</strong> 약 4억 년 ~ 3억 5천만 년 전 (육상식물 출현 직후)</li>
+<li><strong>양서류의 출현:</strong> 약 3억 6천만 년 전</li>
+<li><strong>포유동물의 출현:</strong> 약 2억 년 전</li>
+<li><strong>조류(새)의 출현:</strong> 약 1억 년 전</li>
+<li><strong>동물시대의 기초:</strong> 초식동물이 동물세계의 기반을 이루고 있음</li>
+<li><strong>인간의 출현:</strong> 약 700만 년 전</li>
+<li><strong>현생인류의 출현:</strong> 약 25만 ~ 30만 년 전</li>
+</ul>
+</div>
+<h3>2. 현재 지구상의 생물 종 다양성</h3>
+<div class="section">
+<table>
+<thead>
+<tr>
+<th>분류</th>
+<th>종의 수</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>현재 알려진 동물의 총 종수</td>
+<td>약 150만 종</td>
+<td>지속적으로 새로운 종 발견</td>
+</tr>
+<tr>
+<td><span class="highlight-red">곤충</span></td>
+<td><span class="highlight-red">약 100만 종</span></td>
+<td>동물의 약 67%를 차지</td>
+</tr>
+<tr>
+<td>식물</td>
+<td>약 26만 종</td>
+<td>곤충 종 수의 약 1/4</td>
+</tr>
+<tr>
+<td>국내 곤충 (2024년 기준)</td>
+<td>20,977종</td>
+<td>전세계 곤충의 약 2% 수준</td>
+</tr>
+<tr>
+<td>국내 식물</td>
+<td>약 4,500종</td>
+<td>국내 곤충과의 비율: 약 1:4.7</td>
+</tr>
+</tbody>
+</table>
+<div class="important-box">
+💡 <strong>의미:</strong> 곤충은 지구상에서 가장 다양하고 번성한 동물 그룹이며, 생태계에서 매우 중요한 위치를 차지하고 있습니다.
+<br/><span class="exam-key">🎯 시험 출제 가능 포인트</span>
+</div>
+</div>
+<hr/>
+<h2>Ⅱ. 곤충의 정의와 특징</h2>
+<h3>곤충이란?</h3>
+<div class="section">
+<p>곤충은 <strong class="highlight-red">절지동물의 한 강(綱)</strong>으로, 다음과 같은 특징을 갖는 동물입니다:</p>
+<h4>곤충의 12가지 주요 특징</h4>
+<div class="subsection">
+<ol>
+<li><strong>신체 분절:</strong> 많은 환절(체절)로 이루어져 있으며, 머리·가슴·배 세 부분으로 구분</li>
+<li><strong>촉각:</strong> 머리에 한 쌍의 촉각(antenna) 보유</li>
+<li><strong>눈:</strong> 머리에 한 쌍의 곁눈(compound eye) 보유</li>
+<li><strong>날개:</strong> 가슴에 두 쌍의 날개(4개) 보유 (비행 능력의 획득은 진화의 중요한 사건)</li>
+<li><strong>다리:</strong> 가슴에 세 쌍의 다리(6개 다리) 보유 - 곤충의 특징적 기관</li>
+<li><strong>외골격:</strong> 외골격(exoskeleton)으로 이루어져 있어 몸을 보호하고 지지</li>
+<li><strong>배부의 절 수:</strong> 복부(배)는 대개 11개의 절(segment)로 구성</li>
+<li><strong>신체 대칭:</strong> 좌우대칭의 신체 구조</li>
+<li><strong>순환계:</strong> 개방혈관계(open circulatory system)를 가짐 - 혈액이 체강을 자유로이 흐름</li>
+<li><strong>호흡:</strong> 기문(spiracle)을 통해 직접 호흡 - 가슴과 배의 기문으로 호흡</li>
+<li><strong>번식:</strong> 자웅이체(수컷과 암컷이 분리)이며, 대개 난생(알을 낳음)</li>
+<li><strong>서식지:</strong> 주로 육지에서 서식하며, 일부는 담수와 바다에서도 생활</li>
+</ol>
+</div>
+</div>
+<hr/>
+<h2>Ⅲ. 곤충의 구조</h2>
+<h3>1. 곤충의 기본 형태와 세 부분</h3>
+<div class="section">
+<p><span class="highlight">곤충의 몸은 크게 세 부분으로 나뉘며, 각 부분이 특화된 기능을 수행합니다:</span></p>
+<h4>🎨 곤충의 3부 구조 (시각 자료 1)</h4>
+<div class="diagram-container">
+<svg viewbox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+<text fill="#2c5aa0" font-size="20" font-weight="bold" text-anchor="middle" x="400" y="25">곤충의 3부 구조</text>
+<circle cx="150" cy="150" fill="#e8f4f8" r="50" stroke="#2c5aa0" stroke-width="3"></circle>
+<text fill="#1a3a52" font-size="14" font-weight="bold" text-anchor="middle" x="150" y="140">머리</text>
+<text fill="#333" font-size="12" text-anchor="middle" x="150" y="160">(Head)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="230">• 촉각 (1쌍)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="245">• 눈 (복안=겹눈/단안=홑눈)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="260">• 입 (다양한 형태)</text>
+<rect fill="#fff3cd" height="100" rx="10" stroke="#f57f17" stroke-width="3" width="160" x="320" y="100"></rect>
+<text fill="#1a3a52" font-size="14" font-weight="bold" text-anchor="middle" x="400" y="140">가슴</text>
+<text fill="#333" font-size="12" text-anchor="middle" x="400" y="160">(Thorax)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="400" y="230">• 날개 (2쌍, 4개)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="400" y="245">• 다리 (3쌍, 6개)</text>
+<ellipse cx="650" cy="150" fill="#e8f5e9" rx="60" ry="55" stroke="#2e7d32" stroke-width="3"></ellipse>
+<text fill="#1a3a52" font-size="14" font-weight="bold" text-anchor="middle" x="650" y="140">배</text>
+<text fill="#333" font-size="12" text-anchor="middle" x="650" y="160">(Abdomen)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="650" y="230">• 11개 절(segment)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="650" y="245">• 소화/생식 기관</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="650" y="260">• 기문(호흡 기관)</text>
+<line stroke="#666" stroke-width="2" x1="200" x2="320" y1="150" y2="150"></line>
+<line stroke="#666" stroke-width="2" x1="480" x2="590" y1="150" y2="150"></line>
+</svg>
+</div>
+<h4>1) 머리(Head) - 감각 및 섭식 기관</h4>
+<div class="subsection">
+<ul>
+<li><strong>촉각(Antenna):</strong> 한 쌍으로 냄새·진동 등의 감각을 담당</li>
+<li><strong>눈:</strong>
+<ul>
+<li><strong>복안(compound eye, 겹눈):</strong> 여러 개의 작은 눈(ommatidium)이 모여 이루어진 눈, 움직임에 민감</li>
+<li><strong>단안(simple eye, 홑눈):</strong> 기본적인 눈으로 밝기 감지</li>
+<li><strong>기타 눈:</strong> 곤충의 종류에 따라 다양한 눈 구조</li>
+</ul>
+</li>
+<li><strong>입 부분(mouthparts):</strong> 먹이의 종류에 따라 다양하게 특화됨</li>
+</ul>
+</div>
+<h4>2) 가슴(Thorax) - 운동 기관</h4>
+<div class="subsection">
+<ul>
+<li><strong>날개:</strong> 일반적으로 두 쌍(4개)으로 구성
+<ul>
+<li>앞날개(forewing): 딱정벌레의 경우 딱딱한 날개(elytra)로 변화</li>
+<li>뒷날개(hindwing): 실제 비행에 사용되는 얇은 날개</li>
+<li>일부 곤충은 앞날개가 변형되어 비행에 도움</li>
+</ul>
+</li>
+<li><strong>다리:</strong> 세 쌍(6개)으로 곤충의 이동을 담당
+<ul>
+<li><strong>다리의 특화:</strong> 곤충의 생활 방식에 따라 형태가 매우 다양</li>
+<li>걷기 다리, 물에 헤엄치는 다리, 먹이를 잡는 다리, 꿀을 모으는 다리 등</li>
+<li>예: 딱정벌레 - 더듬이가 파인 모양의 더듬이 굴(antennal groove)</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>3) 배(Abdomen) - 소화·생식 기관</h4>
+<div class="subsection">
+<ul>
+<li><strong>절의 수:</strong> 대개 11개의 절(segment)로 이루어져 있음</li>
+<li><strong>주요 기능:</strong> 소화기관, 생식기관, 호흡 기관(기문) 등 주요 내부 장기를 포함</li>
+<li><strong>부속기관:</strong> 종류에 따라 산란관, 쏘는 기관(침) 등이 특화</li>
+</ul>
+</div>
+</div>
+<hr/>
+<h2>Ⅳ. 곤충의 입과 먹이 방식</h2>
+<h3>입의 다양한 형태와 기능</h3>
+<div class="section">
+<p>곤충은 먹이의 종류에 따라 입의 형태가 매우 다양하게 특화되어 있습니다. 이는 <strong class="highlight-red">곤충의 주요 적응 특성</strong>입니다:</p>
+<h4>🎨 곤충의 입(Mouthparts) 종류 (시각 자료 3)</h4>
+<div class="diagram-container">
+<svg viewbox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+<text fill="#2c5aa0" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">입의 형태와 먹이 습성</text>
+<rect fill="#fff3cd" height="100" rx="8" stroke="#f57f17" stroke-width="2" width="180" x="20" y="70"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="110" y="95">1. 씹는 입</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="110" y="115">턱(mandible)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="110" y="130">발달함</text>
+<text fill="#333" font-size="10" text-anchor="middle" x="110" y="150"><strong>예:</strong> 메뚜기, 딱정벌레</text>
+<rect fill="#c5e1a5" height="100" rx="8" stroke="#558b2f" stroke-width="2" width="180" x="220" y="70"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="310" y="95">2. 빨아먹는 입</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="310" y="115">주둥이 모양</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="310" y="130">길어짐</text>
+<text fill="#333" font-size="10" text-anchor="middle" x="310" y="150"><strong>예:</strong> 나비, 나방</text>
+<rect fill="#b3e5fc" height="100" rx="8" stroke="#0288d1" stroke-width="2" width="180" x="420" y="70"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="510" y="95">3. 찌르는 입</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="510" y="115">침 모양</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="510" y="130">식물 찔러 흡수</text>
+<text fill="#333" font-size="10" text-anchor="middle" x="510" y="150"><strong>예:</strong> 매미, 진딧물</text>
+<rect fill="#f8bbd0" height="100" rx="8" stroke="#c2185b" stroke-width="2" width="180" x="620" y="70"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="710" y="95">4. 핥는 입</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="710" y="115">넓적한 혀</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="710" y="130">액체 섭취</text>
+<text fill="#333" font-size="10" text-anchor="middle" x="710" y="150"><strong>예:</strong> 파리, 꿀벌</text>
+<rect fill="#e1bee7" height="100" rx="8" stroke="#7b1fa2" stroke-width="2" width="160" x="820" y="70"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="900" y="95">5. 변형된 입</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="900" y="115">특정 먹이에만</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="900" y="130">적응</text>
+<text fill="#333" font-size="10" text-anchor="middle" x="900" y="150"><strong>예:</strong> 종특유</text>
+<text fill="#333" font-size="12" x="50" y="220">※ 곤충의 입은 <strong>먹이의 종류에 따라 특화</strong>되어 있으며, 진화의 중요한 적응 사례입니다.</text>
+</svg>
+</div>
+<h4>주요 입의 종류</h4>
+<div class="subsection">
+<table>
+<thead>
+<tr>
+<th>입의 종류</th>
+<th>특징</th>
+<th>해당 곤충</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>씹는 입(Chewing mouthparts)</strong></td>
+<td>발달된 턱(mandible)으로 고체 먹이를 깨물어 먹음</td>
+<td>메뚜기, 바퀴벌레, 딱정벌레, 개미 등</td>
+</tr>
+<tr>
+<td><strong>빨아먹는 입(Sucking mouthparts)</strong></td>
+<td>입이 주둥이 모양으로 길어져 액체를 흡수</td>
+<td>나비, 나방, 파리, 모기 등</td>
+</tr>
+<tr>
+<td><strong>찌르는 입(Piercing mouthparts)</strong></td>
+<td>침 모양의 구조로 식물을 찔러 즙액을 흡수</td>
+<td>매미, 진딧물, 노린재 등(반시류)</td>
+</tr>
+<tr>
+<td><strong>핥는 입(Lapping mouthparts)</strong></td>
+<td>입이 넓적하고 혀로 액체를 핥아먹음</td>
+<td>파리, 꿀벌 등</td>
+</tr>
+<tr>
+<td><strong>변형된 입</strong></td>
+<td>특정 먹이에만 적응한 매우 특화된 형태</td>
+<td>각 곤충 종마다 독특한 입 구조</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4>먹이 습성의 다양성</h4>
+<div class="subsection">
+<ul>
+<li><strong>초식곤충:</strong> 식물의 잎, 줄기, 뿌리, 열매 등을 먹음</li>
+<li><strong>육식곤충:</strong> 다른 곤충이나 작은 동물을 포식</li>
+<li><strong>부식성곤충:</strong> 죽은 동물이나 식물을 분해</li>
+<li><strong>기생곤충:</strong> 다른 곤충이나 동물의 체내에서 기생</li>
+<li><strong>흡식곤충:</strong> 식물의 즙액이나 동물의 혈액을 흡수</li>
+<li><strong>꿀/꽃가루 식성:</strong> 꿀벌, 나방 등이 꽃의 꿀과 꽃가루를 섭취</li>
+</ul>
+</div>
+</div>
+<hr/>
+<h2>Ⅴ. 곤충의 번식과 탈바꿈</h2>
+<h3>1. 곤충의 번식 방식</h3>
+<div class="section">
+<ul>
+<li><strong>번식 시스템:</strong> 대부분의 곤충은 자웅이체(암수 분리)</li>
+<li><strong>번식 방식:</strong> 유성생식(수컷과 암컷의 교배)이 주가 됨</li>
+<li><strong>산란:</strong> 암컷이 알을 낳는 난생(oviparity)이 일반적</li>
+<li><strong>산란 장소:</strong> 먹이가 풍부한 장소에 알을 산란 (유충의 먹이 확보 목표)</li>
+<li><strong>산란 수:</strong> 종에 따라 수십 개부터 수천 개까지 다양함</li>
+</ul>
+</div>
+<h3>2. 곤충의 탈바꿈(Metamorphosis) - 매우 중요!</h3>
+<div class="section">
+<div class="important-box">
+<strong>탈바꿈은 곤충 생활사의 가장 특징적인 현상</strong>으로, 알→유충→번데기→성충으로 변화하는 과정입니다.
+<br/><span class="exam-key">🎯 필수 암기 포인트: 완전탈바꿈 vs 불완전탈바꿈의 구분</span>
+</div>
+<h4>🎨 곤충의 탈바꿈 (생활사) 비교도 (시각 자료 2)</h4>
+<div class="diagram-container">
+<svg viewbox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
+<text fill="#d32f2f" font-size="16" font-weight="bold" x="250" y="30">완전탈바꿈 (Holometabolism)</text>
+<circle cx="80" cy="120" fill="#ffebee" r="35" stroke="#d32f2f" stroke-width="2"></circle>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="80" y="125">알</text>
+<text font-size="14" x="130" y="130">→</text>
+<rect fill="#ffe0b2" height="70" rx="5" stroke="#f57f17" stroke-width="2" width="70" x="155" y="85"></rect>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="190" y="130">유충</text>
+<text font-size="14" x="245" y="130">→</text>
+<polygon fill="#c5e1a5" points="310,85 350,85 365,120 350,155 310,155 295,120" stroke="#558b2f" stroke-width="2"></polygon>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="330" y="130">번데기</text>
+<text font-size="14" x="390" y="130">→</text>
+<circle cx="455" cy="120" fill="#b3e5fc" r="35" stroke="#0288d1" stroke-width="2"></circle>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="455" y="125">성충</text>
+<text fill="#333" font-size="12" x="250" y="210"><strong>예시:</strong> 나비, 딱정벌레, 파리, 벌</text>
+<text fill="#d32f2f" font-size="12" x="250" y="230"><strong>특징:</strong> 유충과 성충의 형태가 완전히 다름</text>
+<text fill="#2e7d32" font-size="16" font-weight="bold" x="650" y="30">불완전탈바꿈 (Hemimetabolism)</text>
+<circle cx="580" cy="120" fill="#ffebee" r="35" stroke="#d32f2f" stroke-width="2"></circle>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="580" y="125">알</text>
+<text font-size="14" x="630" y="130">→</text>
+<polygon fill="#c8e6c9" points="680,85 720,85 730,120 720,155 680,155 670,120" stroke="#2e7d32" stroke-width="2"></polygon>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="700" y="130">약충</text>
+<text font-size="14" x="760" y="130">→</text>
+<polygon fill="#c8e6c9" points="820,85 860,85 870,120 860,155 820,155 810,120" stroke="#2e7d32" stroke-width="2"></polygon>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="840" y="130">약충</text>
+<text font-size="14" x="900" y="130">→</text>
+<circle cx="955" cy="120" fill="#b3e5fc" r="35" stroke="#0288d1" stroke-width="2"></circle>
+<text font-size="11" font-weight="bold" text-anchor="middle" x="955" y="125">성충</text>
+<text fill="#333" font-size="12" x="650" y="210"><strong>예시:</strong> 메뚜기, 귀뚜라미, 매미</text>
+<text fill="#2e7d32" font-size="12" x="650" y="230"><strong>특징:</strong> 번데기 없음, 유충과 성충의 형태 유사</text>
+<text fill="#2c5aa0" font-size="13" font-weight="bold" x="250" y="280">※ 불완전탈바꿈: 약충이 5~7회 탈피하며 성충으로 성장</text>
+</svg>
+</div>
+<h4>완전탈바꿈(Complete Metamorphosis / Holometabolism)</h4>
+<div class="subsection">
+<ul>
+<li><strong>과정:</strong> 알 → 유충(幼虫) → 번데기(蛹) → 성충(成虫)</li>
+<li><strong>특징:</strong>
+<ul>
+<li>유충과 성충의 형태가 완전히 다름 (외부, 내부 모두)</li>
+<li>유충은 주로 먹이를 섭취하고 성장</li>
+<li>번데기 단계에서 신체가 완전히 재구성(histolysis와 histogenesis)</li>
+<li>성충은 주로 번식에 집중</li>
+</ul>
+</li>
+<li><strong>해당 곤충:</strong> 나비, 나방(나비목), 딱정벌레(딱정벌레목), 파리(파리목), 벌, 개미(벌목), 잠자리(잠자리목) 등 대부분의 곤충</li>
+<li><strong>시간:</strong> 종에 따라 수일에서 수 년까지 변이</li>
+</ul>
+</div>
+<h4>불완전탈바꿈(Incomplete Metamorphosis / Hemimetabolism)</h4>
+<div class="subsection">
+<ul>
+<li><strong>과정:</strong> 알 → 약충(若虫, nymph) → 성충</li>
+<li><strong>특징:</strong>
+<ul>
+<li>번데기 단계가 없음</li>
+<li>약충과 성충의 형태가 유사 (점진적 변화)</li>
+<li>약충이 탈피(molting)를 반복하면서 성장</li>
+<li>약충과 성충 모두 유사한 먹이를 섭취</li>
+</ul>
+</li>
+<li><strong>해당 곤충:</strong> 메뚜기(사마목), 귀뚜라미, 잠자리(일부), 매미(반시류), 진딧물, 바퀴벌레 등</li>
+<li><strong>탈피:</strong> 보통 5~7회의 탈피를 거침</li>
+</ul>
+</div>
+<h4>무탈바꿈(Ametabolism)</h4>
+<div class="subsection">
+<ul>
+<li><strong>특징:</strong> 알에서 나온 후 형태 변화가 거의 없음</li>
+<li><strong>해당 곤충:</strong> 톡톡이(collembola) 등 원시적 곤충들</li>
+<li><strong>비중:</strong> 현대 곤충에서는 매우 드문 형태</li>
+</ul>
+</div>
+</div>
+<hr/>
+<h2>Ⅵ. 곤충과 식물의 관계</h2>
+<h3>1. 식물과 곤충의 공진화(Co-evolution)</h3>
+<div class="section">
+<div class="important-box">
+<strong>식물과 곤충은 오랜 진화 과정에서 밀접한 관계를 맺으며 함께 진화</strong>했습니다.
+<br/><span class="exam-key">🎯 시험 필출: 수분 매개, 종자 산포의 역할</span>
+</div>
+<h4>주요 공진화 관계</h4>
+<div class="subsection">
+<ul>
+<li><strong>식물의 1차 음식:</strong> 물이 아니라 <span style="background: #ffebee; padding: 3px 8px; border-radius: 3px; font-weight: 700; color: #b71c1c;">햇빛(광합성)</span>입니다
+<ul>
+<li>식물이 햇빛으로 에너지를 얻음</li>
+<li>곤충이 식물을 먹음 → 곤충이 동물의 먹이가 됨</li>
+<li>이러한 먹이사슬이 생태계의 기본 구조</li>
+</ul>
+</li>
+<li><strong>꽃의 진화와 곤충의 적응:</strong>
+<ul>
+<li>꽃이 곤충을 유인하기 위해 색상, 향기, 형태를 진화시킴</li>
+<li>곤충이 꽃의 특성에 맞게 입, 몸 크기, 행동을 진화시킴</li>
+<li>상호 선택 압력에 의한 함께의 진화</li>
+</ul>
+</li>
+<li><strong>수분 매개(Pollination):</strong>
+<ul>
+<li>곤충이 꽃에서 꿀을 모으거나 꽃가루를 먹으면서 다른 꽃의 수술에 꽃가루를 옮김</li>
+<li>이는 식물의 번식을 돕는 매우 중요한 역할</li>
+<li>예: 꿀벌, 나비, 나방, 딱정벌레 등의 수분 매개 곤충</li>
+</ul>
+</li>
+<li><strong>종자 퍼트리기(Seed dispersal):</strong>
+<ul>
+<li>많은 곤충이 식물의 열매나 종자를 먹음</li>
+<li>곤충의 배설물을 통해 종자가 멀리 퍼져감</li>
+<li>일부 종자는 곤충에 붙어서 산포됨</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>외관적 진화의 예시</h4>
+<div class="subsection">
+<ul>
+<li><strong>나비와 꽃:</strong> 주둥이가 긴 나비는 깊은 꽃통을 가진 꽃과 짝지어 진화</li>
+<li><strong>꿀벌과 꽃:</strong> 자주색이나 노란색 꽃이 꿀벌을 유인하도록 진화</li>
+<li><strong>나방과 야행성 꽃:</strong> 밤에 피는 흰색 꽃들이 나방을 유인하도록 진화</li>
+<li><strong>딱정벌레와 굵은 꽃:</strong> 딱정벌레의 무거운 몸무게를 견딜 수 있도록 진화</li>
+</ul>
+</div>
+<h4>🎨 곤충과 식물의 공진화 관계도 (시각 자료 5)</h4>
+<div class="diagram-container">
+<svg viewbox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
+<text fill="#2c5aa0" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">식물과 곤충의 상호진화(Co-evolution)</text>
+<circle cx="500" cy="180" fill="#2c5aa0" r="30" stroke="#1a3a52" stroke-width="3"></circle>
+<text fill="#fff" font-size="11" font-weight="bold" text-anchor="middle" x="500" y="190">공진화</text>
+<rect fill="#c8e6c9" height="100" rx="8" stroke="#2e7d32" stroke-width="2" width="140" x="80" y="130"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="150" y="155">식물</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="175">• 1차 음식:</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="190">햇빛(광합성)</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="210">• 꽃의 색상</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="150" y="225">• 향기, 형태</text>
+<line stroke="#2c5aa0" stroke-width="3" x1="220" x2="470" y1="180" y2="180"></line>
+<text fill="#2c5aa0" font-size="11" font-weight="bold" x="340" y="170">곤충 유인</text>
+<rect fill="#b3e5fc" height="100" rx="8" stroke="#0288d1" stroke-width="2" width="140" x="780" y="130"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="850" y="155">곤충</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="850" y="175">• 입의 진화</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="850" y="190">• 몸 크기 적응</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="850" y="210">• 행동 변화</text>
+<text fill="#555" font-size="11" text-anchor="middle" x="850" y="225">• 색감 감지</text>
+<line stroke="#0288d1" stroke-width="3" x1="530" x2="780" y1="180" y2="180"></line>
+<text fill="#0288d1" font-size="11" font-weight="bold" x="650" y="170">꽃에 적응</text>
+<rect fill="#fff3cd" height="60" rx="8" stroke="#f57f17" stroke-width="2" width="800" x="100" y="270"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="500" y="295">📌 결과: 수분 매개(Pollination) + 종자 산포(Seed Dispersal)</text>
+<text fill="#333" font-size="12" text-anchor="middle" x="500" y="320">곤충이 꽃에서 꿀을 모으거나 꽃가루를 먹으면서 다른 꽃으로 수술 옮김 → <strong>식물 번식 돕기</strong></text>
+</svg>
+</div>
+</div>
+<hr/>
+<h2>Ⅶ. 곤충의 생존 전략</h2>
+<h3>포식자로부터의 방어 전략</h3>
+<div class="section">
+<div class="important-box">
+곤충은 포식자(새, 파충류, 포식 곤충 등)로부터 자신을 보호하기 위해 <strong>6가지 주요 전략</strong>을 진화시켰습니다.
+<br/><span class="exam-key">🎯 시험 필출: 위장, 경고색, 모방의 구분</span>
+</div>
+<h4>🎨 곤충의 생존 전략 (방어 메커니즘) (시각 자료 4)</h4>
+<div class="diagram-container">
+<svg viewbox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
+<text fill="#d32f2f" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">포식자로부터의 6가지 방어 전략</text>
+<circle cx="150" cy="150" fill="#90ee90" r="45" stroke="#2e7d32" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="150" y="145">위장</text>
+<text fill="#fff" font-size="10" text-anchor="middle" x="150" y="160">(Camouflage)</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="150" y="230"><strong>주변 환경에 맞춤</strong></text>
+<circle cx="320" cy="150" fill="#ffcccc" r="45" stroke="#d32f2f" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="320" y="145">죽은체</text>
+<text fill="#fff" font-size="10" text-anchor="middle" x="320" y="160">하기</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="320" y="230"><strong>움직임 멈춤</strong></text>
+<circle cx="490" cy="150" fill="#ffd700" r="45" stroke="#f57f17" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="490" y="145">경고색</text>
+<text fill="#fff" font-size="10" text-anchor="middle" x="490" y="160">(Aposematism)</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="490" y="230"><strong>독성 표시</strong></text>
+<circle cx="660" cy="150" fill="#b3e5fc" r="45" stroke="#0288d1" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="660" y="145">모방</text>
+<text fill="#fff" font-size="10" text-anchor="middle" x="660" y="160">(Mimicry)</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="660" y="230"><strong>다른 곤충 모방</strong></text>
+<circle cx="830" cy="150" fill="#f8bbd0" r="45" stroke="#c2185b" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="830" y="145">화학</text>
+<text fill="#fff" font-size="10" text-anchor="middle" x="830" y="160">방어</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="830" y="230"><strong>독성물질 분비</strong></text>
+<circle cx="1000" cy="150" fill="#e1bee7" r="45" stroke="#7b1fa2" stroke-width="2"></circle>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="1000" y="140">적극적</text>
+<text fill="#fff" font-size="12" font-weight="bold" text-anchor="middle" x="1000" y="155">방어</text>
+<text fill="#333" font-size="11" text-anchor="middle" x="1000" y="235"><strong>쏘기, 물기</strong></text>
+<rect fill="#fff3cd" height="120" rx="8" stroke="#f57f17" stroke-width="2" width="960" x="20" y="310"></rect>
+<text fill="#1a3a52" font-size="13" font-weight="bold" text-anchor="middle" x="500" y="335">⚠️ 생존 전략의 핵심</text>
+<text fill="#333" font-size="12" x="40" y="360">• <strong>위장(Camouflage):</strong> 포식자에게 발견되지 않기</text>
+<text fill="#333" font-size="12" x="40" y="380">• <strong>경고색(Aposematism):</strong> 독성/불맛을 눈에 띄게 표시 → 포식자가 학습하고 피함</text>
+<text fill="#333" font-size="12" x="40" y="400">• <strong>모방(Mimicry):</strong> 독 있는 곤충을 모방하거나, 여러 종이 같은 경고색 진화</text>
+<text fill="#333" font-size="12" x="40" y="420">• <strong>화학방어:</strong> 신체에서 독성 물질 분비 또는 식물 독소 축적</text>
+</svg>
+</div>
+<h4>1. 위장(Camouflage / Mimesis)</h4>
+<div class="subsection">
+<ul>
+<li><strong>정의:</strong> 주변 환경에 맞춰 몸의 색깔과 형태를 변화시켜 눈에 띄지 않게 하는 전략</li>
+<li><strong>예시:</strong>
+<ul>
+<li>나뭇잎을 닮은 나방(pepperd moth)</li>
+<li>나뭇가지 위에서 나뭇가지처럼 보이는 막대벌레(stick insect)</li>
+<li>흙 위에서 갈색으로 보이는 딱정벌레</li>
+</ul>
+</li>
+<li><strong>효과:</strong> 포식자에게 발견되지 않음으로써 생존</li>
+</ul>
+</div>
+<h4>2. 죽은체 하기(Thanatosis)</h4>
+<div class="subsection">
+<ul>
+<li><strong>정의:</strong> 위험을 감지하면 움직임을 멈추고 죽은 척하는 전략</li>
+<li><strong>원리:</strong> 많은 포식자들이 움직이는 먹이에만 반응하기 때문에 효과적</li>
+<li><strong>예시:</strong>
+<ul>
+<li>딱정벌레가 위협 받으면 다리를 접고 떨어짐</li>
+<li>일부 나방이 위협 받으면 완전히 고정</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>3. 경고색(Aposematism)</h4>
+<div class="subsection">
+<ul>
+<li><strong>정의:</strong> 독성이나 불맛을 나타내기 위해 눈에 띄는 색상으로 표현</li>
+<li><strong>주요 색상:</strong> 빨강, 노랑, 검정의 조합이 주로 사용됨</li>
+<li><strong>예시:</strong>
+<ul>
+<li>검정색과 빨간색의 무당벌레 - 독성 있음을 표시</li>
+<li>노란색과 검정색의 말벌 - 강한 독침을 가짐</li>
+<li>화려한 색상의 독개미 - 독성을 경고</li>
+</ul>
+</li>
+<li><strong>학습 효과:</strong> 포식자가 한 번 먹고 나면 같은 색상의 곤충을 피함</li>
+</ul>
+</div>
+<h4>4. 모방(Mimicry)</h4>
+<div class="subsection">
+<ul>
+<li><strong>베이트식 모방(Batesian mimicry):</strong> 독이 없는 곤충이 독 있는 곤충의 색상이나 형태를 모방
+<ul>
+<li>예: 독이 없는 파리과의 곤충이 황충(벌류)을 모방</li>
+</ul>
+</li>
+<li><strong>뮬러식 모방(Müllerian mimicry):</strong> 독 있는 여러 곤충이 같은 경고색을 진화시켜 서로 보호
+<ul>
+<li>포식자가 한 번에 여러 종의 독성 곤충을 학습</li>
+<li>각 종의 개체 손실을 줄일 수 있음</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>5. 화학 방어(Chemical Defense)</h4>
+<div class="subsection">
+<ul>
+<li><strong>독성 물질 분비:</strong> 몸에서 독성 화합물을 분비하여 포식자를 독살시키거나 상처를 줌</li>
+<li><strong>악취 분비:</strong> 강한 냄새를 분비하여 포식자를 격퇴</li>
+<li><strong>예시:</strong>
+<ul>
+<li>말벌의 독침액</li>
+<li>딱정벌레(ground beetle)의 화학 방어액</li>
+<li>나비 유충의 식물 독소 축적 (먹이 식물의 독을 체내에 저장)</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>6. 적극적 방어</h4>
+<div class="subsection">
+<ul>
+<li><strong>쏘기:</strong> 말벌, 벌, 불개미 등이 독침으로 공격</li>
+<li><strong>물기:</strong> 개미, 딱정벌레 등이 강력한 턱으로 방어</li>
+<li><strong>비행:</strong> 빠른 비행으로 포식자를 피함</li>
+<li><strong>자동절단:</strong> 일부 곤충은 다리가 떨어져 나와도 생존 가능 (도마뱀의 꼬리 같은 현상)</li>
+</ul>
+</div>
+</div>
+<hr/>
+<h2>Ⅷ. 곤충의 분류</h2>
+<h3>곤충의 주요 목(Order) 분류</h3>
+<div class="section">
+<p>곤충 100만 종은 크게 여러 목(Order)으로 분류됩니다. 주요 목들은 다음과 같습니다:</p>
+<table>
+<thead>
+<tr>
+<th>목(Order)</th>
+<th>학명</th>
+<th>주요 특징</th>
+<th>대표 곤충</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>잠자리목</strong></td>
+<td>Odonata</td>
+<td>가장 오래된 곤충, 두 쌍의 비슷한 크기의 날개, 불완전탈바꿈</td>
+<td>잠자리(dragonfly), 하루살이</td>
+</tr>
+<tr>
+<td><strong>사마목</strong></td>
+<td>Orthoptera</td>
+<td>뒷다리가 발달, 울음 기관, 불완전탈바꿈</td>
+<td>메뚜기, 귀뚜라미, 여치</td>
+</tr>
+<tr>
+<td><strong>바퀴벌레목</strong></td>
+<td>Blattodea</td>
+<td>납작한 몸, 빠른 이동, 불완전탈바꿈</td>
+<td>바퀴벌레, 흰개미(다른 분류도 있음)</td>
+</tr>
+<tr>
+<td><strong>반시류(동애등에속 포함)</strong></td>
+<td>Hemiptera</td>
+<td>찌르는 입 기관, 불완전탈바꿈(일부)</td>
+<td>매미, 진딧물, 노린재, 수생반시류</td>
+</tr>
+<tr>
+<td><strong>딱정벌레목</strong></td>
+<td>Coleoptera</td>
+<td>앞날개가 딱딱한 껍질(elytra)로 변형, 완전탈바꿈</td>
+<td>딱정벌레, 무당벌레, 나무좀, 풍뎅이</td>
+</tr>
+<tr>
+<td><strong>나비목</strong></td>
+<td>Lepidoptera</td>
+<td>날개에 비늘 가루, 빨대처럼 말린 입(흡기관), 완전탈바꿈</td>
+<td>나비, 나방</td>
+</tr>
+<tr>
+<td><strong>파리목</strong></td>
+<td>Diptera</td>
+<td>앞날개만 있고 뒷날개는 평형추로 변형, 완전탈바꿈</td>
+<td>파리, 모기, 등애</td>
+</tr>
+<tr>
+<td><strong>벌목</strong></td>
+<td>Hymenoptera</td>
+<td>두 쌍의 투명한 날개, 사회성 종 다음, 완전탈바꿈</td>
+<td>벌, 개미, 말벌, 애벌레기생봉</td>
+</tr>
+<tr>
+<td><strong>풍뎅이목</strong></td>
+<td>-</td>
+<td>유수곤충(물에서 생활하는 약충)</td>
+<td>수생 약충류</td>
+</tr>
+<tr>
+<td><strong>기타 작은 목들</strong></td>
+<td>-</td>
+<td>매우 다양한 특징</td>
+<td>등애(Ephemeroptera), 돌파리(Plecoptera) 등</td>
+</tr>
+</tbody>
+</table>
+<h4>곤충 분류의 의의</h4>
+<div class="subsection">
+<ul>
+<li><strong>진화적 의미:</strong> 각 목은 독특한 진화 경로를 가지고 있음</li>
+<li><strong>생태적 역할:</strong> 각 목의 곤충들이 생태계에서 다른 역할을 수행</li>
+<li><strong>인간과의 관계:</strong>
+<ul>
+<li>유익한 곤충: 꿀벌(수분), 천적곤충(해충 제어)</li>
+<li>해로운 곤충: 농작물 해충, 질병 매개 곤충</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<hr/>
+<div class="metadata">
+<h3>📚 강의 정리 정보</h3>
+<p><strong>강의 교수:</strong> 김종만 (전북특별자치도자연환경연수원 원장)</p>
+<p><strong>강의 대상:</strong> 2026 숲해설가 자격증 시험 준비자</p>
+<p><strong>시험 과목 위치:</strong> 선택1 - 산림생태계 - 곤충의 이해 (0407)</p>
+<p><strong>정리 원칙:</strong></p>
+<ul>
+<li>✅ 제공된 3개 강의자료의 내용 100% 보존</li>
+<li>✅ 마크다운 잔재 제거, HTML 정식 표현만 사용</li>
+<li>✅ 모든 세부 내용을 빠짐없이 기록</li>
+<li>✅ 각 주제별로 명확한 계층 구조 유지</li>
+<li>✅ 중요 개념 강조 표시</li>
+<li>🆕 ✅ 시험 학습용 SVG 다이어그램 5개 추가</li>
+</ul>
+<p><strong>작성일:</strong> 2026-07-06 20:08 GMT+9</p>
+<p><strong>파일명:</strong> 0407_곤충의이해_최종완성본.html</p>
+<p><strong>파일 크기:</strong> 약 150KB (텍스트 70KB + SVG 다이어그램 80KB)</p>
+</div>
+<style id="integrated-team-pdf-style">
+.integrated-team-pdf{clear:both;margin-top:28px}
+.integrated-team-pdf .source{white-space:pre-wrap}
+.integrated-team-pdf .hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}
+.integrated-team-pdf .hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}
+.integrated-team-pdf .hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}
+.integrated-team-pdf .hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}
+.integrated-team-pdf .team-pdf-page-insert{margin:18px 0;padding:12px 0}
+.integrated-team-pdf .team-pdf-page-insert .page-title{font-weight:800;color:#183a5a;margin:0 0 8px}
+.integrated-team-pdf .image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.integrated-team-pdf figure{margin:0}
+.integrated-team-pdf img{max-width:100%;height:auto;border-radius:6px;border:1px solid #d8e0e8}
+.integrated-team-pdf figcaption{font-size:.9rem;color:#52606d;margin-top:4px}
+</style>
+<section class="integrated-team-pdf" id="integrated-team-pdf-20260708">
+<section class="exam"><h2>주요 표시 요약</h2><ul class="todo">
+<li>- 머리, 가슴, 배로 <span class="hl-yellow">구분</span></li>
+<li>① 겹눈 – 모자이크형태로 보이며 색깔과 형태를 <span class="hl-yellow">구분</span></li>
+<li>② 홑눈 – 밝고 어두운 것만 <span class="hl-yellow">구분</span>, 보통 3개</li>
+<li>- 입의 형태 <span class="hl-yellow">구분</span></li>
+<li>- 곤충별 <span class="hl-yellow">특징</span></li>
+<li>9. 곤충의 <span class="hl-yellow">분류</span></li>
+<li><span class="hl-yellow">분류</span>체계: 계, 문, 강, 목, 과, 속, 종</li>
+<li><span class="hl-yellow">특징</span> 낫발이목 좀붙이목 톡토기목</li>
+<li>- <span class="hl-red">위험</span>에 맞닥뜨리면</li>
+<li>① 어른벌레 : 아목별 <span class="hl-yellow">특징</span></li>
+<li><span class="hl-yellow">구분</span> 실잠자리아목 잠자리아목</li>
+<li>강도래목</li>
+<li>: 강도래 성충은 날지 못함</li>
+<li>1) 꽃매미상과: 홑눈 2개로 겹눈 근처 위치</li>
+<li>2) 뿔매미상과: 홑눈 2개로 위치 다양</li>
+<li>3) 거품벌레상과: 홑눈 2개거나 없음</li>
+<li>4) 매미상과: 홑눈 3개, 배에 발음기관과 고막 있음, 애벌레는 땅속에 삶</li>
+<li>1) 나무이상과: 암수 주둥이 있음, 날개 2쌍(앞날개 뒤보다 단단), 더듬이 10마디</li>
+<li>2) 가루이상과: 암수 주둥이 있음, 날개 2쌍(부드러운 막질), 더듬이 7마디</li>
+<li>3) 깍지벌레상과: 암수 다른 모습(암컷 날개 없음), 몸집 매우 작음</li>
+<li>4) 진딧물상과: 암수 주둥이 있음, 체관부에 주둥이 찔러 즙 먹음, 더듬이 4~6마</li>
+<li>1) 반날개하목</li>
+</ul></section>
+<section><h2>팀 자료 원문 기반 정리</h2><div class="source">
+20260620_곤충의 이해_김종만 요약
+
+1. 곤충이란
+- 머리, 가슴, 배로 <span class="hl-yellow">구분</span>
+- 머리에 각 한 쌍의 촉각(더듬이), 가슴에 두 쌍의 날개, 세 쌍의 다리 갖춤
+- 절지동물의 한 강(綱)
+- 외골격에 몸은 좌우대칭
+- 가슴·배의 기문으로 호흡
+- 자웅이체로 대개 난생(卵生)하고 주로 육지에서 서식
+
+2. 곤충의 눈
+① 겹눈 – 모자이크형태로 보이며 색깔과 형태를 <span class="hl-yellow">구분</span>
+② 홑눈 – 밝고 어두운 것만 <span class="hl-yellow">구분</span>, 보통 3개
+
+3. 더듬이
+- 후각, 촉각, 청각의 역할 하며 모양 다양청줄하늘소-톱니모양 네발나비-뭉퉁한 모양(나방은 뾰족)
+
+
+4. 곤충의 입
+- 맛은 입속의 감각털로 알수 있음
+- 입의 형태 <span class="hl-yellow">구분</span>
+① 흡입형: 매미, 노린재
+② 자작형: 하루살이(유충) 잠자리, 딱정벌레, 메뚜기, 장수<span class="hl-red">말벌</span>, 여치등
+③ 핥는형: 꿀벌, 파리, 등애
+*찌르는 입모양: 모기, 매미, 노린재
+
+5. 곤충의 다리
+- 3쌍이 기본이나 1쌍이 퇴화한 경우도 존재
+- 맨 앞 1쌍은 먹이를 움켜잡는 역할, 나머지는 착지 역할
+- 다리 형태
+① 뜀뛰기형–메뚜기(뒷다리 발달)
+② 붙잡기형–장구애비(작은 곤충이나 물고기 잡을 때 사용)
+③ 사로잡기형- 사마귀의 앞다리(나비 등 휘어잡도록 톱니 돌출)
+④ 땅파기형–땅강아지의 앞다리(땅 잘 파도록 삽 모양)
+⑤ 헤엄치기형–물방개의 뒷다리(오리발 모양)
+
+
+6. 곤충의 날개
+- 앞날개와 뒷날개가 한 쌍씩
+- 곤충의 날개 안에는 근육이 없음
+- 곤충별 <span class="hl-yellow">특징</span>
+
+잠자리 노린재
+: 헬리콥터는 잠자리 날개 모방, 날개 4장 : 위쪽 절반은 딱딱하고 나머지는 막질로다 따로 움직여 빠르고 정교 되어있음나비벌
+: 날개의 색깔과 무늬로 암수를 구별, 털
+: 파리와 달리 날개가 4장 모두 있음, 파비늘이 다양한 무늬와 색 만든다.
+리는 뒷날개가 짧은 곤봉 모양으로 변화
+*박각시나방 날개: 전투기 날개반날개좀남가뢰 : 짧고 두터운 시초(翅鞘)*가 잘발달한 뒷
+: 날개 <span class="hl-yellow">기능</span> 잃음 날개인 비행성 날개 보호
+*딱딱하게 경화된 겉날개
+
+
+딱정벌레류
+: 앞날개는 두껍고 딱딱하여 윗날개 또는매미딱지날개라 불리며 보통 좌우가 등쪽의 정
+: 앞날개와 날개의 질이 균질중선에 합쳐져 있음
+*하늘소도 딱지날개가 속날개 보호
+
+7. 곤충의 기문
+- 몸의 측면이나 배쪽에 있는 호흡을 돕는 호흡문으로 내부의 기관과 연결됨
+- 가운뎃가슴마디보다 뒤쪽에 있는 마디에 합계 10쌍이 있는 것이 보통
+- 전형적으로 메뚜기류에서 나타남
+* 장수풍뎅이는 기문 9쌍, 메뚜기는 양옆으로 20개
+
+8. 곤충의 피부(외골격)
+- 곤충의 피부는 곧 뼈라 외골격이라 함
+- 큐티클이라는 단백질로 이루어져 있으며 주성분은 “키틴”
+- 털이나 돌기 있으며 여러 화학색소로 피부색 다양
+- 부드럽기도 하고(애벌레), 딱딱(톱사슴벌레)하기도, 금속광택(홍단딱정벌레) 띠거나 보호색
+(깔따구하늘소) 되기도 함
+- 몸 성장하려면 외골격 벗어야 함
+- 외골격 역할: 수분 증발 방지, 근육 부착 장소
+
+9. 곤충의 <span class="hl-yellow">분류</span>
+<span class="hl-yellow">분류</span>체계: 계, 문, 강, 목, 과, 속, 종
+- 육각아문(가슴에 다리 6개 붙음)
+
+
+: 톡토기강, 낫발이강, 좀붙이강 → 뺨이 주둥이를 감싸고 있어 안보임
+<span class="hl-yellow">특징</span> 낫발이목 좀붙이목 톡토기목몸집 아주크기 몸집 매우 작음(2.5mm) 몸집 작은편(3~10mm)
+작음(0.2~10mm)
+색 흰색 창백 다양모양 길쭉 길쭉 무늬 있기도 함눈 x x △
+더듬이 x 0 -
+- <span class="hl-red">위험</span>에 맞닥뜨리면톡톡 튀어오름앞다리가 낫처럼 휘어져 - 수컷이 정자를 바닥에기타 -
+서 낫발이 뿌려놓으면 암컷이돌아다니다가 주워감
+- 280여종사진
+
+: 곤충강 → 주둥이 노출, 28목
+
+
+좀목돌좀목
+: 길쭉하고 큰 편(<span class="hl-red">20m</span>m), 350여 종, 은
+: 길쭉하고 큰 편(<span class="hl-red">20m</span>m), 칙칙한 갈색백색 비늘가루 덮힘
+: 커다란 겹눈이 있고 홑눈이 세 개
+: 날개 없고 더듬이 채찍 모양
+: 주둥이가 머리밖으로 나와 있으며 날
+: 어른벌레가 되어서도 계속 허물을 벗개는 없음으며 성충이 되어도 탈피를 계속잠자리목(옛실잠자리아목, 실잠자리아목, 잠자리아목)
+: 고시류, 수서곤충, 불완전탈바꿈, 성충과 애벌레 모두 육식함
+① 어른벌레
+→ 주행성이며 일부종은 야행성하루살이목 ② 애벌레
+: 날개를 가진 곤충 가운데 가장 원시적 → 10~15번 정도 허물을 벗음인 고시류 → 시기 1년(왕잠자리류는 2~5년)
+① 어른벌레 : 아목별 <span class="hl-yellow">특징</span>
+→ 10mm 이상으로 제법 큰 편
+<span class="hl-yellow">구분</span> 실잠자리아목 잠자리아목
+② 애벌레크기 작고 가늘다 크고 굵다
+→ 몸길이는 5 ~ 30mm 작은 편, 크다, 간격겹눈
+→ 물속 생활(1~3년)로 아가미가 발 간격 넓다 매우 좁다달 색변이 암컷 수컷
+③ 아성충 호흡꼬리아가미 직장아가미
+→ 곤충 중 유일하게 하루살이만 아 (애벌레)
+수컷이 암컷성충 단계 거침 수컷이 암컷교미 가슴 앞부분머리 잡음잡음산란관 발달산란판 보유산란 식물에 알물에 알 낳음낳음비행 못함 잘함과 4과 7과
+
+
+강도래목
+: 대부분은 북반구, 온대지역이나 고위도 지역에 서식
+: 강도래 성충은 날지 못함바퀴목
+: 어른벌레는 땅에서 살고 애벌레가 물
+: 출현 이후 생김새 큰 변화 없으며 잡식속에서 살아서 수서곤충성(국내에 나무 먹는 갑옷바퀴도 있음)
+① 어른벌레
+① 생김새
+→ 비교적 약한 편이나 몸집은 큰 편
+→ 유시형(날개0), 무시형(날개x) 존재
+→ 주둥이 퇴화
+→ 주둥이 씹는형
+→ 몸길이 길쭉하고 배 끝 긴 꼬리털
+→ 배꽁무니에 있는 꼬리털 한쌍이두 개에 감각기관이 모여있음감각기관
+② 애벌레
+② 한살이
+→ 몸은 원통모양으로 길쭉하며 위에
+→ 바퀴는 불완전탈바꿈(번데기x)
+서 보면 납작
+③ 습성
+→ 주둥이가 매우 발달했고 육식성
+→ 잡식성으로 집단생활하며 집합페
+*대다수 애벌레는 초식성로몬이 똥에 섞여 있음
+→ 가슴에는 기관아가미, 항문에 항문아가미술 있음
+③ 짝짓기 신호
+→ 상대방이 두드리는 소리를 듣고짝을 찾음집게벌레목사마귀목
+: 잡식성이며 알을 돌보는 모성애의 곤
+: 불완전탈바꿈 곤충으로 알려짐
+: 알집을 만들어 알을 낳으며 알로 겨울
+: 배꽁무니에 두 개의 꼬리털 있으며 집을 난다게처럼 길게 늘어나있음
+
+
+풀잠자리목
+: 주둥이는 하구식, 씹는형, 겹눈 발달,
+날개 막질, 육식성대벌레목
+: 몸집이 큰편이며 더듬이가 염주모양
+: 날개는 대부분 퇴화
+: 불완전탈바꿈
+: 처녀생식(난자가 수정 없이 발달)
+: 알을 똥 속에 섞어 땅에 뿌림
+: 애벌레는 고치 만들어 번데기로 변신
+: 풀잠자리, 명주잠자리(개미귀신), 뿔잠자리, 뱀잠자리, 사마귀붙이등노린재목
+: 크게 3개의 아목(노린재아목, 매미아목, 진딧물아목)으로 나뉨큰차이 노린재아목 매미아목 진딧물아목안쪽은 두터운 가죽앞날개 질 바깥은 부드러운 앞뒤 다 부드러운 막질막질뒷날개 부드러운 막질
+
+① 노린재아목
+→ 불완전탈바꿈
+→ 작은방패판은 역삼각형, 주둥이 침모양
+→ 방어물질(지독한 냄새) 분비구멍 위치
+· 어른: 뒷가슴 옆구리
+· 애벌레: 배 위
+→ 방어물질 성분: 알데히드와 케톤
+
+② 매미아목
+→ 초록or갈색, 겹눈 발달, 홑눈 2~3개, 초식
+
+
+1) 꽃매미상과: 홑눈 2개로 겹눈 근처 위치
+2) 뿔매미상과: 홑눈 2개로 위치 다양
+3) 거품벌레상과: 홑눈 2개거나 없음
+4) 매미상과: 홑눈 3개, 배에 발음기관과 고막 있음, 애벌레는 땅속에 삶
+
+③ 진딧물아목
+→ 양성생식이 주지만 처녀생식도 함, 발목마디는 1~2마디
+1) 나무이상과: 암수 주둥이 있음, 날개 2쌍(앞날개 뒤보다 단단), 더듬이 10마디
+2) 가루이상과: 암수 주둥이 있음, 날개 2쌍(부드러운 막질), 더듬이 7마디
+3) 깍지벌레상과: 암수 다른 모습(암컷 날개 없음), 몸집 매우 작음
+4) 진딧물상과: 암수 주둥이 있음, 체관부에 주둥이 찔러 즙 먹음, 더듬이 4~6마디, 세대교번(양성과 처녀생식 번갈아 생식), 열대지방 진딧물은 거의 처녀생식약대벌레목 뱀잠자리목
+: 뱀잠자리목과 비슷하나 머리와 앞가슴 : 피부 연약, 주둥이 씹는형, 습한 곳 서식이 낙타처럼 보임 : 앞날개와 뒷날개가 같은 모양으로 비
+: 암컷 배꽁무니에는 산란관이 있음 행력 약함
+: 어른벌레는 육식성으로 진딧물 먹음 : 애벌레 물속, 번데기는 육지딱정벌레목
+① 식균아목
+→ 곰팡이를 먹는 무리
+→ 국내 없음
+② 원시딱정벌레아목
+→ 뒷날개에원시적인가로맥
+③ 식육아목
+
+- <span class="hl-red">119</span> -
+
+→ 육식성
+→ 뒷다리의 밑마디*가 배마디와 붙어 있어 밑마디가 움직이지 못함
+*다리의 가장 첫 번째 마디
+④ 다식아목(풍뎅이아목)
+→ 밑마디가 배마디와 떨어져 있어 밑마디 자유
+→ 딱정벌레목의 90%
+1) 반날개하목
+·반개과와 송장벌레과
+: 말피기씨기관(배설기관) 4개
+·풍뎅이붙이과
+: 말피기씨기관 6개
+2) 풍뎅이하목
+: 야행성, 애벌레는 굼벵이
+: 분식성(똥먹음)·초식성·사슴벌레로 나뉨
+3) 방아벌레하목: 배마디 7마디
+4) 개나무좀하목: 배마디 7마디 이하
+5) 머리대장하목
+: 종 분화 가장 다양, 종으로 따지면 50% 차지
+: 통나무좀상과, 개미붙이상과(개미벌과 흉내), 머리대장상과(나무, 버섯에서 발견), 거저리상과(야행성, 걷는 것이 <span class="hl-yellow">특징</span>), 잎벌레상과(하늘소가 속함), 바구미상과(12개 과가 속하며 그중 거위벌레과는 잎을 접어 애벌레를 위한 요람 만듦)
+
+파리목 밑들이목
+: 몸집이 작은 축 : 배꽁무니(생식기가) 전갈의 독침처럼
+: 뒷날개는 퇴화되어 평균곤*으로 변형 위쪽으로 구부러져 ‘전갈파리＇라는
+*곤봉모양 돌기로 평형 유지 역할 별명
+: 모기아목, 등에아목, 가락지감침파리 : 수컷은 짝짓기 전에 먹잇감을 사냥해아목 암컷에게 주는 혼인증정으로 유명
+
+
+벌목
+: 겹눈 발달, 홑눈 있음
+: 침은 주로 육아에 사용
+: 원시적인 벌들(잎벌류, 나무벌류)에게날도래목 는 침이 없음
+: 날개는 털로 덮여있고 앉을 때 지붕 ① 잎벌아목모양 → 벌목 중 가장 원시적
+: 애벌레(물속)와 어른벌레(물가의 돌)가 → 어른벌레 대개 육식사는곳과 습성이 완전히 다름 → 나비목 애벌레의 다리숫자는 8쌍잎벌레애벌레 다리숫자는 9쌍
+② 벌아목
+→ 종 수 많고 매우 다양
+→ 식성은 기생 or 포식성 or꿀
+→ 보통 1년 1회 한 살이 돌아감나비목
+: 날개에 비닐이 붙어있음
+: 완전탈바꿈
+: 나비와 나방 차이
+
+<span class="hl-yellow">구분</span> 나비 나방곤봉 or
+더듬이 끝 빗살갈고리몸통 날씬 뚱뚱앉는모습 날개 세워서 날개 펼치고활동 낮 밤
+① 나비류
+→ 호랑나비과, 부전나비과, 네발남비과, 흰나비과, 팔랑나비과
+② 나방류
+→ 나비목 90% 차지
+
+
+10. 곤충이 번성한 이유
+① 몸이 작다
+② 날개가 있다
+③ 몸을 큐티클이 감싸고 있다(수분 유출 방지)
+④ 탈바꿈을 한다
+⑤ 1세대가 짧다
+
+11. 곤충의 생존전략
+① 휴면전략: 열악한 환경에서 사용
+② 소통: 소리, 불빛, 페로몬 등 감각기관 총동원해 소통
+③ 방어전략: 의사행동(죽은 체), 소리내기, 보호색, 독, 모방, 위장
+
+12. 곤충의 <span class="hl-yellow">특징</span>
+① 곤충의 몸은 머리, 가슴, 배 세마디
+② 곤충의 다리는 세쌍, 즉 여섯개
+③ 곤충에는 날개가 두쌍, 즉 날개가 모두 네개
+④ 곤충의 머리에는 더듬이가 두 개, 겹눈이 두 개, 홑눈이 세 개
+⑤ 곤충은 알–애벌레–번데기–어른벌레로 탈바꿈함
+
+13. 불완전탈바꿈을 하는 곤충 <span class="hl-yellow">특징</span>
+① 한살이 과정중 번데기 안거침
+② 애벌레 모습과 성충 모습 비슷
+ex) 사마귀, 잠자리, 노린재, 매미, 매뚜기 등종 한살이 <span class="hl-yellow">특징</span>
+- 알 상태로 거품 알주머니에 쌓인 채 겨울남사마귀 - 봄에 애벌레 부화
+- 유충 성충 유사함
+- 여름에 낙엽 뒤에 알 낳고 7월경 부화해 집단 월동광대노린재
+- 5월 말 성충되면 알 낳고 죽음
+
+14. 완전탈바꿈
+: 진화한 곤충일수록 완전탈바꿈 과정 겪음
+→ 먹이 경쟁에서 유리한 위치 점하기 위해
+
+15. 완전탈바꿈 곤충 <span class="hl-yellow">특징</span>
+① 번데기 거침
+② 애벌레와 성충 모습 다름
+③ 애벌레와 성충 먹이 완전히 다름
+ex) 장수풍뎅이, 나비, 사슴벌레, 파리, 초파리종 한살이 <span class="hl-yellow">특징</span>
+장수풍뎅이 - 알은 한달에 걸쳐 산란, 늦여름~초가을 부화
+
+
+- 부화 이후 10일간 말하며 부화한 뒤 허물 먹어치움
+- 3령 애벌레 때 월동하며 전혀 안먹음
+- 봄부터 먹기 시작하며 6월 하순 번데기됨
+- 번데기 방을 짓는데 가로로 지음
+- 성충은 3개월도 못살음
+- 운향과 식물에 알낳음(산초나무, 황벽나무, 탱자나무)
+- 4령까진 검정이나 갈색(새똥처럼 보여 천적 피하려고)
+호랑나비
+- 5령부터 초록색되며 냄새뿔(취각)으로 천적 공격
+- 나무틈이나 바위틈에 번데기되어 겨울잠
+
+</div></section>
+</section>
+
+</body>
+</html>

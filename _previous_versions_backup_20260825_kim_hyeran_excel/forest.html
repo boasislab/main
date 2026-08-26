@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>숲해설가 18기 강의자료</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f0f4f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  /* ── 로그인 화면 ── */
+  #login-screen { text-align: center; padding: 40px 20px; }
+  .login-card { background: white; border-radius: 20px; padding: 48px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); max-width: 380px; width: 100%; }
+  .login-card .icon { margin-bottom: 14px; }
+  .login-card .icon img { width: 80px; height: 80px; object-fit: contain; }
+  .login-card h1 { color: #2d6a4f; font-size: 1.4em; margin-bottom: 6px; }
+  .login-card p { color: #777; font-size: 0.9em; margin-bottom: 28px; }
+  .pw-input { width: 100%; padding: 14px 16px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.1em; text-align: center; letter-spacing: 3px; outline: none; transition: border-color 0.2s; }
+  .pw-input:focus { border-color: #2d6a4f; }
+  .pw-input.shake { animation: shake 0.4s; border-color: #dc3545; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+  .login-btn { width: 100%; margin-top: 16px; padding: 14px; background: #2d6a4f; color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+  .login-btn:hover { background: #1e4d38; }
+  .error-msg { color: #dc3545; font-size: 0.88em; margin-top: 10px; min-height: 20px; }
+
+  /* ── 점검중 화면 ── */
+  #maint-screen { display: none; text-align: center; padding: 60px 20px; }
+  .maint-card { background: white; border-radius: 20px; padding: 52px 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); max-width: 400px; width: 100%; margin: 0 auto; }
+  .maint-icon { font-size: 4em; margin-bottom: 16px; }
+  .maint-card h2 { color: #b85c00; font-size: 1.4em; margin-bottom: 10px; }
+  .maint-card p { color: #888; font-size: 0.92em; line-height: 1.7; margin-bottom: 20px; }
+  .maint-back { color: #aaa; font-size: 0.82em; text-decoration: none; }
+
+  /* ── 메인 화면 ── */
+  #main-screen { display: none; width: 100%; max-width: 860px; padding: 24px 16px 40px; }
+  .site-header { text-align: center; margin-bottom: 36px; }
+  .site-header h1 { color: #2d6a4f; font-size: 1.6em; margin-bottom: 6px; }
+  .site-header p { color: #666; font-size: 0.92em; }
+
+  .study-dashboard {
+    background: #fff;
+    border: 1px solid #dce8df;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 26px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .summary-item {
+    background: #f7faf7;
+    border: 1px solid #e3ede5;
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 62px;
+  }
+  .summary-item .num { display: block; color: #1f6b4b; font-size: 1.25em; font-weight: 800; line-height: 1.1; }
+  .summary-item .txt { display: block; color: #66756b; font-size: 0.76em; line-height: 1.35; margin-top: 4px; }
+  .tool-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-input {
+    width: 100%;
+    border: 1.5px solid #cfded3;
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 0.95em;
+    outline: none;
+    background: #fff;
+  }
+  .search-input:focus { border-color: #2d8a5f; box-shadow: 0 0 0 3px rgba(45,138,95,0.1); }
+  .view-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 3px;
+    border: 1px solid #d9e5dc;
+    border-radius: 10px;
+    background: #f5f8f6;
+  }
+  .view-tab {
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #66756b;
+    cursor: pointer;
+    font-size: 0.82em;
+    font-weight: 700;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+  .view-tab.active { background: #2d8a5f; color: #fff; }
+  .study-route {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .route-chip {
+    border-left: 4px solid #2d8a5f;
+    background: #f4faf6;
+    border-radius: 8px;
+    padding: 9px 10px;
+    color: #415349;
+    font-size: 0.78em;
+    line-height: 1.45;
+  }
+  .route-chip strong { display: block; color: #224f39; font-size: 1.02em; margin-bottom: 2px; }
+  .no-results {
+    display: none;
+    text-align: center;
+    background: #fff;
+    border: 1px dashed #cbd8cf;
+    border-radius: 12px;
+    color: #77867c;
+    padding: 22px 14px;
+    margin: 10px 0 22px;
+    font-size: 0.9em;
+  }
+  .filtered-hidden { display: none !important; }
+  mark.search-hit { background: #fff2a8; border-radius: 3px; padding: 0 2px; }
+
+  /* ── Lv1: 대분류 헤더 ── */
+  .cat {
+    display: flex; align-items: center; gap: 10px;
+    margin: 40px 0 14px;
+    padding: 13px 22px;
+    border-radius: 14px; color: white;
+    font-size: 1.05em; font-weight: 800; letter-spacing: 0.5px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+  }
+  .cat:first-of-type { margin-top: 0; }
+  .cat .badge {
+    font-size: 0.72em; padding: 3px 11px; border-radius: 20px;
+    font-weight: 500; background: rgba(255,255,255,0.22);
+  }
+  /* 대분류 색상 */
+  .cat-common  { background: linear-gradient(90deg, #1a3d2b, #2d8a5f); }
+  .cat-select2 { background: linear-gradient(90deg, #1a2d50, #2d5fa0); }
+  .cat-etc     { background: linear-gradient(90deg, #3d2b1a, #8a5f2d); }
+
+  /* ── Lv2: 소그룹 헤더 ── */
+  .subgroup {
+    display: flex; align-items: center; gap: 8px;
+    margin: 16px 0 10px 2px;
+    padding: 7px 14px 7px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.86em; font-weight: 700;
+  }
+  .subgroup-common  { background: #e6f4ec; border-left: 4px solid #2d8a5f; color: #1a4d35; }
+  .subgroup-select2 { background: #e6ecf6; border-left: 4px solid #2d5fa0; color: #1a2d50; }
+  .subgroup-etc     { background: #f4ece6; border-left: 4px solid #8a5f2d; color: #3d2b1a; }
+
+  /* ── Lv3: 과목 블록 ── */
+  .subject-block { background: white; border-radius: 14px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); scroll-margin-top: 18px; }
+  .subject-block.return-highlight { outline: 3px solid #f0c419; box-shadow: 0 0 0 6px rgba(240,196,25,0.18), 0 2px 8px rgba(0,0,0,0.07); }
+
+  .subject-title {
+    color: white; padding: 11px 18px;
+    font-weight: 700; font-size: 0.97em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .subject-title .date { font-size: 0.74em; padding: 2px 8px; border-radius: 10px; font-weight: 400; margin-left: auto; white-space: nowrap; background: rgba(255,255,255,0.22); }
+  .title-common  { background: #2d8a5f; }
+  .title-select2 { background: #2d5fa0; }
+  .title-etc     { background: #8a5f2d; }
+
+  /* 파일 버튼 그리드 */
+  .file-list { padding: 12px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 560px) {
+    html, body { width: 100%; overflow-x: hidden; }
+    body { display: block; }
+    #main-screen { width: 100%; max-width: none; margin: 0; padding-left: 16px; padding-right: 16px; box-sizing: border-box; }
+    .file-list { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .tool-row { grid-template-columns: 1fr; }
+    .view-tabs { width: 100%; overflow-x: auto; }
+    .view-tab { flex: 1; }
+    .study-route { grid-template-columns: 1fr; }
+    .subject-title { flex-wrap: wrap; }
+    .subject-title .date { margin-left: 0; }
+    .file-btn { min-width: 0; }
+    .file-btn .info { min-width: 0; }
+    .file-btn .info .label, .file-btn .info .sub { overflow-wrap: anywhere; word-break: keep-all; }
+  }
+
+  .file-btn {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: 10px; border: 1.5px solid #e0e0e0;
+    text-decoration: none; color: #333; transition: all 0.18s;
+  }
+  .file-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .file-btn .ico { font-size: 1.6em; flex-shrink: 0; }
+  .file-btn .info .label { font-weight: 700; font-size: 0.93em; }
+  .file-btn .info .sub   { font-size: 0.74em; color: #999; margin-top: 2px; }
+  .print-pack-only { display: none; }
+  .print-pack .file-list { grid-template-columns: 1fr; }
+  .print-note { padding: 0 16px 14px; color: #777; font-size: 0.82em; line-height: 1.6; }
+
+  /* 강의내용 버튼 — 카테고리별 색상 */
+  .btn-common  { border-color: #b8dfc8; }
+  .btn-common:hover  { border-color: #2d8a5f; background: #f0faf4; }
+  .btn-select2 { border-color: #b8cbea; }
+  .btn-select2:hover { border-color: #2d5fa0; background: #f0f4fc; }
+  .btn-etc     { border-color: #e0cbb8; }
+  .btn-etc:hover     { border-color: #8a5f2d; background: #fdf6ef; }
+
+  /* 기출문제 버튼 — 공통 노란 계열 */
+  .btn-quiz { border-color: #e8d040; }
+  .btn-quiz:hover { border-color: #c9a800; background: #fffde8; }
+  .btn-quiz.is-construction { border-color: #f0b84a; background: #fff8e8; }
+  .btn-quiz.is-construction:hover { border-color: #d99116; background: #fff3d6; }
+
+  /* 부가자료 버튼 */
+  .btn-extra { border-color: #ddd; }
+  .btn-extra:hover { border-color: #aaa; background: #f8f8f8; }
+
+  .footer { text-align: center; color: #aaa; font-size: 0.8em; margin-top: 28px; }
+  .logout-btn { background: none; border: 1px solid #ccc; color: #888; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.82em; margin-top: 12px; }
+  .logout-btn:hover { border-color: #999; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- 로그인 화면 -->
+<!-- 점검중 화면 -->
+<div id="maint-screen">
+  <div class="maint-card">
+    <div class="maint-icon">🚧</div>
+    <h2>페이지 점검중</h2>
+    <p>현재 숲해설가 18기 강의자료 페이지는<br>점검 중입니다.<br><br>잠시 후 다시 이용해 주세요.</p>
+    <a href="index.html" class="maint-back">← 메인으로</a>
+  </div>
+</div>
+
+<div id="login-screen">
+  <div style="margin-bottom:16px;"><a href="index.html" style="color:#666;font-size:0.85em;text-decoration:none;">← 메인으로</a></div>
+  <div class="login-card">
+    <div class="icon"><img src="forest-icon.jpg" alt="숲해설"></div>
+    <h1>숲해설가 18기 강의자료</h1>
+    <p>접속 비밀번호를 입력해주세요</p>
+    <input type="password" class="pw-input" id="pw" placeholder="비밀번호" maxlength="20"
+      onkeydown="if(event.key==='Enter') tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">입장하기</button>
+    <div class="error-msg" id="err-msg"></div>
+  </div>
+</div>
+
+<!-- 메인 화면 -->
+<div id="main-screen">
+  <div class="site-header">
+    <h1><img src="forest-icon.jpg" alt="숲해설" style="height:1.2em;vertical-align:middle;margin-right:8px;">숲해설가 18기 강의자료</h1>
+    <p>각 과목의 정리본과 기출문제집을 클릭하면 바로 열립니다</p>
+  </div>
+
+  <section class="study-dashboard" aria-label="학습자료 현황과 빠른 찾기">
+    <div class="summary-grid">
+      <div class="summary-item"><span class="num">23</span><span class="txt">등록 과목</span></div>
+      <div class="summary-item"><span class="num">23</span><span class="txt">강의내용 정리본</span></div>
+      <div class="summary-item"><span class="num">22</span><span class="txt">기출문제집</span></div>
+      <div class="summary-item"><span class="num">2</span><span class="txt">인쇄용 ZIP 묶음</span></div>
+    </div>
+    <div class="tool-row">
+      <input type="search" class="search-input" id="subject-search" placeholder="과목명, 날짜, 키워드로 찾기" autocomplete="off">
+      <div class="view-tabs" aria-label="자료 분류 보기">
+        <button type="button" class="view-tab active" data-filter="all">전체</button>
+        <button type="button" class="view-tab" data-filter="common">공통</button>
+        <button type="button" class="view-tab" data-filter="select2">선택2</button>
+        <button type="button" class="view-tab" data-filter="etc">개인심화</button>
+      </div>
+    </div>
+    <div class="study-route" aria-label="학습 순서">
+      <div class="route-chip"><strong>1. 기본 흐름</strong>산림교육론 → 숲해설개론</div>
+      <div class="route-chip"><strong>2. 생태 기초</strong>산림생태학 → 식물·토양</div>
+      <div class="route-chip"><strong>3. 현장 대응</strong>응급처치 → 야외활동지도</div>
+      <div class="route-chip"><strong>4. 문제 확인</strong>과목별 기출문제 반복</div>
+    </div>
+  </section>
+  <div class="no-results" id="no-results">검색 조건에 맞는 과목이 없습니다.</div>
+
+  <!-- ══════════════ 공통 ══════════════ -->
+  <div class="cat cat-common">🌿 공통 <span class="badge">필수 이수 과목</span></div>
+
+  <div class="subgroup subgroup-common">📚 산림교육론</div>
+
+  <div class="subject-block" id="subject-01">
+    <div class="subject-title title-common">산림교육의 이해 <span class="date">2026-02-24</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="0224_산림교육의이해_정리본_최종.html?from=subject-01&amp;v=20260730-number-artifact-audit" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">통합 정리본 · 1.2 MB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0224_산림교육의이해_기출문제집.html?from=subject-01" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-02">
+    <div class="subject-title title-common">산림문화휴양 <span class="date">2026-02-26</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="20260226_산림휴양문화_정리본_최종.html?from=subject-02&amp;v=20260730-number-artifact-audit" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">핵심표 보강 정리</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260226_산림휴양문화_기출문제집.html?from=subject-02" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-03">
+    <div class="subject-title title-common">나무·숲·임업 <span class="date">2026-03-10</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="0310_나무숲임업_정리본_최종.html?from=subject-03&v=20260715-forest-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">나무 구조·숲의 구성·임업 핵심 정리 · 1.7 MB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0310_나무숲임업_기출문제집.html?from=subject-03" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subgroup subgroup-common">🌳 숲해설개론</div>
+
+  <div class="subject-block" id="subject-04">
+    <div class="subject-title title-common">숲해설개론 <span class="date">2026-05-19</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="0519_숲해설개론_정리본_최종.html?from=subject-04&amp;v=20260715-forest-intro-text" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">생태맹·환경해설·해설원리 핵심 정리 · 72 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0519_숲해설개론_기출문제집.html?from=subject-04" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subgroup subgroup-common">🍃 산림생태계</div>
+
+  <div class="subject-block" id="subject-05">
+    <div class="subject-title title-common">산림생태학 <span class="date">2026-04-21</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="0421_산림생태학_정리본_최종.html?from=subject-05&amp;v=20260814-succession-light-shade" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">식물다양성·보전·산림생태계 핵심 정리 · 296 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0421_산림생태학_기출문제집.html?from=subject-05" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-06">
+    <div class="subject-title title-common">식물의 이해 (초본·목본) <span class="date">2026-04~05</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="식물의이해_초본목본_통합정리본.html?from=subject-06&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">초본·목본 식별과 식물 구조 핵심 정리 · 100 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="식물의이해_초본목본_기출문제집.html?from=subject-06" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 (초본25+목본25) · 클릭형</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════════ 선택2 ══════════════ -->
+  <div class="cat cat-select2">🦅 선택2 <span class="badge">생태·안전·선택과목</span></div>
+
+  <div class="subgroup subgroup-select2">🌲 산림생태계</div>
+
+  <div class="subject-block" id="subject-wildlife">
+    <div class="subject-title title-select2">야생동물의 이해 (조류·포유류) <span class="date">2026-03-07 · 03-09</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="0307_야생동물의이해_통합정리본.html?from=subject-wildlife&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">조류·포유류 생태와 관찰 포인트 · 148 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0307_야생동물의이해_기출문제집.html?from=subject-wildlife" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 (조류25+포유류25) · 클릭형</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-07">
+    <div class="subject-title title-select2">곤충의 이해 <span class="date">2026-04-07</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="0407_곤충의이해_정리본_완전본.html?from=subject-07&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">곤충 형태·분류·생활사 핵심 정리 · 58 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0407_곤충의이해_기출문제집.html?from=subject-07&amp;v=20260716-insect-eye-terms" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-08">
+    <div class="subject-title title-select2">산림토양학 <span class="date">2026-03-28</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="0328_산림토양학_정리본_최종.html?from=subject-08&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">토양 생성·성질·산림토양 관리 핵심 정리 · 44 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0328_산림토양학_기출문제집.html?from=subject-08" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subgroup subgroup-select2">🩹 안전교육 및 안전관리</div>
+
+  <div class="subject-block" id="subject-09">
+    <div class="subject-title title-select2">응급처치 <span class="date">2026-03-13 · 03-14</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260313_응급처치_정리본.html?from=subject-09&amp;v=20260730-number-artifact-audit" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">CPR·AED·기도폐쇄·상처처치 · 14 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260313_응급처치_기출문제집.html?from=subject-09" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-10">
+    <div class="subject-title title-select2">야외활동지도 <span class="date">2026-03-17</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260317_야외활동지도_정리본.html?from=subject-10&amp;v=20260730-outdoor-key-highlight" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">야외활동 준비·안전·지도 핵심 정리 · 44 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260317_야외활동지도_기출문제집.html?from=subject-10&amp;v=20260730-viper-table" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subgroup subgroup-select2">⭐ 선택과목</div>
+
+  <div class="subject-block" id="subject-11">
+    <div class="subject-title title-select2">도시숲 가꾸기의 이해 <span class="date">2026-03-19</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="도시숲가꾸기_통합정리본.html?from=subject-11&amp;v=20260804-2241-img-both-120" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">도시숲 기능·관리·참여 핵심 정리 · 38 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="도시숲가꾸기_기출문제집.html?from=subject-11&amp;v=20260804-1628-quiz35" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">35문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-12">
+    <div class="subject-title title-select2">기후변화실습 (기후위기·탄소중립) <span class="date">2026-06-20</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="기후위기탄소중립_통합정리본.html?from=subject-12&amp;v=20260730-number-artifact-audit" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">생태·온실가스·탄소중립·IPCC · 27 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="기후위기탄소중립_기출문제집.html?from=subject-12" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-13">
+    <div class="subject-title title-select2">계절을 찾아가는 식물이야기 <span class="date">2026-03-31</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260331_계절을찾아가는식물이야기_정리본.html?from=subject-13&amp;v=20260731-original-photo-min-thumb" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">최종 보강본 · 2.1 MB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260331_계절을찾아가는식물이야기_기출문제집.html?from=subject-13" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-14">
+    <div class="subject-title title-select2">생명의 숲밧줄놀이 <span class="date">2026-04-04</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260404_생명의숲밧줄놀이_정리본.html?from=subject-14&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">트리플레잉·매듭·안전 주의사항 · 7.5 MB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260404_생명의숲밧줄놀이_기출문제집.html?from=subject-14" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-15">
+    <div class="subject-title title-select2">자연생태놀이 <span class="date">2026-04-11</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260411_자연생태놀이_정리본.html?from=subject-15" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">보완 정리본 · 자연놀이·숲놀이·생태놀이 · 18 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260411_자연생태놀이_기출문제집.html?from=subject-15" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-16">
+    <div class="subject-title title-select2">양서파충류 이야기 <span class="date">2026-04-16</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="0416_양서파충류_정리본.html?from=subject-16" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">11섹션 · 생명사·분류·생태 · 45 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="0416_양서파충류_기출문제집.html?from=subject-16" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-17">
+    <div class="subject-title title-select2">수서생물 <span class="date">2026-06-13</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260613_수서생물_정리본.html?from=subject-17&amp;v=20260730-page-marker-clean" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">하천·습지 수서생물 관찰 핵심 정리 · 42 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260613_수서생물_기출문제집.html?from=subject-17" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">50문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════════ 개인심화 ══════════════ -->
+  <div class="cat cat-etc">📘 개인심화 <span class="badge">정책·심화 자료</span></div>
+
+  <div class="subject-block" id="subject-communication">
+    <div class="subject-title title-select2">커뮤니케이션 <span class="date">2026-07-11 보강</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260711_커뮤니케이션_정리본.html?from=subject-communication&v=20260715-kim" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">김양용 이론 보강 반영 · 21 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260711_커뮤니케이션_기출문제집.html?from=subject-communication" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-18">
+    <div class="subject-title title-select2">숲해설프로그램개발 <span class="date">2026-07-11 보강</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260711_숲해설프로그램개발_정리본.html?from=subject-18&v=20260715-shin" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">신은주 실습 보강 반영 · 30 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260711_숲해설프로그램개발_기출문제집.html?from=subject-18" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-19">
+    <div class="subject-title title-select2">교육프로그램운영실습1 <span class="date">2026-07-15</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습1_정리초안.html?from=subject-19&v=20260715-practice1" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">산림문화·산림복지·프로그램 개발 절차 · 21 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260708_교육프로그램운영실습1_기출문제집.html?from=subject-19" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-20">
+    <div class="subject-title title-select2">교육프로그램운영실습2 <span class="date">2026-07-15</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습2_정리초안.html?from=subject-20&v=20260715-practice2" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">수목식별·숲의 천이·측정 실습 · 17 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="20260708_교육프로그램운영실습2_기출문제집.html?from=subject-20" target="_blank">
+        <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="subject-block" id="subject-22">
+    <div class="subject-title title-etc">산림정책의이해 <span class="date">2026-03-05</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-etc" href="0305_산림정책의이해.html?from=subject-22" target="_blank">
+        <span class="ico">📖</span><div class="info"><div class="label">강의내용 정리</div><div class="sub">핵심 요약 · 10 KB</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cat cat-etc print-pack-only">🖨️ 기출문제 인쇄용 묶음 <span class="badge">ZIP 다운로드</span></div>
+
+  <div class="subject-block print-pack print-pack-only" id="exam-print-pack">
+    <div class="subject-title title-etc">전체 기출문제 인쇄용 <span class="date">2026-07-14</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-quiz" href="forest_exam_questions_no_answers_complete_20260714.zip" target="_blank" download>
+        <span class="ico">📝</span><div class="info"><div class="label">해설답안 없는 버전</div><div class="sub">문제만 인쇄 · 16개 HTML · 92 KB</div></div>
+      </a>
+      <a class="file-btn btn-quiz" href="forest_exam_questions_with_answers_complete_20260714.zip" target="_blank" download>
+        <span class="ico">✅</span><div class="info"><div class="label">해설답안 있는 버전</div><div class="sub">문제 + 정답/해설 인쇄 · 16개 HTML · 123 KB</div></div>
+      </a>
+    </div>
+    <p class="print-note">압축을 풀어 과목별 HTML을 열고 브라우저 인쇄 기능으로 출력하면 됩니다.</p>
+  </div>
+
+  <div class="footer">
+    <a href="index.html" style="color:#aaa;font-size:0.82em;text-decoration:none;">← 메인으로</a><br><br>
+    숲해설가 18기 · 강의자료 공유 페이지<br>
+    <button class="logout-btn" onclick="logout()">로그아웃</button>
+  </div>
+</div>
+
+<script>
+  const PASSWORDS = ['forest18@@'];
+  const PW_MAINT = 'yyj123';
+  const OWNER_KEY = 'yyj1201';
+  const EXAM_CONSTRUCTION_PAGE = 'forest_exam_under_construction.html';
+
+  function setExamConstructionMode(enabled) {
+    document.querySelectorAll('.btn-quiz').forEach((btn) => {
+      const sub = btn.querySelector('.sub');
+      if (!btn.dataset.originalHref) btn.dataset.originalHref = btn.getAttribute('href') || '';
+      if (sub && !sub.dataset.originalText) sub.dataset.originalText = sub.textContent || '';
+
+      if (enabled) {
+        const originalHref = btn.dataset.originalHref || 'forest.html';
+        btn.href = EXAM_CONSTRUCTION_PAGE + '?from=' + encodeURIComponent(originalHref);
+        btn.classList.add('is-construction');
+        if (sub) sub.textContent = '공사중 · 준비 중입니다';
+      } else {
+        btn.href = btn.dataset.originalHref || btn.href;
+        btn.classList.remove('is-construction');
+        if (sub) sub.textContent = sub.dataset.originalText || sub.textContent;
+      }
+    });
+  }
+
+  function restoreReturnTarget() {
+    const targetId = decodeURIComponent((window.location.hash || '').replace(/^#/, ''));
+    if (!targetId) return;
+    setTimeout(() => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      target.scrollIntoView({ block: 'center' });
+      target.classList.add('return-highlight');
+      setTimeout(() => target.classList.remove('return-highlight'), 1800);
+    }, 80);
+  }
+
+  function normalizeText(text) {
+    return (text || '').toLowerCase().replace(/\s+/g, '');
+  }
+
+  function getSubjectCategory(block) {
+    let current = block.previousElementSibling;
+    while (current) {
+      if (current.classList && current.classList.contains('cat-common')) return 'common';
+      if (current.classList && current.classList.contains('cat-select2')) return 'select2';
+      if (current.classList && current.classList.contains('cat-etc')) return 'etc';
+      current = current.previousElementSibling;
+    }
+    return 'all';
+  }
+
+  function clearSearchMarks() {
+    document.querySelectorAll('mark.search-hit').forEach((mark) => {
+      mark.replaceWith(document.createTextNode(mark.textContent || ''));
+    });
+  }
+
+  function highlightTitle(block, query) {
+    if (!query) return;
+    const title = block.querySelector('.subject-title');
+    if (!title) return;
+    const date = title.querySelector('.date');
+    const dateText = date ? date.outerHTML : '';
+    const titleText = Array.from(title.childNodes)
+      .filter((node) => node.nodeType === Node.TEXT_NODE)
+      .map((node) => node.textContent)
+      .join('');
+    const index = normalizeText(titleText).indexOf(normalizeText(query));
+    if (index < 0) return;
+    const raw = titleText.trim();
+    const safeQuery = query.trim();
+    const rawIndex = raw.toLowerCase().indexOf(safeQuery.toLowerCase());
+    if (rawIndex < 0) return;
+    const before = raw.slice(0, rawIndex);
+    const hit = raw.slice(rawIndex, rawIndex + safeQuery.length);
+    const after = raw.slice(rawIndex + safeQuery.length);
+    title.innerHTML = before + '<mark class="search-hit">' + hit + '</mark>' + after + ' ' + dateText;
+  }
+
+  function applySubjectFilters() {
+    const search = document.getElementById('subject-search');
+    const query = normalizeText(search ? search.value : '');
+    const activeTab = document.querySelector('.view-tab.active');
+    const filter = activeTab ? activeTab.dataset.filter : 'all';
+    let visibleCount = 0;
+
+    clearSearchMarks();
+    document.querySelectorAll('.subject-block').forEach((block) => {
+      if (block.classList.contains('print-pack')) return;
+      const text = normalizeText(block.textContent);
+      const category = getSubjectCategory(block);
+      const matchesText = !query || text.includes(query);
+      const matchesFilter = filter === 'all' || category === filter;
+      const visible = matchesText && matchesFilter;
+      block.classList.toggle('filtered-hidden', !visible);
+      if (visible) {
+        visibleCount += 1;
+        highlightTitle(block, search ? search.value : '');
+      }
+    });
+
+    document.querySelectorAll('.subgroup, .cat').forEach((heading) => {
+      let next = heading.nextElementSibling;
+      let hasVisibleSubject = false;
+      while (next && !(next.classList && next.classList.contains('cat')) && !(heading.classList.contains('subgroup') && next.classList && next.classList.contains('subgroup'))) {
+        if (next.classList && next.classList.contains('subject-block') && !next.classList.contains('filtered-hidden') && !next.classList.contains('print-pack')) {
+          hasVisibleSubject = true;
+          break;
+        }
+        next = next.nextElementSibling;
+      }
+      heading.classList.toggle('filtered-hidden', !hasVisibleSubject);
+    });
+
+    const noResults = document.getElementById('no-results');
+    if (noResults) noResults.style.display = visibleCount ? 'none' : 'block';
+  }
+
+  function initSubjectTools() {
+    const search = document.getElementById('subject-search');
+    if (search) search.addEventListener('input', applySubjectFilters);
+    document.querySelectorAll('.view-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.view-tab').forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+        applySubjectFilters();
+      });
+    });
+  }
+
+  function showMain(options = {}) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('maint-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'block';
+    setExamConstructionMode(Boolean(options.examConstruction));
+    document.querySelectorAll('.print-pack-only').forEach((el) => {
+      el.style.display = options.showPrintPack ? '' : 'none';
+    });
+    initSubjectTools();
+    applySubjectFilters();
+    restoreReturnTarget();
+  }
+  function showMaint() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('maint-screen').style.display = 'block';
+  }
+  function tryLogin() {
+    const val = document.getElementById('pw').value;
+    const inp = document.getElementById('pw');
+    const err = document.getElementById('err-msg');
+    if (PASSWORDS.includes(val)) {
+      showMain({ examConstruction: false, showPrintPack: false }); err.textContent = '';
+    } else if (val === PW_MAINT) {
+      showMain({ examConstruction: false, showPrintPack: true }); err.textContent = '';
+    } else {
+      inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
+      err.textContent = '비밀번호가 틀렸습니다.'; inp.value = '';
+      setTimeout(() => inp.classList.remove('shake'), 400);
+    }
+  }
+  function logout() {
+    sessionStorage.removeItem('auth');
+    localStorage.removeItem('owner_auth');
+    setExamConstructionMode(false);
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('maint-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('pw').value = '';
+  }
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('k') === OWNER_KEY) {
+    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true });
+  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
+
+  // ── TTS 음성 재생 ─────────────────────────────────────────────
+
+</script>
+
+</body>
+</html>

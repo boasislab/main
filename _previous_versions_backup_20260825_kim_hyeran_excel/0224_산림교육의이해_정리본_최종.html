@@ -1,0 +1,821 @@
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>산림교육의 이해</title>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.9;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 { color: #1b4332; border-bottom: 4px solid #40916c; padding-bottom: 15px; margin-bottom: 30px; font-size: 2.3em; }
+        h2 { color: #1b4332; margin-top: 50px; margin-bottom: 25px; padding-left: 15px; border-left: 6px solid #40916c; font-size: 1.7em; }
+        h3 { color: #2d6a4f; margin-top: 30px; margin-bottom: 18px; font-size: 1.25em; }
+        h4 { color: #40916c; margin-top: 20px; margin-bottom: 12px; font-size: 1.08em; }
+        h5, h6 { color: #52b788; margin-top: 15px; margin-bottom: 10px; }
+
+        p { margin-bottom: 15px; line-height: 1.95; }
+
+        .highlight-red { color: #dc143c; font-weight: bold; }
+        .highlight-red-lg { color: #dc143c; font-weight: bold; font-size: 1.1em; }
+        .highlight-blue { color: #1e6091; font-weight: bold; }
+        .highlight-orange { color: #d97706; font-weight: bold; }
+        .highlight-green { color: #2d6a4f; font-weight: bold; }
+
+        ul, ol { margin-left: 35px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; line-height: 1.8; }
+
+        table { width: 100%; border-collapse: collapse; margin: 25px 0; background: #f8f9fa; }
+        table th { background: #1b4332; color: white; padding: 14px; text-align: left; font-weight: bold; border: 1px solid #2d6a4f; }
+        table td { border: 1px solid #ddd; padding: 12px 14px; vertical-align: top; }
+        table tr:hover { background: #e8f5e9; }
+
+        blockquote { border-left: 5px solid #ffd60a; padding: 15px 20px; margin: 20px 0; color: #333; background: #fffbf0; border-radius: 4px; font-style: italic; }
+
+        figure { margin: 25px 0; text-align: center; }
+        figure img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); display: block; margin: 0 auto; }
+        figcaption { text-align: center; color: #888; font-size: 0.85em; margin-top: 8px; font-style: italic; }
+
+        hr { border: none; border-top: 2px solid #ddd; margin: 40px 0; }
+
+        .metadata { color: #999; font-size: 0.9em; margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; }
+
+        section.reference-box { background: #f0f7f4; border: 1px solid #c8e6c9; border-radius: 8px; padding: 20px 25px; margin: 25px 0; }
+        section.reference-box h3 { margin-top: 0; }
+
+        section.law-box { background: #f5f5dc; border: 2px solid #d4a373; border-radius: 8px; padding: 20px 25px; margin: 25px 0; font-family: serif; }
+        section.law-box h4 { color: #6f4e37; margin-top: 0; }
+        section.law-box .article { margin: 15px 0; }
+        section.law-box .article-title { font-weight: bold; color: #6f4e37; }
+
+        section.tbc { background: #fff3e0; border: 1px dashed #f59f00; border-radius: 8px; padding: 15px 20px; margin: 15px 0; font-size: 0.95em; }
+        section.tbc strong { color: #d97706; }
+
+        section.quiz { margin-top: 50px; background: #fff8e1; border: 2px solid #ffd60a; border-radius: 10px; padding: 30px; }
+        section.quiz h2 { border-left-color: #f59f00; color: #856404; }
+        article.question { background: white; border-radius: 8px; padding: 20px 25px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        article.question p.q-stem { font-weight: bold; color: #1b4332; margin-bottom: 12px; }
+        article.question ol.choices { list-style-type: none; margin-left: 0; padding-left: 0; }
+        article.question ol.choices li { padding: 6px 0; }
+        article.question .answer { margin-top: 12px; padding: 10px 14px; background: #e8f5e9; border-left: 4px solid #40916c; border-radius: 4px; font-size: 0.95em; }
+        article.question .correct { color: #dc143c; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.3em; }
+        }
+    </style>
+<style id="forest-back-link-style">
+.forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.forest-back-link a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1f6b3a;font-weight:800;border:1px solid #9bc7a7;border-radius:8px;padding:7px 11px;background:#f4fbf6;}
+.forest-back-link a:hover{background:#e7f5eb;}
+.forest-back-link-bottom{position:static;margin:22px 0 0 0;border-top:1px solid #d7e2d8;border-bottom:0;}
+@media print{.forest-back-link{display:none!important;}}
+</style></head>
+<body><div class="forest-back-link" id="forest-back-link"><a href="forest.html?k=yyj1201#subject-01">← 공유페이지로 돌아가기</a></div>
+<div class="container">
+<h1>산림교육의 이해</h1>
+<p><strong>강의자:</strong> 박종민 교수</p>
+<p><strong>강의일:</strong> 2026년 2월 24일</p>
+<p><strong>정리일:</strong> 2026년 6월 15일</p>
+<hr/>
+<h2>📚 1. 산림교육의 정의 및 분류</h2>
+<h3>1.1 산림교육이란?</h3>
+<p>🔴 <span class="highlight-red-lg">산림의 가치와 생태계 원리를 체계적으로 국민에게 전달하는 교육</span></p>
+<h4>분류 기준: 전문성 수준</h4>
+<table>
+<thead>
+<tr><th>구분</th><th>정의</th><th>대상</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>전문분야</strong></td><td>기능사 및 대학교 등의 교육, 산림 관련 기능사 취득, 대학 전공 교육 등 전문 인력 양성</td><td>전문 인력</td></tr>
+<tr><td><strong>일반분야</strong></td><td>대학·산림청 및 산림청 유관기관 등에서 일반 국민을 대상으로 모집·운영하는 교양교육(환경보호 및 산림정책 관심), 🔴 <span class="highlight-red">생태맹 극복 및 정서적 복지 서비스 제공</span>, 지도인력 양성 교육과정</td><td>일반 국민</td></tr>
+</tbody>
+</table>
+<blockquote><strong>핵심:</strong> 일반분야는 단순 교양이 아니라 국민의 <strong>정서적 웰빙과 생태 의식 고취</strong>가 목표</blockquote>
+<hr/>
+<h2>🎓 2. 산림교육 및 복지 전문가 (P.94~97)</h2>
+<h3>2.1 법령에 따른 구분</h3>
+<ul>
+<li>🌿 <strong>산림교육전문가</strong> (산림교육 활성화에 관한 법률): <strong>숲해설가, 유아숲지도사, 숲길등산지도사</strong></li>
+<li>🔹 <strong>산림복지전문가</strong> (산림복지 진흥에 관한 법률): 산림교육전문가 + <strong>산림치유지도사</strong> 등 산림복지 서비스를 제공하는 자를 총칭.</li>
+</ul>
+<h3>2.2 산림교육법 (산림교육 활성화 관련) — 법률 조문 전문</h3>
+<section class="law-box">
+<h4>📜 산림교육활성화에 관한 법률 (P.11 교재 원본)</h4>
+<div class="article">
+<p class="article-title">제1조(목적)</p>
+<p>이 법은 산림교육의 활성화에 필요한 사항을 정하여 국민이 산림에 대한 올바른 지식을 습득하고 가치관을 가지도록 함으로써 산림을 지속가능하게 보전하고 국가와 사회발전 및 국민의 삶의 질 향상에 이바지함을 목적으로 한다.</p>
+</div>
+<div class="article">
+<p class="article-title">제2조(정의)</p>
+<p>이 법에서 사용하는 용어의 정의는 다음과 같다.</p>
+<ol>
+<li><strong>"산림교육"</strong>이란 산림의 다양한 기능을 체계적으로 체험·탐방·학습함으로써 산림의 중요성을 이해하고 산림의 지식을 가지도록 하는 교육을 말한다.</li>
+<li><strong>"산림교육전문가"</strong>란 산림교육전문가 양성기관에서 산림교육 전문과정을 이수한 사람으로서 다음 각 목의 어느 하나에 해당하는 사람을 말한다.
+        <ul>
+<li>가. <strong>숲해설가</strong>: 국민이 산림문화·휴양에 관한 산림에 대한 지식을 습득하고 올바른 가치관을 가질 수 있도록 해설하거나 지도·교육하는 사람</li>
+<li>나. <strong>유아숲지도사</strong>: 유아(유아교육법 제2조 제1호의 유아를 말한다)가 산림교육을 통하여 정서를 함양하고 전인적 성장을 할 수 있도록 지도·교육하는 사람</li>
+<li>다. <strong>숲길등산지도사</strong>: 국민이 안전하고 쾌적하게 등산 또는 트레킹(길을 걸으면서 지역의 역사·문화를 체험하고 경관을 즐기며 건강을 증진하는 활동을 말한다)을 할 수 있도록 해설하거나 지도·교육하는 사람</li>
+</ul>
+</li>
+</ol>
+</div>
+</section>
+<h4>📌 일반인을 위한 산림교육 (P.11 교재 원문)</h4>
+<p>유아부터 성인에 이르기까지 일반 국민을 대상으로 생애주기에 대응하여 산림의 생태 및 자연과학적 이해, 산림의 혜택에 대한 이해, 산림을 이용하는 방법에 대한 이해 등을 통해 생태맹을 극복하고, 신체적 및 정신적 건강을 확보하며, 정서적 안정을 얻도록 하는 <strong>산림복지서비스와 환경교육의 한 분야</strong></p>
+<p>→ <strong>이론교육과 현장교육</strong></p>
+<h4>📌 산림교육 전문가 양성 교육과정 (P.11 교재 원문)</h4>
+<p>산림 관련 학문분야의 전공자 또는 소정의 교육을 수료한 비전공자로 하여금 일반 국민의 생애주기에 대응하여 산림의 생태 및 자연과학적 이해, 산림의 혜택에 대한 이해, 산림을 이용하는 방법에 대한 이해 등을 통해 생태맹을 극복하고, 신체적 및 정신적 건강을 확보하며, 정서적 안정을 얻도록 하는 <strong>산림교육의 지도인력(전문가)을 양성하는 교육과정</strong></p>
+<h4>산림교육 전문 자격 체계 (요약표)</h4>
+<table>
+<thead><tr><th>자격명</th><th>주요 역할</th><th>관련법</th></tr></thead>
+<tbody>
+<tr><td>🌿 <strong>숲해설가</strong></td><td>숲의 가치와 생태계 원리를 체계적으로 전달</td><td>산림교육법</td></tr>
+<tr><td>🌿 <strong>유아숲지도사</strong></td><td>유아의 신체적·정서적 발달을 돕는 교육 수행</td><td>산림교육법</td></tr>
+<tr><td>🌿 <strong>숲길등산지도사</strong></td><td>안전한 등산 및 트레킹 가이드와 정보 제공</td><td>산림교육법</td></tr>
+</tbody>
+</table>
+<h3>2.3 산림휴양법 (산림문화·휴양 관련)</h3>
+<table>
+<thead><tr><th>자격명</th><th>주요 역할</th></tr></thead>
+<tbody>
+<tr><td>🔹 <strong>산림치유지도사</strong></td><td>산림의 치유 인자 활용 건강 증진 (1급, 2급)</td></tr>
+<tr><td>🔹 <strong>산림레포츠지도사</strong></td><td>산림 레포츠 활동의 안전 및 기술 지도</td></tr>
+</tbody>
+</table>
+<h3>2.4 숲해설가 (P.97) 🌿</h3>
+<ul>
+<li><strong>정의:</strong> 산림문화·휴양에 관한 지식을 습득하여 이를 국민에게 설명하거나 지도·교육하는 사람.</li>
+<li><strong>역할:</strong> 생태·문화적 요소를 일상 언어로 전달하여 숲에 대한 이해를 도움.</li>
+</ul>
+<h3>2.5 함박꽃나무 (P.98-99) 🌸</h3>
+<ul>
+<li><strong>특징:</strong> 목련과. 다른 목련들과 달리 <strong>"잎이 먼저 나고 꽃이 핌(잎 ➡️ 꽃)"</strong>. 꽃이 아래를 향해 핌.</li>
+<li><strong>상징:</strong> 북한의 국화(목란).</li>
+</ul>
+<hr/>
+<h2>📖 3. 숲해설가 양성교육 체계 (전북생명의숲)</h2>
+<h3>3.1 전체 이수 시간: <strong>총 197시간 이상</strong></h3>
+<table>
+<thead><tr><th>과목 구분</th><th>주요 내용</th><th>최소 시간</th></tr></thead>
+<tbody>
+<tr><td><strong>산림교육론</strong></td><td>산림경영, 산림교육의 이해, 환경윤리</td><td>15시간</td></tr>
+<tr><td><strong>산림생태계</strong></td><td>구조·원리, 식물/동물/곤충/토양</td><td>45시간</td></tr>
+<tr><td><strong>커뮤니케이션</strong></td><td>인간관계학, 의사소통, 숲해설 기법</td><td>20시간</td></tr>
+<tr><td><strong>교육프로그램 개발</strong></td><td>기획, 운영 전략, 실습</td><td>20시간</td></tr>
+<tr><td><strong>안전교육 및 관리</strong></td><td>응급처치, 야외 활동 안전</td><td>15시간</td></tr>
+<tr><td><strong>선택과정</strong></td><td>지구환경, 생태공예, 자연놀이</td><td>25시간</td></tr>
+<tr><td><strong>교육실습</strong></td><td>보조교사 활동, 현장 실무</td><td>30시간</td></tr>
+</tbody>
+</table>
+<p><strong>참고:</strong> 필기 사진 P.11 참조</p>
+<hr/>
+<h2>🔄 4. 생애주기별 산림복지 서비스 (P.101)</h2>
+<p>인간의 생애 단계에 따라 산림을 통해 제공되는 맞춤형 복지 체계:</p>
+<ol>
+<li><strong>출생기:</strong> <strong>숲태교</strong> (안정, 스트레스 완화, 태아와의 교감)</li>
+<li><strong>유아기:</strong> <strong>유아숲체험</strong> (신체·정서 발달, 오감 자극)</li>
+<li><strong>청소년기:</strong> <strong>산림교육</strong> (학교 폭력 예방, 문제예방, 사회성 증가)</li>
+<li><strong>청년기:</strong> <strong>산림레포츠</strong> (에너지 발산, 모험심 고취)</li>
+<li><strong>중·장년기:</strong> <strong>산림휴양</strong> (가족 문화 형성, 재충전, 일자리)</li>
+<li><strong>노년기:</strong> <strong>산림치유</strong> (질병관리, 면역력 향상, 실버 케어)</li>
+<li><strong>회년기:</strong> <strong>수목장림</strong> (회귀, 영원의 안식)</li>
+</ol>
+<hr/>
+<h2>🌍 5. 환경윤리와 3대 환경철학</h2>
+<h3>5.1 핵심 명제</h3>
+<blockquote>
+    🔴 <span class="highlight-red-lg">"윤리학 없는 과학, 과학 없는 윤리학으로 환경문제를 해결할 수 없다."</span><br/>
+    — 조화의 강조
+</blockquote>
+<p><span class="highlight-red">환경오염 및 파괴 등의 문제를 과학기술에 의존하여 해결할 수 없다</span> — 강의 필기 명제.</p>
+<h3>5.2 3가지 환경철학</h3>
+<h4>① 근본생태주의 (Deep Ecology)</h4>
+<ul>
+<li><strong>원칙:</strong> 🔴 <span class="highlight-red">전일주의(Holism)</span></li>
+<li><strong>내용:</strong> 인간을 자연의 일부로 보며 <strong>생태계 전체의 가치를 최우선</strong></li>
+<li><strong>실천:</strong> 개인의 소비욕구 제한, 자연과의 조화</li>
+</ul>
+<h4>② 사회생태주의 (Social Ecology)</h4>
+<ul>
+<li><strong>원칙:</strong> 위계질서 비판</li>
+<li><strong>내용:</strong> 자연 파괴의 근본 원인을 🔴 <span class="highlight-red">인간 사회의 '위계질서와 지배 구조'</span>에서 발견</li>
+<li><strong>실천:</strong> 사회 구조 개혁을 통한 자연 보호</li>
+</ul>
+<h4>③ 생태여성주의 (Ecofeminism)</h4>
+<ul>
+<li><strong>원칙:</strong> 가부장제 비판</li>
+<li><strong>내용:</strong> 🔴 <span class="highlight-red">가부장제와 남성 중심주의가 자연과 여성을 동시에 억압</span></li>
+<li><strong>실천:</strong> 여성의 역할 재평가, 자연과의 관계 재정립</li>
+</ul>
+<hr/>
+<h2>🌳 6. 산림의 정의 + 여가/Leisure/Recreation 개념 (P.23~24)</h2>
+<h3>6.1 산림(山林) "숲" — 법률 제2조 1항 (P.24)</h3>
+<p>★ <span class="highlight-red">산림이란?</span> (山林) "<span class="highlight-green">숲</span>" — <span class="highlight-orange">법률 제2조1</span> <strong>정의 및 종류</strong></p>
+<p>분류 항목: <strong>가 / 나 / 다 / 라 / 마</strong> (강의 필기상의 분류 표기)</p>
+<h4>법률에 의한 산림의 정의 및 종류</h4>
+<p><strong>근거:</strong> 산림자원의 조성 및 관리에 관한 법률</p>
+<table>
+<thead><tr><th>구분</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td>가</td><td>집단적으로 자라고 있는 <strong>임목·죽</strong>과 그 토지</td></tr>
+<tr><td>나</td><td>집단적으로 자라고 있던 임목·죽이 <strong>일시적으로 없어지게 된 토지</strong></td></tr>
+<tr><td>다</td><td>임목·죽을 집단적으로 키우는 데에 사용하게 된 토지</td></tr>
+<tr><td>라</td><td>산림의 경영 및 관리를 위하여 설치된 도로, 즉 <strong>임도</strong></td></tr>
+<tr><td>마</td><td>가목부터 다목까지의 토지에 있는 <strong>암석지</strong>와 <strong>소택지</strong><br/>(소택지: 늪과 연못으로 둘러싸인 습한 땅)</td></tr>
+</tbody>
+</table>
+<blockquote><strong>제외:</strong> 농지, 초지, 주택지, 도로 등의 토지에 있는 입목·죽과 그 토지는 산림에서 제외한다.</blockquote>
+<h4>산림자원의 정의 및 종류</h4>
+<p><strong>근거:</strong> 산림자원의 조성 및 관리에 관한 법률</p>
+<table>
+<thead><tr><th>구분</th><th>산림자원 내용</th></tr></thead>
+<tbody>
+<tr><td>가</td><td>산림에 있거나 산림에서 서식하고 있는 수목, 초본류, 이끼류, 버섯류 및 곤충류 등의 <strong>생물자원</strong></td></tr>
+<tr><td>나</td><td>산림에 있는 토석·물 등의 <strong>무생물자원</strong></td></tr>
+<tr><td>다</td><td><strong>산림 휴양 및 경관 자원</strong></td></tr>
+</tbody>
+</table>
+<h4>산림의 기본이념</h4>
+<p><strong>근거:</strong> 산림기본법 제2조</p>
+<blockquote>산림은 국토환경을 보전하고 임산물을 생산하는 기반으로서, 국가발전과 생명체의 생존을 위하여 없어서는 안 될 중요한 자산이다. 산림의 보전과 이용을 조화롭게 함으로써 <strong>지속가능한 산림경영</strong>이 이루어지도록 해야 한다.</blockquote>
+<h3>6.2 여가의 역사적 변천사 (P.04 / P.74)</h3>
+<p>역사적으로 여가의 중심이 어떻게 이동했는지:</p>
+<table>
+<thead><tr><th>흐름</th><th>중심 개념</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td>1단계</td><td><span class="highlight-blue">신앙중심</span></td><td>종교·의례 중심의 여가 인식</td></tr>
+<tr><td>2단계</td><td><span class="highlight-blue">Leisure</span></td><td>노동 이후 남는 자유시간의 개념</td></tr>
+<tr><td>3단계</td><td><span class="highlight-blue">Social</span></td><td>사회적 관계와 삶의 질을 포함하는 여가 개념</td></tr>
+</tbody>
+</table>
+<h3>6.3 여가 정의 및 숲·휴양과의 관계</h3>
+<ul>
+<li><strong>여가의 정의:</strong> <span class="highlight-blue">남겨진 빈시간</span></li>
+<li><strong>여가 - 숲 - 휴양 관계 도식</strong>:
+        <ul>
+<li>여가라는 큰 울타리 안에 — 🟢 <strong>숲</strong>, ⚫ <strong>휴양</strong>이 포함됨</li>
+<li>휴양은 여가라는 울타리 내에 있는 활동</li>
+</ul>
+</li>
+<li><strong>Recreation (Re-creation):</strong> <span class="highlight-red">자유시간에 개인이 행하는 활동</span></li>
+</ul>
+<h3>6.4 휴양 범주 (P.77)</h3>
+<ul>
+<li><span class="highlight-orange">여가시간에만 가능</span></li>
+</ul>
+<h3>6.5 산림의 다양한 관점 정의</h3>
+<h4>문학적 산림 (Poetic Understanding)</h4>
+<ul>
+<li>감정적, 미적 가치에 중점</li>
+<li>예: "마음을 치유하는 공간", "자연 시의 소재"</li>
+</ul>
+<h4>생태적 산림 (Ecological Understanding)</h4>
+<ul>
+<li>🔴 <span class="highlight-red">생태계로서의 구조와 기능, 종 다양성</span></li>
+<li>예: "식물-동물-미생물의 상호작용 시스템"</li>
+</ul>
+<h4>정책적 산림 (Policy Understanding)</h4>
+<ul>
+<li>국가 관리의 대상으로서의 산림</li>
+<li>예: "경제, 환경, 사회적 가치를 동시에 추구하는 자원"</li>
+</ul>
+<h3>6.6 용어 정의</h3>
+<table>
+<thead><tr><th>용어</th><th>정의</th></tr></thead>
+<tbody>
+<tr><td><strong>산림(山林)</strong></td><td>일반적 한국식 표현 / 법률 제2조 1항</td></tr>
+<tr><td><strong>Foresta</strong></td><td>라틴어 어원</td></tr>
+<tr><td><strong>Forest(영)</strong></td><td>영어 표현</td></tr>
+<tr><td><strong>숲</strong></td><td>한국식 일상 표현 / 山林의 순우리말</td></tr>
+</tbody>
+</table>
+<blockquote><strong>핵심:</strong> 산림은 단순 나무의 집합이 아니라 <strong>생물·무생물이 상호작용하는 생태계</strong></blockquote>
+<hr/>
+<h2>⛰️ 7. 산(山)의 의미와 생물 다양성</h2>
+<h3>7.1 山의 의미 3분류</h3>
+<table>
+<thead><tr><th>구분</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><strong>물리적</strong></td><td>평지보다 높은 땅의 형상</td></tr>
+<tr><td><strong>생태적</strong></td><td>⭐ <strong>만물을 양육하는 곳</strong> (🔴 <span class="highlight-red">생물다양성</span>)</td></tr>
+<tr><td><strong>정서적</strong></td><td><strong>신앙과 명상의 대상</strong></td></tr>
+</tbody>
+</table>
+<h3>7.2 생물 다양성 구조 ⭐</h3>
+<table>
+<thead><tr><th>기반</th><th>연결</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><strong>식물의 다양성</strong></td><td>→ 곤충의 다양성 → 상위포식자의 다양성</td><td>식물 다양성이 생태계 먹이망의 기본 토대가 됨</td></tr>
+<tr><td colspan="3">★ <span class="highlight-red"><strong>생물의 다양성</strong></span>은 식물·곤충·상위포식자가 단계적으로 연결되며 유지된다.</td></tr>
+</tbody>
+</table>
+<h3>7.3 일월오악도</h3>
+<p>왕의 권위와 자연의 조화 상징 (해, 달, 봉우리, 소나무, 파도, 금강, 섬진강, 부상 등):</p>
+<ul>
+<li><strong>금강</strong> (왼쪽)</li>
+<li><strong>부상</strong> (오른쪽)</li>
+<li><strong>섬진강</strong> (오른쪽)</li>
+</ul>
+<hr/>
+<h2>🏹 8. 서양의 숲, Forest의 어원 🟢 (P.23)</h2>
+<ul>
+<li><strong>유래:</strong> 라틴어 <strong>foresta(포레스타)</strong></li>
+<li><strong>의미:</strong> '안에 들이지 않는다', '제한하다' (왕실 사냥터 보호구역)</li>
+<li><strong>결과:</strong> 역설적으로 오늘날 훌륭한 숲으로 보전된 이유가 됨.</li>
+<li><strong>배경:</strong> 중세 왕족에게 forest는 육류 공급처, 스포츠, 전쟁 훈련장. <strong>로빈 후드(Robin Hood) 탄생 배경.</strong></li>
+</ul>
+<h3>8.1 Forest 어원의 핵심 맥락</h3>
+<table>
+<thead><tr><th>구분</th><th>내용</th><th>강의 이해 포인트</th></tr></thead>
+<tbody>
+<tr><td><strong>어원</strong></td><td>라틴어 <strong>foresta</strong></td><td>단순히 나무가 많은 곳이 아니라, 일정한 구역을 따로 떼어 관리한 공간이라는 뜻이 강함</td></tr>
+<tr><td><strong>원래 의미</strong></td><td>밖에 둔다, 제한한다, 안에 들이지 않는다는 의미</td><td>일반인의 자유로운 이용을 막고 왕실·귀족의 이용을 위해 통제한 공간</td></tr>
+<tr><td><strong>중세 유럽의 forest</strong></td><td>왕실 사냥터, 야생동물 보호구역, 군사·스포츠 훈련 공간</td><td>숲은 생태공간이면서 동시에 권력과 통제의 공간이었음</td></tr>
+<tr><td><strong>보전 효과</strong></td><td>출입과 이용이 제한되면서 숲과 야생동물이 보전됨</td><td>통제를 위한 제도가 결과적으로 산림 보전의 효과를 낳음</td></tr>
+<tr><td><strong>로빈 후드 배경</strong></td><td>왕실 사냥터와 숲 이용 제한에 대한 민중의 저항 서사</td><td>Forest는 숲의 생태적 의미뿐 아니라 사회·역사적 의미도 담고 있음</td></tr>
+</tbody>
+</table>
+<blockquote><strong>핵심:</strong> 서양의 forest는 자연 그대로의 숲이라는 뜻만이 아니라, <strong>권력에 의해 구획·통제된 숲</strong>에서 출발했다. 그래서 산림교육에서는 숲을 생태계로만 보지 않고, 역사·문화·제도와 연결해 이해해야 한다.</blockquote>
+<hr/>
+<h2>📅 9. 한국 산림 정책의 역사적 흐름 + 문명과 숲의 특성 (P.14~)</h2>
+<h3>9.1 문명과 숲의 특성 — 4가지 학자 분류</h3>
+<table>
+<thead><tr><th>학자</th><th>분류 연도</th></tr></thead>
+<tbody>
+<tr><td>1. <strong>J.P. Kimmins</strong>의 분류</td><td>1987</td></tr>
+<tr><td>2. <strong>Westoby</strong>의 분류</td><td>1988</td></tr>
+<tr><td>3. <strong>마상규</strong>의 분류</td><td>1996</td></tr>
+<tr><td>4. <strong>전영우</strong>의 분류</td><td>(연도 미상)</td></tr>
+</tbody>
+</table>
+<h3>9.1.1 J.P. Kimmins(1987)의 문명과 숲 특성 분류</h3>
+<table>
+<thead><tr><th>단계</th><th>특징</th><th>한계·의미</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>남벌단계</strong></td>
+<td>숲에 대한 소유권 제도가 발달하기 이전의 단계. 숲을 <strong>무주공산</strong>으로 인식하여 남벌과 과벌이 자연스럽게 이루어짐.</td>
+<td>숲을 공동의 생태 자산이 아니라 먼저 이용하는 사람이 가져가는 자원으로 본 단계.</td>
+</tr>
+<tr>
+<td><strong>관리단계</strong></td>
+<td>목재를 중심으로 한 숲 생산물의 공급을 확보하기 위해 관리 제도가 수립된 단계. 이 시기에 <strong>임학</strong>이라는 학문이 시작됨.</td>
+<td>특수 목적용 숲 보호나 행정적 관리에 치중하였고, 숲의 발달 과정·인위적 간섭에 대한 반응·생태계 작용에 대한 고려가 부족하여 지속적 수확에는 실패함.</td>
+</tr>
+<tr>
+<td><strong>생태적 접근단계</strong></td>
+<td>숲 경영에 생태적 접근 방법을 도입한 단계. 부분적으로 지속적 수확이 달성됨.</td>
+<td>생태 원리를 반영하기 시작했지만, 숲에 대한 다양한 사회적 욕구를 충족시키는 데에는 한계가 있었음.</td>
+</tr>
+<tr>
+<td><strong>사회적 접근단계</strong></td>
+<td>생태학적·조림학적 경영 방법을 개발하고, 숲의 <strong>미적 가치</strong>, <strong>영적 가치</strong>, <strong>원생상태의 가치</strong> 등을 고려하기 시작한 단계.</td>
+<td>사회 구성원의 삶의 질과 생활수준 향상에 필요한 다양한 가치를 지속적으로 공급할 수 있는 경영 방법이 요구됨.</td>
+</tr>
+</tbody>
+</table>
+<blockquote><strong>흐름:</strong> 남벌단계 → 관리단계 → 생태적 접근단계 → 사회적 접근단계. 숲을 단순 목재 자원으로 보는 관점에서, 생태·문화·정신적 가치까지 함께 고려하는 방향으로 발전한다.</blockquote>
+<h3>9.1.2 Westoby(1988)의 문명과 숲 특성 분류</h3>
+<table>
+<thead><tr><th>단계</th><th>시대 배경</th><th>특징</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>미개단계</strong><br/>(원시단계)</td>
+<td>원시시대</td>
+<td>숲에 대한 인위적인 간섭이 미약한 시대. 인간 활동이 숲의 구조를 크게 바꾸지 못한 단계.</td>
+</tr>
+<tr>
+<td><strong>개척단계</strong></td>
+<td>고대 농업문명시대 ~ 농업혁명 이후</td>
+<td>농경지 확장에 따라 숲이 일방적으로 감소하는 시대. 숲은 농경지 확보를 위해 개간되는 대상으로 인식됨.</td>
+</tr>
+<tr>
+<td><strong>약탈이용단계</strong></td>
+<td>산업혁명 이후</td>
+<td>숲 자원이 약탈적으로 이용되는 시대. 목재·연료·산업 자원 확보를 위해 숲 이용 강도가 커짐.</td>
+</tr>
+<tr>
+<td><strong>목재생산단계</strong></td>
+<td>고도의 도시화·산업화 시대</td>
+<td>기술 진보 등으로 숲의 농경지화가 감소하고, 숲 이용의 중심이 <strong>목재생산</strong>으로 이동한 시대.</td>
+</tr>
+<tr>
+<td><strong>환경관리단계</strong></td>
+<td>환경위기시대, 저탄소 녹색성장시대, 산림부흥시대</td>
+<td>숲에 대한 도시의 환경 영향이 확대되고, 숲의 <strong>비물질적인 편익</strong>이 중요시되는 시대.</td>
+</tr>
+</tbody>
+</table>
+<blockquote><strong>흐름:</strong> 미개단계 → 개척단계 → 약탈이용단계 → 목재생산단계 → 환경관리단계. 숲의 역할이 생존 기반과 농경지 확보 대상에서 목재 생산 자원, 그리고 환경·휴양·공익 가치의 관리 대상으로 변화한다.</blockquote>
+<h3>9.1.3 마상규(1996)의 문명과 숲 특성 분류</h3>
+<p><strong>분류 기준:</strong> 경영 주체를 중심으로 한 분류</p>
+<table>
+<thead><tr><th>단계</th><th>특징</th><th>핵심 이해</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>경영부재시대</strong></td>
+<td>경영 주체 없이 방임된 <strong>무주공산</strong> 시대. 마을 주위의 숲이 심하게 약탈되던 시기.</td>
+<td>관리 주체가 없을 때 숲은 공동 자산이 아니라 쉽게 훼손되는 자원으로 취급됨.</td>
+</tr>
+<tr>
+<td><strong>약탈식 경영시대</strong></td>
+<td>일제 식민지 지배 아래에서 영서 주도로 오지의 천연 숲 자원을 무분별하게 약탈하였던 시대.</td>
+<td>경영이라는 이름이 붙어 있으나 실제로는 수탈과 자원 채취 중심의 이용 단계.</td>
+</tr>
+<tr>
+<td><strong>통제불능의 경영시대</strong></td>
+<td>해방 후 한국전쟁과 그 이후 사회적 혼란기에 도벌과 남벌로 우리 숲이 크게 훼손된 시대. 최종적으로 남아 있던 숲마저 대부분 파괴됨.</td>
+<td>사회 혼란과 제도 부재가 산림 황폐화로 이어진 단계.</td>
+</tr>
+<tr>
+<td><strong>치산녹화를 위한 경영시대</strong></td>
+<td>산림청이 설립되고, 국가 주도의 치산녹화 정책을 통해 국토의 녹화가 완료된 시대.</td>
+<td>국가가 경영 주체로 나서 산림 복구와 국토 녹화를 추진한 단계.</td>
+</tr>
+</tbody>
+</table>
+<blockquote><strong>흐름:</strong> 경영부재시대 → 약탈식 경영시대 → 통제불능의 경영시대 → 치산녹화를 위한 경영시대. 마상규의 분류는 숲을 누가, 어떤 방식으로 관리했는가에 초점을 둔다.</blockquote>
+<h3>9.1.4 전영우의 문명과 숲 특성 분류</h3>
+<p><strong>분류 기준:</strong> 자연관의 변화를 중심으로 한 분류</p>
+<table>
+<thead><tr><th>단계</th><th>시대·관점</th><th>특징</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>숲을 질적 대상으로 인식하던 시대</strong></td>
+<td>고대 원시 씨족사회</td>
+<td>숲은 자연숭배 문화의 한 요소로서 <strong>숭배의 대상</strong>이었음.</td>
+</tr>
+<tr>
+<td><strong>숲을 물질적 대상 우선, 질적 대상 차선으로 인식하던 시대</strong></td>
+<td>고려 ~ 조선시대</td>
+<td>숲을 중요한 물질적 자원으로 인식하여 국가가 집중적으로 보호·관리하였고, 동시에 나무나 숲을 질적 대상으로도 인식하였음. 예: <strong>성황림</strong>, <strong>정이품송</strong> 등.</td>
+</tr>
+<tr>
+<td><strong>숲을 주로 물질적 대상으로만 인식하는 시대</strong></td>
+<td>1900년대</td>
+<td>질적 대상으로 숲을 인식하던 자연관이 파괴되고, 숲을 이용할 물질적 자원으로만 보아 남벌과 과벌로 숲이 파괴됨.</td>
+</tr>
+<tr>
+<td><strong>숲을 물질적 및 질적 대상으로 조화롭게 인식해야 할 미래시대</strong></td>
+<td>전 지구적 환경문제 대두 이후</td>
+<td>숲을 환경친화적 자원으로 적절히 이용하면서, 자연과 인간의 조화와 공존을 통해 인류가 <strong>지속가능한 발전</strong>을 도모할 수 있다는 생태적·문화적 인식의 확산이 필요함.</td>
+</tr>
+</tbody>
+</table>
+<blockquote><strong>흐름:</strong> 질적 대상 → 물질적 대상 우선·질적 대상 차선 → 물질적 대상 중심 → 물질적·질적 가치의 조화. 전영우의 분류는 숲을 바라보는 인간의 자연관 변화에 초점을 둔다.</blockquote>
+<h3>9.2 한국 산림 정책 주요 연도별</h3>
+<table>
+<thead><tr><th>연도</th><th>정책</th><th>의의</th></tr></thead>
+<tbody>
+<tr><td><strong>1967년</strong></td><td>산림청 신설 (내무부 소속)</td><td>국가 산림 관리 시작</td></tr>
+<tr><td><strong>1971년</strong></td><td>새마을 운동 본격화 &amp; 산림 정책 결합</td><td>국민 동원 운동</td></tr>
+<tr><td><strong>1973~1985년</strong></td><td>🔴 <span class="highlight-red">제1차 치산녹화 10개년 계획</span> 수립 (<strong>고군분투</strong>)</td><td>황폐지 복구, 국토 녹화</td></tr>
+<tr><td><strong>1985년</strong></td><td>녹화 완료 — <strong>국민 동원령으로 나무 심기</strong></td><td>녹화 정책의 완성</td></tr>
+<tr><td><strong>1985년~</strong></td><td>산림 관광/휴양 산업화</td><td>경제적 가치 부각</td></tr>
+</tbody>
+</table>
+<h3>9.3 과거와 현재의 패러다임 전환</h3>
+<ul>
+<li><strong>과거:</strong> 산림 = 🔴 <span class="highlight-red">자원 채취·경제 이용의 대상</span></li>
+<li><strong>현재:</strong> 산림 = 🔴 <span class="highlight-red">휴양, 치유, 환경 보전, 정서 복지의 공간</span></li>
+</ul>
+<h3>9.4 산림교육의 두 가지 측 비교 (강의 필기)</h3>
+<table>
+<thead><tr><th>측면 A</th><th>측면 B (파랑 강조)</th></tr></thead>
+<tbody>
+<tr><td><strong>외래성</strong></td><td><span class="highlight-blue">내재성 + 외재성</span></td></tr>
+<tr><td><strong>물질적</strong></td><td><span class="highlight-blue">비물질</span></td></tr>
+<tr><td><strong>가시적</strong></td><td><span class="highlight-blue">비가시</span></td></tr>
+<tr><td>나무 / 숲 / 생태계 환경</td><td><span class="highlight-blue">문화</span></td></tr>
+</tbody>
+</table>
+<section class="tbc">
+<p><strong>❓ 사용자 확인 필요:</strong> 산신령(여성?) 도상 — 강의자가 "? 산신령 여성?"이라고 의문을 표시한 부분. 시험 출제 가능성 있음.</p>
+</section>
+<hr/>
+<h2>🌲 10. 숲의 일생 (천이, Succession) ✨ (P.26)</h2>
+<h3>10.1 천이 정의</h3>
+<blockquote>🔴 <span class="highlight-red">천이 = succession = 숲이 변화하는 과정</span></blockquote>
+<h3>10.2 천이 단계 (상세)</h3>
+<table>
+<thead><tr><th>순서</th><th>천이 단계</th><th>대표 식물·특징</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>빈 들판·황무지</strong></td><td>식생이 거의 없거나 초기 정착이 시작되는 단계</td></tr>
+<tr><td>2</td><td><strong>한해살이풀 정착</strong></td><td>꽃다지, 망초, 개망초, 뚝새풀, 바랭이 등</td></tr>
+<tr><td>3</td><td><strong>여러해살이풀 정착</strong></td><td>쑥, 토끼풀, 억새 등. 토양이 안정되고 초본층이 두꺼워짐</td></tr>
+<tr><td>4</td><td><strong>키작은 나무·선구식물 정착</strong></td><td>붉나무, 싸리나무류, 찔레나무, 진달래 등. 관목층이 형성됨</td></tr>
+<tr><td>5</td><td><strong>큰키나무 정착</strong></td><td><strong>소나무</strong> 등 음수성 수종이 들어와 숲의 골격을 만들기 시작함</td></tr>
+<tr><td>6</td><td><strong>참나무류·물푸레나무 등 침입·성장</strong></td><td>활엽수들이 소나무 숲 아래나 주변으로 들어와 경쟁함</td></tr>
+<tr><td>7</td><td><strong>소나무 숲 도태</strong></td><td>숲의 구조가 바뀌면서 음수성인 소나무가 점차 밀려남</td></tr>
+<tr><td>8</td><td><strong>활엽 양수 침입·성장</strong></td><td>신갈나무, 서나무, 까치박달나무 등 활엽 양수가 성장함</td></tr>
+<tr><td>9</td><td><strong>극상림(climax)</strong></td><td>활엽 양수가 숲의 최상층을 차지하며 안정된 숲 구조를 이룸</td></tr>
+</tbody>
+</table>
+<blockquote><strong>흐름:</strong> 빈 들판·황무지 → 한해살이풀 → 여러해살이풀 → 키작은 나무·선구식물 → 소나무(음수성) → 참나무류·물푸레나무 → 소나무 도태 → 활엽 양수 → <span class="highlight-red">극상림</span></blockquote>
+<h3>10.3 천이의 시간 척도</h3>
+<ul>
+<li>완성까지 약 <strong>150~200년</strong> 소요.</li>
+</ul>
+<section class="tbc">
+<p><strong>❓ 사용자 확인 필요:</strong> 강의 필기 하단에 "전국 보호 ?? &amp; 수목원 미부..." 주황 필기 + "<strong>천리포 수목원</strong>" 언급. 보호 사례 상세 내용 확인 필요.</p>
+</section>
+<hr/>
+<h2>🌳 11. 숲의 구성 (층위 구조) 📏 (P.26)</h2>
+<ul>
+<li><strong>교목층</strong>: 제일 큰 키 나무 층</li>
+<li><strong>아교목층</strong>: 교목층 바로 밑의 중간 키 나무 층</li>
+<li><strong>관목층</strong>: 작은 키 나무와 덩굴 식물 층</li>
+<li><strong>초본층</strong>: 풀들이 이루는 층</li>
+<li><strong>임상</strong>: 낙엽, 낙지 등이 덮고 있는 숲의 바닥 층</li>
+</ul>
+<hr/>
+<h2>🎯 12. 산림의 기능 (다목적 이용) (P.29)</h2>
+<h3>12.1 숲의 기능 분류와 기능별 내용 종합</h3>
+<table>
+<thead><tr><th>자원 구분</th><th>생산·가치 창출</th><th>기능 인식</th><th>기능별 내용</th><th>최종 지향</th></tr></thead>
+<tbody>
+<tr>
+<td><span class="highlight-blue"><strong>생물 자원</strong></span></td>
+<td>경제재 생산</td>
+<td>경제재생산<br/>(양적 인식)</td>
+<td>목재, 임산물 생산, 생화학물질 생산, 생물다양성 창출</td>
+<td><strong>인류의 생존</strong></td>
+</tr>
+<tr>
+<td><span class="highlight-blue"><strong>환경 자원</strong></span></td>
+<td>환경재 생산</td>
+<td>환경·<span class="highlight-red"><strong>공익적 기능</strong></span><br/>(양적 인식)</td>
+<td><span class="highlight-red">수원함양, 침식 및 자연재해 방지, 경관, 기상완화, 대기정화, 쾌적한 생활환경</span></td>
+<td><strong>생활 안전 보완</strong></td>
+</tr>
+<tr>
+<td><span class="highlight-blue"><strong>문화 자원</strong></span></td>
+<td>문화 가치 창출</td>
+<td>문화적 기능<br/>(질적 인식)</td>
+<td>예술, 종교, 휴양, 자연학습, 레크리에이션</td>
+<td><strong>삶의 질 향상</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote><strong>핵심:</strong> 숲은 생물 자원으로서 생존에 필요한 경제재를 생산하고, 환경 자원으로서 <span class="highlight-red"><strong>공익적 기능</strong></span>을 통해 생활 안전을 보완하며, 문화 자원으로서 삶의 질을 높인다. 기능 인식도 경제·환경 영역은 양적 평가가 가능하지만, 문화적 기능은 질적 가치까지 함께 보아야 한다.</blockquote>
+<h3>12.2 주요 기능 분류 (원본 표현)</h3>
+<h4>경제재 생산 (생물 자원)</h4>
+<ul>
+<li>목재, 임산물 생산 등</li>
+<li>→ <strong>인류의 생존</strong></li>
+</ul>
+<h4>환경·공익적 기능 (환경 자원)</h4>
+<ul>
+<li>🔴 <span class="highlight-red">토양 보전, 수자원 함양, 대기 정화</span></li>
+<li>탄소 흡수(기후변화 완화), 생물 서식처 제공</li>
+<li>수원함양, 재해 방지, 대기정화 등 → <strong>생활 안전, 보완</strong></li>
+<li>※ 환경적 기능은 <span class="highlight-red"><strong>공익적 기능</strong></span>이라고도 함</li>
+</ul>
+<h4>문화적 기능 (문화 자원) — 휴양·정서 기능 (Recreational &amp; Emotional)</h4>
+<ul>
+<li>🔴 <span class="highlight-red">휴양, 치유, 문화 활동</span></li>
+<li>심신 안정, 정서적 웰빙</li>
+<li>예술, 종교, 휴양, 자연학습, 레크리에이션 등 → <strong>삶의 질 향상</strong></li>
+</ul>
+<blockquote><strong>현대 산림 정책의 트렌드:</strong> 생산 기능 중심 → <strong>공익+휴양 기능 확대</strong></blockquote>
+<hr/>
+<h2>👤 13. 숲의 주인은 누구인가? 🌳</h2>
+<blockquote><strong>법정(法頂) 스님:</strong> "강과 산에는 주인이 따로 있는 것이 아니다. <strong>자주 찾고 즐기는 사람이 곧 주인이다.</strong>"</blockquote>
+<blockquote><strong>박종민 교수:</strong> "<strong>산을 자주 찾고 제대로 즐기고 느끼는 사람이 산의 동반자이고 주인이다.</strong>"</blockquote>
+<hr/>
+<h2>🌍 14. 숲과 인류 문명 🌲 (P.38)</h2>
+<ul>
+<li><strong>문명의 탄생:</strong> 세계 4대 문명은 강 상류의 <strong>울창한 숲으로부터 비옥한 토양이 공급</strong>되면서 시작됨.</li>
+<li><strong>문명의 쇠퇴:</strong> 산림 파괴 → <strong>사막화</strong> → 전쟁과 기아 발생 → 문명 소멸.</li>
+</ul>
+<blockquote><strong>역사평론가 샤또브리앙(샤토 브리앙):</strong> 💡 <strong>"문명 앞에 「숲」이 있었고, 문명 뒤에 「사막」이 남는다."</strong></blockquote>
+<section class="tbc">
+<p><strong>❓ 사용자 확인 필요:</strong> 강의 필기에 "<strong>맨더스(멘더스)의 이론?</strong>" 의문 표기. 정확한 학자명·이론 내용 확인 필요. 시험 출제 가능성.</p>
+</section>
+<hr/>
+<h2>🎋 15. 산림문화의 개념 📖</h2>
+<ul>
+<li><strong>가) 공간문화:</strong> 산, 숲을 공간적으로 활용한 문화 유형.</li>
+<li><strong>나) 신앙문화:</strong> 산, 숲에 조성된 신앙적 문화 유형.</li>
+<li><strong>다) 정신문화:</strong> 산, 숲에 내재된 정신문화 유형.</li>
+<li><strong>라) 물질문화:</strong> 산, 숲에 소재한 물질자원에 내재된 문화 유형.</li>
+<li><strong>마) 생활문화:</strong> 일상생활 속에 내재된 산, 숲의 물질자원을 활용한 문화 유형.</li>
+</ul>
+<hr/>
+<h2>📜 16. 공자의 시론 + 자연의 문화 매체 (P.46~P.68)</h2>
+<h3>16.1 공자의 시론 (P.46)</h3>
+<ul>
+<li><strong>시경(詩經)에 나오는 종(species)에 대하여...</strong></li>
+<li>고전 문헌(시경)에 등장하는 식물·동물 종에 대한 강의자의 언급</li>
+</ul>
+<h3>16.2 소설 속의 산과 나무</h3>
+<ul>
+<li>문학(소설)에서의 산·나무 표현 — 한국 문학에서 자연이 어떻게 그려졌는지</li>
+</ul>
+<h3>16.3 박수근 화백</h3>
+<ul>
+<li>한국 화백 박수근의 작품과 자연 표현 (구체 작품명은 강의 필기 기준)</li>
+</ul>
+<h3>16.4 자연을 다루는 세 가지 문화 매체</h3>
+<ul>
+<li>🎨 <strong>그림</strong></li>
+<li>📝 <strong>시</strong></li>
+<li>🎵 <strong>솔담</strong></li>
+</ul>
+<h3>16.5 산림교육이란??? (P.68)</h3>
+<blockquote>강의자가 던진 본질적 질문 — 본 강의 전체의 핵심 화두</blockquote>
+<section class="tbc">
+<p><strong>❓ 사용자 확인 필요:</strong> 박수근 화백 작품의 구체적 사례·제목. "솔담"의 정확한 의미·예시.</p>
+</section>
+<hr/>
+<h2>🎩 17. 산림문화의 영향: 21세기 인간상 (BOBOS) 🌲 (P.43)</h2>
+<p>21세기의 지도자적 인간형인 <strong>BOBOS(보보스)</strong>형 인간 양성을 위한 요소:</p>
+<ul>
+<li><strong>Bourgeois (부르주아):</strong> 물질적 자본력, 전문적 지성, 확고한 사회적 책임성. <em>(현실적 기반)</em></li>
+<li><strong>Bohemian (보헤미안):</strong> 정신적 자유성, 문화 예술적 감성, 친자연성. <em>(창조적 에너지)</em></li>
+<li><strong>핵심 역량:</strong> 부르주아적 지성과 보헤미안적 감성이 산림문화를 통해 결합될 때 <strong>유연성</strong>과 <strong>창조성</strong>을 갖춘 인재로 거듭남.</li>
+<li><strong>BOBOS형 지도자:</strong> <strong>Bourgeois + Bohemian</strong>의 결합으로 형성되는 21세기형 창의적 지도자상.</li>
+</ul>
+<section class="tbc">
+<p><strong>❓ 사용자 확인 필요:</strong> 강의 필기에 "<strong>문학적 기질</strong>" 언급 — BOBOS와 연관된 별개 항목인지, 또는 Bohemian의 하위 개념인지 확인 필요.</p>
+</section>
+<hr/>
+<h2>🇰🇷 18. 문화의 속성: 차별성과 독창성 🕯️</h2>
+<ul>
+<li><strong>문화의 특징:</strong> 고유한 <strong>차별성</strong>과 <strong>독창성</strong>을 갖는다.</li>
+</ul>
+<blockquote><strong>김구 선생님 (백범일지 中):</strong> "오직 한없이 가지고 싶은 것은 <strong>높은 문화의 힘</strong>이다. <strong>문화의 힘은 우리 자신을 행복하게 하고 나아가서 남에게 행복을 주겠기 때문이다.</strong>"</blockquote>
+<hr/>
+<h2>🚨 19. 생태맹 (Ecological Illiteracy)</h2>
+<h3>19.1 정의</h3>
+<p>🔴 <span class="highlight-red-lg">자연에 대한 기초 지식과 관심이 완전히 결여된 상태 / 자연에 대한 관심과 지식이 없음.</span></p>
+<h3>19.2 발생 원인</h3>
+<table>
+<thead><tr><th>원인</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>도시화</td><td>자연과의 접촉 감소</td></tr>
+<tr><td>산업화</td><td>환경 파괴 심화</td></tr>
+<tr><td>교육 체계</td><td>자연 친화적 교육 부족</td></tr>
+</tbody>
+</table>
+<h3>19.3 극복 방법</h3>
+<p>🔴 ✅ <span class="highlight-red-lg">자연과의 빈번한 접촉을 통해 정서적 유대감 회복</span></p>
+<ul>
+<li>숲해설 프로그램 참여</li>
+<li>정기적 숲 방문</li>
+<li>생태 교육 경험</li>
+</ul>
+<blockquote><strong>산림교육의 핵심 목표:</strong> 생태맹 극복을 통한 국민의 환경 의식 제고</blockquote>
+<hr/>
+<h2>📸 20. 사진 목록 + 페이지 참조</h2>
+<h3>20.1 페이지 참조 (강의 책 페이지별 키워드)</h3>
+<table>
+<thead><tr><th>페이지</th><th>주요 내용</th></tr></thead>
+<tbody>
+<tr><td>P.04 / P.14</td><td>문명과 숲의 특성, 한국 산림 정책 역사</td></tr>
+<tr><td>P.11</td><td>산림교육의 분류, 일반인을 위한 산림교육, 법률 제1·2조</td></tr>
+<tr><td>P.23</td><td>산림 용어 출처, Forest 어원</td></tr>
+<tr><td>P.24</td><td>산림이란? 법률 제2조 1항 정의 및 종류</td></tr>
+<tr><td>P.26</td><td>숲의 일생 (천이)</td></tr>
+<tr><td>P.29</td><td>산림의 기능 (3가지 측면)</td></tr>
+<tr><td>P.38</td><td>샤또브리앙 명언</td></tr>
+<tr><td>P.43</td><td>BOBOS 인재</td></tr>
+<tr><td>P.46</td><td>공자의 시론</td></tr>
+<tr><td>P.68</td><td>산림교육이란???</td></tr>
+<tr><td>P.77</td><td>여가 범주 (여가시간에만 가능)</td></tr>
+<tr><td>P.94~97</td><td>산림교육 및 복지 전문가 구분</td></tr>
+<tr><td>P.97</td><td>숲해설가 정의</td></tr>
+<tr><td>P.98~99</td><td>함박꽃나무 (북한 국화)</td></tr>
+<tr><td>P.101</td><td>생애주기별 산림복지 서비스</td></tr>
+</tbody>
+</table>
+<section class="tbc">
+<p><strong>⚠️ 미해결</strong>: <code>.openclaw-cli-images/</code> 폴더에 89장 이미지 중 8장만 사용 중. 나머지 81장 중 강의자료 관련 누락 가능성 있음 (별도 검토 권장).</p>
+</section>
+<hr/>
+<section class="quiz">
+<h2>📝 학습 확인 문제 (객관식 10문항)</h2>
+<p><em>참고: 정답은 각 문제 아래에 표시되어 있습니다.</em></p>
+<article class="question">
+<p class="q-stem">문제 1. '산림교육 활성화에 관한 법률'에서 정하는 '산림교육 전문가'에 해당하지 않는 사람은?</p>
+<ol class="choices">
+<li>① 숲해설가</li>
+<li>② 유아숲지도사</li>
+<li>③ 숲길등산지도사</li>
+<li><span class="correct">④ 산림치유지도사</span></li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ④</strong> (사유: 산림치유지도사는 '산림문화·휴양에 관한 법률'에 근거함)</div>
+</article>
+<article class="question">
+<p class="q-stem">문제 2. 산림교육 전문가를 양성하는 근거 법률은 무엇인가?</p>
+<ol class="choices">
+<li>① 산림문화·휴양에 관한 법률</li>
+<li>② 산림자원 조성 및 관리에 관한 법률</li>
+<li>③ 산림기본법</li>
+<li><span class="correct">④ 산림교육 활성화에 관한 법률</span></li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ④</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 3. '산림교육 일반분야'에 대한 설명으로 가장 적절하지 않은 것은?</p>
+<ol class="choices">
+<li>① 대학·산림청 및 산림청 유관기관 등에서 일반 국민을 대상으로 모집·운영한다.</li>
+<li>② 환경보호 및 산림정책에 관심 있는 일반인을 대상으로 한다.</li>
+<li><span class="correct">③ 기능사 자격 취득을 위한 전문 교육과정이다.</span></li>
+<li>④ 정서적 복지 서비스 및 교양교육의 성격을 띤다.</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ③</strong> (사유: 기능사 자격 취득은 '전문분야' 교육에 해당함)</div>
+</article>
+<article class="question">
+<p class="q-stem">문제 4. 환경윤리에 대한 설명으로 가장 적절하지 않은 것은?</p>
+<ol class="choices">
+<li><span class="correct">① 환경문제는 고도로 발달한 과학기술만 있으면 모두 해결할 수 있다.</span></li>
+<li>② 윤리학 없는 과학은 환경문제를 해결하는 데 불완전하다.</li>
+<li>③ 과학 없는 윤리학으로는 환경문제를 실질적으로 해결할 수 없다.</li>
+<li>④ 환경오염 및 파괴 문제는 과학과 윤리학의 조화가 필요하다.</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ①</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 5. 자연 파괴의 근본 원인을 인간 사회의 '위계질서와 지배 구조'에서 찾는 철학은?</p>
+<ol class="choices">
+<li>① 근본생태주의 (Deep Ecology)</li>
+<li><span class="correct">② 사회생태주의 (Social Ecology)</span></li>
+<li>③ 생태여성주의 (Ecofeminism)</li>
+<li>④ 인간중심주의 (Anthropocentrism)</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ②</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 6. 한국의 치산녹화와 관련된 연혁으로 가장 올바른 것은?</p>
+<ol class="choices">
+<li>① 1960년 산림청 신설</li>
+<li><span class="correct">② 1973년 제1차 치산녹화 10개년 계획 수립</span></li>
+<li>③ 1980년 새마을 운동 시작</li>
+<li>④ 1990년 녹화 완료 및 국민 동원령 해제</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ②</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 7. '생태맹(Ecological Illiteracy)'에 대한 설명으로 옳은 것은?</p>
+<ol class="choices">
+<li><span class="correct">① 자연에 대한 관심과 지식이 없는 상태를 말한다.</span></li>
+<li>② 생태계의 원리를 완벽하게 이해하고 활용하는 능력이다.</li>
+<li>③ 산림교육 전문가가 갖추어야 할 필수 덕목이다.</li>
+<li>④ 도시 생활에 완벽하게 적응한 지적인 상태를 의미한다.</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ①</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 8. 숲과 인류 문명의 관계에 대한 설명으로 옳은 것은?</p>
+<ol class="choices">
+<li>① 문명은 숲이 없는 비옥한 사막 지대에서 시작되었다.</li>
+<li><span class="correct">② 인류 문명의 발상지는 강 상류의 울창한 숲에서 비옥한 토양이 공급된 곳이다.</span></li>
+<li>③ 산림의 무분별한 파괴는 문명의 영구적인 번영을 가져왔다.</li>
+<li>④ 사막화 현상은 문명의 탄생을 촉진시키는 주요 요인이었다.</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ②</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 9. "문명 앞에 숲이 있었고, 문명 뒤에 사막이 남는다"라고 말한 학자(역사평론가)는?</p>
+<ol class="choices">
+<li>① 법정 스님</li>
+<li>② 박종민 교수</li>
+<li><span class="correct">③ 샤또브리앙(샤토 브리앙)</span></li>
+<li>④ 김구 선생님</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ③</strong></div>
+</article>
+<article class="question">
+<p class="q-stem">문제 10. 다음 중 샤또브리앙이 강조한 내용의 빈칸을 채우시오.</p>
+<p><strong>"문명 앞에 ( ㉠ )이 있었고, 문명 뒤에 ( ㉡ )이 남는다."</strong></p>
+<ol class="choices">
+<li>① ㉠: 강, ㉡: 바다</li>
+<li><span class="correct">② ㉠: 숲, ㉡: 사막</span></li>
+<li>③ ㉠: 나무, ㉡: 황무지</li>
+<li>④ ㉠: 자연, ㉡: 도시</li>
+</ol>
+<div class="answer"><strong>정답: 🔵 ②</strong></div>
+</article>
+</section>
+</div>
+<div class="forest-back-link forest-back-link-bottom"><a href="forest.html?k=yyj1201#subject-01">← 공유페이지로 돌아가기</a></div></body>
+</html>
