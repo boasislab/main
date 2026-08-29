@@ -28,6 +28,15 @@ p { margin:7px 0; white-space:pre-wrap; }
 .element-card strong { display:block; color:#183a5a; font-size:1.05rem; }
 .element-card span:last-child { display:block; margin-top:5px; color:#52616f; font-size:.92rem; }
 .interaction-note { margin:12px 0 0!important; padding:10px 12px; border-radius:8px; background:#fff1c7; color:#6b4300; text-align:center; font-weight:900; }
+.flood-pulse { margin:16px 0; padding:17px; border:2px solid #2f6f4e; border-radius:12px; background:linear-gradient(135deg,#eef9f2,#f4f9ff); box-shadow:0 4px 14px rgba(47,111,78,.10); }
+.flood-pulse-title { margin:0 0 8px; color:#225b3e; font-size:1.12rem; font-weight:900; }
+.flood-pulse-definition { margin:0!important; padding:11px 13px; border-radius:8px; background:#fff; color:#183a5a; font-weight:800; }
+.flood-pulse-flow { display:flex; align-items:center; justify-content:center; gap:7px; flex-wrap:wrap; margin:13px 0; font-weight:800; }
+.flood-pulse-flow span { padding:7px 10px; border-radius:999px; background:#dff2e6; color:#225b3e; }
+.flood-pulse-flow b { color:#2f6f4e; }
+.flood-pulse ul { margin:8px 0 0; padding-left:22px; }
+.flood-pulse li { margin:5px 0; }
+.flood-pulse-memory { margin:12px 0 0!important; padding:9px 11px; border-left:5px solid #d89000; border-radius:5px; background:#fff4db; color:#6b4300; font-weight:900; }
 .aquatic-figure { margin:14px 0 8px; border:1px solid #c8d8e8; border-radius:12px; overflow:hidden; background:#eef7fb; }
 .aquatic-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; }
 .aquatic-figure figcaption { padding:11px 14px; color:#38566e; background:#f5fbff; font-size:.92rem; text-align:center; }
@@ -113,7 +122,7 @@ figure{break-inside:avoid;}
 <div class="space"></div>
 <div class="space"></div>
 <div class="space"></div>
-<h3>2. 하천 생태게의 중요성에 대한 인식 변화</h3>
+<h3>2. 하천 생태계의 중요성에 대한 인식 변화</h3>
 <p>- 1970년대 독일: 하천 환경 기능 확보</p>
 <p>- 1980년대 일본: 선진국 하천관리제도 받아들여 다자연하천관리</p>
 <p>- 1990년대 후반 한국: 일본처럼 자연형하천사업 도입</p>
@@ -122,12 +131,19 @@ figure{break-inside:avoid;}
 건강한 생태하천은 생물의 다양한 서식처를 제공</p>
 <div class="space"></div>
 <div class="space"></div>
-<p>- 홍수맥박개념</p>
-<p> → 주기적 홍수에 의해 생태게의 고유성이 유지된다는 개념</p>
-<p> : 재앙이던 홍수의 인식이 전환</p>
-<p> : 홍수는 담수어류의 산란과 부화 등 생활주기에 주요한 기능 수행</p>
-<p> : 홍수로 상류에서 공급된 부유물질은 생물 먹이원으로 작용</p>
-<p> : 수질 정화기능 수행</p>
+<div class="flood-pulse" role="note" aria-label="홍수 맥박 개념 핵심 암기">
+<p class="flood-pulse-title">★ 홍수 맥박 개념(Flood Pulse Concept)</p>
+<p class="flood-pulse-definition">주기적으로 발생하는 홍수가 하천과 범람원을 연결하고, 하천 생태계의 고유성과 생산성을 유지한다는 개념</p>
+<div class="flood-pulse-flow" aria-label="홍수 맥박의 생태 작용 흐름">
+<span>주기적 홍수</span><b>→</b><span>하천·범람원 연결</span><b>→</b><span>영양물질·생물 이동</span><b>→</b><span>생태계 유지</span>
+</div>
+<ul>
+<li><strong>생활주기 지원:</strong> 담수어류의 산란·부화·성장·이동에 중요한 기능을 한다.</li>
+<li><strong>먹이 공급:</strong> 상류에서 내려온 부유물질과 유기물이 생물의 먹이원이 된다.</li>
+<li><strong>정화 기능:</strong> 범람원과 습지가 영양물질과 오염물질을 붙잡아 수질 정화에 기여한다.</li>
+</ul>
+<p class="flood-pulse-memory">암기 포인트: 홍수는 단순한 재앙이 아니라, 생태계를 주기적으로 되살리는 자연의 맥박이다.</p>
+</div>
 <p>- 하천연속성개념</p>
 <p> → 1980년 vannote에 의해 소개된 개념으로 상류에서 하류에 이르기까지 흐름에 의해 생</p>
 <p> 성되는 연속적 변화</p>
