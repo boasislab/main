@@ -155,9 +155,10 @@ const questions = [
   {s:8, tip:true, q:'각시붕어·납자루류와 민물조개의 상리공생을 바르게 설명한 것은?', o:['물고기는 조개를 산란장·보육장으로, 조개는 물고기를 유생의 이동수단으로 이용한다','물고기만 이익을 얻고 조개는 피해만 입는다','조개만 이익을 얻고 물고기는 아무 이익이 없다','두 생물은 먹이 경쟁만 하며 번식과는 무관하다'], a:0, e:'납자루류는 조개의 아가미 안에 산란해 알을 보호하고, 조개의 유생인 글로키디움은 물고기의 아가미·지느러미에 붙어 이동·분산한다. 양쪽 모두 이익을 얻는 상리공생이다.'}
 ];
 
-// answer-position-rebalance-20260829: 정답 내용은 유지하고 위치만 ①~④로 균등 재배치
+// answer-position-rebalance-20260829-v2: 정답 내용은 유지하되 ①~④를 균등하고 불규칙하게 배치
+const answerPositions = [1,3,3,0,0,1,3,0,2,3,0,1,2,3,0,0,2,1,0,2,3,1,3,2,1,2,3,2,0,0,1,0,2,1,1,0,2,2,3,0,1,2,0,2,3,1,3,1,1,3];
 questions.forEach(function(item, index) {
-  var target = (index * 3 + 1) % 4;
+  var target = answerPositions[index];
   var correctOption = item.o.splice(item.a, 1)[0];
   item.o.splice(target, 0, correctOption);
   item.a = target;
@@ -177,9 +178,8 @@ function render() {
       html += '<div class="section-header">' + sections[current - 1].title + ' (' + sections[current - 1].count + '문항)</div>';
     }
     const no = idx + 1;
-    const offset = no % item.o.length;
     const displayOptions = item.o.map((choice, originalIdx) => ({ choice, correct: originalIdx === item.a }))
-      .slice(offset).concat(item.o.map((choice, originalIdx) => ({ choice, correct: originalIdx === item.a })).slice(0, offset));
+    ;
     const answerIdx = displayOptions.findIndex(option => option.correct);
     html += '<div class="question-card">';
     html += '<div class="question-num">문제 ' + no + ' / ' + TOTAL + ' · 섹션 ' + item.s + (item.tip ? ' <span class="exam-tip-badge">★★ 시험</span>' : '') + '</div>';
