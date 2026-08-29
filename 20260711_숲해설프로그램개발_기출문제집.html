@@ -424,7 +424,27 @@ function launchPerfectCelebration(){
   setTimeout(function(){overlay.remove()},5600);
 }
 
-let correctCount=0;let wrongCount=0;const answers={q1:'2', q2:'1', q3:'1', q4:'1', q5:'1', q6:'1', q7:'1', q8:'4', q9:'1', q10:'1', q11:'4', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};const answered={};
+let correctCount=0;let wrongCount=0;const answers={q1:'2', q2:'1', q3:'1', q4:'1', q5:'1', q6:'1', q7:'1', q8:'4', q9:'1', q10:'1', q11:'4', q12:'1', q13:'1', q14:'1', q15:'1', q16:'1', q17:'1', q18:'1', q19:'1', q20:'1', q21:'1', q22:'1', q23:'1', q24:'1', q25:'1'};
+
+// answer-position-rebalance-20260829: 정답 내용은 유지하고 위치만 ①~④로 균등 재배치
+Object.keys(answers).forEach(function(qid, index) {
+  var card = document.getElementById(qid);
+  if (!card) return;
+  var list = card.querySelector('.options');
+  if (!list) return;
+  var nodes = Array.from(list.querySelectorAll('li'));
+  var current = parseInt(answers[qid], 10) - 1;
+  var target = (index * 3 + 1) % 4;
+  var correctNode = nodes.splice(current, 1)[0];
+  nodes.splice(target, 0, correctNode);
+  nodes.forEach(function(node, optionIndex) {
+    node.innerHTML = node.innerHTML.replace(/^(\s*)[1-4](\.)/, '$1' + (optionIndex + 1) + '$2');
+    list.appendChild(node);
+  });
+  answers[qid] = String(target + 1);
+  var label = card.querySelector('.ans-label');
+  if (label) label.textContent = label.textContent.replace(/정답:\s*[1-4]번/, '정답: ' + (target + 1) + '번');
+});const answered={};
 function answer(el,qid,chosen){if(answered[qid])return;answered[qid]=true;const correct=answers[qid];const opts=el.parentElement.querySelectorAll('li');opts.forEach(o=>o.classList.add('disabled'));if(chosen===correct){el.classList.add('correct');correctCount++;document.getElementById('correct-count').textContent=correctCount;}else{el.classList.add('wrong');opts[parseInt(correct)-1].classList.add('correct');wrongCount++;document.getElementById('wrong-count').textContent=wrongCount;}document.getElementById('ans-'+qid).style.display='block';const total=correctCount+wrongCount;document.getElementById('score-pct').textContent=Math.round(correctCount/total*100)+'%';if(total===Object.keys(answers).length&&wrongCount===0)launchPerfectCelebration();}
 function resetAll(){
   perfectCelebrationShown=false;correctCount=0;wrongCount=0;Object.keys(answered).forEach(k=>delete answered[k]);document.getElementById('correct-count').textContent='0';document.getElementById('wrong-count').textContent='0';document.getElementById('score-pct').textContent='0%';document.querySelectorAll('.options li').forEach(li=>{li.className='';});document.querySelectorAll('.answer-box').forEach(b=>b.style.display='none');}

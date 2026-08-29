@@ -614,6 +614,14 @@ const QS = [
     "exp": "야외활동지도는 숲의 건강증진 효과와 대상별 교육효과, 안전점검과 위험요소 대처를 함께 다룬다."
   }
 ];
+
+// answer-position-rebalance-20260829: 정답 내용은 유지하고 위치만 ①~④로 균등 재배치
+QS.forEach(function(item, index) {
+  var target = (index * 3 + 1) % 4;
+  var correctOption = item.opts.splice(item.ans, 1)[0];
+  item.opts.splice(target, 0, correctOption);
+  item.ans = target;
+});
 let answered = new Array(QS.length).fill(false);
 let correct = new Array(QS.length).fill(false);
 function render() {

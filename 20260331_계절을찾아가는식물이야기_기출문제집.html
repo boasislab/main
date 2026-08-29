@@ -618,6 +618,14 @@ const QS = [
     "exp": "숲해설에서는 정확한 전달과 관찰 기반 설명이 중요하다."
   }
 ];
+
+// answer-position-rebalance-20260829: 정답 내용은 유지하고 위치만 ①~④로 균등 재배치
+QS.forEach(function(item, index) {
+  var target = (index * 3 + 1) % 4;
+  var correctOption = item.opts.splice(item.ans, 1)[0];
+  item.opts.splice(target, 0, correctOption);
+  item.ans = target;
+});
 let answered = new Array(QS.length).fill(false);
 let correct = new Array(QS.length).fill(false);
 function render() {

@@ -154,6 +154,14 @@ const questions = [
   {s:8, q:'신체 이상 발생 시 일반 처치로 옳은 것은?', o:['움직임 최소화, 기도 유지, 호흡과 의식 확인, 출혈 확인과 지혈, 정상 체온 유지','무조건 달리기','상처에 화장지 사용','환자를 방치'], a:0, e:'Gnote 보강은 움직임 최소화, 기도 유지, 호흡과 의식 확인, 외부 출혈 확인과 지혈, 정상 체온 유지를 정리한다.'}
 ];
 
+// answer-position-rebalance-20260829: 정답 내용은 유지하고 위치만 ①~④로 균등 재배치
+questions.forEach(function(item, index) {
+  var target = (index * 3 + 1) % 4;
+  var correctOption = item.o.splice(item.a, 1)[0];
+  item.o.splice(target, 0, correctOption);
+  item.a = target;
+});
+
 let answered = 0;
 let correctCount = 0;
 const TOTAL = questions.length;
