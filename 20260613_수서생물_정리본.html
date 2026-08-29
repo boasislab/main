@@ -46,6 +46,23 @@ p { margin:7px 0; white-space:pre-wrap; }
 .river-course-table strong { color:#8f1d1d; }
 .highlight-red { color:#8f1d1d; font-weight:800; background:linear-gradient(transparent 48%,#fecaca 48%,#fecaca 92%,transparent 92%); padding:0 .08em; border-radius:2px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
 .river-course-note { margin:10px 0 0!important; color:#52616f; font-size:.92rem; }
+.stream-order { margin:18px 0; padding:18px; border:2px solid #dc2626; border-radius:12px; background:#fffafa; box-shadow:0 4px 14px rgba(180,35,24,.1); }
+.stream-order-title { margin:0 0 9px; color:#991b1b; font-size:1.1rem; font-weight:900; }
+.stream-order-definition { margin:0 0 12px!important; padding:11px 13px; border-radius:8px; background:#fff; border-left:5px solid #dc2626; }
+.stream-order-rules { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:12px 0; }
+.stream-order-rule { padding:12px; border:1px solid #fecaca; border-radius:9px; background:#fff; }
+.stream-order-rule strong { display:block; margin-bottom:4px; color:#991b1b; font-size:1.02rem; }
+.stream-order-memory { margin:12px 0 0!important; padding:10px 12px; border-radius:8px; background:#fee2e2; color:#991b1b; font-weight:900; text-align:center; }
+.stream-order-figure { margin:14px 0 4px; padding:10px; border:1px solid #f1b5b5; border-radius:10px; background:#fff; overflow-x:auto; }
+.stream-order-figure svg { display:block; width:100%; min-width:620px; height:auto; }
+.stream-order-figure figcaption { margin-top:7px; color:#52616f; font-size:.92rem; text-align:center; }
+.stream-line { fill:none; stroke:#377d9c; stroke-linecap:round; stroke-linejoin:round; }
+.stream-order-1 { stroke-width:5; }
+.stream-order-2 { stroke-width:9; }
+.stream-order-3 { stroke-width:13; }
+.stream-label rect { fill:#fff; stroke:#dc2626; stroke-width:2; }
+.stream-label text { fill:#991b1b; font-size:16px; font-weight:900; text-anchor:middle; dominant-baseline:middle; }
+.merge-label { fill:#991b1b; font-size:15px; font-weight:800; text-anchor:middle; }
 .aquatic-figure { margin:14px 0 8px; border:1px solid #c8d8e8; border-radius:12px; overflow:hidden; background:#eef7fb; }
 .aquatic-figure img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; }
 .aquatic-figure figcaption { padding:11px 14px; color:#38566e; background:#f5fbff; font-size:.92rem; text-align:center; }
@@ -68,6 +85,8 @@ td:first-child { width:130px; font-weight:700; color:#1e5b8f; background:#f8fbfe
   th, td { padding:9px 10px; }
   .three-elements { padding:14px 12px; }
   .three-elements-grid { grid-template-columns:1fr; }
+  .stream-order { padding:14px 12px; }
+  .stream-order-rules { grid-template-columns:1fr; }
 }
 .space { height:8px; }
 footer { margin-top:20px; color:#687786; font-size:.92rem; }
@@ -189,6 +208,45 @@ figure{break-inside:avoid;}
 </div>
 <p class="important-star"><span class="important-mark">★</span><strong>핵심 흐름:</strong> 상류 → 하류로 갈수록 <strong>경사·하상 입자 크기는 대체로 감소</strong>하고, <strong>하폭·수심·유량·수온·미세 퇴적물은 대체로 증가</strong>한다. 용존산소는 낮아지는 경향이 있다.</p>
 <p class="river-course-note">※ 실제 모습은 계절·강수량·보와 댐·하천 정비·지류 유입 등 지역 조건에 따라 달라질 수 있다.</p>
+<h3>하천의 차수(Stream Order)</h3>
+<div class="stream-order" role="group" aria-label="하천의 1차·2차·3차 차수 개념과 합류 규칙">
+<p class="stream-order-title">★ 하천망의 가지가 합쳐지는 단계 — 스트랄러(Strahler) 방식</p>
+<p class="stream-order-definition"><strong>하천의 차수</strong>란 하천망에서 지류가 합류하는 관계를 숫자로 나타낸 것이다. 발원지의 가장 작은 물길에서 시작하여, 같은 차수의 하천끼리 합류할 때 다음 차수로 올라간다.</p>
+<div class="stream-order-rules">
+<div class="stream-order-rule"><strong>1차 하천</strong>위쪽으로 다른 지류가 합류하지 않는 발원지의 작은 물길이다.<br/><span class="highlight-red">예: 산비탈 샘·계곡에서 시작한 실개천</span></div>
+<div class="stream-order-rule"><strong>2차 하천</strong><span class="highlight-red">1차 하천 두 개가 합류</span>하여 만들어진 하천이다.<br/><span class="highlight-red">예: 1차 + 1차 = 2차</span></div>
+<div class="stream-order-rule"><strong>3차 하천</strong><span class="highlight-red">2차 하천 두 개가 합류</span>하여 만들어진 하천이다.<br/><span class="highlight-red">예: 2차 + 2차 = 3차</span></div>
+</div>
+<figure class="stream-order-figure">
+<svg viewBox="0 0 820 520" role="img" aria-labelledby="stream-order-svg-title stream-order-svg-desc">
+<title id="stream-order-svg-title">1차, 2차, 3차 하천의 합류 그림</title>
+<desc id="stream-order-svg-desc">여러 1차 하천이 같은 차수끼리 합류하여 2차가 되고, 두 2차 하천이 합류하여 3차 하천이 되는 과정을 나타낸 그림</desc>
+<path class="stream-line stream-order-1" d="M90 65 C150 90 175 125 230 170"/>
+<path class="stream-line stream-order-1" d="M250 55 C245 100 240 125 230 170"/>
+<path class="stream-line stream-order-2" d="M230 170 C270 205 315 235 380 270"/>
+<path class="stream-line stream-order-1" d="M135 245 C230 245 290 255 380 270"/>
+<path class="stream-line stream-order-1" d="M505 55 C520 100 530 125 550 165"/>
+<path class="stream-line stream-order-1" d="M690 70 C625 90 595 120 550 165"/>
+<path class="stream-line stream-order-2" d="M550 165 C520 220 490 255 450 305"/>
+<path class="stream-line stream-order-2" d="M380 270 C405 285 425 295 450 305"/>
+<path class="stream-line stream-order-3" d="M450 305 C470 360 500 405 535 470"/>
+<g class="stream-label"><rect x="50" y="28" width="80" height="34" rx="17"/><text x="90" y="45">1차</text></g>
+<g class="stream-label"><rect x="215" y="18" width="80" height="34" rx="17"/><text x="255" y="35">1차</text></g>
+<g class="stream-label"><rect x="250" y="172" width="80" height="34" rx="17"/><text x="290" y="189">2차</text></g>
+<g class="stream-label"><rect x="92" y="217" width="80" height="34" rx="17"/><text x="132" y="234">1차</text></g>
+<g class="stream-label"><rect x="465" y="18" width="80" height="34" rx="17"/><text x="505" y="35">1차</text></g>
+<g class="stream-label"><rect x="655" y="32" width="80" height="34" rx="17"/><text x="695" y="49">1차</text></g>
+<g class="stream-label"><rect x="520" y="185" width="80" height="34" rx="17"/><text x="560" y="202">2차</text></g>
+<g class="stream-label"><rect x="500" y="390" width="80" height="34" rx="17"/><text x="540" y="407">3차</text></g>
+<text class="merge-label" x="230" y="150">1 + 1 = 2</text>
+<text class="merge-label" x="550" y="145">1 + 1 = 2</text>
+<text class="merge-label" x="450" y="285">2 + 2 = 3</text>
+<text class="merge-label" x="280" y="302">1 + 2 = 2 유지</text>
+</svg>
+<figcaption>같은 차수끼리 만나면 한 단계 상승하고, 서로 다른 차수가 만나면 높은 차수를 그대로 유지한다.</figcaption>
+</figure>
+<p class="stream-order-memory">암기 공식: 1 + 1 = 2차 · 2 + 2 = 3차 · 1 + 2 = 2차 유지</p>
+</div>
 <div class="space"></div>
 <div class="space"></div>
 <div class="space"></div>
