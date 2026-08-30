@@ -83,6 +83,11 @@ th, td { border:1px solid var(--line); padding:10px 12px; vertical-align:top; te
 th { background:#eef5fb; color:#183a5a; font-weight:700; }
 td:first-child { width:130px; font-weight:700; color:#1e5b8f; background:#f8fbfe; }
 .note-cell { color:#52616f; font-size:.94rem; }
+.indicator-fish-table { min-width:880px; }
+.indicator-fish-table td:first-child { width:176px; min-width:176px; text-align:center; }
+.fish-thumb { display:block; width:160px; height:104px; margin:8px auto 0; border:1px solid #d8e0e8; border-radius:8px; background:#f6fafc; object-fit:contain; }
+.fish-thumb.compare { object-fit:cover; object-position:center; }
+.fish-image-note { margin:-8px 2px 18px!important; color:#687786; font-size:.82rem; line-height:1.55; }
 @media (max-width: 640px) {
   main { padding:18px 12px 42px; }
   section { padding:16px; }
@@ -93,6 +98,8 @@ td:first-child { width:130px; font-weight:700; color:#1e5b8f; background:#f8fbfe
   .three-elements-grid { grid-template-columns:1fr; }
   .stream-order { padding:14px 12px; }
   .stream-order-rules { grid-template-columns:1fr; }
+  .indicator-fish-table td:first-child { min-width:156px; width:156px; }
+  .fish-thumb { width:144px; height:96px; }
 }
 .space { height:8px; }
 footer { margin-top:20px; color:#687786; font-size:.92rem; }
@@ -331,9 +338,9 @@ figure{break-inside:avoid;}
 <p>  : 환경에 따라 체형 다양</p>
 <div class="space"></div>
 <div class="space"></div>
-<h3>9. 전주천 주요 지표종</h3>
+<h3 id="jeonju-indicator-fish">9. 전주천 주요 지표종</h3>
 <div class="table-wrap">
-<table>
+<table class="indicator-fish-table">
 <thead>
 <tr>
 <th>이름</th>
@@ -343,73 +350,74 @@ figure{break-inside:avoid;}
 </thead>
 <tbody>
 <tr>
-<td><span class="highlight-red">쉬리</span></td>
+<td><span class="highlight-red">쉬리</span><img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/swiri.jpg" alt="쉬리 어류 사진" loading="lazy"/></td>
 <td><span class="highlight-red">1~2급수 상류 여울부 바닥에 서식하며 수서곤충을 먹는다.</span></td>
 <td class="note-cell"><span class="highlight-red">전주천 지표종</span></td>
 </tr>
 <tr>
-<td>꺽지</td>
+<td>꺽지<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/kkeokji.jpg" alt="꺽지 어류 사진" loading="lazy"/></td>
 <td>하천 상류의 자갈이 많은 곳에 서식한다. 육식성으로 작은 어류를 먹을 정도로 입이 크고, 몸은 작고 얇다.</td>
 <td class="note-cell">상위 포식성 어류</td>
 </tr>
 <tr>
-<td><span class="highlight-red">참종개</span></td>
+<td><span class="highlight-red">참종개</span><img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/chamjonggae.png" alt="참종개 학습용 어류 이미지" loading="lazy"/></td>
 <td><p class="important-star"><span class="important-mark">★</span><strong>학명:</strong> <em>Iksookimia koreensis</em> (익수키미아 코린시스). 속명 <em>Iksookimia</em>는 우리나라 민물고기 연구자인 김익수 교수 이름에서 유래한 것으로 기억한다.</p> 역삼각 갈색 무늬가 있으며 미꾸라지와 비슷하게 생겼다.</td>
 <td class="note-cell"><span class="highlight-red">한국고유종 · 김익수 교수 관련 학명 기억</span></td>
 </tr>
 <tr>
-<td>밀어</td>
+<td>밀어<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/mireo.png" alt="밀어 학습용 어류 이미지" loading="lazy"/></td>
 <td>하천 중류 여울부부터 하류에 서식한다. <span class="highlight-red">육봉화된 어류</span>로 설명된다.</td>
 <td class="note-cell"><span class="highlight-red"><strong>육봉화</strong>: 바다와 강을 오가던 회유성 어류의 일부가 담수에 정착하여 전 생활사를 보내는 현상</span></td>
 </tr>
 <tr>
-<td>민물검정망둑</td>
+<td>민물검정망둑<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/freshwater-goby.jpg" alt="민물검정망둑 어류 사진" loading="lazy"/></td>
 <td>자갈과 돌이 많은 곳에서 산다. 지느러미 앞쪽의 주황색 무늬가 특징이다.</td>
 <td class="note-cell">망둑어류</td>
 </tr>
 <tr>
-<td>동자개</td>
+<td>동자개<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/dongjagae.png" alt="동자개 학습용 어류 이미지" loading="lazy"/></td>
 <td>빠가사리로 잘 알려져 있다.</td>
 <td class="note-cell">동자개류</td>
 </tr>
 <tr>
-<td><span class="highlight-red">동사리 ↔ 얼룩동사리</span></td>
+<td><span class="highlight-red">동사리 ↔ 얼룩동사리</span><img class="fish-thumb compare" src="assets/aquatic/dongsari-vs-spotted-dongsari-20260829.png" alt="동사리와 얼룩동사리 비교 이미지" loading="lazy"/></td>
 <td><span class="highlight-red">동사리는 비교적 규칙적인 띠 모양 무늬</span>가 나타나고, <span class="highlight-red">얼룩동사리는 불규칙하고 끊어진 얼룩무늬</span>가 나타난다.</td>
 <td class="note-cell"><span class="highlight-red">몸통 무늬 배열 비교</span></td>
 </tr>
 <tr>
-<td>피라미</td>
+<td>피라미<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/pirami.jpg" alt="피라미 어류 사진" loading="lazy"/></td>
 <td>환경 적응력이 좋고 개체 수가 많다. 단체 산란하는 것이 특징이다.</td>
 <td class="note-cell">흔한 하천 어류</td>
 </tr>
 <tr>
-<td>참갈겨니</td>
+<td>참갈겨니<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/chamgalgyeoni.jpg" alt="참갈겨니 어류 사진" loading="lazy"/></td>
 <td>몸에 비해 눈이 크고, 물이 맑고 차가운 곳을 좋아한다.</td>
 <td class="note-cell">상류·계곡성 환경</td>
 </tr>
 <tr>
-<td>모래무지</td>
+<td>모래무지<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/moraemuji.jpg" alt="모래무지 어류 사진" loading="lazy"/></td>
 <td>모래에 숨어 있다가 강바닥에 사는 곤충을 잡아먹는다.</td>
 <td class="note-cell">저서성 생활</td>
 </tr>
 <tr>
-<td>돌마자</td>
+<td>돌마자<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/dolmaja.jpg" alt="돌마자 어류 사진" loading="lazy"/></td>
 <td>이름의 ‘돌’은 가짜를 의미하며, 얼굴이 납작해 물고기 같지 않아 이름이 붙었다.</td>
 <td class="note-cell">형태 기억</td>
 </tr>
 <tr class="important-row">
-<td><span class="highlight-red">각시붕어·납자루류</span></td>
+<td><span class="highlight-red">각시붕어·납자루류</span><img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/gaksibungeo.jpg" alt="각시붕어 및 납자루류 어류 사진" loading="lazy"/></td>
 <td>산란기가 되면 암컷이 긴 산란관을 민물조개의 <span class="highlight-red">출수관에 넣어 조개 아가미 안에 알을 낳는다</span>. 알과 어린 물고기는 조개 안에서 외부 포식자로부터 보호받으며 자란다.</td>
 <td class="note-cell"><span class="highlight-red">조개는 유생(글로키디움)을 물고기 몸에 붙여 이동·분산</span><br/><strong>서로 이익을 얻는 상리공생</strong></td>
 </tr>
 <tr>
-<td>버들치</td>
+<td>버들치<img class="fish-thumb" src="assets/aquatic/jeonju-indicator-fish/beodeulchi.jpg" alt="버들치 어류 사진" loading="lazy"/></td>
 <td>깨끗한 계곡에서만 살아 1급수 지표종이라고 알려져 있지만, 정확히는 맑은 물보다 차가운 물을 좋아한다.</td>
 <td class="note-cell">수질 지표종 설명 주의</td>
 </tr>
 </tbody>
 </table>
 </div>
+<p class="fish-image-note">※ 사진 출처: iNaturalist(종별 CC BY·CC BY-NC·CC BY-NC-SA 이미지). 참종개·밀어·동자개는 표에서 형태를 구분하기 위한 AI 학습용 이미지이며, 정밀한 종 동정은 전문 도감을 함께 확인한다.</p>
 <figure class="fish-compare-figure">
 <img src="assets/aquatic/dongsari-vs-spotted-dongsari-20260829.png" alt="동사리의 규칙적인 띠 모양 무늬와 얼룩동사리의 불규칙한 얼룩무늬 비교 학습 이미지" loading="lazy"/>
 <figcaption>동사리 ↔ 얼룩동사리 핵심 비교 — 동사리는 비교적 규칙적인 띠 모양, 얼룩동사리는 불규칙하게 끊어진 얼룩무늬로 기억한다. 실제 종 동정에서는 무늬와 함께 분포 지역·몸의 형태 등도 종합해서 확인한다.</figcaption>
