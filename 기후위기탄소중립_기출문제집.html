@@ -11,6 +11,7 @@
   header { background: linear-gradient(135deg, #1565c0, #0288d1); color: white; padding: 24px 24px; border-radius: 12px; margin-bottom: 24px; }
   header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
   header .meta { font-size: 13px; opacity: 0.85; }
+  .section-title { margin: 26px 0 12px; font-size: 17px; font-weight: 800; color: #123d66; }
   .score-bar { background: white; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
   .score-bar .score-label { font-size: 14px; color: #555; }
   .score-bar .score-val { font-size: 22px; font-weight: 800; color: #1565c0; }
@@ -35,6 +36,28 @@
   .opt-btn:disabled { cursor: default; }
   .explanation { margin-top: 12px; background: #fff3e0; border-left: 3px solid #fb8c00; border-radius: 6px; padding: 10px 14px; font-size: 13px; color: #5d4037; display: none; }
   .explanation.visible { display: block; }
+  .short-answer-card { border-left-color: #ef9a9a; }
+  .answer-row { display: flex; gap: 8px; align-items: stretch; }
+  .answer-input { flex: 1; min-width: 0; border: 1.5px solid #dce8f7; border-radius: 8px; padding: 10px 12px; font-size: 14px; font-family: inherit; }
+  .answer-input:focus { outline: none; border-color: #1565c0; box-shadow: 0 0 0 3px rgba(21,101,192,0.12); }
+  .answer-input.correct { border-color: #43a047; background: #f1f8e9; color: #1b5e20; font-weight: 700; }
+  .answer-input.partial { border-color: #fb8c00; background: #fff8e1; color: #5d4037; font-weight: 700; }
+  .answer-input.wrong { border-color: #e53935; background: #ffebee; color: #b71c1c; font-weight: 700; }
+  .check-btn { border: none; border-radius: 8px; padding: 0 14px; background: #1565c0; color: white; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+  .check-btn:hover:not(:disabled) { background: #0d47a1; }
+  .check-btn:disabled { background: #b0bec5; cursor: default; }
+  .short-result { margin-top: 10px; border-radius: 6px; padding: 10px 12px; font-size: 13px; display: none; }
+  .short-result.visible { display: block; }
+  .short-result.correct { background: #e8f5e9; color: #1b5e20; border-left: 3px solid #43a047; }
+  .short-result.partial { background: #fff3e0; color: #5d4037; border-left: 3px solid #fb8c00; }
+  .short-result.wrong { background: #ffebee; color: #b71c1c; border-left: 3px solid #e53935; }
+  .answer-chip { display: inline-block; margin-top: 6px; font-weight: 800; }
+  @media (max-width: 560px) {
+    .score-bar { flex-wrap: wrap; }
+    .score-bar .btn-reset { width: 100%; margin-left: 0; }
+    .answer-row { flex-direction: column; }
+    .check-btn { min-height: 40px; }
+  }
 
   .footer { text-align: center; margin-top: 30px; padding-bottom: 20px; }
   .back-btn { display: inline-block; color: #aaa; font-size: 0.82em; text-decoration: none; }
@@ -57,16 +80,22 @@
 
 <header>
   <h1>🌍 기후위기·탄소중립 — 기출문제집</h1>
-  <div class="meta">25문항 · 클릭형 정답 확인 · 2026-06-20</div>
+  <div class="meta">객관식 25문항 + 단답형 주관식 20문항 · 자동 채점 · 2026-08-30</div>
 </header>
 
 <div class="score-bar">
   <span class="score-label">맞은 문항</span>
   <span class="score-val" id="score">0 / 25</span>
+  <span class="score-label">단답형</span>
+  <span class="score-val" id="short-score">0 / 20</span>
   <button class="btn-reset" onclick="resetAll()">다시 풀기</button>
 </div>
 
+<div class="section-title">객관식 기출문제</div>
 <div id="quiz"></div>
+
+<div class="section-title">단답형 주관식 20문항</div>
+<div id="short-answer-quiz"></div>
 
 <div class="footer">
   <a class="back-btn" href="forest.html?k=yyj1201#subject-12">← 강의자료 목록으로</a>
@@ -244,8 +273,153 @@ const QS = [
   }
 ];
 
+const SA = [
+  {
+    q: "생태계와 자연을 모르는 상태인데, 자신이 모른다는 사실도 인식하지 못하는 상태를 무엇이라 하는가?",
+    ans: "생태맹",
+    aliases: ["생태 맹"],
+    keys: ["생태", "맹"],
+    exp: "생태맹은 기후위기 시대에 특히 경계해야 할 무지 상태이다."
+  },
+  {
+    q: "인간과 자연이 동등한 내재적 가치를 가진다고 보는 원형 구조의 관점은 무엇인가?",
+    ans: "생태중심주의",
+    aliases: ["생태 중심주의", "에코중심주의", "에코 중심주의"],
+    keys: ["생태", "중심"],
+    exp: "인간중심주의와 대비되는 개념이다."
+  },
+  {
+    q: "멸종의 상징으로 자주 다뤄지며, 인간 활동으로 사라진 대표적인 새의 이름은 무엇인가?",
+    ans: "도도새",
+    aliases: ["도도"],
+    keys: ["도도"],
+    exp: "도도새는 생물다양성 손실과 멸종의 대표 사례로 기억한다."
+  },
+  {
+    q: "생태계 구조와 기능에 큰 영향을 주며, 제거되면 생태계 균형이 크게 흔들리는 종은 무엇인가?",
+    ans: "핵심종",
+    aliases: ["핵심 종", "키스톤종", "키스톤 종", "Keystone Species"],
+    keys: ["핵심", "종"],
+    exp: "불가사리와 옐로스톤 늑대가 대표 사례이다."
+  },
+  {
+    q: "특정 환경 상태를 알려주는 생물로, 환경 건강의 척도 역할을 하는 종은 무엇인가?",
+    ans: "지표종",
+    aliases: ["지표 종", "Indicator Species"],
+    keys: ["지표", "종"],
+    exp: "공기질, 수질, 습지 건강성 등을 판단하는 데 활용된다."
+  },
+  {
+    q: "대기오염과 공기질 상태를 알려주는 대표적인 지표생물은 무엇인가?",
+    ans: "지의류",
+    aliases: ["지의 류", "lichen", "lichens"],
+    keys: ["지의"],
+    exp: "지의류는 대기오염에 민감해 공기질 지표로 자주 언급된다."
+  },
+  {
+    q: "인류가 느끼는 환경위기의 정도를 시각으로 나타낸 지표는 무엇인가?",
+    ans: "환경위기시계",
+    aliases: ["환경 위기 시계", "환경위기 시계"],
+    keys: ["환경", "위기", "시계"],
+    exp: "12시는 환경위기의 종료 지점을 뜻한다."
+  },
+  {
+    q: "지구 온도 1.5도 상승 한계를 지키기 위해 남은 탄소예산을 시간으로 보여주는 시계는 무엇인가?",
+    ans: "탄소시계",
+    aliases: ["탄소 시계", "MCC 탄소시계", "MCC 탄소 시계", "Carbon Clock"],
+    keys: ["탄소", "시계"],
+    exp: "탄소시계는 남은 탄소 배출 가능량을 직관적으로 보여준다."
+  },
+  {
+    q: "인간이 1년 동안 지구가 재생할 수 있는 생태자원을 모두 써버린 날짜를 무엇이라 하는가?",
+    ans: "지구 생태용량 초과의 날",
+    aliases: ["지구생태용량초과의날", "생태용량 초과의 날", "생태용량초과의날", "Earth Overshoot Day", "오버슈트데이", "오버슈트 데이"],
+    keys: ["생태", "용량", "초과"],
+    exp: "한국처럼 소비하면 지구 약 3개가 필요하다는 설명과 연결된다."
+  },
+  {
+    q: "하와이 마우나로아 관측소에서 측정한 대기 중 이산화탄소 농도 증가 곡선을 무엇이라 하는가?",
+    ans: "킬링커브",
+    aliases: ["킬링 커브", "킬링곡선", "킬링 곡선", "Keeling Curve"],
+    keys: ["킬링"],
+    exp: "CO2 농도의 계절 변동과 장기 상승 추세를 함께 보여준다."
+  },
+  {
+    q: "연도별 기온 변화를 파란색과 빨간색 줄무늬로 표현한 시각 자료는 무엇인가?",
+    ans: "기후줄무늬",
+    aliases: ["기후 줄무늬", "Climate Stripes", "클라이밋 스트라이프", "클라이밋 스트라이프스"],
+    keys: ["기후", "줄무늬"],
+    exp: "최근으로 갈수록 붉은색이 강해져 온도 상승을 직관적으로 보여준다."
+  },
+  {
+    q: "특정 지역에서 30년 이상 관측한 평균적인 기상 상태를 무엇이라 하는가?",
+    ans: "기후",
+    aliases: ["Climate"],
+    keys: ["기후"],
+    exp: "기상은 시시각각 변하는 날씨, 기후는 장기 평균이다."
+  },
+  {
+    q: "짧은 시간 동안 변하는 날씨, 비, 바람, 기온 같은 대기 현상을 무엇이라 하는가?",
+    ans: "기상",
+    aliases: ["날씨", "Weather"],
+    keys: ["기상"],
+    exp: "기후와 구분해서 암기한다."
+  },
+  {
+    q: "배출하는 온실가스와 흡수·제거하는 온실가스의 양을 같게 해 순 배출량을 0으로 만드는 상태는 무엇인가?",
+    ans: "탄소중립",
+    aliases: ["탄소 중립", "넷제로", "넷 제로", "Net Zero", "Carbon Neutrality"],
+    keys: ["탄소", "중립"],
+    exp: "배출량 자체가 완전히 0이라는 뜻은 아니다."
+  },
+  {
+    q: "기업이 사용하는 전력 100%를 재생에너지로 충당하겠다는 자발적 캠페인은 무엇인가?",
+    ans: "RE100",
+    aliases: ["알이100", "알이백", "Renewable Energy 100"],
+    keys: ["re100"],
+    exp: "국가 강제 제도가 아니라 기업의 자발적 캠페인이다."
+  },
+  {
+    q: "온실가스 배출 허용량을 기업 간 사고팔 수 있게 한 제도는 무엇인가?",
+    ans: "배출권 거래제",
+    aliases: ["배출권거래제", "온실가스 배출권 거래제", "Emission Trading Scheme", "ETS"],
+    keys: ["배출권", "거래"],
+    exp: "탄소국경세와 구분해야 한다."
+  },
+  {
+    q: "수입 제품의 생산 과정에서 발생한 탄소 배출량에 따라 부과하는 관세 성격의 제도는 무엇인가?",
+    ans: "탄소국경세",
+    aliases: ["탄소 국경세", "탄소국경조정제도", "탄소 국경 조정 제도", "CBAM"],
+    keys: ["탄소", "국경"],
+    exp: "배출권 거래제와 다른 개념이다."
+  },
+  {
+    q: "기후변화에 관한 정부간 협의체로, 과학적 평가보고서를 발표하는 국제기구는 무엇인가?",
+    ans: "IPCC",
+    aliases: ["기후변화에 관한 정부간 협의체", "기후변화정부간협의체"],
+    keys: ["ipcc"],
+    exp: "6차 보고서의 1.5도 경고와 연결해서 기억한다."
+  },
+  {
+    q: "여름철 에너지 절약을 위한 실내 냉방 적정 온도는 몇 도 이상인가?",
+    ans: "26도",
+    aliases: ["26도 이상", "26℃", "26℃ 이상", "26"],
+    keys: ["26"],
+    exp: "겨울 난방은 20~22도와 함께 묶어 둔다."
+  },
+  {
+    q: "환경교육의 3단계에서 지식 다음 감수성을 거쳐 마지막으로 이어져야 하는 단계는 무엇인가?",
+    ans: "발",
+    aliases: ["행동", "실천", "발(행동)", "발 행동"],
+    keys: ["발", "행동", "실천"],
+    exp: "환경교육은 머리(지식) → 가슴(감수성) → 발(행동)의 흐름이다."
+  }
+];
+
 let correctCount = 0;
 const answered = new Array(QS.length).fill(false);
+let shortCorrectCount = 0;
+const shortAnswered = new Array(SA.length).fill(false);
 
 function render() {
   const container = document.getElementById('quiz');
@@ -284,7 +458,59 @@ function render() {
 
     container.appendChild(card);
   });
+  renderShortAnswers();
   updateScore();
+}
+
+function renderShortAnswers() {
+  const container = document.getElementById('short-answer-quiz');
+  container.innerHTML = '';
+  SA.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card short-answer-card';
+    card.id = 'short-card-' + i;
+
+    const num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = `단답형 ${i + 1}`;
+    card.appendChild(num);
+
+    const qt = document.createElement('div');
+    qt.className = 'q-text';
+    qt.textContent = q.q;
+    card.appendChild(qt);
+
+    const row = document.createElement('div');
+    row.className = 'answer-row';
+
+    const input = document.createElement('input');
+    input.className = 'answer-input';
+    input.type = 'text';
+    input.autocomplete = 'off';
+    input.placeholder = '정답 입력';
+    input.id = 'short-input-' + i;
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkShortAnswer(i);
+    });
+    row.appendChild(input);
+
+    const btn = document.createElement('button');
+    btn.className = 'check-btn';
+    btn.type = 'button';
+    btn.textContent = '채점';
+    btn.id = 'short-btn-' + i;
+    btn.onclick = () => checkShortAnswer(i);
+    row.appendChild(btn);
+
+    card.appendChild(row);
+
+    const result = document.createElement('div');
+    result.className = 'short-result';
+    result.id = 'short-result-' + i;
+    card.appendChild(result);
+
+    container.appendChild(card);
+  });
 }
 
 function answer(qi, selected, btn, opts) {
@@ -314,13 +540,69 @@ function answer(qi, selected, btn, opts) {
 function updateScore() {
   const done = answered.filter(Boolean).length;
   document.getElementById('score').textContent = `${correctCount} / ${QS.length}`;
+  document.getElementById('short-score').textContent = `${shortCorrectCount} / ${SA.length}`;
   if (done === QS.length && correctCount === QS.length) launchPerfectCelebration();
+}
+
+function normalizeAnswer(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[·ㆍ\-\s()（）\[\]{}.,!?'"“”‘’]/g, '')
+    .replace(/℃/g, '도');
+}
+
+function checkShortAnswer(i) {
+  if (shortAnswered[i]) return;
+
+  const q = SA[i];
+  const input = document.getElementById('short-input-' + i);
+  const btn = document.getElementById('short-btn-' + i);
+  const result = document.getElementById('short-result-' + i);
+  const card = document.getElementById('short-card-' + i);
+  const value = input.value.trim();
+
+  if (!value) {
+    input.focus();
+    input.placeholder = '답을 먼저 입력하세요';
+    return;
+  }
+
+  const normalized = normalizeAnswer(value);
+  const answers = [q.ans].concat(q.aliases || []).map(normalizeAnswer);
+  const isCorrect = answers.some(ans => normalized === ans || normalized.includes(ans) || ans.includes(normalized));
+  const matchedKeys = (q.keys || []).filter(key => normalized.includes(normalizeAnswer(key)));
+  const isPartial = !isCorrect && matchedKeys.length > 0;
+
+  shortAnswered[i] = true;
+  input.disabled = true;
+  btn.disabled = true;
+  result.classList.add('visible');
+
+  if (isCorrect) {
+    shortCorrectCount++;
+    input.classList.add('correct');
+    result.classList.add('correct');
+    card.classList.add('correct-card');
+    result.innerHTML = `정답입니다.<br><span class="answer-chip">정답: ${q.ans}</span><br>${q.exp}`;
+  } else if (isPartial) {
+    input.classList.add('partial');
+    result.classList.add('partial');
+    result.innerHTML = `부분정답입니다. 핵심어는 잡았지만 정확한 개념명으로 다시 외우세요.<br><span class="answer-chip">정답: ${q.ans}</span><br>${q.exp}`;
+  } else {
+    input.classList.add('wrong');
+    result.classList.add('wrong');
+    card.classList.add('wrong-card');
+    result.innerHTML = `오답입니다.<br><span class="answer-chip">정답: ${q.ans}</span><br>${q.exp}`;
+  }
+  updateScore();
 }
 
 function resetAll() {
   perfectCelebrationShown=false;
   correctCount = 0;
   answered.fill(false);
+  shortCorrectCount = 0;
+  shortAnswered.fill(false);
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
