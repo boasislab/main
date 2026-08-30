@@ -36,6 +36,9 @@
   .keyword-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
   .keyword { background: #e3f2fd; color: #0d47a1; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
   .analogy { background: #f3e5f5; border-left: 4px solid #9c27b0; border-radius: 6px; padding: 10px 14px; margin: 10px 0; font-size: 14px; }
+  .study-figure { margin: 14px 0; padding: 12px; background: #f8fbff; border: 1px solid #cfe0ee; border-radius: 8px; text-align: center; }
+  .study-figure img { display: block; width: 100%; max-width: 760px; height: auto; margin: 0 auto; border-radius: 6px; }
+  .study-figure figcaption { margin-top: 8px; color: #405b6d; font-size: 13px; line-height: 1.55; }
 </style>
 <style id="forest-back-link-style">
 .forest-back-link{position:sticky;top:0;z-index:9999;background:rgba(255,255,255,.96);border-bottom:1px solid #d7e2d8;padding:10px 14px;margin:0 0 16px 0;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
@@ -146,6 +149,10 @@
 <li>환경재단 홈페이지에서 설문 참여 가능</li>
 </ul>
 </div>
+<figure class="study-figure">
+<img src="assets/climate/environmental-crisis-clock-20260830.jpg" alt="환경위기시계 개념: 00시부터 3시는 불안하지 않음, 3시부터 6시는 조금 불안함, 6시부터 9시는 꽤 불안함, 9시부터 12시는 매우 불안함, 12시는 인류 생존 불가능을 뜻함">
+<figcaption>환경위기시계: 9시 이후는 매우 불안, 12시는 인류 생존 불가능을 뜻하는 종료 지점</figcaption>
+</figure>
 <h3>3-2. 탄소 시계 (MCC 탄소 시계)</h3>
 <div class="star-box">
 <div class="star-title">★ 탄소 시계 — 시험 출제</div>
@@ -169,8 +176,14 @@
 <li><span class="highlight-red">대한민국 초과일: 4월 9일</span> (세계 최상위권 — 매우 많이 쓰는 나라)</li>
 <li>한국인처럼 쓰면 지구 약 <strong>3개 필요</strong></li>
 <li>카타르(2월 4일)가 가장 빠름 / 온두라스(11월 말)가 가장 느림</li>
+<li>초과일 이후의 소비는 <span class="highlight-red">미래 세대가 사용할 자원을 앞당겨 쓰는 생태적 적자 상태</span>로 이해</li>
+<li>강의 표현: 인간은 지구가 매년 만들어 내는 생태예산을 초과해 쓰는 <strong>자원 빚쟁이</strong> 상태</li>
 </ul>
 </div>
+<figure class="study-figure">
+<img src="assets/climate/earth-overshoot-day-concept-20260830.svg" alt="지구 생태용량 초과의 날 개념도: 연간 생태예산을 모두 소진한 날 이후 소비는 미래 세대의 자원을 앞당겨 쓰는 생태적 적자를 뜻함">
+<figcaption>지구 생태용량 초과의 날: 지구가 1년 동안 재생·흡수할 수 있는 자원과 서비스를 모두 소진한 시점</figcaption>
+</figure>
 </section>
 <section class="section">
 <h2>5. 기후변화 핵심 용어</h2>
@@ -244,12 +257,16 @@
 <div class="star-title">★ 킬링 곡선 — 시험 출제</div>
 <ul>
 <li>1958년부터 이산화탄소 농도를 전문적으로 측정하기 시작</li>
-<li>산업화 이전 CO₂ 농도: <strong>278ppm</strong> → 2021년 기준 약 <strong>419~420ppm</strong></li>
+<li>산업화 이전 CO₂ 농도: <strong>278ppm</strong> → 1960년 <strong>316.43ppm</strong> → 2021년 <strong>419.13ppm</strong></li>
 <li>봄·여름: 광합성 활발 → CO₂ 감소 / 가을·겨울: CO₂ 증가 → <strong>톱니 모양</strong></li>
 <li>전체적으로는 꾸준히 상승하는 곡선 (킬링 곡선)</li>
 <li>CO₂ 농도 상승 = 지구 표면 온도 상승과 비례 → <strong>지구온난화의 핵심 증거</strong></li>
 </ul>
 </div>
+<figure class="study-figure">
+<img src="assets/climate/keeling-curve-concept-20260830.svg" alt="킬링커브 개념도: 대기 중 이산화탄소 농도가 계절적 톱니 모양을 보이며 장기적으로 상승함">
+<figcaption>킬링커브: 계절별 증감이 반복되지만 장기 추세는 계속 상승하는 대기 중 CO₂ 농도 곡선</figcaption>
+</figure>
 <h3>6-4. 산업혁명과 급격한 온도 상승</h3>
 <p>지구 역사에서 기온은 자연스럽게 변해왔지만, 정상적으로는 수만 년에 걸쳐 1도 정도 변합니다. 그런데 <strong>산업혁명 이후 약 100~150년 만에 1.2~1.3도</strong>가 올랐습니다. 서서히 변하면 적응할 시간이 있지만, <span class="highlight-red">갑작스러운 변화는 생물들이 적응하지 못합니다.</span></p>
 <h3>6-5. 북극 제트기류와 한파</h3>
@@ -415,89 +432,5 @@
 </section>
 </div>
 <div class="forest-back-link forest-back-link-bottom"><a href="forest.html?k=yyj1201#subject-12">← 공유페이지로 돌아가기</a></div>
-<style id="supplement-section-style">
-.supplement-section{margin:44px 0 24px;padding:24px;border:2px solid #9bbf9e;border-radius:10px;background:#fbfff9;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
-.supplement-section h2{margin:0 0 10px;color:#235b2d;font-size:1.45rem;}
-.supplement-section .source-note{margin:0 0 18px;color:#4c614d;font-size:.95rem;line-height:1.6;}
-.supplement-section h3{margin:22px 0 8px;color:#315f37;font-size:1.15rem;border-top:1px solid #cfe1d0;padding-top:16px;}
-.supplement-section ol{margin:8px 0 0 1.4em;padding:0;}
-.supplement-section li{margin:4px 0;line-height:1.7;white-space:normal;word-break:keep-all;}
-.supplement-section .image-list-item{list-style:none;margin-left:-1.4em;}
-.supplement-image{margin:10px 0 14px;padding:12px;background:#fff;border:1px solid #d8e6d9;border-radius:8px;text-align:center;}
-.supplement-image img{display:block;max-width:min(100%,460px);height:auto;margin:0 auto;border-radius:6px;}
-.supplement-image figcaption{margin-top:8px;color:#4c614d;font-size:.92rem;line-height:1.5;}
-@media(max-width:640px){.supplement-section{padding:16px;margin:28px 0 18px}.supplement-section li{word-break:normal;overflow-wrap:anywhere;}.supplement-image{margin-left:-2px;margin-right:-2px;padding:10px;}}
-</style>
-
-<section class="supplement-section">
-<h2>추가 보강 자료</h2>
-<p><strong>정리 기준:</strong> 기존 정리본에 이미 포함된 내용은 중복 삽입하지 않고, 새로 확인되는 세부 내용만 아래에 따로 정리했습니다.</p>
-<p class="source-note">과목별 추가 확인 내용을 기존 정리본 원문과 구분해 보강 자료로 정리했습니다.</p>
-<h3>2권 기후위기 탄소중립 숲교육의 연관성(p205~258) 고성원 <small>(산림생태계,안전교육,선택과목 624-706행)</small></h3>
-<ol>
-<li data-xlsx-row="626">◆ 지구 생태용량 초과의 날(1971~2025) : 그 해에 지구가 재생. 흡수할 수 있는 자원과 서비스를</li>
-<li data-xlsx-row="627">인류가 모두 소진한 시점을 뜻함. 이 날 이후의 소비는 미래 세대가 사용할 자원을 `앞당겨`쓰는</li>
-<li data-xlsx-row="628">생태적 적자상태로 설명됨</li>
-<li data-xlsx-row="629">• 1의 지구를 1.8의 지구로</li>
-<li data-xlsx-row="630">쓰고 있다</li>
-<li data-xlsx-row="632">인간이 빌려 쓰는 에너지</li>
-<li data-xlsx-row="634">2020년 코로나 시기</li>
-<li data-xlsx-row="636">우리는 빚쟁이</li>
-<li data-xlsx-row="637">대한민국은 거의 4개로</li>
-<li data-xlsx-row="638">쓰고 있다</li>
-<li data-xlsx-row="640">인간이 살아 갈 수 있는 에너지</li>
-<li data-xlsx-row="643">◆ 환경위기 시계: 0시~3시: 불안하지 않다. 3시~6시: 조금불안하다 6시~9시 꽤 불안하다</li>
-<li data-xlsx-row="644">9시~12시 매우불안하다. 세계: 9시 33분(매우위험) 대한민국: 8시 53분(위험)</li>
-<li class="image-list-item">
-<figure class="supplement-image">
-<img src="assets/climate/environmental-crisis-clock-20260830.jpg" alt="환경위기시계 개념: 0시부터 3시는 불안하지 않음, 3시부터 6시는 조금 불안함, 6시부터 9시는 꽤 불안함, 9시부터 12시는 매우 불안함, 12시는 인류 생존 불가능을 뜻함">
-<figcaption>환경위기시계 개념</figcaption>
-</figure>
-</li>
-<li data-xlsx-row="645">◆ 탄소시계: 지구 온도 상승 한계점 1.5도를 유지하기 위해 배출할 수 있는 탄소예산(carbon budget)</li>
-<li data-xlsx-row="646">알려주는 시계 ★ ★ ★</li>
-<li data-xlsx-row="648">◆ 기상(날씨)과 기후의 차이</li>
-<li data-xlsx-row="649">-기상 : 시시각각으로 변하는 날씨의 현상(지구의 기분) - 상황에 따라 달라짐</li>
-<li data-xlsx-row="650">-기후 : 날씨의 종합적이고 평균적인 특성과 그 변동(지구의 성격) - 30년 이상의 평균온도</li>
-<li data-xlsx-row="652">◆ 기후변화 → 기후위기(Climate crisis) 지구온난화 → 지구가열(Global heating) 로 바뀌어야 함</li>
-<li data-xlsx-row="654">◆ 온실 기체와 온실효과</li>
-<li data-xlsx-row="655">• 이산화탄소(CO2) (온난화지수:1) : 산림벌채, 에너지 사용, 화석연료의 연소 등 - 많고 오래 남는다</li>
-<li data-xlsx-row="656">• 메테인 (CH4) (온난화지수:21(메탄가스) : 가축사육, 습지, 논, 음식물쓰레기, 쓰레기 더미 등</li>
-<li data-xlsx-row="657">• 아산화질소: 310 • 수소불화탄소: 140~11,70 • 과불화탄소: 6,500~9,200 • 육불화황: 23,900</li>
-<li data-xlsx-row="658">※ 온난화 지수 : 이산화탄소 1로 기준하여, 다는 온실가스들이 지구 온난화에 얼마나 더 큰</li>
-<li data-xlsx-row="659">영향을 미치는지 수치로 나타낸 것. 특정시간(보통 100년)동안의 온실효과를 비교하는 지표</li>
-<li data-xlsx-row="660">→ 이산화탄소가 위험한 이유 : 온실가스 배출 총량비(%) - 이산화탄소: 88.8, 메탄: 4.2</li>
-<li data-xlsx-row="661">아산화질소 : 2.6, 과불화탄소:4.4</li>
-<li data-xlsx-row="665">◆ 킬링커브(Keeling Curve) ★★★</li>
-<li data-xlsx-row="667">킬링곡선 : 대기 중 이산화탄소 농도</li>
-<li data-xlsx-row="668">※ 산업혁명 이전엔 278ppm 1960년 : 316.43ppm</li>
-<li data-xlsx-row="669">2021년 : 419.13ppm</li>
-<li data-xlsx-row="670">▶ 지구온도 1도 상승 : 가뭄지속, 킬리만자로 만년설</li>
-<li data-xlsx-row="671">사라짐. 희귀 동식물 멸종</li>
-<li data-xlsx-row="672">▶ 지구온도 2도상승 : 이산화탄소 바다에 흡수되어 바다생물</li>
-<li data-xlsx-row="673">죽어감, 그린란드 빙하 녹아 해수면 상승(도시 가라앉음)</li>
-<li data-xlsx-row="675">• 지구의 온도가 1°C 오르면 : 1. 지속되는 가뭄 2. 물 부족 인구 5천만명</li>
-<li data-xlsx-row="676">3. 10% 육상생물 멸종위기 4. 기후변화로 인한 사망 30만명 - 변화에 적응못한 희귀식물 멸종</li>
-<li data-xlsx-row="677">• 지구의 온도가 2°C 오르면 : 1. 사용 가능한 물 20~30% 감소 2. 해빙으로 해수면 7m상승</li>
-<li data-xlsx-row="678">3. 15~40% 북극 생물 멸종위기 4. 말라리아 노출 4~6천만명</li>
-<li data-xlsx-row="680">◆ 지표종 - 환경상태를 알려주는 종(정보제공).</li>
-<li data-xlsx-row="681">-역할: 특정 환경 조건에서만 살며, 주변 환경 변화에 민감하게 반응 그 환경의 척도 역할</li>
-<li data-xlsx-row="682">• 전주 지표종 : * 버들치 - 1급수 하천의 지표종(아중천 인근)</li>
-<li data-xlsx-row="683">* 수달 : 수 환경을 나타내는 지표종(전주천 인근)</li>
-<li data-xlsx-row="684">* 두꺼비 : 평화동 학소제에서 집단 서식지 발견(아중저수지 인근)</li>
-<li data-xlsx-row="686">◆ 핵심종 - 생태계 구조와 기능을 유지하는데 필수적인 종</li>
-<li data-xlsx-row="687">역할 : 생태계 내 개체수가 적어도 다른 많은 종의 종류와 개체수를 결정하는 중요한 종</li>
-<li data-xlsx-row="688">(생태계 조절역할)</li>
-<li data-xlsx-row="690">◆ 배출권 거래제(Emissions  Trading  Scheme): 정부가 온실가스를 배출하는 사업장에 배출권을</li>
-<li data-xlsx-row="691">할당하고, 실질적 온실가스 배출량을 평가하여, 잉여분, 또는 부족분의 배출권에 대하여</li>
-<li data-xlsx-row="692">사업장 간 거래를 허용하는 제도(사고 파는 것)</li>
-<li data-xlsx-row="694">◆ RE100 - Renewable Energy 100%의 약자로, 기업이 필요한 전력량의 100%를 태양광, 풍력 등</li>
-<li data-xlsx-row="695">친환경적 재생에너지원을 통해 발전된 전력으로 사용하겠다는 의미의 캠페인</li>
-<li data-xlsx-row="696">(재생 100%인 에너지- 애플, 이케아,BMW 등 참여)</li>
-<li data-xlsx-row="698">◆ IPCC(기후변화에 관한 정부 간 협의제) : 기후변화와 관련된 전 지구적 위험을 평가하고,</li>
-<li data-xlsx-row="699">국제적인 대책을 마련하기 위해 세계기상기구(WMO)와 유엔환경계획(UNEP)이 공동으로</li>
-<li data-xlsx-row="700">설립한 유엔 산하 국제 협의체</li>
-</ol>
-</section>
 </body>
 </html>

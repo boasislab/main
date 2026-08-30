@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+  <title id="title">킬링커브 개념도</title>
+  <desc id="desc">1958년 이후 대기 중 이산화탄소 농도가 계절적 톱니 모양을 보이며 장기적으로 상승하는 킬링커브 개념도</desc>
+  <rect width="920" height="560" fill="#f8fbff"/>
+  <rect x="36" y="30" width="848" height="500" rx="18" fill="#ffffff" stroke="#c6d8ea" stroke-width="2"/>
+  <text x="460" y="74" text-anchor="middle" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="34" font-weight="800" fill="#123b57">킬링커브(Keeling Curve)</text>
+  <text x="460" y="110" text-anchor="middle" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="18" fill="#406278">대기 중 이산화탄소 농도가 계절 변동을 반복하면서 장기 상승하는 곡선</text>
+
+  <g transform="translate(110 135)">
+    <line x1="0" y1="310" x2="690" y2="310" stroke="#344957" stroke-width="3"/>
+    <line x1="0" y1="0" x2="0" y2="310" stroke="#344957" stroke-width="3"/>
+    <text x="-56" y="18" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="15" fill="#344957">CO₂ ppm</text>
+    <text x="666" y="345" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="15" fill="#344957">연도</text>
+
+    <g stroke="#d9e5ef" stroke-width="1">
+      <line x1="0" y1="258" x2="690" y2="258"/>
+      <line x1="0" y1="206" x2="690" y2="206"/>
+      <line x1="0" y1="154" x2="690" y2="154"/>
+      <line x1="0" y1="102" x2="690" y2="102"/>
+      <line x1="0" y1="50" x2="690" y2="50"/>
+    </g>
+    <g font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="14" fill="#516879" text-anchor="end">
+      <text x="-8" y="263">316</text>
+      <text x="-8" y="211">340</text>
+      <text x="-8" y="159">370</text>
+      <text x="-8" y="107">400</text>
+      <text x="-8" y="55">420</text>
+    </g>
+
+    <polyline points="0,276 30,268 62,272 94,257 126,260 158,242 190,246 222,225 254,229 286,205 318,211 350,184 382,190 414,162 446,169 478,137 510,146 542,112 574,121 606,84 638,95 670,58 690,64" fill="none" stroke="#c62828" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="0,265 80,254 160,236 240,217 320,196 400,172 480,145 560,114 640,82 690,62" fill="none" stroke="#0d47a1" stroke-width="4" stroke-dasharray="10 9" stroke-linecap="round"/>
+
+    <g font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="15" fill="#344957" text-anchor="middle">
+      <text x="0" y="336">1958</text>
+      <text x="120" y="336">1970</text>
+      <text x="255" y="336">1990</text>
+      <text x="420" y="336">2010</text>
+      <text x="690" y="336">2021</text>
+    </g>
+
+    <circle cx="0" cy="276" r="7" fill="#c62828"/>
+    <text x="72" y="292" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="16" font-weight="800" fill="#c62828">1960년 316.43ppm</text>
+    <circle cx="690" cy="64" r="7" fill="#c62828"/>
+    <text x="580" y="37" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="16" font-weight="800" fill="#c62828">2021년 419.13ppm</text>
+  </g>
+
+  <g transform="translate(106 468)">
+    <rect width="708" height="43" rx="10" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+    <text x="354" y="28" text-anchor="middle" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="17" font-weight="800" fill="#856404">톱니 모양: 봄·여름 광합성으로 감소, 가을·겨울에 증가</text>
+  </g>
+</svg>
