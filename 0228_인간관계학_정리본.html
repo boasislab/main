@@ -215,4 +215,13 @@
     <li>유형 분류의 목적은 사람을 낙인찍는 것이 아니라 차이를 이해하고 알맞게 소통하는 것이다.</li>
   </ul>
 </section>
+<script>
+  document.querySelectorAll('figure.note-scan').forEach((figure) => {
+    const caption = figure.querySelector('figcaption')?.textContent.trim() || '';
+    if (caption === '자기이해와 성격의 구성요소 수업 필기' ||
+        caption === '나의 기질 파악을 위한 자기평가서 필기') {
+      figure.remove();
+    }
+  });
+</script>
 </body></html>
