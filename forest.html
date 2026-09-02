@@ -284,6 +284,15 @@
   </section>
   <div class="no-results" id="no-results">검색 조건에 맞는 과목이 없습니다.</div>
 
+  <div class="subject-block owner-only" id="subject-forest-history" style="display:none">
+    <div class="subject-title title-common">숲·산림 연도별 이력 <span class="date">개인용</span></div>
+    <div class="file-list">
+      <a class="file-btn btn-common" href="forest-history.html?k=yyj1201" target="_blank">
+        <span class="ico">🕰️</span><div class="info"><div class="label">연도별 통합 이력</div><div class="sub">산림정책·숲해설·숲길·탐방문화</div></div>
+      </a>
+    </div>
+  </div>
+
   <!-- ══════════════ 공통 ══════════════ -->
   <div class="cat cat-common">🌿 공통 <span class="badge">필수 이수 과목</span></div>
 
@@ -766,6 +775,9 @@
     document.querySelectorAll('.print-pack-only').forEach((el) => {
       el.style.display = options.showPrintPack ? '' : 'none';
     });
+    document.querySelectorAll('.owner-only').forEach((el) => {
+      el.style.display = options.showOwnerOnly ? '' : 'none';
+    });
     initSubjectTools();
     applySubjectFilters();
     restoreReturnTarget();
@@ -800,7 +812,7 @@
   }
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
-    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true });
+    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
   } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
