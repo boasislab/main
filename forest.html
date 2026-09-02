@@ -32,7 +32,7 @@
   .maint-back { color: #aaa; font-size: 0.82em; text-decoration: none; }
 
   /* ── 메인 화면 ── */
-  #main-screen { display: none; width: 100%; max-width: 860px; padding: 24px 16px 40px; }
+  #main-screen { display: none; width: 100%; max-width: 1480px; padding: 24px 16px 40px; }
   .site-header { text-align: center; margin-bottom: 36px; }
   .site-header h1 { color: #2d6a4f; font-size: 1.6em; margin-bottom: 6px; }
   .site-header p { color: #666; font-size: 0.92em; }
@@ -145,6 +145,47 @@
   .cat-select2 { background: linear-gradient(90deg, #1a2d50, #2d5fa0); }
   .cat-etc     { background: linear-gradient(90deg, #3d2b1a, #8a5f2d); }
 
+  /* 사진 자료처럼 1·2·3과목을 한눈에 비교하는 3열 구조 */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    align-items: start;
+    margin-top: 18px;
+  }
+  .course-column {
+    min-width: 0;
+    border: 1px solid #c8c8bd;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fbfaf4;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  }
+  .course-column-body { padding: 12px; }
+  .course-heading {
+    min-height: 96px;
+    padding: 14px 12px 12px;
+    text-align: center;
+    color: #17365f;
+    border-bottom: 2px solid #404040;
+  }
+  .course-heading .course-number { display: block; font-size: 2em; font-weight: 900; line-height: 1; }
+  .course-heading .course-name { display: block; margin-top: 6px; font-size: 1.05em; font-weight: 800; line-height: 1.25; word-break: keep-all; }
+  .course-1 .course-heading { background: #bfd3a2; }
+  .course-2 .course-heading { background: #f4dda0; }
+  .course-3 .course-heading { background: #edaa78; }
+  .course-column .cat {
+    margin: 0 0 12px;
+    padding: 10px 13px;
+    border-radius: 10px;
+    font-size: 0.94em;
+    box-shadow: none;
+  }
+  .course-column .cat .badge { margin-left: auto; }
+  .course-column .subgroup { margin-top: 15px; }
+  .course-column .subject-block { border: 1px solid rgba(0,0,0,0.06); }
+  .course-column .file-list { grid-template-columns: 1fr; }
+
   /* ── Lv2: 소그룹 헤더 ── */
   .subgroup {
     display: flex; align-items: center; gap: 8px;
@@ -188,6 +229,8 @@
     .file-btn { min-width: 0; }
     .file-btn .info { min-width: 0; }
     .file-btn .info .label, .file-btn .info .sub { overflow-wrap: anywhere; word-break: keep-all; }
+    .course-grid { grid-template-columns: 1fr; gap: 14px; }
+    .course-heading { min-height: 82px; }
   }
 
   .file-btn {
@@ -270,9 +313,9 @@
       <input type="search" class="search-input" id="subject-search" placeholder="과목명, 날짜, 키워드로 찾기" autocomplete="off">
       <div class="view-tabs" aria-label="자료 분류 보기">
         <button type="button" class="view-tab active" data-filter="all">전체</button>
-        <button type="button" class="view-tab" data-filter="common">공통</button>
-        <button type="button" class="view-tab" data-filter="select2">선택2</button>
-        <button type="button" class="view-tab owner-only" data-filter="etc" style="display:none">개인심화</button>
+        <button type="button" class="view-tab" data-filter="common">1과목</button>
+        <button type="button" class="view-tab" data-filter="select2">2과목</button>
+        <button type="button" class="view-tab owner-only" data-filter="etc" style="display:none">3과목</button>
       </div>
     </div>
     <div class="study-route" aria-label="학습 순서">
@@ -293,8 +336,16 @@
     </div>
   </div>
 
-  <!-- ══════════════ 공통 ══════════════ -->
-  <div class="cat cat-common">🌿 공통 <span class="badge">필수 이수 과목</span></div>
+  <div class="course-grid" aria-label="숲해설 교육과정 1·2·3과목 메뉴">
+  <section class="course-column course-1" data-category="common" aria-labelledby="course-1-title">
+    <header class="course-heading" id="course-1-title">
+      <span class="course-number">1과목</span>
+      <span class="course-name">공통과정</span>
+    </header>
+    <div class="course-column-body">
+
+  <!-- ══════════════ 1과목 공통과정 ══════════════ -->
+  <div class="cat cat-common">🌿 1과목 <span class="badge">공통과정</span></div>
 
   <div class="subgroup subgroup-common">📚 산림교육론</div>
 
@@ -334,8 +385,6 @@
     </div>
   </div>
 
-  <div class="subgroup subgroup-common">🌳 숲해설개론</div>
-
   <div class="subject-block" id="subject-04">
     <div class="subject-title title-common">숲해설개론 <span class="date">2026-05-19</span></div>
     <div class="file-list">
@@ -374,8 +423,18 @@
     </div>
   </div>
 
-  <!-- ══════════════ 선택2 ══════════════ -->
-  <div class="cat cat-select2">🦅 선택2 <span class="badge">생태·안전·선택과목</span></div>
+    </div>
+  </section>
+
+  <section class="course-column course-2" data-category="select2" aria-labelledby="course-2-title">
+    <header class="course-heading" id="course-2-title">
+      <span class="course-number">2과목</span>
+      <span class="course-name">산림생태계 + 안전 + 선택과정</span>
+    </header>
+    <div class="course-column-body">
+
+  <!-- ══════════════ 2과목 산림생태계·안전·선택과정 ══════════════ -->
+  <div class="cat cat-select2">🦅 2과목 <span class="badge">생태·안전·선택과정</span></div>
 
   <div class="subgroup subgroup-select2">🌲 산림생태계</div>
 
@@ -527,8 +586,20 @@
     </div>
   </div>
 
-  <!-- ══════════════ 개인심화 ══════════════ -->
-  <div class="cat cat-etc owner-only" style="display:none">📘 개인심화 <span class="badge">정책·심화 자료 · 개인용</span></div>
+    </div>
+  </section>
+
+  <section class="course-column course-3 owner-only" data-category="etc" aria-labelledby="course-3-title" style="display:none">
+    <header class="course-heading" id="course-3-title">
+      <span class="course-number">3과목</span>
+      <span class="course-name">커뮤니케이션 + 교육프로그램개발</span>
+    </header>
+    <div class="course-column-body">
+
+  <!-- ══════════════ 3과목 커뮤니케이션·교육프로그램개발 ══════════════ -->
+  <div class="cat cat-etc owner-only" style="display:none">📘 3과목 <span class="badge">개인심화 · 개인용</span></div>
+
+  <div class="subgroup subgroup-etc owner-only" style="display:none">🗣️ 커뮤니케이션</div>
 
   <div class="subject-block owner-only" id="subject-communication" style="display:none">
     <div class="subject-title title-select2">커뮤니케이션 <span class="date">이론 · 실습 · 해설기법</span></div>
@@ -553,6 +624,8 @@
       </a>
     </div>
   </div>
+
+  <div class="subgroup subgroup-etc owner-only" style="display:none">📚 교육프로그램개발</div>
 
   <div class="subject-block owner-only" id="subject-18" style="display:none">
     <div class="subject-title title-select2">숲해설프로그램개발 <span class="date">2026-07-11 정리</span></div>
@@ -588,6 +661,10 @@
         <span class="ico">📝</span><div class="info"><div class="label">기출문제</div><div class="sub">25문항 · 클릭형 정답</div></div>
       </a>
     </div>
+  </div>
+
+    </div>
+  </section>
   </div>
 
   <div class="subject-block owner-only" id="subject-22" style="display:none">
@@ -678,6 +755,8 @@
   }
 
   function getSubjectCategory(block) {
+    const column = block.closest('.course-column');
+    if (column && column.dataset.category) return column.dataset.category;
     let current = block.previousElementSibling;
     while (current) {
       if (current.classList && current.classList.contains('cat-common')) return 'common';
@@ -749,6 +828,13 @@
         next = next.nextElementSibling;
       }
       heading.classList.toggle('filtered-hidden', !hasVisibleSubject);
+    });
+
+    document.querySelectorAll('.course-column').forEach((column) => {
+      const hasVisibleSubject = Array.from(column.querySelectorAll('.subject-block')).some((block) =>
+        !block.classList.contains('filtered-hidden') && getComputedStyle(block).display !== 'none'
+      );
+      column.classList.toggle('filtered-hidden', !hasVisibleSubject);
     });
 
     const noResults = document.getElementById('no-results');
