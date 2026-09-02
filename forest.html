@@ -791,7 +791,10 @@
     const val = document.getElementById('pw').value;
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
-    if (PASSWORDS.includes(val)) {
+    if (val === OWNER_KEY) {
+      localStorage.setItem('owner_auth', OWNER_KEY);
+      showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true }); err.textContent = '';
+    } else if (PASSWORDS.includes(val)) {
       showMain({ examConstruction: false, showPrintPack: false }); err.textContent = '';
     } else if (val === PW_MAINT) {
       showMain({ examConstruction: false, showPrintPack: true }); err.textContent = '';
@@ -812,8 +815,11 @@
   }
   const params = new URLSearchParams(window.location.search);
   if (params.get('k') === OWNER_KEY) {
+    localStorage.setItem('owner_auth', OWNER_KEY);
     history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
-  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) { localStorage.removeItem('owner_auth'); }
+  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) {
+    showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
+  }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
 
