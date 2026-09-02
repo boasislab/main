@@ -315,7 +315,7 @@
         <button type="button" class="view-tab active" data-filter="all">전체</button>
         <button type="button" class="view-tab" data-filter="common">1과목</button>
         <button type="button" class="view-tab" data-filter="select2">2과목</button>
-        <button type="button" class="view-tab owner-only" data-filter="etc" style="display:none">3과목</button>
+        <button type="button" class="view-tab shared-third-course" data-filter="etc" style="display:none">3과목</button>
       </div>
     </div>
     <div class="study-route" aria-label="학습 순서">
@@ -589,7 +589,7 @@
     </div>
   </section>
 
-  <section class="course-column course-3 owner-only" data-category="etc" aria-labelledby="course-3-title" style="display:none">
+  <section class="course-column course-3 shared-third-course" data-category="etc" aria-labelledby="course-3-title" style="display:none">
     <header class="course-heading" id="course-3-title">
       <span class="course-number">3과목</span>
       <span class="course-name">커뮤니케이션 + 교육프로그램개발</span>
@@ -597,11 +597,11 @@
     <div class="course-column-body">
 
   <!-- ══════════════ 3과목 커뮤니케이션·교육프로그램개발 ══════════════ -->
-  <div class="cat cat-etc owner-only" style="display:none">📘 3과목 <span class="badge">개인심화 · 개인용</span></div>
+  <div class="cat cat-etc shared-third-course" style="display:none">📘 3과목 <span class="badge">커뮤니케이션 · 교육프로그램개발</span></div>
 
-  <div class="subgroup subgroup-etc owner-only" style="display:none">🗣️ 커뮤니케이션</div>
+  <div class="subgroup subgroup-etc shared-third-course" style="display:none">🗣️ 커뮤니케이션</div>
 
-  <div class="subject-block owner-only" id="subject-communication" style="display:none">
+  <div class="subject-block shared-third-course" id="subject-communication" style="display:none">
     <div class="subject-title title-select2">커뮤니케이션 <span class="date">이론 · 실습 · 해설기법</span></div>
     <div class="file-list">
       <a class="file-btn btn-select2" href="0228_인간관계학_정리본.html?from=subject-communication&v=20260902-iceberg" target="_blank">
@@ -625,9 +625,9 @@
     </div>
   </div>
 
-  <div class="subgroup subgroup-etc owner-only" style="display:none">📚 교육프로그램개발</div>
+  <div class="subgroup subgroup-etc shared-third-course" style="display:none">📚 교육프로그램개발</div>
 
-  <div class="subject-block owner-only" id="subject-18" style="display:none">
+  <div class="subject-block shared-third-course" id="subject-18" style="display:none">
     <div class="subject-title title-select2">숲해설프로그램개발 <span class="date">2026-07-11 정리</span></div>
     <div class="file-list">
       <a class="file-btn btn-select2" href="20260711_숲해설프로그램개발_정리본.html?from=subject-18&v=20260826-dedupe" target="_blank">
@@ -639,7 +639,7 @@
     </div>
   </div>
 
-  <div class="subject-block owner-only" id="subject-19" style="display:none">
+  <div class="subject-block shared-third-course" id="subject-19" style="display:none">
     <div class="subject-title title-select2">교육프로그램운영실습1 <span class="date">2026-07-15</span></div>
     <div class="file-list">
       <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습1_정리초안.html?from=subject-19&v=20260826-dedupe" target="_blank">
@@ -651,7 +651,7 @@
     </div>
   </div>
 
-  <div class="subject-block owner-only" id="subject-20" style="display:none">
+  <div class="subject-block shared-third-course" id="subject-20" style="display:none">
     <div class="subject-title title-select2">교육프로그램운영실습2 <span class="date">2026-07-15</span></div>
     <div class="file-list">
       <a class="file-btn btn-select2" href="20260708_교육프로그램운영실습2_정리초안.html?from=subject-20&v=20260826-dedupe" target="_blank">
@@ -868,6 +868,9 @@
     document.querySelectorAll('.owner-only').forEach((el) => {
       el.style.display = options.showOwnerOnly ? '' : 'none';
     });
+    document.querySelectorAll('.shared-third-course').forEach((el) => {
+      el.style.display = options.showCourse3 ? '' : 'none';
+    });
     initSubjectTools();
     applySubjectFilters();
     restoreReturnTarget();
@@ -883,9 +886,9 @@
     const err = document.getElementById('err-msg');
     if (val === OWNER_KEY) {
       localStorage.setItem(OWNER_AUTH_KEY, OWNER_KEY);
-      showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true }); err.textContent = '';
+      showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true, showCourse3: true }); err.textContent = '';
     } else if (PASSWORDS.includes(val)) {
-      showMain({ examConstruction: false, showPrintPack: false }); err.textContent = '';
+      showMain({ examConstruction: false, showPrintPack: false, showCourse3: true }); err.textContent = '';
     } else if (val === PW_MAINT) {
       showMain({ examConstruction: false, showPrintPack: true }); err.textContent = '';
     } else {
