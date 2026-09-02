@@ -330,7 +330,7 @@
   <div class="subject-block owner-only" id="subject-forest-history" style="display:none">
     <div class="subject-title title-common">숲·산림 연도별 이력 <span class="date">개인용</span></div>
     <div class="file-list">
-      <a class="file-btn btn-common" href="forest-history.html?k=yyj1201" target="_blank">
+      <a class="file-btn btn-common" href="forest-history.html" target="_blank">
         <span class="ico">🕰️</span><div class="info"><div class="label">연도별 통합 이력</div><div class="sub">산림정책·숲해설·숲길·탐방문화</div></div>
       </a>
     </div>
@@ -717,7 +717,11 @@
   const PASSWORDS = ['forest18@@'];
   const PW_MAINT = 'yyj123';
   const OWNER_KEY = 'yyj1201';
+  const OWNER_AUTH_KEY = 'forest_owner_auth_v20260903_0350';
   const EXAM_CONSTRUCTION_PAGE = 'forest_exam_under_construction.html';
+
+  // 이전에 저장된 조회 권한을 초기화한다.
+  localStorage.removeItem('owner_auth');
 
   function setExamConstructionMode(enabled) {
     document.querySelectorAll('.btn-quiz').forEach((btn) => {
@@ -878,7 +882,7 @@
     const inp = document.getElementById('pw');
     const err = document.getElementById('err-msg');
     if (val === OWNER_KEY) {
-      localStorage.setItem('owner_auth', OWNER_KEY);
+      localStorage.setItem(OWNER_AUTH_KEY, OWNER_KEY);
       showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true }); err.textContent = '';
     } else if (PASSWORDS.includes(val)) {
       showMain({ examConstruction: false, showPrintPack: false }); err.textContent = '';
@@ -893,6 +897,7 @@
   function logout() {
     sessionStorage.removeItem('auth');
     localStorage.removeItem('owner_auth');
+    localStorage.removeItem(OWNER_AUTH_KEY);
     setExamConstructionMode(false);
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('maint-screen').style.display = 'none';
@@ -900,10 +905,12 @@
     document.getElementById('pw').value = '';
   }
   const params = new URLSearchParams(window.location.search);
-  if (params.get('k') === OWNER_KEY) {
-    localStorage.setItem('owner_auth', OWNER_KEY);
-    history.replaceState({}, '', window.location.pathname + window.location.hash); showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
-  } else if (localStorage.getItem('owner_auth') === OWNER_KEY) {
+  if (params.has('k')) {
+    params.delete('k');
+    const query = params.toString();
+    history.replaceState({}, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
+  }
+  if (localStorage.getItem(OWNER_AUTH_KEY) === OWNER_KEY) {
     showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
   }
 

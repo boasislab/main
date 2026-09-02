@@ -11,7 +11,7 @@
 <body>
 <div class="gate" id="gate"><div class="gate-card"><div style="font-size:3rem">🌲</div><h1>개인용 숲 연도별 이력</h1><p>비밀번호를 입력해주세요.</p><input id="pw" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"><button onclick="login()">열기</button><div class="error" id="err"></div></div></div>
 <main class="page" id="page">
-<header><h1>숲·산림·숲해설 연도별 이력</h1><p>전 과목 정리본에서 숲과 직접 관련된 역사·정책·제도를 연도순으로 통합</p><a class="back" href="forest.html?k=yyj1201">← 숲해설 공유페이지</a></header>
+<header><h1>숲·산림·숲해설 연도별 이력</h1><p>전 과목 정리본에서 숲과 직접 관련된 역사·정책·제도를 연도순으로 통합</p><a class="back" href="forest.html">← 숲해설 공유페이지</a></header>
 <section class="group"><h2>1. 산림정책·숲 인식의 변화</h2><ol class="timeline">
 <li><span class="year">1908</span><b>「삼림법」 제정</b>—최초의 근대적 산림관계 법령.<span class="source">근거: 교육프로그램 운영실습·도시숲가꾸기</span></li>
 <li><span class="year">1930년대</span><b>산림의 전쟁물자화</b>—농공병진정책 속에서 전쟁물자 공급원으로 이용.</li>
@@ -54,8 +54,13 @@
 </main>
 <script>
 const KEY='yyj1201';
+const OWNER_AUTH_KEY='forest_owner_auth_v20260903_0350';
+const HISTORY_AUTH_KEY='forest_history_owner_v20260903_0350';
+sessionStorage.removeItem('forest_history_owner');
 function openPage(){document.getElementById('gate').style.display='none';document.getElementById('page').style.display='block'}
-function login(){const v=document.getElementById('pw').value;if(v===KEY){sessionStorage.setItem('forest_history_owner','1');openPage()}else{document.getElementById('err').textContent='비밀번호가 틀렸습니다.'}}
-const q=new URLSearchParams(location.search);if(q.get('k')===KEY){history.replaceState({},'',location.pathname);sessionStorage.setItem('forest_history_owner','1');openPage()}else if(sessionStorage.getItem('forest_history_owner')==='1')openPage();
+function login(){const v=document.getElementById('pw').value;if(v===KEY){sessionStorage.setItem(HISTORY_AUTH_KEY,'1');openPage()}else{document.getElementById('err').textContent='비밀번호가 틀렸습니다.'}}
+const q=new URLSearchParams(location.search);
+if(q.has('k')){q.delete('k');const query=q.toString();history.replaceState({},'',location.pathname+(query?'?'+query:'')+location.hash)}
+if(localStorage.getItem(OWNER_AUTH_KEY)===KEY||sessionStorage.getItem(HISTORY_AUTH_KEY)==='1')openPage();
 </script>
 </body></html>
