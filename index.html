@@ -246,7 +246,7 @@
         </a>
         <a href="event.html" id="sm-event" style="display:none;">
           📋 오류 목록
-          <span class="sm-badge sm-lv1">LV1</span>
+          <span class="sm-badge sm-lv2">LV2</span>
         </a>
         <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
           📊 코드표 (주제영역·Proc소스)
@@ -354,7 +354,7 @@
     badge.textContent = info.label;
     badge.className = 'lv-pill ' + info.cls;
 
-    document.getElementById('sm-event').style.display = level >= 1 ? 'flex' : 'none';
+    document.getElementById('sm-event').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-dashboard').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
     document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
