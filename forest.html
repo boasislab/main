@@ -715,8 +715,7 @@
 
 <script>
   const PASSWORDS = ['forest18@@'];
-  const PW_MAINT = 'yyj123';
-  const OWNER_KEY = 'yyj1201';
+  const OWNER_KEY = 'yyj123';
   const OWNER_AUTH_KEY = 'forest_owner_auth_v20260903_0350';
   const EXAM_CONSTRUCTION_PAGE = 'forest_exam_under_construction.html';
 
@@ -889,8 +888,6 @@
       showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true, showCourse3: true }); err.textContent = '';
     } else if (PASSWORDS.includes(val)) {
       showMain({ examConstruction: false, showPrintPack: false, showCourse3: true }); err.textContent = '';
-    } else if (val === PW_MAINT) {
-      showMain({ examConstruction: false, showPrintPack: true }); err.textContent = '';
     } else {
       inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
       err.textContent = '비밀번호가 틀렸습니다.'; inp.value = '';
@@ -914,7 +911,7 @@
     history.replaceState({}, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
   }
   if (localStorage.getItem(OWNER_AUTH_KEY) === OWNER_KEY) {
-    showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true });
+    showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true, showCourse3: true });
   }
 
   // ── TTS 음성 재생 ─────────────────────────────────────────────
