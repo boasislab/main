@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 720" role="img" aria-labelledby="title desc">
+  <title id="title">토성 삼각도표 읽는 법</title>
+  <desc id="desc">모래 50퍼센트, 미사 40퍼센트, 점토 10퍼센트를 세 축에서 찾아 평행선을 그으면 양토 영역에서 만나는 예시</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5d3a1a"/>
+    </marker>
+    <style>
+      text{font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;fill:#2c2416}
+      .grid{fill:none;stroke:#d8c8b4;stroke-width:1.5;stroke-dasharray:5 6}
+      .edge{fill:#fffaf1;stroke:#5d3a1a;stroke-width:4}
+      .axis{font-size:18px;font-weight:700}
+      .tick{font-size:13px;fill:#705b46}
+      .guide{fill:none;stroke-width:4;stroke-dasharray:9 7}
+      .step{font-size:17px;font-weight:700}
+    </style>
+  </defs>
+
+  <rect width="800" height="720" rx="18" fill="#fffdf8"/>
+  <text x="400" y="36" text-anchor="middle" font-size="25" font-weight="800">토성 삼각도표법</text>
+  <text x="400" y="62" text-anchor="middle" font-size="15" fill="#705b46">모래 + 미사 + 점토 = 100%</text>
+
+  <path class="edge" d="M400 90 L90 620 L710 620 Z"/>
+
+  <!-- 20% 간격 보조선 -->
+  <path class="grid" d="M338 196 L152 514 L648 514"/>
+  <path class="grid" d="M276 302 L214 408 L586 408"/>
+  <path class="grid" d="M214 408 L276 302 L524 302"/>
+  <path class="grid" d="M152 514 L338 196 L462 196"/>
+  <path class="grid" d="M586 514 L648 620"/>
+  <path class="grid" d="M462 196 L648 514"/>
+  <path class="grid" d="M524 302 L710 620"/>
+  <path class="grid" d="M276 302 L90 620"/>
+
+  <!-- 양토 영역(교육용 강조) -->
+  <path d="M320 490 L374 440 L456 472 L468 536 L400 574 L338 546 Z" fill="#dff1d8" stroke="#4a7c59" stroke-width="2"/>
+  <text x="402" y="505" text-anchor="middle" font-size="19" font-weight="800" fill="#2f6941">양토</text>
+  <text x="402" y="527" text-anchor="middle" font-size="13" fill="#2f6941">Loam</text>
+
+  <!-- 예시: Sand 50, Silt 40, Clay 10 -->
+  <path class="guide" d="M121 567 L679 567" stroke="#2e7ead"/>
+  <path class="guide" d="M245 355 L400 620" stroke="#a0522d"/>
+  <path class="guide" d="M338 620 L524 302" stroke="#4a7c59"/>
+  <circle cx="369" cy="567" r="11" fill="#c0392b" stroke="#fff" stroke-width="4"/>
+  <path d="M378 559 C430 525 496 530 535 548" fill="none" stroke="#5d3a1a" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="525" y="520" width="190" height="58" rx="10" fill="#fff3e0" stroke="#d35400" stroke-width="2"/>
+  <text x="620" y="544" text-anchor="middle" font-size="15" font-weight="700">세 선의 교점</text>
+  <text x="620" y="565" text-anchor="middle" font-size="16" font-weight="800" fill="#c0392b">→ 양토(Loam)</text>
+
+  <text class="axis" x="400" y="84" text-anchor="middle" fill="#2e7ead">점토 Clay 100%</text>
+  <text class="axis" x="72" y="646" text-anchor="start" fill="#a0522d">모래 Sand 100%</text>
+  <text class="axis" x="728" y="646" text-anchor="end" fill="#4a7c59">미사 Silt 100%</text>
+
+  <text class="tick" x="363" y="177">80</text><text class="tick" x="300" y="283">60</text>
+  <text class="tick" x="238" y="389">40</text><text class="tick" x="176" y="495">20</text>
+
+  <rect x="70" y="670" width="660" height="34" rx="8" fill="#f5eee4"/>
+  <text x="400" y="693" text-anchor="middle" font-size="15" font-weight="700">예시: 모래 50% · 미사 40% · 점토 10% → 각 축에서 평행선을 그어 교점을 찾는다.</text>
+</svg>

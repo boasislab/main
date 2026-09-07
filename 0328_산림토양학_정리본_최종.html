@@ -123,6 +123,12 @@
   .texture-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
   .texture-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 10px; text-align: center; font-size: 0.85em; }
   .texture-card strong { display: block; font-size: 1em; color: var(--brown1); }
+  .texture-triangle { margin: 16px auto 20px; max-width: 720px; text-align: center; }
+  .texture-triangle img { display: block; width: 100%; height: auto; border: 2px solid var(--border); border-radius: 10px; background: #fff; }
+  .texture-triangle figcaption { margin-top: 8px; color: #6b5645; font-size: 0.86em; line-height: 1.6; }
+  .triangle-steps { counter-reset: triangle-step; padding-left: 0; list-style: none; }
+  .triangle-steps li { position: relative; padding-left: 38px; margin: 9px 0; }
+  .triangle-steps li::before { counter-increment: triangle-step; content: counter(triangle-step); position: absolute; left: 0; top: 1px; width: 27px; height: 27px; border-radius: 50%; background: var(--soil); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; }
 
   /* 단계 흐름 */
   .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
@@ -450,6 +456,18 @@ figure{break-inside:avoid;}
 <p>→ 모래·미사 합계 83.2% → 양토(壤土) 계열 우세 (44.5%), 사양토(34.1%) 순</p>
 <h3>토성 삼각도 (Soil Texture Triangle)</h3>
 <p>모래·미사·점토의 <strong>세 가지 비율 합계 100%</strong>가 되도록 삼각도에서 선을 그어 만나는 점으로 토성 결정. 총 12가지 토성으로 구분.</p>
+<figure class="texture-triangle">
+<img src="assets/forest/soil-texture-triangle-guide.svg" alt="모래 50퍼센트, 미사 40퍼센트, 점토 10퍼센트를 삼각도에서 찾아 양토로 판정하는 토성 삼각도표법" loading="lazy"/>
+<figcaption>삼각도표 읽기 예시. 각 성분의 비율에서 반대편 변과 평행한 선을 그어 세 선이 만나는 토성 영역을 확인합니다.</figcaption>
+</figure>
+<div class="key-box">
+<strong>삼각도표법 읽는 순서</strong>
+<ol class="triangle-steps">
+<li>모래·미사·점토의 비율 합계가 <strong>100%</strong>인지 확인합니다.</li>
+<li>각 축에서 해당 비율을 찾고, 그 지점에서 <strong>반대편 변과 평행한 선</strong>을 긋습니다.</li>
+<li>세 선이 만나는 영역의 이름이 토성입니다. 예: 모래 50% + 미사 40% + 점토 10% → <strong>양토</strong>.</li>
+</ol>
+</div>
 <div class="exam-box">
 <strong>토성 삼각도 계산 예시</strong>
 <table style="margin-top:8px;">
