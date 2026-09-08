@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>숲해설 기출문제 오답노트</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f5;color:#203028;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.65}.wrap{max-width:960px;margin:auto;padding:18px}header{background:linear-gradient(135deg,#7f1d1d,#b42318);color:#fff;padding:25px;border-radius:14px}.back{color:#fff;font-weight:800;text-decoration:none}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.toolbar button,.toolbar label{border:1px solid #d6ddd8;background:#fff;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer}.toolbar button.active{background:#244f38;color:#fff}.summary{background:#fff;border-radius:10px;padding:14px 17px;margin:14px 0;border:1px solid #dce3de}.note{background:#fff;border:1px solid #dce3de;border-left:5px solid #c2413b;border-radius:10px;padding:16px;margin:12px 0}.note.mastered{border-left-color:#2f855a;opacity:.76}.subject{font-size:13px;color:#6b746f;font-weight:800}.question{font-weight:900;margin:5px 0 10px}.wrong{color:#b42318}.correct{color:#176b3a}.explain{background:#f3f7f4;border-radius:7px;padding:9px 11px;margin:9px 0}.actions{display:flex;gap:7px;flex-wrap:wrap}.actions button{border:0;border-radius:7px;padding:7px 11px;cursor:pointer;font-weight:700}.master{background:#daf2e2;color:#14532d}.delete{background:#fee2e2;color:#991b1b}.empty{text-align:center;background:#fff;border:1px dashed #b8c4bc;border-radius:12px;padding:42px 16px;color:#69756e}.fine{font-size:12px;color:#68736d}@media(max-width:600px){.wrap{padding:12px}header{padding:20px}.note{padding:13px}}
+</style>
+</head>
+<body><main class="wrap">
+<header><a class="back" href="forest.html">← 숲해설 공유페이지</a><h1>📕 기출문제 오답노트</h1><p>틀린 문제를 자동으로 모아 정답과 해설을 반복 학습합니다.</p></header>
+<div class="summary" id="summary"></div>
+<div class="toolbar">
+<button type="button" data-filter="active" class="active">복습할 문제</button>
+<button type="button" data-filter="all">전체</button>
+<button type="button" data-filter="mastered">복습완료</button>
+<button type="button" id="export">JSON 백업</button>
+<label>JSON 불러오기<input id="import" type="file" accept="application/json" hidden></label>
+</div>
+<div id="notes"></div>
+<p class="fine">오답노트는 개인정보 보호를 위해 현재 브라우저에 저장됩니다. 다른 기기에서 사용하려면 JSON 백업·불러오기를 이용하세요.</p>
+</main>
+<script>
+(function(){
+var KEY='forest_wrong_notes_v1',filter='active';
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+function save(v){localStorage.setItem(KEY,JSON.stringify(v));render()}
+function esc(v){return String(v||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function render(){var notes=load(),active=notes.filter(function(n){return!n.mastered}).length,shown=notes.filter(function(n){return filter==='all'||(filter==='active'&&!n.mastered)||(filter==='mastered'&&n.mastered)});document.getElementById('summary').innerHTML='<strong>전체 '+notes.length+'문제</strong> · 복습할 문제 <strong style="color:#b42318">'+active+'</strong> · 복습완료 '+(notes.length-active);var host=document.getElementById('notes');if(!shown.length){host.innerHTML='<div class="empty">해당하는 오답이 없습니다.<br>기출문제를 풀고 틀린 답을 선택하면 자동으로 저장됩니다.</div>';return}host.innerHTML=shown.map(function(n){return '<article class="note '+(n.mastered?'mastered':'')+'" data-key="'+esc(n.key)+'"><div class="subject">'+esc(n.subject)+' · '+esc(n.questionNo)+' · 틀린 횟수 '+esc(n.attempts||1)+'</div><div class="question">'+esc(n.question)+'</div><div class="wrong"><strong>내 답:</strong> '+esc(n.chosen)+'</div><div class="correct"><strong>정답:</strong> '+esc(n.correct)+'</div><div class="explain"><strong>해설:</strong> '+esc(n.explanation)+'</div><div class="actions"><button class="master">'+(n.mastered?'다시 복습':'복습완료')+'</button><button class="delete">삭제</button><a href="'+encodeURI(esc(n.source))+'#'+encodeURIComponent((n.key.split('::')[1]||''))+'">원문제 보기</a></div></article>'}).join('')}
+document.querySelector('.toolbar').addEventListener('click',function(e){var b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(function(x){x.classList.toggle('active',x===b)});render()});
+document.getElementById('notes').addEventListener('click',function(e){var card=e.target.closest('.note');if(!card)return;var notes=load(),note=notes.find(function(n){return n.key===card.dataset.key});if(!note)return;if(e.target.classList.contains('master'))note.mastered=!note.mastered;if(e.target.classList.contains('delete'))notes=notes.filter(function(n){return n.key!==card.dataset.key});save(notes)});
+document.getElementById('export').onclick=function(){var blob=new Blob([JSON.stringify(load(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='숲해설_기출문제_오답노트.json';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('import').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var v=JSON.parse(r.result);if(!Array.isArray(v))throw 0;save(v)}catch(x){alert('올바른 오답노트 JSON 파일이 아닙니다.')}};r.readAsText(f)};
+render();
+})();
+</script>
+</body></html>
