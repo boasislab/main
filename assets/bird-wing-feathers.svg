@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+  <title id="title">조류 날개깃의 종류와 기능</title>
+  <desc id="desc">위에서 본 오른쪽 날개를 단순화하여 첫째날개깃, 둘째날개깃, 셋째날개깃, 날개덮깃, 작은날개깃의 위치를 표시한 교육용 도해</desc>
+  <rect width="1000" height="650" rx="24" fill="#f8fbf9"/>
+  <text x="500" y="48" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#173f2a">조류 날개깃의 종류와 기능</text>
+  <text x="500" y="78" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#52655a">위에서 본 오른쪽 날개의 단순화 도해</text>
+  <path d="M165 370 C260 240 410 145 755 118 C875 108 930 135 908 170 C844 273 733 375 568 468 C415 553 264 534 165 430 Z" fill="#dfe8e2" stroke="#315f45" stroke-width="4"/>
+  <path d="M582 448 C700 378 828 278 908 170 C930 139 891 124 834 127 C795 214 729 322 582 448Z" fill="#f2c66d" stroke="#9a6b17" stroke-width="2"/>
+  <path d="M355 500 C450 500 525 475 582 448 C729 322 795 214 834 127 C728 139 642 162 568 191 C526 310 451 418 355 500Z" fill="#78b7d0" stroke="#28677e" stroke-width="2"/>
+  <path d="M165 370 C222 296 294 244 382 212 C394 320 365 420 298 510 C229 491 182 458 165 430Z" fill="#c69ad7" stroke="#744588" stroke-width="2"/>
+  <path d="M272 351 C372 250 513 194 663 171 C619 244 570 318 502 385 C413 410 330 398 272 351Z" fill="#8fc9a3" stroke="#34724a" stroke-width="2"/>
+  <path d="M604 226 C650 193 697 177 746 165 C730 202 706 234 674 261 C642 260 619 248 604 226Z" fill="#e88787" stroke="#9c3636" stroke-width="2"/>
+  <g fill="none" stroke="#4c5f54" stroke-width="2">
+    <path d="M760 428 L846 495"/><path d="M485 468 L520 560"/><path d="M256 407 L130 485"/><path d="M457 284 L345 112"/><path d="M673 215 L805 80"/>
+  </g>
+  <g font-family="sans-serif" fill="#20352a">
+    <text x="850" y="510" font-size="19" font-weight="700">첫째날개깃</text><text x="850" y="535" font-size="14">(초급깃) 추진·방향 조절</text>
+    <text x="520" y="585" text-anchor="middle" font-size="19" font-weight="700">둘째날개깃</text><text x="520" y="608" text-anchor="middle" font-size="14">(차급깃) 양력 생성</text>
+    <text x="125" y="505" text-anchor="end" font-size="19" font-weight="700">셋째날개깃</text><text x="125" y="528" text-anchor="end" font-size="14">(삼급깃) 몸통 연결부 정돈</text>
+    <text x="340" y="104" text-anchor="middle" font-size="19" font-weight="700">날개덮깃</text><text x="340" y="127" text-anchor="middle" font-size="14">깃 밑부분을 덮어 공기 흐름 정돈</text>
+    <text x="810" y="72" font-size="19" font-weight="700">작은날개깃</text><text x="810" y="95" font-size="14">(알룰라) 저속 비행의 실속 방지</text>
+  </g>
+  <text x="500" y="635" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#66776d">종에 따라 깃의 수·길이·모양은 다를 수 있습니다.</text>
+</svg>

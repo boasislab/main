@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>나만의 버킷리스트</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f5;color:#21362b;font-family:"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+header{background:#214f39;color:#fff;padding:18px 20px}header .wrap{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}header h1{font-size:1.45rem;margin:0}header a{color:#fff;text-decoration:none;font-weight:700}
+main{max-width:1050px;margin:auto;padding:22px 16px 60px}.notice{background:#fff8dc;border:1px solid #e7d791;border-radius:12px;padding:12px 15px;margin-bottom:16px;font-size:.88rem}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.summary div{background:#fff;border:1px solid #dce5df;border-radius:12px;padding:14px}.summary strong{display:block;font-size:1.4rem;color:#1f6b3a}
+.tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 12px}.tab{white-space:nowrap;border:1px solid #aac4b3;background:#fff;color:#27543c;border-radius:18px;padding:8px 13px;font-weight:700;cursor:pointer}.tab.active{background:#2d6a4f;color:#fff}
+.panel{background:#fff;border:1px solid #dce5df;border-radius:16px;padding:18px;margin-bottom:16px}.panel h2{font-size:1.05rem;margin:0 0 12px}
+.form{display:grid;grid-template-columns:1.4fr 1fr auto;gap:9px}.form input,.form textarea,.form select{width:100%;border:1px solid #bdccc3;border-radius:9px;padding:10px;font:inherit}.form textarea{grid-column:1/3;resize:vertical;min-height:72px}.form button,.actions button,.toolbar button{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#2d6a4f;color:#fff}.muted{background:#e8efeb;color:#31513f}.danger{background:#fde7e7;color:#a52b2b}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.toolbar h2{margin:0;font-size:1.1rem}.items{display:grid;gap:10px}.item{border:1px solid #dce5df;border-left:5px solid #74a889;border-radius:12px;padding:13px}.item.done{opacity:.68;border-left-color:#8c9b92}.item.done h3{text-decoration:line-through}.item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.item h3{font-size:1rem;margin:0 0 5px}.meta{font-size:.8rem;color:#6b7c72}.detail{white-space:pre-wrap;margin:9px 0 0;line-height:1.55}.actions{display:flex;gap:6px;margin-top:10px}.actions button{padding:7px 10px}.empty{text-align:center;color:#7c8c83;padding:34px 10px}
+@media(max-width:700px){.summary{grid-template-columns:1fr 1fr 1fr}.form{grid-template-columns:1fr}.form textarea{grid-column:auto}.form button{width:100%}.item-head{display:block}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>🎯 나만의 버킷리스트</h1><a href="index.html">← 메인으로</a></div></header>
+<main>
+<div class="notice">이 목록은 현재 브라우저에만 저장됩니다. 다른 기기와 자동 동기화되지 않으므로 중요한 목록은 아래의 <strong>백업 내보내기</strong>로 보관하세요.</div>
+<div class="summary"><div>전체<strong id="allCount">0</strong></div><div>진행 중<strong id="openCount">0</strong></div><div>완료<strong id="doneCount">0</strong></div></div>
+<div class="tabs" id="tabs"></div>
+<section class="panel">
+<h2 id="formTitle">새 목표 추가</h2>
+<form id="bucketForm" class="form">
+<input id="title" maxlength="120" required placeholder="하고 싶은 일 또는 목표">
+<input id="targetDate" type="date" aria-label="목표일">
+<textarea id="detail" maxlength="1000" placeholder="준비사항, 장소, 비용, 진행 메모"></textarea>
+<button class="primary" type="submit">저장</button>
+</form>
+</section>
+<section class="panel">
+<div class="toolbar"><h2 id="listTitle">일별 목표</h2><div><button class="muted" id="exportBtn" type="button">백업 내보내기</button> <button class="muted" id="importBtn" type="button">백업 불러오기</button><input hidden id="importFile" type="file" accept="application/json"></div></div>
+<div class="items" id="items"></div>
+</section>
+</main>
+<script>
+const periods=["일별","월별","분기별","반기별","연도별","2년별","3년별","5년별","10년별","중장기별"];
+const storeKey="boasis-bucket-list-v1";let current=periods[0],editing=null;
+const load=()=>{try{return JSON.parse(localStorage.getItem(storeKey)||"[]")}catch{return[]}};
+const save=v=>localStorage.setItem(storeKey,JSON.stringify(v));
+const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function drawTabs(){tabs.innerHTML=periods.map(p=>`<button class="tab ${p===current?"active":""}" data-p="${p}">${p}</button>`).join("");tabs.querySelectorAll("button").forEach(b=>b.onclick=()=>{current=b.dataset.p;editing=null;bucketForm.reset();draw()})}
+function draw(){drawTabs();const data=load(),filtered=data.filter(x=>x.period===current);allCount.textContent=data.length;doneCount.textContent=data.filter(x=>x.done).length;openCount.textContent=data.filter(x=>!x.done).length;listTitle.textContent=current+" 목표";items.innerHTML=filtered.length?filtered.sort((a,b)=>(a.done-b.done)||(a.created-b.created)).map(x=>`<article class="item ${x.done?"done":""}"><div class="item-head"><div><h3>${esc(x.title)}</h3><div class="meta">${x.targetDate?"목표일 "+esc(x.targetDate):"목표일 미정"} · ${x.done?"완료":"진행 중"}</div></div></div>${x.detail?`<p class="detail">${esc(x.detail)}</p>`:""}<div class="actions"><button class="muted" data-act="toggle" data-id="${x.id}">${x.done?"다시 진행":"완료"}</button><button class="muted" data-act="edit" data-id="${x.id}">수정</button><button class="danger" data-act="delete" data-id="${x.id}">삭제</button></div></article>`).join(""):'<div class="empty">이 기간에 등록된 목표가 없습니다.</div>';items.querySelectorAll("button").forEach(b=>b.onclick=()=>act(b.dataset.act,b.dataset.id))}
+function act(action,id){let data=load(),x=data.find(v=>v.id===id);if(!x)return;if(action==="toggle")x.done=!x.done;if(action==="delete"&&confirm("이 항목을 삭제할까요?"))data=data.filter(v=>v.id!==id);else if(action==="delete")return;if(action==="edit"){current=x.period;editing=id;title.value=x.title;targetDate.value=x.targetDate||"";detail.value=x.detail||"";formTitle.textContent="목표 수정";title.focus();drawTabs();return}save(data);draw()}
+bucketForm.onsubmit=e=>{e.preventDefault();let data=load();if(editing){const x=data.find(v=>v.id===editing);Object.assign(x,{title:title.value.trim(),targetDate:targetDate.value,detail:detail.value.trim(),period:current});editing=null;formTitle.textContent="새 목표 추가"}else data.push({id:crypto.randomUUID?crypto.randomUUID():Date.now().toString(36),period:current,title:title.value.trim(),targetDate:targetDate.value,detail:detail.value.trim(),done:false,created:Date.now()});save(data);bucketForm.reset();draw()};
+exportBtn.onclick=()=>{const blob=new Blob([JSON.stringify(load(),null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="나만의_버킷리스트_백업.json";a.click();URL.revokeObjectURL(a.href)};
+importBtn.onclick=()=>importFile.click();importFile.onchange=async()=>{try{const v=JSON.parse(await importFile.files[0].text());if(!Array.isArray(v))throw 0;if(confirm("현재 목록을 백업 파일로 교체할까요?")){save(v);draw()}}catch{alert("올바른 버킷리스트 백업 파일이 아닙니다.")}importFile.value=""};draw();
+</script>
+</body>
+</html>
