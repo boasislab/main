@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 390" role="img" aria-labelledby="t d"><title id="t">곤충의 완전변태</title><desc id="d">알에서 유충, 번데기, 성충으로 변화하는 완전변태의 네 단계</desc><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#53685c"/></marker></defs>
+<rect width="950" height="390" rx="22" fill="#f2f7fb"/><text x="475" y="42" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#244c68">완전변태 · 네 단계가 뚜렷합니다</text>
+<g fill="none" stroke="#53685c" stroke-width="4" marker-end="url(#a)"><path d="M205 185H300"/><path d="M415 185H510"/><path d="M625 185H720"/></g>
+<g font-family="sans-serif" text-anchor="middle" fill="#24352b"><ellipse cx="135" cy="185" rx="52" ry="38" fill="#fff" stroke="#7f8d84" stroke-width="4"/><text x="135" y="192" font-size="22" font-weight="700">알</text>
+<path d="M326 210Q350 110 389 210Q355 242 326 210Z" fill="#9ccc78" stroke="#527d3e" stroke-width="4"/><circle cx="350" cy="174" r="4" fill="#30452f"/><text x="355" y="275" font-size="21" font-weight="700">유충</text><text x="355" y="300" font-size="15">먹고 자라는 단계</text>
+<path d="M555 110Q632 185 555 258Q500 185 555 110Z" fill="#c69a6b" stroke="#765536" stroke-width="4"/><text x="565" y="190" font-size="20" font-weight="700">번데기</text><text x="565" y="300" font-size="15">몸이 재구성되는 단계</text>
+<path d="M790 183Q720 106 690 155Q736 185 790 183Q860 106 890 155Q844 185 790 183M790 183V250" fill="#e59075" stroke="#914b37" stroke-width="5"/><text x="790" y="300" font-size="21" font-weight="700">성충</text>
+<text x="475" y="355" font-size="16" font-weight="700">대표: 나비·나방, 딱정벌레, 파리·모기, 벌·개미</text></g></svg>

@@ -177,6 +177,10 @@
             display: block;
             margin: 10px 0;
         }
+        .diagram-container{display:none}
+        .topic-visual{margin:24px 0;padding:12px;background:#fff;border:1px solid #d8e4dc;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+        .topic-visual img{display:block;width:100%;height:auto}
+        .topic-visual figcaption{margin-top:8px;text-align:center;color:#52655a;font-size:.9em}
     </style>
 
 <style id="cell-readability-fix-20260708">
@@ -298,7 +302,7 @@ figure{break-inside:avoid;}
 <li><strong>신체 분절:</strong> 많은 환절(체절)로 이루어져 있으며, 머리·가슴·배 세 부분으로 구분</li>
 <li><strong>촉각:</strong> 머리에 한 쌍의 촉각(antenna) 보유</li>
 <li><strong>눈:</strong> 머리에 한 쌍의 곁눈(compound eye) 보유</li>
-<li><strong>날개:</strong> 가슴에 두 쌍의 날개(4개) 보유 (비행 능력의 획득은 진화의 중요한 사건)</li>
+<li><strong>날개:</strong> 많은 성충은 가슴에 두 쌍의 날개를 가지지만, 파리목은 한 쌍이고 벼룩·이 등 날개가 없는 곤충도 있음</li>
 <li><strong>다리:</strong> 가슴에 세 쌍의 다리(6개 다리) 보유 - 곤충의 특징적 기관</li>
 <li><strong>외골격:</strong> 외골격(exoskeleton)으로 이루어져 있어 몸을 보호하고 지지</li>
 <li><strong>배부의 절 수:</strong> 복부(배)는 대개 11개의 절(segment)로 구성</li>
@@ -316,6 +320,7 @@ figure{break-inside:avoid;}
 <div class="section">
 <p><span class="highlight">곤충의 몸은 크게 세 부분으로 나뉘며, 각 부분이 특화된 기능을 수행합니다:</span></p>
 <h4>🎨 곤충의 3부 구조 (시각 자료 1)</h4>
+<figure class="topic-visual"><img src="assets/insect-body-parts.svg" alt="곤충의 머리, 가슴, 배와 촉각, 다리, 날개 위치 도해"/><figcaption>머리·가슴·배의 위치와 기능. 다리 3쌍과 날개는 가슴에 붙는다.</figcaption></figure>
 <div class="diagram-container">
 <svg viewbox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
 <text fill="#2c5aa0" font-size="20" font-weight="bold" text-anchor="middle" x="400" y="25">곤충의 3부 구조</text>
@@ -388,6 +393,7 @@ figure{break-inside:avoid;}
 <div class="section">
 <p>곤충은 먹이의 종류에 따라 입의 형태가 매우 다양하게 특화되어 있습니다. 이는 <strong class="highlight-red">곤충의 주요 적응 특성</strong>입니다:</p>
 <h4>🎨 곤충의 입(Mouthparts) 종류 (시각 자료 3)</h4>
+<figure class="topic-visual"><img src="assets/insect-mouthparts.svg" alt="씹는 입, 관으로 빨아먹는 입, 찌르고 빨아먹는 입, 씹고 핥는 입, 스펀지형 입 비교"/><figcaption>먹이의 상태와 섭취 방법에 따라 달라진 곤충의 입 구조.</figcaption></figure>
 <div class="diagram-container">
 <svg viewbox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
 <text fill="#2c5aa0" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">입의 형태와 먹이 습성</text>
@@ -485,10 +491,11 @@ figure{break-inside:avoid;}
 <h3>2. 곤충의 탈바꿈(Metamorphosis) - 매우 중요!</h3>
 <div class="section">
 <div class="important-box">
-<strong>탈바꿈은 곤충 생활사의 가장 특징적인 현상</strong>으로, 알→유충→번데기→성충으로 변화하는 과정입니다.
+<strong>완전탈바꿈은 곤충 생활사의 대표적인 변화 과정</strong>으로, 알→유충→번데기→성충의 네 단계를 거칩니다. 불완전탈바꿈에는 번데기 단계가 없습니다.
 <br/><span class="exam-key">🎯 필수 암기 포인트: 완전탈바꿈 vs 불완전탈바꿈의 구분</span>
 </div>
-<h4>🎨 곤충의 탈바꿈 (생활사) 비교도 (시각 자료 2)</h4>
+<h4>🎨 완전변태 생활사 (시각 자료 2)</h4>
+<figure class="topic-visual"><img src="assets/insect-complete-metamorphosis.svg" alt="알, 유충, 번데기, 성충으로 이어지는 곤충의 완전변태 과정"/><figcaption>완전변태의 핵심은 유충과 성충 사이에 번데기 단계가 있다는 점이다.</figcaption></figure>
 <div class="diagram-container">
 <svg viewbox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
 <text fill="#d32f2f" font-size="16" font-weight="bold" x="250" y="30">완전탈바꿈 (Holometabolism)</text>
@@ -534,7 +541,7 @@ figure{break-inside:avoid;}
 <li>성충은 주로 번식에 집중</li>
 </ul>
 </li>
-<li><strong>해당 곤충:</strong> 나비, 나방(나비목), 딱정벌레(딱정벌레목), 파리(파리목), 벌, 개미(벌목), 잠자리(잠자리목) 등 대부분의 곤충</li>
+<li><strong>해당 곤충:</strong> 나비·나방(나비목), 딱정벌레(딱정벌레목), 파리·모기(파리목), 벌·개미(벌목) 등</li>
 <li><strong>시간:</strong> 종에 따라 수일에서 수 년까지 변이</li>
 </ul>
 </div>
@@ -550,7 +557,7 @@ figure{break-inside:avoid;}
 <li>약충과 성충 모두 유사한 먹이를 섭취</li>
 </ul>
 </li>
-<li><strong>해당 곤충:</strong> 메뚜기(사마목), 귀뚜라미, 잠자리(일부), 매미(반시류), 진딧물, 바퀴벌레 등</li>
+<li><strong>해당 곤충:</strong> 메뚜기·귀뚜라미(메뚜기목), 잠자리(잠자리목), 매미·진딧물·노린재(노린재목), 바퀴벌레 등</li>
 <li><strong>탈피:</strong> 보통 5~7회의 탈피를 거침</li>
 </ul>
 </div>
@@ -558,7 +565,7 @@ figure{break-inside:avoid;}
 <div class="subsection">
 <ul>
 <li><strong>특징:</strong> 알에서 나온 후 형태 변화가 거의 없음</li>
-<li><strong>해당 곤충:</strong> 톡톡이(collembola) 등 원시적 곤충들</li>
+<li><strong>해당 곤충:</strong> 좀·돌좀 등 무시류 곤충. 톡토기는 현재 곤충강과 별도의 내구강으로 분류함</li>
 <li><strong>비중:</strong> 현대 곤충에서는 매우 드문 형태</li>
 </ul>
 </div>
@@ -597,9 +604,9 @@ figure{break-inside:avoid;}
 </li>
 <li><strong>종자 퍼트리기(Seed dispersal):</strong>
 <ul>
-<li>많은 곤충이 식물의 열매나 종자를 먹음</li>
-<li>곤충의 배설물을 통해 종자가 멀리 퍼져감</li>
-<li>일부 종자는 곤충에 붙어서 산포됨</li>
+<li>대표적으로 개미가 지방질 부착체가 달린 종자를 둥지로 운반함</li>
+<li>개미가 부착체를 먹은 뒤 종자를 버리면서 발아 가능한 장소로 퍼뜨림</li>
+<li>이를 개미에 의한 종자 산포(개미산포, myrmecochory)라고 함</li>
 </ul>
 </li>
 </ul>
@@ -614,6 +621,7 @@ figure{break-inside:avoid;}
 </ul>
 </div>
 <h4>🎨 곤충과 식물의 공진화 관계도 (시각 자료 5)</h4>
+<figure class="topic-visual"><img src="assets/insect-coevolution.svg" alt="꽃의 색과 향, 곤충의 입과 감각이 서로 영향을 주며 변화하는 공진화 관계도"/><figcaption>식물과 곤충이 서로 선택압을 주고받으며 적응한 공진화의 대표 사례.</figcaption></figure>
 <div class="diagram-container">
 <svg viewbox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
 <text fill="#2c5aa0" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">식물과 곤충의 상호진화(Co-evolution)</text>
@@ -650,6 +658,7 @@ figure{break-inside:avoid;}
 <br/><span class="exam-key">🎯 시험 필출: 위장, 경고색, 모방의 구분</span>
 </div>
 <h4>🎨 곤충의 생존 전략 (방어 메커니즘) (시각 자료 4)</h4>
+<figure class="topic-visual"><img src="assets/insect-defense-strategies.svg" alt="위장, 죽은 체, 경고색, 모방, 화학 방어, 적극 방어 비교 도해"/><figcaption>포식자를 피하는 여섯 전략을 원리 중심으로 구분.</figcaption></figure>
 <div class="diagram-container">
 <svg viewbox="0 0 1000 450" xmlns="http://www.w3.org/2000/svg">
 <text fill="#d32f2f" font-size="16" font-weight="bold" text-anchor="middle" x="500" y="30">포식자로부터의 6가지 방어 전략</text>
