@@ -6,6 +6,7 @@
 <title>숲해설프로그램개발</title>
 <style>
 :root{--bg:#f6f8fb;--ink:#22303f;--muted:#5d6b7a;--blue:#234f7c;--green:#2f6f4e;--red:#b42318;--yellow:#d89000;--line:#d8e0e8;--soft:#eef5fb;--card:#fff}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:980px;margin:0 auto;padding:24px;background:var(--bg);color:var(--ink);line-height:1.72;letter-spacing:0}header,section{background:var(--card);border-radius:8px;box-shadow:0 2px 8px rgba(20,40,70,.06);padding:20px;margin:16px 0}h1{margin:0 0 8px;color:#183a5a;font-size:2rem;line-height:1.25}h2{color:var(--blue);border-bottom:2px solid var(--line);padding-bottom:8px;margin-top:0}h3{color:#1e5b8f;background:var(--soft);padding:10px 12px;border-left:4px solid #3679b5;border-radius:4px}.meta{color:var(--muted);margin:.25rem 0}.badge{display:inline-block;padding:4px 9px;border-radius:999px;font-weight:800;font-size:.9rem;background:#eaf7ef;color:#166534}.toc{border:1px solid var(--line);box-shadow:0 1px 4px rgba(20,40,70,.05)}.toc ol{margin:0;padding-left:1.25rem}.toc li{margin:4px 0}.toc a{color:#174ea6;text-decoration:none;font-weight:700}.toc a:hover{text-decoration:underline}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:8px;padding:14px;background:#fbfdff}.card strong{color:#183a5a}.exam{background:#fff8e8;border:1px solid #f1c36d;border-left:5px solid var(--yellow)}.safe{background:#fff1f0;border:1px solid #f1aaa2;border-left:5px solid var(--red)}.practice{background:#f0f9f4;border:1px solid #b9dfc5;border-left:5px solid var(--green)}.hl-blue{background:#eaf2ff;color:#174ea6;font-weight:800;padding:1px 4px;border-radius:3px}.hl-green{background:#eaf7ef;color:#166534;font-weight:800;padding:1px 4px;border-radius:3px}.hl-yellow{background:#fff4db;color:#92400e;font-weight:800;padding:1px 4px;border-radius:3px}.hl-red{background:#ffe8e6;color:#b42318;font-weight:800;padding:1px 4px;border-radius:3px}table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;font-size:15px}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;line-height:1.65;word-break:keep-all;overflow-wrap:break-word}th{background:var(--soft);font-weight:800;color:#183a5a}ul,ol{padding-left:1.25rem}li{margin:.25rem 0}.source-note{color:var(--muted);font-size:.92rem}.back{display:inline-block;margin-top:10px;color:#174ea6;text-decoration:none;font-weight:800}html{scroll-behavior:smooth}h2[id],h3[id]{scroll-margin-top:18px}@media(max-width:720px){body{padding:14px}h1{font-size:1.55rem}.grid{grid-template-columns:1fr}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}th,td{min-width:140px}}
+.lecture-figure{margin:16px 0 22px;padding:10px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;break-inside:avoid}.lecture-figure img{display:block;width:100%;height:auto;border-radius:6px}.lecture-figure figcaption{margin-top:8px;color:var(--muted);font-size:.92rem;text-align:center}.lecture-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 22px}.lecture-gallery .lecture-figure{margin:0}.lecture-figure a{display:block}.lecture-figure a:focus-visible{outline:3px solid #3679b5;outline-offset:3px}@media(max-width:720px){.lecture-gallery{grid-template-columns:1fr}}@media print{.lecture-figure,.lecture-gallery{break-inside:avoid}.lecture-figure a{text-decoration:none}}
 </style>
 </head>
 <body>
@@ -74,6 +75,7 @@
 <li>산림교육전문가는 산림교육전문가 양성기관에서 산림교육 전문과정을 이수한 사람으로, 숲해설가·유아숲지도사·숲길등산지도사 등이 해당한다.</li>
 </ul>
 <h3>2. 산림교육과 산림교육전문가의 법적 정의</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/01-legal-definitions.jpg" target="_blank"><img src="assets/forest/program-development/01-legal-definitions.jpg" alt="산림교육과 산림교육전문가의 법적 정의를 설명하는 강의 슬라이드"></a><figcaption>강의자료 · 산림교육과 산림교육전문가의 법적 정의</figcaption></figure>
 <div class="practice"><strong>산림교육</strong>은 산림의 다양한 기능을 체계적으로 체험·탐방·학습함으로써 산림의 중요성을 이해하고, 산림에 대한 지식을 습득하며, 올바른 가치관을 가지도록 하는 교육이다. <span class="source-note">「산림교육의 활성화에 관한 법률」 제2조제1호</span></div>
 <table>
 <thead><tr><th>구분</th><th>주요 대상과 역할</th></tr></thead>
@@ -123,6 +125,7 @@
 <p>체험은 몸소 겪는 것이고, 경험은 실제로 겪은 데서 얻은 지식이나 기능이다. 숲해설은 단순 체험을 메시지 전달, 이해, 기억, 교류의 과정을 통해 경험으로 확장시키는 활동이다.</p>
 <div class="exam"><strong>체험이 경험이 되는 과정</strong><br>메시지를 전달받음 → 의미를 이해함 → 나중에도 메시지를 기억함 → 받아들인 정보를 말·행동·실천 등 어떤 방식으로든 사용함 → <strong>체험이 경험으로 확장됨</strong></div>
 <h3>8. 여가와 휴양</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/02-leisure-recreation.jpg" target="_blank"><img src="assets/forest/program-development/02-leisure-recreation.jpg" alt="여가에서 휴양, 야외휴양, 산림휴양으로 이어지는 포함관계 강의 슬라이드"></a><figcaption>강의자료 · 여가·휴양·야외휴양·산림휴양의 포함관계</figcaption></figure>
 <div class="practice"><strong>숲해설의 위치:</strong> 숲해설은 산림휴양의 한 분야다. 시간과 활동의 관계는 <strong>시간 → 자유시간(여가) → 자발적 활동 → 긍정적 경험(휴양) → 야외휴양 → 산림휴양</strong>으로 좁혀 이해할 수 있다.</div>
 <table>
 <thead><tr><th>구분</th><th>강의 자료의 정의와 예시</th><th>핵심 구분</th></tr></thead>
@@ -139,6 +142,7 @@
 <section id="history">
 <h2>숲해설의 역사와 국내 제도화</h2>
 <h3>1. 근대 자연해설의 주요 인물</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/03-interpretation-history.jpg" target="_blank"><img src="assets/forest/program-development/03-interpretation-history.jpg" alt="존 뮤어, 이노스 밀스, 프리먼 틸든으로 이어지는 자연해설 역사 강의 슬라이드"></a><figcaption>강의자료 · 근대 자연해설의 흐름과 주요 인물</figcaption></figure>
 <table>
 <thead><tr><th>인물</th><th>시기·활동</th><th>숲해설에 남긴 의미</th></tr></thead>
 <tbody>
@@ -150,6 +154,7 @@
 <div class="exam"><strong>역사 핵심 흐름:</strong> 뮤어의 자연 사랑과 해설 용어 사용 → 밀스의 방문객 안내와 공원 해설 실천 → 틸든의 해설 원리 체계화</div>
 
 <h3>2. 우리나라 숲해설 제도화 연혁</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/04-korea-history.jpg" target="_blank"><img src="assets/forest/program-development/04-korea-history.jpg" alt="우리나라 숲해설과 산림교육 제도화 연혁 강의 슬라이드"></a><figcaption>강의자료 · 우리나라 숲해설 제도화 연혁</figcaption></figure>
 <table>
 <thead><tr><th>연도</th><th>주요 변화</th><th>의미</th></tr></thead>
 <tbody>
@@ -207,6 +212,7 @@
 <section id="plan">
 <h2>계획서 작성 실무</h2>
 <h3>1. 제목, 주제, 목표</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/11-plan-components.jpg" target="_blank"><img src="assets/forest/program-development/11-plan-components.jpg" alt="숲해설 프로그램의 제목, 목적, 목표 작성법 강의 슬라이드"></a><figcaption>강의자료 · 제목·목적·목표 작성법</figcaption></figure>
 <table>
 <thead><tr><th>항목</th><th>작성 기준</th><th>주의점</th></tr></thead>
 <tbody>
@@ -221,6 +227,7 @@
 <h3>2. 거꾸로 쓰는 방법</h3>
 <p>주제와 목적을 먼저 정하려 하면 막힐 수 있다. 현장을 답사하며 해설 소재를 먼저 모으고, 비슷한 것끼리 묶어 소주제를 만든 뒤 이를 통합하는 한 문장으로 주제와 목적을 완성하면 효율적이다.</p>
 <h3>3. 참가자 특성 분석</h3>
+<div class="lecture-gallery"><figure class="lecture-figure"><a href="assets/forest/program-development/13-participant-analysis-1.jpg" target="_blank"><img src="assets/forest/program-development/13-participant-analysis-1.jpg" alt="연령, 배경지식, 관심사, 요구와 기대, 환경을 다루는 참가자 분석 과정"></a><figcaption>참가자 분석 1 · 특성·요구·환경</figcaption></figure><figure class="lecture-figure"><a href="assets/forest/program-development/14-participant-analysis-2.jpg" target="_blank"><img src="assets/forest/program-development/14-participant-analysis-2.jpg" alt="인원수, 그룹 구성, 안전과 접근성, 평가와 피드백을 다루는 참가자 분석 과정"></a><figcaption>참가자 분석 2 · 구성·안전·평가</figcaption></figure></div>
 <ol>
 <li><strong>특성 파악:</strong> 연령에 맞춰 내용과 접근법을 조정하고, 환경 관련 배경지식으로 난이도를 정하며 관심사로 주제·활동을 선택한다.</li>
 <li><strong>요구와 기대:</strong> 참가자가 얻고 싶은 목표를 조사하고 이전 경험·유사 프로그램의 긍정적·부정적 피드백을 분석한다.</li>
@@ -233,6 +240,7 @@
 <h3>4. 평가</h3>
 <p>“참가자가 즐거워했다”는 만족도이지 평가가 아니다. 평가는 설정한 인지·정서·행동 목표가 달성되었는지를 측정해야 한다.</p>
 <h3>5. 프로그램 개발 주제와 숲을 보는 관점</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/16-statutory-topics.jpg" target="_blank"><img src="assets/forest/program-development/16-statutory-topics.jpg" alt="산림교육프로그램 개발을 위한 법정 다섯 가지 주제와 세부 내용"></a><figcaption>강의자료 · 산림교육프로그램 개발을 위한 법정 5개 주제</figcaption></figure>
 <h4>법령에 따른 산림교육프로그램의 5개 주제 영역</h4>
 <table>
 <thead><tr><th>주제 영역</th><th>포함할 수 있는 내용</th></tr></thead>
@@ -257,6 +265,7 @@
 </tbody>
 </table>
 <h4>산림정책과 교육 관점의 변화</h4>
+<figure class="lecture-figure"><a href="assets/forest/program-development/17-policy-transition.jpg" target="_blank"><img src="assets/forest/program-development/17-policy-transition.jpg" alt="산림복구에서 지속가능한 산림경영으로 이어지는 산림정책 변화"></a><figcaption>강의자료 · 시대별 산림정책과 숲을 보는 관점의 변화</figcaption></figure>
 <table>
 <thead><tr><th>시기</th><th>정책·관심의 중심</th><th>교육 관점의 확장</th></tr></thead>
 <tbody>
@@ -271,6 +280,7 @@
 <section id="process">
 <h2>프로그램 개발 프로세스</h2>
 <h3>1. 숲해설 프로그램 개발의 의미와 필요성</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/08-development-need.jpg" target="_blank"><img src="assets/forest/program-development/08-development-need.jpg" alt="숲해설 프로그램 개발의 의미와 필요성을 정리한 강의 슬라이드"></a><figcaption>강의자료 · 프로그램 개발의 의미와 필요성</figcaption></figure>
 <p>숲해설 프로그램 개발은 산림복지업체 또는 산림교육전문가가 제공하는 교육활동을 <strong>기획·설계·홍보·운영·평가해 나가는 전 과정</strong>이다.</p>
 <table>
 <thead><tr><th>왜 필요한가</th><th>체계적 개발이 어려운 이유</th></tr></thead>
@@ -284,6 +294,7 @@
 </table>
 <div class="exam"><strong>왜 계획적이어야 하는가:</strong> 산림교육프로그램의 효과와 산림교육전문가 개인의 효과는 같지 않다. 특정 해설가의 전달능력에만 의존하면 교육 효과가 커도 다른 현장과 지도사에게 확산되기 어렵다. 목표·활동·자료·운영·평가를 문서화해야 품질을 재현하고 개선할 수 있다.</div>
 <h3>2. 6W1H 체크리스트</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/09-6w1h.jpg" target="_blank"><img src="assets/forest/program-development/09-6w1h.jpg" alt="숲해설 프로그램 기획의 6W1H 항목과 질문을 정리한 강의 슬라이드"></a><figcaption>강의자료 · 프로그램 기획의 6W1H</figcaption></figure>
 <table>
 <thead><tr><th>질문</th><th>실행계획에서 고려할 요소</th><th>문제 확인·의사결정 질문</th></tr></thead>
 <tbody>
@@ -297,6 +308,7 @@
 </tbody>
 </table>
 <h3>3. 개발 단계별 실무 과제</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/10-development-stages.jpg" target="_blank"><img src="assets/forest/program-development/10-development-stages.jpg" alt="프로그램 개발 단계별 실무 과제를 정리한 강의 슬라이드"></a><figcaption>강의자료 · 프로그램 개발 단계별 실무 과제</figcaption></figure>
 <table>
 <thead><tr><th>단계</th><th>필수 과제와 산출물</th></tr></thead>
 <tbody>
@@ -306,6 +318,7 @@
 </tbody>
 </table>
 <h3>4. 요구 분석 흐름</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/15-needs-analysis.jpg" target="_blank"><img src="assets/forest/program-development/15-needs-analysis.jpg" alt="정보수집부터 우선순위와 목적 수립까지의 실즈와 글래스고우 요구분석 모형"></a><figcaption>강의자료 · 실즈와 글래스고우의 요구분석 모형</figcaption></figure>
 <ol>
 <li><strong>정보 수집:</strong> 의뢰인·교육대상자·강사 면담, 설문조사, 현장관찰, 기존 자료 분석으로 필요한 정보를 모은다.</li>
 <li><strong>차이 확인:</strong> 바람직한 상태와 현재 상태의 차이를 확인하고 “~을 하지 못한다·하지 않는다·어려워한다”처럼 수행문제로 기술한다.</li>
@@ -325,6 +338,7 @@
 </tbody>
 </table>
 <h3>6. 숲해설 유형</h3>
+<div class="lecture-gallery"><figure class="lecture-figure"><a href="assets/forest/program-development/05-interpretation-types.jpg" target="_blank"><img src="assets/forest/program-development/05-interpretation-types.jpg" alt="기획해설과 즉흥해설, 안내자식과 자기안내식 해설 유형"></a><figcaption>숲해설 유형과 방법</figcaption></figure><figure class="lecture-figure"><a href="assets/forest/program-development/06-guided-self-guided.jpg" target="_blank"><img src="assets/forest/program-development/06-guided-self-guided.jpg" alt="안내자식 해설과 자기안내식 해설의 장단점"></a><figcaption>안내자식·자기안내식 장단점</figcaption></figure></div>
 <p>숲해설은 준비 정도에 따라 <strong>기획된 해설</strong>과 현장 상황에 대응하는 <strong>즉흥적 해설</strong>로 나뉘며, 전달 주체에 따라 안내자기법과 자기안내기법으로 구분할 수 있다.</p>
 <table>
 <thead><tr><th>유형</th><th>장점</th><th>단점</th><th>기법</th></tr></thead>
@@ -376,6 +390,7 @@
 </table>
 <div class="safe"><strong>핵심:</strong> 답사는 한 번으로 끝내지 않는다. 계절·날씨·시간대에 따라 관찰 대상과 위험요소가 달라지므로 운영 조건과 비슷한 때 다시 확인한다.</div>
 <h3>동선을 따라 해설 주제 만드는 5단계</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/12-route-topic.jpg" target="_blank"><img src="assets/forest/program-development/12-route-topic.jpg" alt="현장 동선 조사에서 해설 주제 선정까지의 다섯 단계 강의 슬라이드"></a><figcaption>강의자료 · 동선에 따른 해설 주제 만들기</figcaption></figure>
 <ol>
 <li><strong>동선 파악:</strong> 출발점부터 종료 지점까지 실제 이동 경로를 먼저 걷고 기록한다.</li>
 <li><strong>해설 장소 선정:</strong> 안전하게 머물 수 있고 관찰 대상이 분명한 지점을 고른다.</li>
@@ -483,6 +498,7 @@
 </tbody>
 </table>
 <h3>2. 좋은 프로그램의 조건</h3>
+<figure class="lecture-figure"><a href="assets/forest/program-development/07-naaee-features.jpg" target="_blank"><img src="assets/forest/program-development/07-naaee-features.jpg" alt="질 높은 산림교육프로그램의 여섯 가지 특징을 정리한 강의 슬라이드"></a><figcaption>강의자료 · 질 높은 산림교육프로그램의 6가지 특징</figcaption></figure>
 <div class="practice"><strong>질 높은 산림교육프로그램의 6가지 특징</strong> <span class="source-note">NAAEE, 2002</span></div>
 <ol>
 <li>교육기관의 미션·목적·목표를 고려한다.</li>
