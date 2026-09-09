@@ -149,11 +149,25 @@
   .region-header:first-child { margin-top: 0; }
 
   /* ── 태그 칩 필터 ── */
-  .tag-filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag-filter-shell { display: flex; flex-direction: column; gap: 9px; }
+  .tag-filter-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tag-filter-row { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding: 2px 2px 5px; scrollbar-width: thin; }
+  .tag-filter-row::-webkit-scrollbar { height: 4px; }
+  .tag-filter-row::-webkit-scrollbar-thumb { background: #dfc8ba; border-radius: 10px; }
   .tag-chip { padding: 5px 13px; border: 1.5px solid #e8ddd5; border-radius: 20px; background: #fff; font-size: 0.78em; font-weight: 600; color: #888; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .tag-chip:hover { border-color: #c0552a; color: #c0552a; }
   .tag-chip.active { background: #c0552a; border-color: #c0552a; color: #fff; }
   .tag-filter-label { font-size: 0.75em; color: #ccc; white-space: nowrap; }
+  .tag-more-btn, .tag-clear-btn { border: 1.5px solid #e8ddd5; background: #fffaf7; color: #9a6249; border-radius: 18px; padding: 6px 11px; font-size: 0.76em; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .tag-more-btn:hover, .tag-clear-btn:hover { border-color: #c0552a; color: #c0552a; }
+  .tag-all-panel { display: none; padding: 11px; border-radius: 12px; background: #fffaf7; border: 1px solid #f1e2d8; }
+  .tag-all-panel.open { display: block; }
+  .tag-all-tools { display: flex; gap: 8px; margin-bottom: 9px; }
+  .tag-search { flex: 1; min-width: 0; border: 1.5px solid #eadbd1; border-radius: 10px; padding: 8px 10px; font-size: 0.8em; outline: none; }
+  .tag-search:focus { border-color: #c0552a; }
+  .tag-all-grid { display: flex; flex-wrap: wrap; gap: 6px; max-height: 190px; overflow-y: auto; }
+  .selected-filter { display: none; align-items: center; justify-content: space-between; gap: 8px; background: #fef0e7; border-radius: 10px; padding: 7px 10px; color: #a34f2d; font-size: 0.8em; font-weight: 700; }
+  .selected-filter.show { display: flex; }
 
   /* ── 정렬 / 방문완료 ── */
   .sort-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -177,6 +191,9 @@
   @media (max-width: 480px) {
     .region-selects { flex-direction: column; }
     .cards-grid { grid-template-columns: 1fr; }
+    .tag-filter-head { align-items: flex-start; }
+    .tag-filter-label { padding-top: 7px; }
+    .tag-more-btn { flex: 0 0 auto; }
   }
 </style>
 </head>
@@ -226,8 +243,22 @@
       </div>
     </div>
     <!-- 태그 칩 필터 -->
-    <div class="tag-filter-row" id="tag-chips">
-      <span class="tag-filter-label">태그▸</span>
+    <div class="tag-filter-shell">
+      <div class="tag-filter-head">
+        <span class="tag-filter-label">빠른 태그</span>
+        <div class="tag-filter-row" id="quick-tag-chips"></div>
+        <button type="button" class="tag-more-btn" id="tag-more-btn" onclick="toggleAllTags()">더보기 ▾</button>
+      </div>
+      <div class="selected-filter" id="selected-filter">
+        <span id="selected-filter-text"></span>
+        <button type="button" class="tag-clear-btn" onclick="clearTags()">× 필터 해제</button>
+      </div>
+      <div class="tag-all-panel" id="tag-all-panel">
+        <div class="tag-all-tools">
+          <input class="tag-search" id="tag-search" type="search" placeholder="태그 검색" oninput="filterAllTags()">
+        </div>
+        <div class="tag-all-grid" id="all-tag-chips"></div>
+      </div>
     </div>
     <!-- 정렬 + 방문완료 + 결과수 -->
     <div class="sort-row">
@@ -833,24 +864,64 @@ function initSelectors() {
 
 // ── 태그 칩 필터 ───────────────────────────────────────
 let selectedTags = new Set();
+let tagFrequency = {};
+const QUICK_TAGS = ['숲해설', '가보고 싶은 곳', '도시숲', '한식', '맛집'];
 function initTagChips() {
   // 모든 장소의 태그를 빈도순으로 정렬
-  const freq = {};
-  PLACES.forEach(p => (p.tags||[]).forEach(t => { freq[t] = (freq[t]||0) + 1; }));
-  const sorted = Object.entries(freq).sort((a,b) => b[1]-a[1]).map(e => e[0]);
-  const area = document.getElementById('tag-chips');
-  sorted.forEach(tag => {
-    const btn = document.createElement('button');
-    btn.className = 'tag-chip';
-    btn.textContent = tag;
-    btn.onclick = () => toggleTag(tag, btn);
-    area.appendChild(btn);
-  });
+  tagFrequency = {};
+  PLACES.forEach(p => (p.tags||[]).forEach(t => { tagFrequency[t] = (tagFrequency[t]||0) + 1; }));
+  const sorted = Object.entries(tagFrequency).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0], 'ko')).map(e => e[0]);
+  const availableQuick = QUICK_TAGS.filter(tag => tagFrequency[tag]).slice(0, 5);
+  const quickArea = document.getElementById('quick-tag-chips');
+  const allArea = document.getElementById('all-tag-chips');
+  quickArea.innerHTML = '';
+  allArea.innerHTML = '';
+  availableQuick.forEach(tag => quickArea.appendChild(makeTagButton(tag)));
+  sorted.forEach(tag => allArea.appendChild(makeTagButton(tag)));
 }
-function toggleTag(tag, btn) {
-  if (selectedTags.has(tag)) { selectedTags.delete(tag); btn.classList.remove('active'); }
-  else                        { selectedTags.add(tag);    btn.classList.add('active'); }
+function makeTagButton(tag) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tag-chip';
+    btn.dataset.tag = tag;
+    btn.textContent = tag + ' ' + tagFrequency[tag];
+    btn.onclick = () => toggleTag(tag);
+    return btn;
+}
+function syncTagButtons() {
+  document.querySelectorAll('.tag-chip[data-tag]').forEach(btn => {
+    btn.classList.toggle('active', selectedTags.has(btn.dataset.tag));
+  });
+  const selected = [...selectedTags];
+  const box = document.getElementById('selected-filter');
+  box.classList.toggle('show', selected.length > 0);
+  document.getElementById('selected-filter-text').textContent = selected.length ? '선택: ' + selected.join(' + ') : '';
+}
+function toggleTag(tag) {
+  if (selectedTags.has(tag)) selectedTags.delete(tag);
+  else selectedTags.add(tag);
+  syncTagButtons();
+  document.getElementById('tag-all-panel').classList.remove('open');
+  document.getElementById('tag-more-btn').textContent = '더보기 ▾';
   render();
+  requestAnimationFrame(() => document.getElementById('cards-area').scrollIntoView({behavior:'smooth', block:'start'}));
+}
+function clearTags() {
+  selectedTags.clear();
+  syncTagButtons();
+  render();
+}
+function toggleAllTags() {
+  const panel = document.getElementById('tag-all-panel');
+  const isOpen = panel.classList.toggle('open');
+  document.getElementById('tag-more-btn').textContent = isOpen ? '접기 ▴' : '더보기 ▾';
+  if (isOpen) document.getElementById('tag-search').focus();
+}
+function filterAllTags() {
+  const q = document.getElementById('tag-search').value.trim().toLowerCase();
+  document.querySelectorAll('#all-tag-chips .tag-chip').forEach(btn => {
+    btn.style.display = !q || btn.dataset.tag.toLowerCase().includes(q) ? '' : 'none';
+  });
 }
 function onProvinceChange() {
   const pv = document.getElementById('sel-province').value;
