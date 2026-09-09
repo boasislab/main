@@ -15,6 +15,7 @@
 .record{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 22px rgba(34,70,43,.07);margin-bottom:12px}.record.demo{border-top:5px solid var(--demo)}.record.survey{border-top:5px solid var(--survey)}.record.exam{border-top:5px solid var(--exam)}
 .record-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.record h3{margin:0 0 4px;font-size:1.1rem}.date{font-size:.8rem;color:var(--muted);white-space:nowrap}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chip{padding:4px 9px;border-radius:999px;background:#eef5eb;color:#28583d;font-size:.76rem;font-weight:800}.record dl{display:grid;grid-template-columns:110px 1fr;gap:5px 12px;margin:12px 0}.record dt{font-weight:900;color:#455c49}.record dd{margin:0;color:#4f5c52}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btn{display:inline-flex;align-items:center;padding:8px 12px;border-radius:9px;text-decoration:none;font-weight:800;font-size:.84rem;background:var(--green);color:#fff}.btn.sub{background:#edf5ed;color:var(--green);border:1px solid #bcd3bd}
 .empty{background:#fafbf9;border:1px dashed #bdcbbb;border-radius:14px;padding:25px;text-align:center;color:#788278}.empty strong{display:block;color:#4d5e50;margin-bottom:4px}.guide{margin-top:28px;padding:18px;border-radius:16px;background:#203f2e;color:#f4faf4}.guide h2{margin:0 0 8px;font-size:1.15rem}.guide p{margin:4px 0;color:#d7e7da}.fields{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.fields span{border:1px solid #63806c;border-radius:999px;padding:4px 9px;font-size:.78rem}
+.members{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 22px;box-shadow:0 5px 22px rgba(34,70,43,.07)}.members h2{margin:0 0 10px;font-size:1.12rem}.member-list{display:flex;gap:8px;flex-wrap:wrap}.member{padding:7px 11px;border-radius:999px;background:#eef5eb;color:#28583d;font-weight:800;font-size:.86rem}.member.me{background:#286246;color:#fff}.members p{margin:12px 0 0;color:var(--muted);font-size:.86rem}
 footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
 @media(max-width:680px){.summary{grid-template-columns:repeat(2,1fr)}.record{padding:15px}.record-top{display:block}.date{display:block;margin-top:4px}.record dl{grid-template-columns:1fr;gap:0}.record dd{margin-bottom:7px}}
 </style>
@@ -32,7 +33,13 @@ footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
     <div><b>3</b><span>활동 분야</span></div>
     <div><b>1</b><span>등록 기록</span></div>
     <div><b>20종</b><span>식생조사 선정분</span></div>
-    <div><b>6조</b><span>떡갈나무팀</span></div>
+    <div><b>6명</b><span>함께 쓰는 조원</span></div>
+  </section>
+
+  <section class="members" aria-labelledby="member-title">
+    <h2 id="member-title">함께하는 떡갈나무팀 조원</h2>
+    <div class="member-list"><span class="member">문공주</span><span class="member">정명자</span><span class="member">김혜란</span><span class="member">장향옥</span><span class="member">김연정</span><span class="member me">윤여준</span></div>
+    <p>6명의 시연·식생조사·모의고사 활동을 한곳에 모아 공동 기록합니다.</p>
   </section>
 
   <nav class="tabs" aria-label="활동 종류 바로가기">
@@ -70,5 +77,10 @@ footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
   </section>
   <footer>6조 떡갈나무팀 · 숲해설가 18기 활동 아카이브</footer>
 </div>
+<script>
+if (sessionStorage.getItem('forest_team_access') !== 'granted') {
+  location.replace('forest.html');
+}
+</script>
 </body>
 </html>

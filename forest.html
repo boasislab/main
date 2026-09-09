@@ -901,8 +901,10 @@
     const err = document.getElementById('err-msg');
     if (val === OWNER_KEY) {
       localStorage.setItem(OWNER_AUTH_KEY, OWNER_KEY);
+      sessionStorage.setItem('forest_team_access', 'granted');
       showMain({ examConstruction: false, showPrintPack: true, showOwnerOnly: true, showCourse3: true }); err.textContent = '';
     } else if (PASSWORDS.includes(val)) {
+      sessionStorage.setItem('forest_team_access', 'granted');
       showMain({ examConstruction: false, showPrintPack: false, showCourse3: true }); err.textContent = '';
     } else {
       inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
@@ -912,6 +914,7 @@
   }
   function logout() {
     sessionStorage.removeItem('auth');
+    sessionStorage.removeItem('forest_team_access');
     localStorage.removeItem('owner_auth');
     localStorage.removeItem(OWNER_AUTH_KEY);
     setExamConstructionMode(false);
