@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>양서파충류 이야기</title>
+<title>양서파충류 강의 정리</title>
 <style>
   :root {
     --blue1: #0d47a1;
@@ -168,6 +168,19 @@
   }
   .card strong { color: var(--blue1); display: block; margin-bottom: .3rem; }
   .summary-section { background: linear-gradient(135deg, #e3f2fd 0%, #f3f7ff 100%); }
+  .lecture-figure { margin: 1rem 0 1.35rem; background:#f8fbff; border:1px solid #cfe1f7; border-radius:12px; overflow:hidden; }
+  .lecture-figure img { display:block; width:100%; height:auto; }
+  .lecture-figure figcaption { padding:.7rem 1rem; color:#41576b; font-size:.86rem; }
+  .chapter-nav { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.8rem; margin:1rem 0; }
+  .chapter-nav a { display:block; padding:1rem; border-radius:10px; background:#eef6ff; border:1px solid #bdd7f2; color:#123b68; text-decoration:none; font-weight:800; }
+  .danger-section { border:2px solid #d94b4b; background:linear-gradient(135deg,#fff7f7,#fff); }
+  .danger-section h2 { color:#9f1d1d; border-bottom-color:#f2b9b9; }
+  .species-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:.7rem; margin:.9rem 0; }
+  .species-card { padding:.9rem; border-radius:10px; border:1px solid #efb4b4; background:#fff8f8; }
+  .species-card strong { display:block; color:#a32020; margin-bottom:.25rem; }
+  .source-action { display:flex; gap:.55rem; flex-wrap:wrap; margin:.9rem 0; }
+  .source-action a { padding:.65rem .9rem; border-radius:8px; text-decoration:none; font-weight:800; background:#0d47a1; color:#fff; }
+  @media (max-width:640px) { section{margin:1rem .7rem;padding:1.15rem;} .toc{margin:1rem .7rem 0;} table{display:block;overflow-x:auto;} }
   footer { text-align: center; font-size: .8rem; color: #888; padding: 1.5rem; margin-top: 1rem; }
 </style>
 
@@ -184,12 +197,12 @@
 
 
 <header>
-<h1>양서파충류 이야기 강의 정리</h1>
+<h1>양서파충류 강의 정리</h1>
 <div class="lecture-info-standard" style="margin:14px auto 18px;max-width:860px;padding:14px 16px;border:1px solid #d9e4dc;border-radius:12px;background:#f8fbf9;color:#24352b;text-align:left;line-height:1.65;">
-<p style="margin:0 0 5px;"><strong>제목</strong> · 양서파충류 이야기 강의 정리</p>
+<p style="margin:0 0 5px;"><strong>제목</strong> · 양서파충류 강의 정리</p>
 <p style="margin:0 0 5px;"><strong>강의일</strong> · 2026-04-16</p>
-<p style="margin:0 0 5px;"><strong>강의교수 및 담당자</strong> · 자료에서 확인되지 않음</p>
-<p style="margin:0;"><strong>강의내용 특징</strong> · 양서·파충류의 생명사·분류·생태와 현장 식별 특징을 정리</p>
+<p style="margin:0 0 5px;"><strong>강의교수 및 담당자</strong> · 백두생태연구소 김현</p>
+<p style="margin:0;"><strong>강의내용 특징</strong> · 진화·형태·분류·생태, 한국 종 식별, 독사 안전, 멸종위기종과 보전을 현장 해설 관점으로 연결</p>
 </div>
   <p>양서류와 파충류의 진화·분류·생태 · 현장 식별 가이드</p>
   <span class="badge">📅 강의: 2026. 04. 16 (백두생태연구소 김현)</span>
@@ -209,9 +222,23 @@
     <li><a href="#s8">도롱뇽목(유미목)의 생태와 특징</a></li>
     <li><a href="#s9">개구리목(무미목) 과별 특성</a></li>
     <li><a href="#s10">오개념 바로잡기 &amp; 현장 교육 팁</a></li>
+    <li><a href="#s12">한국의 파충류와 현장 식별</a></li>
+    <li><a href="#s13">독사 식별·교상 대응·안전수칙</a></li>
+    <li><a href="#s14">멸종위기종과 생태계 보전</a></li>
     <li><a href="#s11">핵심 암기 카드</a></li>
   </ol>
+  <div class="source-action"><a href="assets/amphibian-reptile-2026/양서파충류_숲해설가_교육교재_20260416.pdf" target="_blank" rel="noopener">원본 교재 PDF 보기</a></div>
 </div>
+
+<section aria-label="교재 구성 바로가기">
+  <h2>한눈에 보는 4개 장</h2>
+  <div class="chapter-nav">
+    <a href="#s1">01 진화·형태·분류·생태</a>
+    <a href="#s6">02 한국의 양서류</a>
+    <a href="#s12">03 한국의 파충류</a>
+    <a href="#s14">04 생태계 파괴와 보전</a>
+  </div>
+</section>
 
 <!-- S1 -->
 <section id="s1">
@@ -226,6 +253,7 @@
     <li><strong>이후</strong>: 완전히 육상에 적응한 <span class="hl-blue">파충류</span> 진화</li>
     <li><strong>5대 대멸종과 여러 번의 빙하기</strong>를 거치면서 현재의 생물다양성 형성</li>
   </ul>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-4.jpg" alt="데본기 육상 진출에서 양서류와 양막류가 갈라지는 진화 타임라인" loading="lazy"><figcaption>교재 도해 · 양서류는 투과성 피부와 젤리 알을 유지했고, 양막류는 방수 피부와 양막란으로 육상 번식의 독립성을 높였다.</figcaption></figure>
 
   <h3>현재는 빙하기? 간빙기?</h3>
   <div class="exam-box">
@@ -246,20 +274,25 @@
   </div>
 
   <h3>두개골 측두창 수에 따른 분류 (시험 출제 항목)</h3>
+  <p>측두창은 눈구멍 뒤쪽 두개골에 난 구멍으로, 턱 근육이 자리할 공간을 제공한다. 개수와 위치는 양막류의 진화 계통을 이해하는 단서다.</p>
   <table>
     <thead>
       <tr><th>분류</th><th>측두창 수</th><th>특징</th><th>포함 동물</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>무측두류(無側頭類)</strong></td><td>0개</td><td>측두창 없음</td><td>조류·포유류</td></tr>
-      <tr><td><strong>단측두류(單側頭類)</strong></td><td>1개</td><td>한쪽에만 구멍</td><td>포유류 조상</td></tr>
-      <tr><td><strong>양측두류(兩側頭類)</strong></td><td>2개</td><td>양쪽에 구멍</td><td>파충류·조류·양서류</td></tr>
+      <tr><td><strong>무궁류(Anapsid)</strong></td><td>0쌍</td><td>눈구멍 외 측두창이 없음</td><td>교재에서는 거북류를 대표 예로 제시</td></tr>
+      <tr><td><strong>단궁류(Synapsid)</strong></td><td>1쌍</td><td>눈구멍 뒤 아래쪽에 측두창 한 쌍</td><td>포유류와 그 조상 계통</td></tr>
+      <tr><td><strong>이궁류(Diapsid)</strong></td><td>2쌍</td><td>눈구멍 뒤 위·아래에 측두창 두 쌍</td><td>현생 파충류·공룡·조류 계통</td></tr>
     </tbody>
   </table>
 
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-7.jpg" alt="무궁류 단궁류 이궁류의 측두창 구조와 계통 비교" loading="lazy"><figcaption>교재 도해 · 무궁류 0쌍, 단궁류 1쌍, 이궁류 2쌍. 측두창은 턱 근육이 붙는 공간을 제공해 저작 활동과 연결된다.</figcaption></figure>
   <div class="exam-box">
-    <strong>핵심</strong>: 현대 분류학에서 "파충류"와 "조류"는 분리된 강(class)이 아님.<br>
-    파충류는 계통학적으로 조류를 포함하는 개념 → 양서류도 양측두류에 속함
+    <strong>계통 관계 핵심</strong><br>
+    • <strong>단궁류</strong>는 포유류로 이어지는 계통이다.<br>
+    • <strong>용궁류(Sauropsida)</strong>는 현생 파충류와 조류를 포함한다.<br>
+    • 조류는 이궁류·용궁류 계통에 포함되므로 파충류와 진화적으로 분리된 상자가 아니다.<br>
+    • <span class="hl-red">양서류는 양막류가 아니며 무궁류·단궁류·이궁류 구분에 넣지 않는다.</span>
   </div>
 
   <h3>양서류 진화의 의미</h3>
@@ -292,6 +325,8 @@
   <div class="compare-box">
     <strong>결정적 차이</strong>: 양서류는 물에 돌아가야 하는 반수생 동물(암필비안), 파충류는 땅의 동물(렙틸)
   </div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-8.jpg" alt="촉촉한 피부와 젤리 알을 가진 양서류의 연결형 설계" loading="lazy"><figcaption>양서류의 연결형 설계 · 투과성 피부, 다중 호흡 경로, 젤리 피막 알, 수분 조건에 민감한 이동.</figcaption></figure>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-10.jpg" alt="각질 피부와 양막란을 가진 파충류의 육상 적응 전략" loading="lazy"><figcaption>파충류의 육상 적응 · 각질화 피부, 양막란, 폐호흡, 체중을 지지하는 사지.</figcaption></figure>
 </section>
 
 <!-- S4 -->
@@ -351,9 +386,8 @@
       <tr><th>과</th><th>주요 종</th><th>특징</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>도롱뇽과(Hynobiidae)</strong></td><td>도롱뇽, 쌍꼬리도롱뇽</td><td>작은 체형, 꼬리 있음</td></tr>
-      <tr><td><strong>산삼룡과(Proteidae)</strong></td><td>산삼룡 (중국산)</td><td>수생, 외부아가미</td></tr>
-      <tr><td><strong>도롱뇽과(Cryptobranchidae)</strong></td><td>무당개구리</td><td>큰 체형, 육상 사육</td></tr>
+      <tr><td><strong>도롱뇽과(Hynobiidae)</strong></td><td>도롱뇽, 고리도롱뇽, 제주도롱뇽, 꼬리치레도롱뇽 등</td><td>성체도 꼬리를 유지하며 습윤한 미세서식지와 밀접</td></tr>
+      <tr><td><strong>미주도롱뇽과(Plethodontidae)</strong></td><td>이끼도롱뇽</td><td>폐 없이 피부로 호흡하며 습한 너덜지대·동굴 등에 서식</td></tr>
     </tbody>
   </table>
 
@@ -366,13 +400,14 @@
       <tr><td><strong>개구리과(Ranidae)</strong></td><td>계곡개구리, 참개구리, 다리무늬개구리</td><td>물서식, 울음 크다</td></tr>
       <tr><td><strong>청개구리과(Hylidae)</strong></td><td>청개구리</td><td>나무 서식, 흡반 있음</td></tr>
       <tr><td><strong>두꺼비과(Bufonidae)</strong></td><td>두꺼비</td><td>땅서식, 유독 피부, 짝짓기 힘</td></tr>
-      <tr><td><strong>황소개구리(Ranidae 일부 또는 Megophryidae)</strong></td><td>황소개구리, 옴개구리</td><td>중국 원산 침입종, 울음 크다</td></tr>
+      <tr><td><strong>무당개구리과·맹꽁이과</strong></td><td>무당개구리, 맹꽁이</td><td>경고색 방어·땅파기와 장마철 번식 등 과별 생태가 뚜렷</td></tr>
     </tbody>
   </table>
 
   <div class="exam-box">
     총 24종 정도이나, 지역과 계절에 따라 서식 현황 변동 중 (기후변화, 서식지 파괴)
   </div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-14.jpg" alt="한국 양서류 현황과 도롱뇽목 개구리목 구성" loading="lazy"><figcaption>교재 기준 · 남한 2목 7과 24종, 한반도 전체 29종으로 제시하며 종 기록은 분류 연구에 따라 달라질 수 있다.</figcaption></figure>
 </section>
 
 <!-- S7 -->
@@ -404,11 +439,18 @@
     <strong>울음소리가 가장 빠른 식별법</strong><br>
     각 종이 고유한 울음으로 짝짓기 신호를 보냄 → 음성 녹음 가이드 앱 활용 추천
   </div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-15.jpg" alt="꼬리 다리 비율 피부 돌기 흡착판을 이용한 양서류 현장 식별 키" loading="lazy"><figcaption>현장 식별 순서 · 꼬리 유무 → 꼬리 길이 → 앞뒤 다리 비율 → 피부 돌기와 흡착판.</figcaption></figure>
 </section>
 
 <!-- S8 -->
 <section id="s8">
   <h2>8. 도롱뇽목(유미목)의 생태와 특징</h2>
+
+  <div class="exam-box">
+    <strong>이끼도롱뇽 집중 관찰</strong><br>
+    이끼도롱뇽은 한국에서 발견된 <strong>아시아 유일의 미주도롱뇽과</strong> 양서류다. 폐가 전혀 없어 <strong>피부로만 호흡</strong>하며, 습한 너덜지대·동굴처럼 미세기후가 안정된 곳에 의존한다. 피부가 마르면 가스 교환이 어려워지므로 현장에서는 잡거나 옮기지 않고 서식처를 훼손하지 않는 관찰이 원칙이다.
+  </div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-16.jpg" alt="도롱뇽과와 미주도롱뇽과 이끼도롱뇽의 생태 특징을 비교한 교재 화면" loading="lazy"><figcaption>이끼도롱뇽 핵심 · 폐 없이 100% 피부호흡을 하며 습한 너덜지대와 동굴성 미세서식지가 중요하다.</figcaption></figure>
 
   <h3>도롱뇽목 주요 특징</h3>
   <ul>
@@ -431,6 +473,50 @@
     도롱뇽: 부드러운 피부, 네 다리, 꼬리 자절 가능<br>
     뱀: 비늘 피부, 다리 없음, 움직임 구부러짐
   </div>
+</section>
+
+<section id="s12">
+  <h2>12. 한국의 파충류와 현장 식별</h2>
+  <div class="exam-box"><strong>교재 기준</strong>: 남한 2목 11과 35종, 북한 포함 38종. 거북목 9종, 도마뱀류 9종, 뱀류 20종으로 제시한다.</div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-20.jpg" alt="한국 파충류의 거북목 도마뱀류 뱀류 종수와 주요 관찰 종" loading="lazy"><figcaption>한국 파충류 구성과 주요 관찰종. 종수는 분류·목록 개정에 따라 달라질 수 있으므로 교재 기준임을 함께 기억한다.</figcaption></figure>
+  <h3>현장 식별 순서</h3>
+  <table><thead><tr><th>분류군</th><th>먼저 볼 특징</th><th>세부 확인</th></tr></thead><tbody>
+    <tr><td>거북목</td><td>등갑·배갑</td><td>등의 돌기, 갑의 단단함, 머리 옆 줄무늬</td></tr>
+    <tr><td>도마뱀류</td><td>비늘의 광택·질감</td><td>기와형/알갱이형 비늘, 줄무늬, 발바닥</td></tr>
+    <tr><td>뱀류</td><td>전체 체형·움직임</td><td>몸 무늬 방향과 색, 머리·눈, 꼬리</td></tr>
+  </tbody></table>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-21.jpg" alt="거북 도마뱀 뱀의 현장 식별 키" loading="lazy"><figcaption>먼 거리에서는 체형과 움직임, 가까운 관찰이 안전하게 가능할 때만 비늘과 무늬를 확인한다.</figcaption></figure>
+  <h3>거북목 3종 비교</h3>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-22.jpg" alt="남생이 자라 붉은귀거북의 실제 사진과 식별 특징" loading="lazy"><figcaption>남생이: 딱딱한 등갑과 3개 능선 · 자라: 부드러운 가죽질 등과 긴 주둥이 · 붉은귀거북: 눈 뒤 붉은 반점.</figcaption></figure>
+  <h3>도마뱀류와 뱀류</h3>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-23.jpg" alt="도마뱀부치과 도마뱀과 장지뱀과의 형태 비교" loading="lazy"><figcaption>도마뱀류는 발바닥, 비늘 광택·배열, 꼬리 자절과 민첩성을 함께 관찰한다. 꼬리를 잡지 않는다.</figcaption></figure>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-24.jpg" alt="구렁이 유혈목이 능구렁이 무자치 누룩뱀 실뱀의 실제 사진과 생태" loading="lazy"><figcaption>뱀류는 쥐·개구리·도마뱀·곤충 등을 조절하는 중간 포식자다. 무늬 하나만으로 성급히 동정하지 않는다.</figcaption></figure>
+</section>
+
+<section id="s13">
+  <h2>13. 독사 식별·교상 대응·현장 안전수칙</h2>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-25.jpg" alt="살모사류의 피트기관 독니와 쇠살모사 살모사 까치살모사 식별 특징" loading="lazy"><figcaption>살모사류는 피트기관과 독니, 몸 무늬 등 여러 특징을 종합해 식별한다. 머리 모양 하나만으로 독사를 단정하지 않는다.</figcaption></figure>
+  <div class="compare-box"><strong>오개념 바로잡기</strong>: 무독성 뱀도 위협받으면 머리를 넓혀 삼각형처럼 보일 수 있고 일부 독사는 머리가 둥글게 보일 수 있다. 비늘·눈·무늬·꼬리·행동·서식환경을 종합한다.</div>
+  <h3>물렸을 때</h3>
+  <table><thead><tr><th>해야 할 일</th><th>하지 말아야 할 일</th></tr></thead><tbody><tr><td>환자를 안정시키고 움직임을 줄인다.<br>즉시 119 신고 후 전문 의료기관으로 이동한다.</td><td>입으로 독 빨기, 칼로 절개하기, 지혈대로 꽉 묶기, 뱀을 잡으려 하기</td></tr></tbody></table>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-26.jpg" alt="독사 교상 시 해야 할 일과 금지 행동" loading="lazy"><figcaption>현장에서는 최소 약 2m 이상 거리를 두고, 긴 바지·장화 등 보호장구를 착용한다.</figcaption></figure>
+</section>
+
+<section id="s14" class="danger-section">
+  <h2>14. 멸종위기종과 생태계 보전</h2>
+  <p><strong>멸종위기 야생생물은 발견 자체보다 서식지 보전이 우선</strong>이다. 포획·채취·훼손하지 않고 거리를 둔 채 관찰하며, 번식지·이동로·미세서식지의 연결성을 지킨다.</p>
+  <div class="species-grid">
+    <div class="species-card"><strong>멸종위기 야생생물 I급</strong>수원청개구리 · 비바리뱀</div>
+    <div class="species-card"><strong>멸종위기 야생생물 II급</strong>금개구리 · 고리도롱뇽 · 맹꽁이</div>
+    <div class="species-card"><strong>멸종위기 야생생물 II급</strong>남생이 · 구렁이 · 표범장지뱀</div>
+  </div>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-34.jpg" alt="수원청개구리 비바리뱀 금개구리 고리도롱뇽 맹꽁이 남생이 구렁이 표범장지뱀의 사진과 멸종위기 등급" loading="lazy"><figcaption><strong>교재의 멸종위기종 사진 자료</strong> · I급은 수원청개구리·비바리뱀, II급은 금개구리·고리도롱뇽·맹꽁이·남생이·구렁이·표범장지뱀으로 제시한다. 법정 지정은 개정될 수 있으므로 현장에서는 최신 환경부 고시를 함께 확인한다.</figcaption></figure>
+  <h3>생존을 위협하는 핵심 압력</h3>
+  <ul><li>습지 매립·계류 정비·콘크리트 수로화에 따른 서식지 훼손과 단절</li><li>번식기 이동로의 로드킬</li><li>항아리곰팡이병 등 전염병</li><li>농약·비료·화학 오염</li><li>기후변화, 외래종, 남획과 불법거래</li></ul>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-30.jpg" alt="서식지 단절 로드킬 전염병 농약 기후변화와 남획 등 양서파충류 감소 원인" loading="lazy"><figcaption>감소 원인은 하나가 아니라 여러 압력이 결합해 작용한다. 특히 투과성 피부를 가진 양서류는 수질과 화학 오염에 민감하다.</figcaption></figure>
+  <h3>보전 실행</h3>
+  <ul><li><strong>서식지:</strong> 유도 펜스·언더패스, 습지와 산림 연결, 산란지 물관리, 은신처 유지</li><li><strong>시민과학:</strong> 번식지·시기·울음 기록, 로드킬 핫스팟 신고, 외래종 방사 감시</li><li><strong>숲해설가:</strong> 공포와 오개념을 줄이고 종과 서식지의 관계를 설명하며 관찰 데이터를 남김</li></ul>
+  <figure class="lecture-figure"><img src="assets/amphibian-reptile-2026/page-35.jpg" alt="서식지 복원 시민과학 법과 정책 현장관리 시민행동의 보전 체계" loading="lazy"><figcaption>보전의 3대 축 · 법·정책, 현장 관리, 시민 행동. 종이 실제로 살아갈 공간이 유지될 때 보전이 완성된다.</figcaption></figure>
 </section>
 
 <!-- S9 -->
@@ -512,7 +598,7 @@
   <div class="card-grid">
     <div class="card">
       <strong>양서류 정의</strong>
-      육지와 물을 오갈 수 없는 반수생 동물<br>
+      물과 육지를 오가는 연결형 생활사<br>
       피부호흡 + 폐호흡<br>
       번식은 반드시 물 필요 (젤리질 알, 양막 없음)
     </div>
@@ -530,9 +616,10 @@
     </div>
     <div class="card">
       <strong>두개골 측두창</strong>
-      무측두류: 0개 (조류·포유류)<br>
-      단측두류: 1개<br>
-      양측두류: 2개 (양서류·파충류 포함)
+      무궁류: 0쌍<br>
+      단궁류: 1쌍 (포유류 계통)<br>
+      이궁류: 2쌍 (파충류·조류 계통)<br>
+      양서류는 이 구분에 포함하지 않음
     </div>
     <div class="card">
       <strong>개구리과 vs 청개구리</strong>
@@ -576,10 +663,10 @@
       자연 서식지 보전이 최우선
     </div>
     <div class="card">
-      <strong>위험한 외래종</strong>
-      황소개구리 (북미산)<br>
-      무당개구리 (중국산, 독성)<br>
-      → 방생·음식점 소비 금지, 보고 의무화
+      <strong>멸종위기종 현장 원칙</strong>
+      포획·채취·훼손 금지<br>
+      거리를 두고 관찰·기록<br>
+      종보다 서식지와 이동로 보전 우선
     </div>
   </div>
 </section>
@@ -588,6 +675,15 @@
   <p>📂 소스: TalkFile_양서파충류_숲해설가_교육_교재.pdf + 양서파충류_음성1차정리.docx</p>
   <p>🐸 숲해설가 양성과정 — 양서파충류(양서류 & 파충류) 정리본 | 정리: 보아시스랩</p>
 </footer>
+
+<script>
+  // 화면 순서를 교재의 4개 장 흐름에 맞춘다: 양서류 → 파충류 → 보전 → 암기카드.
+  const summarySection = document.getElementById('s11');
+  ['s12', 's13', 's14'].forEach((id) => {
+    const section = document.getElementById(id);
+    if (section && summarySection) summarySection.before(section);
+  });
+</script>
 
 
 <div style="text-align:center;color:#aaa;font-size:0.78em;padding:20px 0 12px;border-top:1px solid #e0e0e0;margin-top:32px;">
