@@ -41,13 +41,25 @@ const periods=["일별","월별","분기별","반기별","연도별","2년별","
 const storeKey="boasis-bucket-list-v1";let current=periods[0],editing=null;
 const load=()=>{try{return JSON.parse(localStorage.getItem(storeKey)||"[]")}catch{return[]}};
 const save=v=>localStorage.setItem(storeKey,JSON.stringify(v));
+function addSharedGoals(){
+  const seedKey="boasis-bucket-seed-20260912";
+  if(localStorage.getItem(seedKey)==="done")return;
+  const data=load(),goals=[
+    {id:"shared-mount-kinabalu",title:"말레이시아 키나발루산 가기",detail:"말레이시아 보르네오섬 사바주 키나발루산 방문. 고산 생태계와 식생의 수직 분포를 직접 관찰하고 숲해설 관점으로 기록하기.",created:1789205674000},
+    {id:"shared-forest-study-places",title:"숲해설 교육 중 배운 장소 모두 가보기",detail:"강의와 현장교육에서 배운 수목원·마을숲·도시숲·생태 명소를 차례로 방문하고, 장소별 특징과 숲해설 관찰 내용을 기록하기.",created:1789205734000}
+  ];
+  let changed=false;
+  goals.forEach(goal=>{if(!data.some(x=>x.title===goal.title)){data.push({...goal,period:"중장기별",targetDate:"",done:false});changed=true}});
+  if(changed)save(data);
+  localStorage.setItem(seedKey,"done");
+}
 const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 function drawTabs(){tabs.innerHTML=periods.map(p=>`<button class="tab ${p===current?"active":""}" data-p="${p}">${p}</button>`).join("");tabs.querySelectorAll("button").forEach(b=>b.onclick=()=>{current=b.dataset.p;editing=null;bucketForm.reset();draw()})}
 function draw(){drawTabs();const data=load(),filtered=data.filter(x=>x.period===current);allCount.textContent=data.length;doneCount.textContent=data.filter(x=>x.done).length;openCount.textContent=data.filter(x=>!x.done).length;listTitle.textContent=current+" 목표";items.innerHTML=filtered.length?filtered.sort((a,b)=>(a.done-b.done)||(a.created-b.created)).map(x=>`<article class="item ${x.done?"done":""}"><div class="item-head"><div><h3>${esc(x.title)}</h3><div class="meta">${x.targetDate?"목표일 "+esc(x.targetDate):"목표일 미정"} · ${x.done?"완료":"진행 중"}</div></div></div>${x.detail?`<p class="detail">${esc(x.detail)}</p>`:""}<div class="actions"><button class="muted" data-act="toggle" data-id="${x.id}">${x.done?"다시 진행":"완료"}</button><button class="muted" data-act="edit" data-id="${x.id}">수정</button><button class="danger" data-act="delete" data-id="${x.id}">삭제</button></div></article>`).join(""):'<div class="empty">이 기간에 등록된 목표가 없습니다.</div>';items.querySelectorAll("button").forEach(b=>b.onclick=()=>act(b.dataset.act,b.dataset.id))}
 function act(action,id){let data=load(),x=data.find(v=>v.id===id);if(!x)return;if(action==="toggle")x.done=!x.done;if(action==="delete"&&confirm("이 항목을 삭제할까요?"))data=data.filter(v=>v.id!==id);else if(action==="delete")return;if(action==="edit"){current=x.period;editing=id;title.value=x.title;targetDate.value=x.targetDate||"";detail.value=x.detail||"";formTitle.textContent="목표 수정";title.focus();drawTabs();return}save(data);draw()}
 bucketForm.onsubmit=e=>{e.preventDefault();let data=load();if(editing){const x=data.find(v=>v.id===editing);Object.assign(x,{title:title.value.trim(),targetDate:targetDate.value,detail:detail.value.trim(),period:current});editing=null;formTitle.textContent="새 목표 추가"}else data.push({id:crypto.randomUUID?crypto.randomUUID():Date.now().toString(36),period:current,title:title.value.trim(),targetDate:targetDate.value,detail:detail.value.trim(),done:false,created:Date.now()});save(data);bucketForm.reset();draw()};
 exportBtn.onclick=()=>{const blob=new Blob([JSON.stringify(load(),null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="나만의_버킷리스트_백업.json";a.click();URL.revokeObjectURL(a.href)};
-importBtn.onclick=()=>importFile.click();importFile.onchange=async()=>{try{const v=JSON.parse(await importFile.files[0].text());if(!Array.isArray(v))throw 0;if(confirm("현재 목록을 백업 파일로 교체할까요?")){save(v);draw()}}catch{alert("올바른 버킷리스트 백업 파일이 아닙니다.")}importFile.value=""};draw();
+importBtn.onclick=()=>importFile.click();importFile.onchange=async()=>{try{const v=JSON.parse(await importFile.files[0].text());if(!Array.isArray(v))throw 0;if(confirm("현재 목록을 백업 파일로 교체할까요?")){save(v);draw()}}catch{alert("올바른 버킷리스트 백업 파일이 아닙니다.")}importFile.value=""};addSharedGoals();current="중장기별";draw();
 </script>
 </body>
 </html>
