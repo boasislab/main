@@ -924,6 +924,7 @@ function showMain() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('main-screen').style.display = 'block';
   initSelectors();
+  applyUrlTagFilter();
   render();
 }
 
@@ -941,6 +942,16 @@ function initSelectors() {
 let selectedTags = new Set();
 let tagFrequency = {};
 const QUICK_TAGS = ['숲해설', '가보고 싶은 곳', '도시숲', '한식', '맛집'];
+let urlTagApplied = false;
+function applyUrlTagFilter() {
+  if (urlTagApplied) return;
+  urlTagApplied = true;
+  const tag = new URLSearchParams(location.search).get('tag');
+  if (tag && tagFrequency[tag]) {
+    selectedTags.add(tag);
+    syncTagButtons();
+  }
+}
 function initTagChips() {
   // 모든 장소의 태그를 빈도순으로 정렬
   tagFrequency = {};
