@@ -15,6 +15,7 @@
 .record{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 5px 22px rgba(34,70,43,.07);margin-bottom:12px}.record.demo{border-top:5px solid var(--demo)}.record.survey{border-top:5px solid var(--survey)}.record.exam{border-top:5px solid var(--exam)}
 .record-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.record h3{margin:0 0 4px;font-size:1.1rem}.date{font-size:.8rem;color:var(--muted);white-space:nowrap}.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chip{padding:4px 9px;border-radius:999px;background:#eef5eb;color:#28583d;font-size:.76rem;font-weight:800}.record dl{display:grid;grid-template-columns:110px 1fr;gap:5px 12px;margin:12px 0}.record dt{font-weight:900;color:#455c49}.record dd{margin:0;color:#4f5c52}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btn{display:inline-flex;align-items:center;padding:8px 12px;border-radius:9px;text-decoration:none;font-weight:800;font-size:.84rem;background:var(--green);color:#fff}.btn.sub{background:#edf5ed;color:var(--green);border:1px solid #bcd3bd}
 .empty{background:#fafbf9;border:1px dashed #bdcbbb;border-radius:14px;padding:25px;text-align:center;color:#788278}.empty strong{display:block;color:#4d5e50;margin-bottom:4px}.guide{margin-top:28px;padding:18px;border-radius:16px;background:#203f2e;color:#f4faf4}.guide h2{margin:0 0 8px;font-size:1.15rem}.guide p{margin:4px 0;color:#d7e7da}.fields{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.fields span{border:1px solid #63806c;border-radius:999px;padding:4px 9px;font-size:.78rem}
+.review-note{margin-top:14px;padding:13px 15px;border-radius:12px;background:#fff8e7;border:1px solid #ead293;color:#66501b}.review-note strong{display:block;color:#7a5600;margin-bottom:5px}.review-note ul{margin:5px 0 0;padding-left:20px}
 .members{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 22px;box-shadow:0 5px 22px rgba(34,70,43,.07)}.members h2{margin:0 0 10px;font-size:1.12rem}.member-list{display:flex;gap:8px;flex-wrap:wrap}.member{padding:7px 11px;border-radius:999px;background:#eef5eb;color:#28583d;font-weight:800;font-size:.86rem}.member.me{background:#286246;color:#fff}.members p{margin:12px 0 0;color:var(--muted);font-size:.86rem}
 footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
 @media(max-width:680px){.summary{grid-template-columns:repeat(2,1fr)}.record{padding:15px}.record-top{display:block}.date{display:block;margin-top:4px}.record dl{grid-template-columns:1fr;gap:0}.record dd{margin-bottom:7px}}
@@ -31,7 +32,7 @@ footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
 
   <section class="summary" aria-label="활동 현황">
     <div><b>3</b><span>활동 분야</span></div>
-    <div><b>1</b><span>등록 기록</span></div>
+    <div><b>2</b><span>등록 기록</span></div>
     <div><b>20종</b><span>식생조사 선정분</span></div>
     <div><b>6명</b><span>함께 쓰는 조원</span></div>
   </section>
@@ -67,7 +68,17 @@ footer{text-align:center;color:#98a098;font-size:.8rem;padding-top:30px}
 
   <section class="section" id="exam">
     <div class="section-head"><h2>📝 모의고사</h2><span>응시 결과·오답·복습 계획</span></div>
-    <div class="empty"><strong>모의고사 활동 기록 입력 대기</strong>시험일, 과목·범위, 점수, 함께 틀린 문제, 다음 복습계획을 보내주면 등록합니다.</div>
+    <article class="record exam">
+      <div class="record-top"><div><h3>일·월·화요일 6인 취합 주관식 예상문제</h3><div class="chips"><span class="chip">6인 공동 취합</span><span class="chip">주관식</span><span class="chip">4개 과목군/일</span></div></div><time class="date" datetime="2026-09-13">2026-09-13</time></div>
+      <dl>
+        <dt>참여자</dt><dd>윤여준·문공주·장향옥·김혜란·김연정·정명자</dd>
+        <dt>수록 범위</dt><dd>응급처치, 야외활동지도, 숲밧줄놀이, 산림교육의 이해, 도시숲가꾸기, 자연생태놀이, 커뮤니케이션, 산림문화휴양, 야생동물, 산림토양학, 숲해설프로그램개발, 나무·숲·임업</dd>
+        <dt>정리 기준</dt><dd>과목별 재분류, 유사·중복 문항 통합, 오탈자 보정, 원자료에서 확인 가능한 답 중심</dd>
+        <dt>활용 방법</dt><dd>먼저 답을 가리고 주관식으로 작성한 뒤, 정답과 강의 정리본을 대조합니다. 검증표시 문항은 확정 암기하지 않습니다.</dd>
+      </dl>
+      <div class="review-note"><strong>⚠️ 정답 재검증이 필요한 대표 항목</strong><ul><li>쇼크 환자에게 음료를 주는 답은 일반 응급처치 원칙과 충돌하므로 제외하고, 119 신고·안정·보온·관찰을 기준으로 복습합니다.</li><li>‘21세기 환경해설 원칙’은 프리먼 틸든 단독이 아니라 벡과 케이블의 확장 원칙인지 원자료를 재확인합니다.</li><li>8~12Hz는 알파파 범위이며 자연의 소리를 백색소음으로 정의한 답과 혼동하지 않습니다.</li><li>‘개과 중 너구리만 발가락 5개’ 문항은 오류로 판단해 학습·출제 대상에서 제외합니다.</li><li>토성 판정의 40% 모래·40% 미사·20% 점토는 삼각도상 양토로 확인하되, ‘띠본법’ 표기는 ‘리본법’으로 고칩니다.</li></ul></div>
+      <div class="actions"><a class="btn" href="team-oak-assets/2026_weekly_6members_subjective_questions.pdf">📄 취합 PDF 보기</a><a class="btn sub" href="forest_review_list.html">📗 심화 복습목록</a></div>
+    </article>
   </section>
 
   <section class="guide" id="record-guide">
