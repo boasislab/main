@@ -101,6 +101,8 @@
         color: #176b3a;
         font-weight: 800;
       }
+      .study-links { display:flex; flex-wrap:wrap; gap:7px; margin:8px 0 12px; }
+      .study-links a { background:#eef7f0; border:1px solid #c8dfce; border-radius:999px; color:#176b3a; font-weight:800; padding:6px 10px; text-decoration:none; }
       .empty {
         text-align: center;
         color: #68736d;
@@ -182,7 +184,7 @@
             },
             {
               id: "tree-forestry-compound-types",
-              subject: "나무·숲·임업 심화",
+              subject: "식물의 이해 심화",
               topic: "단엽·복엽 구별과 복엽의 종류",
               source: "0310_나무숲임업_정리본_최종.html#s4",
             },
@@ -190,7 +192,7 @@
               id: "tree-forestry-oak-fruit",
               subject: "나무·숲·임업",
               topic: "참나무 및 열매의 특징",
-              source: "0310_나무숲임업_정리본_최종.html#s9c",
+              source: "식물의이해_초본목본_통합정리본.html#s14",
             },
             {
               id: "tree-forestry-oak-six-species",
@@ -266,7 +268,11 @@
                     esc(n.subject) +
                     '</div><div class="topic">' +
                     esc(n.topic) +
-                    '</div><div class="actions"><button class="toggle">' +
+                    '</div>' +
+                    (n.links && n.links.length
+                      ? '<div class="study-links">' + n.links.map(function(link){ return '<a href="' + encodeURI(esc(link.href)) + '">' + esc(link.label) + ' →</a>'; }).join('') + '</div>'
+                      : '') +
+                    '<div class="actions"><button class="toggle">' +
                     (n.done ? "다시 복습" : "복습완료") +
                     '</button><button class="del">삭제</button>' +
                     (n.source
