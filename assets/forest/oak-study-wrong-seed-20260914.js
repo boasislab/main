@@ -2,7 +2,9 @@
   var wrongKey='forest_wrong_notes_v1';
   var reviewKey='forest_learning_review_v1';
   var migrationKey='forest_oak_study_wrong_seed_20260914_v1';
-  if(localStorage.getItem(migrationKey)) return;
+  var enrichmentKey='forest_oak_study_wrong_enrichment_20260914_v2';
+  if(localStorage.getItem(enrichmentKey)) return;
+  var legacyDone=!!localStorage.getItem(migrationKey);
 
   var plan={
     '일요일':{
@@ -37,14 +39,34 @@
   var grouped={};
   Object.keys(plan).forEach(function(day){Object.keys(plan[day]).forEach(function(type){Object.keys(plan[day][type]).forEach(function(subject){plan[day][type][subject].forEach(function(no){
     var id=day+'-'+type+'-'+subject+'-'+no;
-    if(!wrong.some(function(x){return x.key==='oak-study-20260914::'+id})) wrong.push({key:'oak-study-20260914::'+id,subject:subject,questionNo:day+' '+type+' '+no+'번',question:'떡갈나무팀 6인 취합본에서 틀린 문제 — '+subject+' '+no+'번',chosen:'직접 풀이에서 오답',correct:'합본 정답표와 강의 정리로 재확인',explanation:'문제의 핵심 개념을 심화학습 목록에 연결했습니다.',source:noteLinks[subject]||'team_oak_activity.html',attempts:1,lastWrongAt:new Date().toISOString(),mastered:false});
+    if(!legacyDone&&!wrong.some(function(x){return x.key==='oak-study-20260914::'+id})) wrong.push({key:'oak-study-20260914::'+id,subject:subject,questionNo:day+' '+type+' '+no+'번',question:'떡갈나무팀 6인 취합본에서 틀린 문제 — '+subject+' '+no+'번',chosen:'직접 풀이에서 오답',correct:'합본 정답표와 강의 정리로 재확인',explanation:'문제의 핵심 개념을 심화학습 목록에 연결했습니다.',source:noteLinks[subject]||'team_oak_activity.html',attempts:1,lastWrongAt:new Date().toISOString(),mastered:false});
     (grouped[subject]||(grouped[subject]=[])).push(day+' '+type+' '+no+'번');
   })})})});
+  var bank=window.OAK_STUDY_QUESTION_BANK||{};
+  wrong.forEach(function(note){
+    if(String(note.key||'').indexOf('oak-study-20260914::')!==0)return;
+    var raw=note.key.split('::')[1]||'',parts=raw.split('-'),day=parts.shift(),type=parts.shift(),no=parts.pop(),subject=parts.join('-');
+    var info=bank[day+'|'+type+'|'+subject+'|'+no];
+    if(!info)return;
+    note.question=info.question;
+    if(info.correct)note.correct=info.correct;
+    note.learningTopic=info.learningTopic;
+    note.studyPath=info.studyPath;
+    note.explanation=(info.explanation?info.explanation+' ':'')+'학습과정: '+info.studyPath;
+    note.day=day;note.questionType=type;note.questionNumber=Number(no);
+  });
   localStorage.setItem(wrongKey,JSON.stringify(wrong));
 
   var reviews=[];try{reviews=JSON.parse(localStorage.getItem(reviewKey)||'[]')}catch(e){reviews=[]}
-  Object.keys(grouped).forEach(function(subject){var id='oak-wrong-review-20260914-'+subject;var item={id:id,subject:(subject==='숲해설기법'?'커뮤니케이션':subject)+' 심화',topic:'6인 취합본 오답 복습 — '+grouped[subject].join(' · '),source:noteLinks[subject]||'team_oak_activity.html',done:false,createdAt:new Date().toISOString()};if(!reviews.some(function(x){return x.id===id}))reviews.unshift(item)});
+  Object.keys(grouped).forEach(function(subject){
+    var id='oak-wrong-review-20260914-'+subject,topics=[];
+    wrong.filter(function(n){return n.subject===subject&&n.learningTopic}).forEach(function(n){if(topics.indexOf(n.learningTopic)<0)topics.push(n.learningTopic)});
+    var old=reviews.find(function(x){return x.id===id});
+    var item={id:id,subject:(subject==='숲해설기법'?'커뮤니케이션':subject)+' 심화',topic:'오답 기반 통합 학습 — '+(topics.join(' · ')||grouped[subject].join(' · ')),source:noteLinks[subject]||'team_oak_activity.html',done:old?!!old.done:false,createdAt:old&&old.createdAt||new Date().toISOString()};
+    if(old)Object.assign(old,item);else if(!legacyDone)reviews.unshift(item);
+  });
   localStorage.setItem(reviewKey,JSON.stringify(reviews));
-  localStorage.setItem(migrationKey,new Date().toISOString());
+  if(!legacyDone)localStorage.setItem(migrationKey,new Date().toISOString());
+  localStorage.setItem(enrichmentKey,new Date().toISOString());
   location.reload();
 })();
