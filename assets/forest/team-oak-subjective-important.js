@@ -1,5 +1,26 @@
 (function () {
   'use strict';
+  // Deep-study links use #study=<visible section text>. Resolve the text to the
+  // smallest matching content block so a review item lands on the lesson,
+  // rather than merely opening the top of the course page.
+  const studyHash = decodeURIComponent(location.hash || '').match(/^#study=(.+)$/);
+  if (studyHash) {
+    const needle = studyHash[1].replace(/\s+/g, ' ').trim();
+    const studyCandidates = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,tr,li,p,dt,dd,.card,.box,.important,.tip'))
+      .filter(el => !el.closest('nav,footer,script,style') && (el.textContent || '').replace(/\s+/g, ' ').includes(needle));
+    studyCandidates.sort((a, b) => (a.textContent || '').length - (b.textContent || '').length);
+    if (studyCandidates.length) {
+      let studyTarget = studyCandidates[0];
+      if (/^H[1-5]$/.test(studyTarget.tagName)) {
+        studyTarget = studyTarget.closest('section,article,.card,.box') || studyTarget;
+      }
+      studyTarget.id = 'study-target';
+      const deepStyle = document.createElement('style');
+      deepStyle.textContent = '#study-target{scroll-margin-top:24px;outline:4px solid #2f855a!important;outline-offset:5px;border-radius:10px;animation:study-focus 2.2s ease-out 1}@keyframes study-focus{0%,35%{box-shadow:0 0 0 12px rgba(47,133,90,.24)}100%{box-shadow:none}}';
+      document.head.appendChild(deepStyle);
+      requestAnimationFrame(() => studyTarget.scrollIntoView({block:'start',behavior:'auto'}));
+    }
+  }
   const file = decodeURIComponent(location.pathname.split('/').pop() || '');
   const topicsByFile = {
     '20260313_응급처치_정리본.html': ['응급처치의 목적','행동 절차','심폐소생술','가슴압박','기도폐쇄','자동심장충격기','드레싱','쇼크'],
