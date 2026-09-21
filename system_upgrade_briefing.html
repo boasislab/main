@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>운용지시와 자금집행 구조개선 브리핑</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#eef2f6;color:#1f2d38;font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;line-height:1.65}.wrap{max-width:1120px;margin:auto;padding:20px 16px 56px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.top a{color:#31556d;text-decoration:none}.badge{padding:5px 11px;border-radius:999px;background:#dce8f5;color:#174f80;font-size:.78rem;font-weight:800}.hero,.section{background:#fff;border:1px solid #dfe7ed;border-radius:20px;box-shadow:0 6px 20px rgba(31,45,56,.06)}.hero{padding:30px;border-top:7px solid #194f73}.eyebrow{color:#3c7397;font-weight:800;letter-spacing:.08em;font-size:.82rem}.hero h1{margin:6px 0 8px;font-size:clamp(1.7rem,4.5vw,2.65rem);line-height:1.28;color:#173f5a}.hero p{margin:0;max-width:780px;color:#536873}.message{margin-top:18px;padding:15px 17px;border-left:5px solid #2c8a61;background:#edf8f2;border-radius:10px;font-weight:800}.nav{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.nav a{background:#fff;border:1px solid #bdcbd5;border-radius:999px;padding:7px 11px;color:#36586e;text-decoration:none;font-size:.84rem}.section{padding:24px;margin:16px 0}.section h2{margin:0 0 7px;color:#173f5a;font-size:1.35rem}.lead{margin:0 0 17px;color:#61727d}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.kpi{padding:15px;border-radius:13px;background:#f4f7f9;text-align:center}.kpi strong{display:block;color:#174f80;font-size:1.3rem}.diagram{overflow-x:auto;border:1px solid #dbe4ea;border-radius:14px;background:#fafcfd;padding:10px}.diagram svg{display:block;min-width:850px;width:100%;height:auto}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid #dce5eb;border-radius:14px;padding:16px;background:#fafcfd}.card h3{margin:0 0 8px;color:#244f69;font-size:1.02rem}.risk{border-left:5px solid #ca554f}.safe{border-left:5px solid #2f8a63}.rule{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #e7edf1}.rule:last-child{border-bottom:0}.rule b{min-width:116px;color:#244f69}.tag{display:inline-block;border-radius:999px;padding:3px 9px;font-size:.75rem;font-weight:800}.red{background:#fde8e6;color:#9c332f}.green{background:#e3f5ea;color:#216d4d}.amber{background:#fff0ce;color:#835c00}.road{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{position:relative;border:1px solid #d9e3e9;border-top:5px solid #3b7599;border-radius:14px;padding:15px;background:#fafcfd}.step small{color:#6b7c87}.step h3{font-size:1rem;margin:4px 0}.check{padding-left:20px;margin-bottom:0}.check li{margin:5px 0}.talk{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.talk div{padding:14px;background:#f3f7fa;border-radius:12px}.talk strong{display:block;color:#174f80}.foot{text-align:center;color:#7b8d98;font-size:.8rem;margin-top:18px}.print{border:0;background:#173f5a;color:white;border-radius:10px;padding:8px 12px;cursor:pointer}@media(max-width:760px){.grid2,.kpis,.road,.talk{grid-template-columns:1fr}.section,.hero{padding:20px}.top{align-items:flex-start}.rule{display:block}.rule b{display:block;margin-bottom:5px}}@media print{body{background:#fff}.wrap{max-width:none;padding:0}.top,.nav,.print{display:none}.hero,.section{box-shadow:none;break-inside:avoid;margin:10px 0}.diagram{overflow:visible}.diagram svg{min-width:0}.section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top"><a href="system_upgrade_2028.html">← 고도화 아이디어 관리대장</a><div><span class="badge">LV2 브리핑 자료</span> <button class="print" onclick="window.print()">인쇄·PDF</button></div></div>
+  <section class="hero">
+    <div class="eyebrow">2028 SYSTEM MODERNIZATION · BRIEFING</div>
+    <h1>자금의 안전성은 지키고<br>운용정보의 수정 유연성은 높이기</h1>
+    <p>운용지시와 자금집행이 하나의 키와 상태 흐름으로 강하게 묶여 발생하는 현장 불편을 설명하고, 유지보수 수준을 넘어선 구조개선 방향을 공유하기 위한 자료입니다.</p>
+    <div class="message">핵심 메시지: 자금에 영향을 주는 확정정보는 잠그고, 주석·비고 같은 정보성 항목은 별도 생명주기로 수정할 수 있어야 합니다.</div>
+    <div class="kpis"><div class="kpi"><strong>현행</strong>한 흐름에 강결합</div><div class="kpi"><strong>문제</strong>정보 수정도 마감 취소</div><div class="kpi"><strong>목표</strong>통제된 생명주기 분리</div></div>
+  </section>
+
+  <nav class="nav"><a href="#feel">체감 문제</a><a href="#current">현행 구조</a><a href="#policy">변경 원칙</a><a href="#target">목표 구조</a><a href="#flow">판단 흐름</a><a href="#roadmap">전환 로드맵</a><a href="#talk">협의사항</a></nav>
+
+  <section class="section" id="feel">
+    <h2>1. 현장에서 체감하는 문제</h2>
+    <p class="lead">출납이 끝난 운용지시는 자금에 영향이 없는 단순 설명을 고치려 해도 자금집행 상태를 되돌려야 하는 경우가 있습니다.</p>
+    <div class="grid2"><div class="card risk"><h3>현재의 업무 부담</h3><ul class="check"><li>주석 하나를 고치기 위해 출납상태를 취소·복원</li><li>은행 처리와 내부정보 차이를 사람이 재확인</li><li>수정 이력과 거래순번 변화까지 함께 점검</li><li>단순 수정에 비해 과도한 업무·통제 비용 발생</li></ul></div><div class="card safe"><h3>지켜야 할 안전성</h3><ul class="check"><li>확정된 금액·계좌·결제정보는 임의 변경 금지</li><li>은행 송신결과와 내부 자금정보 일치</li><li>회계·분개 및 취소·정정 이력 추적</li><li>누가 무엇을 왜 바꿨는지 감사 가능</li></ul></div></div>
+  </section>
+
+  <section class="section" id="current">
+    <h2>2. 왜 유지보수로 간단히 풀 수 없는가</h2>
+    <p class="lead">운용지시의 동일성, 수정 버전, 자금집행의 확정 이력이 같은 키 흐름에 결합돼 있기 때문입니다.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 1040 330" role="img" aria-label="현행 운용지시와 자금집행의 강결합 구조">
+        <defs><marker id="arr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#526b7c"/></marker></defs>
+        <path d="M245 145 H380" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr1)"/><path d="M650 145 H785" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr1)"/><path d="M515 220 V276 H250" fill="none" stroke="#bf4a45" stroke-width="3" marker-end="url(#arr1)"/>
+        <rect x="35" y="70" width="210" height="150" rx="16" fill="#e7f1f7" stroke="#3b7599" stroke-width="2"/><text x="140" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#234e68">운용지시</text><text x="140" y="140" text-anchor="middle" font-size="16" fill="#385665">업무정보 + 수정이력</text><text x="140" y="170" text-anchor="middle" font-size="16" fill="#385665">수정 시 거래순번 변화</text><text x="140" y="200" text-anchor="middle" font-size="15" fill="#8e3f3b">주석 수정도 동일 흐름</text>
+        <rect x="380" y="70" width="270" height="150" rx="16" fill="#fff2d5" stroke="#c38a18" stroke-width="2"/><text x="515" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#735100">자금집행 자료</text><text x="515" y="140" text-anchor="middle" font-size="16" fill="#66552d">운용지시 키 승계</text><text x="515" y="170" text-anchor="middle" font-size="16" fill="#66552d">출납·은행처리의 기준</text><text x="515" y="200" text-anchor="middle" font-size="15" fill="#8e3f3b">마감 후 수정 잠금</text>
+        <rect x="785" y="70" width="220" height="150" rx="16" fill="#e8f3ec" stroke="#2f8a63" stroke-width="2"/><text x="895" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#256849">은행·회계</text><text x="895" y="140" text-anchor="middle" font-size="16" fill="#3f6253">출납 결과</text><text x="895" y="170" text-anchor="middle" font-size="16" fill="#3f6253">확정·분개 이력</text><text x="895" y="200" text-anchor="middle" font-size="15" fill="#3f6253">불변성이 중요</text>
+        <rect x="35" y="265" width="430" height="50" rx="12" fill="#fde9e7" stroke="#bf4a45"/><text x="250" y="296" text-anchor="middle" font-size="17" font-weight="700" fill="#933b37">단순정보 수정도 자금상태 취소·복원 필요</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="policy">
+    <h2>3. 무엇을 열고 무엇을 잠글 것인가</h2>
+    <p class="lead">모든 수정을 허용하거나 모두 막는 방식이 아니라 필드별 영향도에 따라 변경정책을 분리합니다.</p>
+    <div class="rule"><b><span class="tag red">직접수정 금지</span></b><div><strong>자금영향 핵심정보</strong><br>금액·통화·계좌·결제일·지급방법 등. 마감 후 변경은 기존 값을 덮어쓰지 않고 재승인·정정거래로 처리합니다.</div></div>
+    <div class="rule"><b><span class="tag green">수정 허용</span></b><div><strong>정보성 메타정보</strong><br>주석·비고·내부관리 설명 등. 자금판·은행송신·분개에 전파하지 않고 변경자·시각·사유·전후값을 남깁니다.</div></div>
+    <div class="rule"><b><span class="tag amber">정책 관리</span></b><div><strong>필드별 변경정책 사전</strong><br>어떤 항목이 자금에 영향을 주는지 공통기준으로 관리해 화면·서비스·배치가 같은 판단을 사용합니다.</div></div>
+  </section>
+
+  <section class="section" id="target">
+    <h2>4. 목표 구조: 직접 키 승계에서 추적 가능한 관계로</h2>
+    <p class="lead">관계를 없애는 것이 아니라 각 영역에 독립 식별자를 주고, 어느 버전과 자금집행이 연결됐는지 별도로 관리합니다.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 1040 390" role="img" aria-label="운용지시와 자금집행 생명주기 분리 목표 구조">
+        <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#526b7c"/></marker></defs>
+        <path d="M250 115 H390" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr2)"/><path d="M650 115 H790" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr2)"/><path d="M145 195 V295 H390" fill="none" stroke="#2f8a63" stroke-width="3" marker-end="url(#arr2)"/><path d="M650 295 H790" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr2)"/>
+        <rect x="30" y="45" width="220" height="150" rx="16" fill="#e7f1f7" stroke="#3b7599" stroke-width="2"/><text x="140" y="80" text-anchor="middle" font-size="21" font-weight="700" fill="#234e68">운용지시 고정 ID</text><text x="140" y="116" text-anchor="middle" font-size="16" fill="#385665">버전 1 · 버전 2 · …</text><text x="140" y="148" text-anchor="middle" font-size="16" fill="#385665">업무상 동일성 유지</text><text x="140" y="177" text-anchor="middle" font-size="14" fill="#385665">핵심정보는 버전 관리</text>
+        <rect x="390" y="45" width="260" height="150" rx="16" fill="#f0edf8" stroke="#735b9e" stroke-width="2"/><text x="520" y="80" text-anchor="middle" font-size="21" font-weight="700" fill="#574477">관계정보</text><text x="520" y="116" text-anchor="middle" font-size="16" fill="#5f5570">운용지시 ID·버전</text><text x="520" y="148" text-anchor="middle" font-size="16" fill="#5f5570">자금집행 ID·관계유형</text><text x="520" y="177" text-anchor="middle" font-size="14" fill="#5f5570">유효기간·정정사유</text>
+        <rect x="790" y="45" width="220" height="150" rx="16" fill="#fff2d5" stroke="#c38a18" stroke-width="2"/><text x="900" y="80" text-anchor="middle" font-size="21" font-weight="700" fill="#735100">자금집행 ID</text><text x="900" y="116" text-anchor="middle" font-size="16" fill="#66552d">독립 생명주기</text><text x="900" y="148" text-anchor="middle" font-size="16" fill="#66552d">결제 기준 버전 참조</text><text x="900" y="177" text-anchor="middle" font-size="14" fill="#66552d">직접 덮어쓰기 금지</text>
+        <rect x="390" y="245" width="260" height="105" rx="16" fill="#e8f3ec" stroke="#2f8a63" stroke-width="2"/><text x="520" y="278" text-anchor="middle" font-size="20" font-weight="700" fill="#256849">정보성 확장영역</text><text x="520" y="310" text-anchor="middle" font-size="16" fill="#3f6253">주석·비고·내부설명</text><text x="520" y="336" text-anchor="middle" font-size="14" fill="#3f6253">마감 후 수정 + 이력</text>
+        <rect x="790" y="245" width="220" height="105" rx="16" fill="#f4f7f9" stroke="#687d8b" stroke-width="2"/><text x="900" y="278" text-anchor="middle" font-size="20" font-weight="700" fill="#435865">확정 스냅샷</text><text x="900" y="310" text-anchor="middle" font-size="16" fill="#536873">은행·회계·분개 연결</text><text x="900" y="336" text-anchor="middle" font-size="14" fill="#536873">불변 이력 보존</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="flow">
+    <h2>5. 수정 요청의 판단 흐름</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 1040 290" role="img" aria-label="운용지시 수정 요청 판단 흐름">
+        <defs><marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#526b7c"/></marker></defs>
+        <path d="M205 145 H325" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr3)"/><path d="M505 110 V58 H690" fill="none" stroke="#2f8a63" stroke-width="3" marker-end="url(#arr3)"/><path d="M505 180 V238 H690" fill="none" stroke="#bf4a45" stroke-width="3" marker-end="url(#arr3)"/><path d="M835 220 V170" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr3)"/>
+        <rect x="30" y="105" width="175" height="80" rx="14" fill="#e7f1f7" stroke="#3b7599" stroke-width="2"/><text x="117" y="137" text-anchor="middle" font-size="19" font-weight="700" fill="#234e68">수정 요청</text><text x="117" y="165" text-anchor="middle" font-size="14" fill="#385665">항목·사유 확인</text>
+        <polygon points="415,145 505,80 595,145 505,210" fill="#fff2d5" stroke="#c38a18" stroke-width="2"/><text x="505" y="138" text-anchor="middle" font-size="17" font-weight="700" fill="#735100">자금영향</text><text x="505" y="163" text-anchor="middle" font-size="17" font-weight="700" fill="#735100">있는가?</text>
+        <text x="605" y="73" font-size="15" font-weight="700" fill="#26714f">아니오</text><rect x="690" y="25" width="290" height="85" rx="14" fill="#e8f3ec" stroke="#2f8a63" stroke-width="2"/><text x="835" y="58" text-anchor="middle" font-size="19" font-weight="700" fill="#256849">정보성 영역 수정</text><text x="835" y="86" text-anchor="middle" font-size="14" fill="#3f6253">자금상태 유지 · 변경이력 저장</text>
+        <text x="605" y="235" font-size="15" font-weight="700" fill="#933b37">예</text><rect x="690" y="205" width="290" height="70" rx="14" fill="#fde9e7" stroke="#bf4a45" stroke-width="2"/><text x="835" y="235" text-anchor="middle" font-size="18" font-weight="700" fill="#933b37">직접수정 차단</text><text x="835" y="260" text-anchor="middle" font-size="14" fill="#7b4c49">재승인·정정거래 생성</text>
+        <rect x="740" y="125" width="190" height="55" rx="12" fill="#f4f7f9" stroke="#687d8b"/><text x="835" y="158" text-anchor="middle" font-size="16" font-weight="700" fill="#435865">마감·확정상태 확인</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <h2>6. 한 번에 뜯지 않는 단계적 전환</h2>
+    <div class="road"><div class="step"><small>STEP 1</small><h3>정보성 항목 분리</h3><p>주석·비고를 별도 영역으로 옮겨 현장 불편을 먼저 해소합니다.</p></div><div class="step"><small>STEP 2</small><h3>고정 ID·버전 도입</h3><p>업무상 동일성과 수정 이력을 분리하고 기존 키와 병행합니다.</p></div><div class="step"><small>STEP 3</small><h3>자금집행 독립화</h3><p>독립 ID와 관계정보로 특정 버전·정정관계를 추적합니다.</p></div><div class="step"><small>STEP 4</small><h3>레거시 연결 축소</h3><p>대사 후 기존 키 연결은 호환조회 용도로 단계적으로 축소합니다.</p></div></div>
+  </section>
+
+  <section class="section" id="talk">
+    <h2>7. 컨설팅·개발 담당자와 결정할 사항</h2>
+    <div class="talk"><div><strong>① 변경정책</strong>어떤 필드가 자금영향·정보성·조건부 승인 대상인가?</div><div><strong>② 식별체계</strong>고정 운용지시 ID와 버전을 어떻게 발급·이행할 것인가?</div><div><strong>③ 관계모델</strong>분할지급·복수통화·취소·정정 관계를 어떻게 표현할 것인가?</div><div><strong>④ 감사·권한</strong>정보성 수정의 권한, 사유, 이력을 어느 수준으로 보존할 것인가?</div><div><strong>⑤ 전환전략</strong>기존 키 사용 화면·배치·연계를 어떤 순서로 바꿀 것인가?</div><div><strong>⑥ 검증기준</strong>은행결과·자금집행·분개·운용지시를 어떻게 자동 대사할 것인가?</div></div>
+  </section>
+
+  <section class="section">
+    <h2>마무리 문장</h2>
+    <div class="message">이 개선은 자금통제를 약하게 만드는 것이 아닙니다. 자금통제는 더 명확하게 잠그고, 자금과 무관한 업무정보만 안전하게 분리해 수정할 수 있도록 만드는 구조개선입니다.</div>
+  </section>
+  <div class="foot">보안등급 LV2 · 내부 브리핑용 일반화 자료 · 상세 기술근거는 LV3 문서로 별도 관리</div>
+</main>
+<script>const level=parseInt(sessionStorage.getItem('auth_nps_level')||'0',10);if(level<2){location.replace('index.html');}</script>
+</body>
+</html>
