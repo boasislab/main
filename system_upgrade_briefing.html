@@ -19,7 +19,7 @@
     <div class="kpis"><div class="kpi"><strong>현행</strong>한 흐름에 강결합</div><div class="kpi"><strong>문제</strong>정보 수정도 마감 취소</div><div class="kpi"><strong>목표</strong>통제된 생명주기 분리</div></div>
   </section>
 
-  <nav class="nav"><a href="#feel">체감 문제</a><a href="#current">현행 구조</a><a href="#policy">변경 원칙</a><a href="#target">목표 구조</a><a href="#flow">판단 흐름</a><a href="#roadmap">전환 로드맵</a><a href="#talk">협의사항</a></nav>
+  <nav class="nav"><a href="#feel">체감 문제</a><a href="#current">현행 구조</a><a href="#policy">변경 원칙</a><a href="#target">목표 구조</a><a href="#erd">테이블 관계도</a><a href="#flow">판단 흐름</a><a href="#roadmap">전환 로드맵</a><a href="#talk">협의사항</a></nav>
 
   <section class="section" id="feel">
     <h2>1. 현장에서 체감하는 문제</h2>
@@ -66,8 +66,37 @@
     </div>
   </section>
 
+  <section class="section" id="erd">
+    <h2>5. 논리 테이블 관계도</h2>
+    <p class="lead">실제 물리 테이블명이 아닌 역할 기반 개념 ERD입니다. 컨설팅 단계에서 컬럼·카디널리티·인덱스·제약조건을 확정해야 합니다.</p>
+    <h3 style="color:#8e3f3b">현행: 거래키를 승계하는 식별관계</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 1040 300" role="img" aria-label="현행 운용지시 자금집행 논리 관계도">
+        <defs><marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf4a45"/></marker></defs>
+        <path d="M405 150 H625" fill="none" stroke="#bf4a45" stroke-width="4" marker-end="url(#arr4)"/><text x="515" y="132" text-anchor="middle" font-size="16" font-weight="700" fill="#933b37">복합 거래키 승계</text><text x="515" y="178" text-anchor="middle" font-size="14" fill="#7b4c49">1 : 0..N</text>
+        <rect x="70" y="35" width="335" height="230" rx="14" fill="#e7f1f7" stroke="#3b7599" stroke-width="2"/><rect x="70" y="35" width="335" height="52" rx="14" fill="#3b7599"/><text x="237" y="69" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">운용지시</text><text x="95" y="116" font-size="16" font-weight="700" fill="#234e68">PK  업무일자</text><text x="95" y="148" font-size="16" font-weight="700" fill="#234e68">PK  종목·항목</text><text x="95" y="180" font-size="16" font-weight="700" fill="#234e68">PK  거래순번</text><line x1="90" y1="198" x2="385" y2="198" stroke="#b9ccd8"/><text x="95" y="229" font-size="15" fill="#385665">업무정보 · 주석 · 상태 · 이력</text>
+        <rect x="625" y="20" width="345" height="260" rx="14" fill="#fff2d5" stroke="#c38a18" stroke-width="2"/><rect x="625" y="20" width="345" height="52" rx="14" fill="#c38a18"/><text x="797" y="54" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">자금집행 자료</text><text x="650" y="104" font-size="16" font-weight="700" fill="#735100">FK  거래일자</text><text x="650" y="136" font-size="16" font-weight="700" fill="#735100">FK  종목·항목</text><text x="650" y="168" font-size="16" font-weight="700" fill="#735100">FK  거래순번</text><text x="650" y="200" font-size="16" fill="#66552d">구분값  통화 등</text><line x1="645" y1="217" x2="950" y2="217" stroke="#dcc892"/><text x="650" y="248" font-size="15" fill="#66552d">결제정보 · 출납상태 · 은행연계</text>
+      </svg>
+    </div>
+    <h3 style="color:#256849;margin-top:22px">목표: 독립 식별자와 관계 테이블</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 1120 590" role="img" aria-label="목표 운용지시 자금집행 논리 관계도">
+        <defs><marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#526b7c"/></marker></defs>
+        <path d="M285 132 H415" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr5)"/><path d="M155 230 V390" fill="none" stroke="#2f8a63" stroke-width="3" marker-end="url(#arr5)"/><path d="M655 132 H780" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr5)"/><path d="M905 230 V390" fill="none" stroke="#526b7c" stroke-width="3" marker-end="url(#arr5)"/><path d="M530 230 V390" fill="none" stroke="#735b9e" stroke-width="3" marker-end="url(#arr5)"/>
+        <text x="345" y="119" text-anchor="middle" font-size="14" fill="#526b7c">1 : N</text><text x="720" y="119" text-anchor="middle" font-size="14" fill="#526b7c">N : 1</text>
+        <rect x="30" y="35" width="255" height="195" rx="13" fill="#e7f1f7" stroke="#3b7599" stroke-width="2"/><rect x="30" y="35" width="255" height="46" rx="13" fill="#3b7599"/><text x="157" y="65" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">운용지시 마스터</text><text x="50" y="111" font-size="15" font-weight="700" fill="#234e68">PK  운용지시_ID</text><text x="50" y="143" font-size="15" fill="#385665">현재버전 · 업무상태</text><text x="50" y="175" font-size="15" fill="#385665">생성자 · 생성시각</text><text x="50" y="207" font-size="14" fill="#385665">변하지 않는 업무 동일성</text>
+        <rect x="415" y="35" width="240" height="195" rx="13" fill="#eef3f7" stroke="#687d8b" stroke-width="2"/><rect x="415" y="35" width="240" height="46" rx="13" fill="#687d8b"/><text x="535" y="65" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">운용지시 버전</text><text x="435" y="111" font-size="15" font-weight="700" fill="#435865">PK/FK  운용지시_ID</text><text x="435" y="143" font-size="15" font-weight="700" fill="#435865">PK  버전번호</text><text x="435" y="175" font-size="15" fill="#536873">자금영향 핵심정보</text><text x="435" y="207" font-size="14" fill="#536873">승인상태 · 유효기간</text>
+        <rect x="780" y="35" width="285" height="195" rx="13" fill="#fff2d5" stroke="#c38a18" stroke-width="2"/><rect x="780" y="35" width="285" height="46" rx="13" fill="#c38a18"/><text x="922" y="65" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">자금집행 마스터</text><text x="800" y="111" font-size="15" font-weight="700" fill="#735100">PK  자금집행_ID</text><text x="800" y="143" font-size="15" fill="#66552d">통화 · 금액 · 계좌</text><text x="800" y="175" font-size="15" fill="#66552d">결제일 · 출납상태</text><text x="800" y="207" font-size="14" fill="#66552d">독립된 자금 생명주기</text>
+        <rect x="30" y="390" width="255" height="160" rx="13" fill="#e8f3ec" stroke="#2f8a63" stroke-width="2"/><rect x="30" y="390" width="255" height="46" rx="13" fill="#2f8a63"/><text x="157" y="420" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">정보성 메타·이력</text><text x="50" y="466" font-size="15" font-weight="700" fill="#256849">PK  메타이력_ID</text><text x="50" y="498" font-size="15" fill="#3f6253">FK  운용지시_ID</text><text x="50" y="530" font-size="14" fill="#3f6253">주석 · 비고 · 전후값 · 사유</text>
+        <rect x="400" y="390" width="270" height="160" rx="13" fill="#f0edf8" stroke="#735b9e" stroke-width="2"/><rect x="400" y="390" width="270" height="46" rx="13" fill="#735b9e"/><text x="535" y="420" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">운용지시–자금 관계</text><text x="420" y="466" font-size="15" font-weight="700" fill="#574477">FK  운용지시_ID·버전</text><text x="420" y="498" font-size="15" font-weight="700" fill="#574477">FK  자금집행_ID</text><text x="420" y="530" font-size="14" fill="#5f5570">관계유형 · 유효기간 · 정정사유</text>
+        <rect x="780" y="390" width="285" height="160" rx="13" fill="#f4f7f9" stroke="#687d8b" stroke-width="2"/><rect x="780" y="390" width="285" height="46" rx="13" fill="#687d8b"/><text x="922" y="420" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">자금확정 스냅샷</text><text x="800" y="466" font-size="15" font-weight="700" fill="#435865">PK  스냅샷_ID</text><text x="800" y="498" font-size="15" fill="#536873">FK  자금집행_ID</text><text x="800" y="530" font-size="14" fill="#536873">은행결과 · 회계·분개 연결</text>
+      </svg>
+    </div>
+    <div class="message" style="margin-top:14px">관계는 끊어 없애는 것이 아니라, 직접 키 승계를 제거하고 독립 ID 사이의 명시적 관계로 바꿉니다. 정보성 수정은 자금 관계를 변경하지 않습니다.</div>
+  </section>
+
   <section class="section" id="flow">
-    <h2>5. 수정 요청의 판단 흐름</h2>
+    <h2>6. 수정 요청의 판단 흐름</h2>
     <div class="diagram">
       <svg viewBox="0 0 1040 290" role="img" aria-label="운용지시 수정 요청 판단 흐름">
         <defs><marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#526b7c"/></marker></defs>
@@ -82,12 +111,12 @@
   </section>
 
   <section class="section" id="roadmap">
-    <h2>6. 한 번에 뜯지 않는 단계적 전환</h2>
+    <h2>7. 한 번에 뜯지 않는 단계적 전환</h2>
     <div class="road"><div class="step"><small>STEP 1</small><h3>정보성 항목 분리</h3><p>주석·비고를 별도 영역으로 옮겨 현장 불편을 먼저 해소합니다.</p></div><div class="step"><small>STEP 2</small><h3>고정 ID·버전 도입</h3><p>업무상 동일성과 수정 이력을 분리하고 기존 키와 병행합니다.</p></div><div class="step"><small>STEP 3</small><h3>자금집행 독립화</h3><p>독립 ID와 관계정보로 특정 버전·정정관계를 추적합니다.</p></div><div class="step"><small>STEP 4</small><h3>레거시 연결 축소</h3><p>대사 후 기존 키 연결은 호환조회 용도로 단계적으로 축소합니다.</p></div></div>
   </section>
 
   <section class="section" id="talk">
-    <h2>7. 컨설팅·개발 담당자와 결정할 사항</h2>
+    <h2>8. 컨설팅·개발 담당자와 결정할 사항</h2>
     <div class="talk"><div><strong>① 변경정책</strong>어떤 필드가 자금영향·정보성·조건부 승인 대상인가?</div><div><strong>② 식별체계</strong>고정 운용지시 ID와 버전을 어떻게 발급·이행할 것인가?</div><div><strong>③ 관계모델</strong>분할지급·복수통화·취소·정정 관계를 어떻게 표현할 것인가?</div><div><strong>④ 감사·권한</strong>정보성 수정의 권한, 사유, 이력을 어느 수준으로 보존할 것인가?</div><div><strong>⑤ 전환전략</strong>기존 키 사용 화면·배치·연계를 어떤 순서로 바꿀 것인가?</div><div><strong>⑥ 검증기준</strong>은행결과·자금집행·분개·운용지시를 어떻게 자동 대사할 것인가?</div></div>
   </section>
 
