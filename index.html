@@ -248,6 +248,10 @@
           📋 오류 목록
           <span class="sm-badge sm-lv2">LV2</span>
         </a>
+        <a href="system_upgrade_2028.html" id="sm-upgrade" style="display:none;">
+          🧩 2028 시스템 고도화 아이디어
+          <span class="sm-badge sm-lv2">LV2</span>
+        </a>
         <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
           📊 코드표 (주제영역·Proc소스)
           <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
@@ -369,6 +373,7 @@
     badge.className = 'lv-pill ' + info.cls;
 
     document.getElementById('sm-event').style.display = level >= 2 ? 'flex' : 'none';
+    document.getElementById('sm-upgrade').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-dashboard').style.display = level >= 2 ? 'flex' : 'none';
     document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
     document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
