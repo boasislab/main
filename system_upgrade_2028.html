@@ -19,7 +19,7 @@
   </section>
 
   <section class="summary">
-    <div><strong id="idea-count">4</strong>아이디어</div><div><strong>4</strong>업무영역</div><div><strong>2028</strong>목표연도</div><div><strong>초안</strong>현재단계</div>
+    <div><strong id="idea-count">5</strong>아이디어</div><div><strong>5</strong>업무영역</div><div><strong>2028</strong>목표연도</div><div><strong>초안</strong>현재단계</div>
   </section>
 
   <section class="panel">
@@ -33,6 +33,7 @@
     <button class="filter" data-filter="운영·재처리">운영·재처리</button>
     <button class="filter" data-filter="영향도·테스트">영향도·테스트</button>
     <button class="filter" data-filter="상태코드·표준">상태코드·표준</button>
+    <button class="filter" data-filter="결합도·데이터">결합도·데이터</button>
   </div>
 
   <section class="cards" id="idea-list">
@@ -66,6 +67,14 @@
       <div class="grid"><div class="box"><strong>현행 문제</strong>거래상태·재작업상태 등 핵심 상태값의 의미와 전이조건이 소스와 담당자 지식에 흩어져 있어 분석·개발·테스트 때 반복 확인이 필요합니다.</div><div class="box"><strong>개선 방향</strong>컬럼별 코드값, 업무 의미, 허용 전이, 설정 주체, 변경 시점, 참조 업무를 하나의 표준사전과 상태전이도로 관리합니다.</div><div class="box"><strong>기대효과</strong>상태 오해와 잘못된 데이터 보정 감소, 영향도 분석과 테스트 설계 가속, 컨설팅·개발 인수인계 품질 향상.</div><div class="box"><strong>영향영역</strong>거래·원장·분개·재작업, 화면, 배치, 인터페이스, 코드관리, 데이터 이행.</div></div>
       <div class="criteria"><strong>완료·검수 기준</strong><br>주요 상태컬럼마다 모든 코드값과 업무 의미가 확인되고, 허용·금지 전이 및 상태를 변경하는 프로그램과 테스트 케이스를 추적할 수 있어야 합니다.</div>
       <div class="questions"><strong>컨설팅 질문</strong> · 코드의 공식 원천은 어디인가? · 자산별 예외값을 공통사전에서 어떻게 표현할 것인가? · 잘못된 상태전이를 DB와 서비스 중 어디에서 차단할 것인가?</div>
+    </article>
+
+    <article class="card" data-area="결합도·데이터" data-state="검토 중">
+      <div class="card-head"><h3>UPG-005 · 운용지시와 자금집행 정보의 생명주기 분리</h3><span class="state">검토 중</span></div>
+      <div class="meta"><span class="chip">결합도·데이터</span><span class="chip">우선순위 상</span><span class="chip">업무구조·자금집행</span></div>
+      <div class="grid"><div class="box"><strong>현행 문제</strong>운용지시와 자금집행 자료가 같은 거래키에 강하게 연결되어, 출납 완료 후 결제와 무관한 일반정보 수정도 자금상태를 되돌리는 우회처리가 필요합니다.</div><div class="box"><strong>개선 방향</strong>운용지시는 고정 식별자와 버전으로 관리하고 자금집행에는 독립 식별자를 부여합니다. 변경항목을 자금영향 유무로 구분해 비금액성 변경과 결제정보 정정을 서로 다른 절차로 처리합니다.</div><div class="box"><strong>기대효과</strong>불필요한 출납취소 감소, 은행 송신정보 불일치 예방, 수정 편의·이력 추적·감사 대응 향상.</div><div class="box"><strong>영향영역</strong>운용지시, 자금집행, 은행연계, 회계확정, 승인·이력, 화면, 배치, 인터페이스, 데이터 이행.</div></div>
+      <div class="criteria"><strong>완료·검수 기준</strong><br>비금액성 변경은 완료된 자금집행을 훼손하지 않고 반영되며, 금액·계좌·결제일 등 자금영향 변경은 승인 또는 정정거래 없이 반영되지 않아야 합니다. 모든 버전과 연결관계도 추적할 수 있어야 합니다.</div>
+      <div class="questions"><strong>컨설팅 질문</strong> · 운용지시의 고정 식별자와 버전을 어떻게 분리할 것인가? · 어떤 항목을 자금영향 변경으로 분류할 것인가? · 기존 키를 사용하는 화면·배치·인터페이스를 어떤 순서로 전환할 것인가?</div>
     </article>
   </section>
 
