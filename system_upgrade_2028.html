@@ -71,8 +71,8 @@
 
     <article class="card" data-area="결합도·데이터" data-state="검토 중">
       <div class="card-head"><h3>UPG-005 · 운용지시와 자금집행 정보의 생명주기 분리</h3><span class="state">검토 중</span></div>
-      <div class="meta"><span class="chip">결합도·데이터</span><span class="chip">우선순위 상</span><span class="chip">업무구조·자금집행</span></div>
-      <div class="grid"><div class="box"><strong>현행 문제</strong>운용지시와 자금집행 자료가 같은 거래키에 강하게 연결되어, 출납 완료 후 결제와 무관한 일반정보 수정도 자금상태를 되돌리는 우회처리가 필요합니다.</div><div class="box"><strong>개선 방향</strong>운용지시는 고정 식별자와 버전으로 관리하고 자금집행에는 독립 식별자를 부여합니다. 변경항목을 자금영향 유무로 구분해 비금액성 변경과 결제정보 정정을 서로 다른 절차로 처리합니다.</div><div class="box"><strong>기대효과</strong>불필요한 출납취소 감소, 은행 송신정보 불일치 예방, 수정 편의·이력 추적·감사 대응 향상.</div><div class="box"><strong>영향영역</strong>운용지시, 자금집행, 은행연계, 회계확정, 승인·이력, 화면, 배치, 인터페이스, 데이터 이행.</div></div>
+      <div class="meta"><span class="chip">결합도·데이터</span><span class="chip">우선순위 상</span><span class="chip">업무구조·자금집행</span><span class="chip">유지보수 개선 불가</span></div>
+      <div class="grid"><div class="box"><strong>현행 문제</strong>운용지시와 자금집행 자료가 같은 거래키에 강하게 연결되어, 출납 완료 후 결제와 무관한 일반정보 수정도 자금상태를 되돌리는 우회처리가 필요합니다.</div><div class="box"><strong>구조개선 판단</strong>현재 수정 제한은 은행 출납결과와 내부정보의 정합성을 지키는 안전장치입니다. 조건만 완화할 수 없으며 식별자·이력·승인·정정·은행연계·회계처리를 함께 재설계해야 하는 고도화 과제입니다.</div><div class="box"><strong>개선 방향</strong>운용지시는 고정 식별자와 버전으로 관리하고 자금집행에는 독립 식별자를 부여합니다. 변경항목을 자금영향 유무로 구분해 비금액성 변경과 결제정보 정정을 서로 다른 절차로 처리합니다.</div><div class="box"><strong>기대효과</strong>불필요한 출납취소 감소, 은행 송신정보 불일치 예방, 수정 편의·이력 추적·감사 대응 향상.</div><div class="box"><strong>영향영역</strong>운용지시, 자금집행, 은행연계, 회계확정, 승인·이력, 화면, 배치, 인터페이스, 데이터 이행.</div></div>
       <div class="criteria"><strong>완료·검수 기준</strong><br>비금액성 변경은 완료된 자금집행을 훼손하지 않고 반영되며, 금액·계좌·결제일 등 자금영향 변경은 승인 또는 정정거래 없이 반영되지 않아야 합니다. 모든 버전과 연결관계도 추적할 수 있어야 합니다.</div>
       <div class="questions"><strong>컨설팅 질문</strong> · 운용지시의 고정 식별자와 버전을 어떻게 분리할 것인가? · 어떤 항목을 자금영향 변경으로 분류할 것인가? · 기존 키를 사용하는 화면·배치·인터페이스를 어떤 순서로 전환할 것인가?</div>
     </article>
