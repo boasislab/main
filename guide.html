@@ -118,6 +118,17 @@
   }
   .review-comment-input:focus { border-color: #c0552a; }
 
+  .review-photo-field { display: flex; flex-direction: column; gap: 7px; }
+  .review-photo-label { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 11px; border: 1.5px dashed #dfbda9; border-radius: 9px; background: #fff; color: #a44a24; font-size: 0.82em; font-weight: 700; cursor: pointer; }
+  .review-photo-label:hover { background: #fef0e7; border-color: #c0552a; }
+  .review-photo-input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+  .review-photo-note { font-size: 0.72em; line-height: 1.45; color: #aaa; }
+  .review-photo-preview, .my-review-photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .review-photo-preview:empty, .my-review-photos:empty { display: none; }
+  .review-photo-preview img, .my-review-photos img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 9px; background: #eee; }
+  .review-photo-remove { display: flex; align-items: center; gap: 6px; font-size: 0.76em; color: #888; }
+  .review-photo-status { font-size: 0.74em; color: #c0552a; }
+
   .review-date-row { display: flex; align-items: center; gap: 8px; }
   .review-date-row label { font-size: 0.8em; color: #888; white-space: nowrap; }
   .review-date-input { flex: 1; padding: 7px 10px; border: 1.5px solid #eee; border-radius: 9px; font-size: 0.82em; outline: none; color: #444; }
@@ -904,14 +915,53 @@ const PLACES = [
   },
 ];
 
-// ── 내 후기 저장소 (localStorage) ─────────────────────
-// { [id]: { rating: 1~5, comment: '', visited: 'YYYY-MM-DD' } }
+// ── 내 후기 저장소 ────────────────────────────────────
+// 후기 메타데이터는 localStorage, 압축 사진은 IndexedDB에 기기 로컬로 저장한다.
+// { [id]: { rating: 1~5, comment: '', visited: 'YYYY-MM-DD', photoIds: [] } }
 const REVIEW_KEY = 'guide_my_reviews';
 function loadReviews() {
   try { return JSON.parse(localStorage.getItem(REVIEW_KEY) || '{}'); } catch(e) { return {}; }
 }
 function saveReviews(data) {
   localStorage.setItem(REVIEW_KEY, JSON.stringify(data));
+}
+
+const PHOTO_DB_NAME = 'guide_review_photos';
+const PHOTO_STORE = 'photos';
+let photoDbPromise;
+function openPhotoDb() {
+  if (!photoDbPromise) {
+    photoDbPromise = new Promise((resolve, reject) => {
+      const req = indexedDB.open(PHOTO_DB_NAME, 1);
+      req.onupgradeneeded = () => req.result.createObjectStore(PHOTO_STORE);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  return photoDbPromise;
+}
+async function putPhoto(key, dataUrl) {
+  const db = await openPhotoDb();
+  return new Promise((resolve, reject) => {
+    const req = db.transaction(PHOTO_STORE, 'readwrite').objectStore(PHOTO_STORE).put(dataUrl, key);
+    req.onsuccess = () => resolve(); req.onerror = () => reject(req.error);
+  });
+}
+async function getPhoto(key) {
+  const db = await openPhotoDb();
+  return new Promise((resolve, reject) => {
+    const req = db.transaction(PHOTO_STORE, 'readonly').objectStore(PHOTO_STORE).get(key);
+    req.onsuccess = () => resolve(req.result || ''); req.onerror = () => reject(req.error);
+  });
+}
+async function deletePhotos(keys) {
+  if (!keys || !keys.length) return;
+  const db = await openPhotoDb();
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction(PHOTO_STORE, 'readwrite');
+    keys.forEach(key => tx.objectStore(PHOTO_STORE).delete(key));
+    tx.oncomplete = resolve; tx.onerror = () => reject(tx.error);
+  });
 }
 
 // ── 인증 ───────────────────────────────────────────────
@@ -1100,6 +1150,7 @@ function render() {
     html += '</div>';
   });
   area.innerHTML = html;
+  hydrateReviewPhotos();
 }
 
 // ── 별표 문자열 생성 ───────────────────────────────────
@@ -1161,6 +1212,7 @@ function cardHTML(p) {
       </div>
       ${myRev.comment ? '<div class="my-review-comment">' + escHtml(myRev.comment) + '</div>' : ''}
       ${myRev.visited ? '<div class="my-review-date">📅 방문 ' + myRev.visited + '</div>' : ''}
+      ${(myRev.photoIds || []).length ? '<div class="my-review-photos" data-photo-ids="' + myRev.photoIds.join('|') + '"></div>' : ''}
     </div>
     <div class="review-form" id="rev-form-${p.id}" style="display:none;">
       ${reviewFormHTML(p.id, myRev)}
@@ -1198,6 +1250,7 @@ function reviewFormHTML(id, existing) {
   const r = existing ? existing.rating : 0;
   const c = existing ? (existing.comment || '') : '';
   const v = existing ? (existing.visited || '') : '';
+  const photoCount = existing && existing.photoIds ? existing.photoIds.length : 0;
   const stars = [1,2,3,4,5].map(i =>
     '<span id="rs-'+id+'-'+i+'" data-v="'+i+'" class="'+(i<=r?'on':'')+'" onclick="pickStar('+id+','+i+')" onmouseover="hoverStar('+id+','+i+')" onmouseout="unhoverStar('+id+')">★</span>'
   ).join('');
@@ -1208,6 +1261,14 @@ function reviewFormHTML(id, existing) {
       <span class="star-val-label" id="sv-${id}">${r ? r+'점' : '별점 선택'}</span>
     </div>
     <textarea class="review-comment-input" id="rc-${id}" placeholder="한줄 후기 (선택)">${escHtml(c)}</textarea>
+    <div class="review-photo-field">
+      <label class="review-photo-label" for="rp-${id}">📷 후기 사진 선택 (최대 3장)</label>
+      <input class="review-photo-input" id="rp-${id}" type="file" accept="image/*" multiple onchange="previewReviewPhotos(${id}, this.files)">
+      <div class="review-photo-preview" id="rpp-${id}"></div>
+      <div class="review-photo-status" id="rps-${id}">${photoCount ? '기존 사진 ' + photoCount + '장 · 새 사진을 선택하면 교체됩니다.' : ''}</div>
+      ${photoCount ? '<label class="review-photo-remove"><input type="checkbox" id="rpr-'+id+'"> 기존 사진 모두 삭제</label>' : ''}
+      <div class="review-photo-note">사진은 최대 1600px로 압축되어 이 기기의 브라우저에만 저장됩니다. 다른 기기에는 자동 동기화되지 않습니다.</div>
+    </div>
     <div class="review-date-row">
       <label>방문일</label>
       <input type="date" class="review-date-input" id="rd-${id}" value="${v}">
@@ -1220,6 +1281,7 @@ function reviewFormHTML(id, existing) {
 
 // ── 별점 인터랙션 ──────────────────────────────────────
 let pickedStars = {};
+let pendingPhotos = {};
 function pickStar(id, val) {
   pickedStars[id] = val;
   for (let i=1; i<=5; i++) {
@@ -1243,10 +1305,58 @@ function unhoverStar(id) {
   }
 }
 
+function compressReviewPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('지원하지 않는 이미지 형식입니다.'));
+      img.onload = () => {
+        const maxSide = 1600;
+        const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+async function previewReviewPhotos(id, fileList) {
+  const files = Array.from(fileList || []).slice(0, 3);
+  if ((fileList || []).length > 3) alert('후기 사진은 최대 3장까지 등록할 수 있습니다.');
+  const preview = document.getElementById('rpp-' + id);
+  const status = document.getElementById('rps-' + id);
+  if (status) status.textContent = files.length ? '사진을 압축하는 중…' : '';
+  try {
+    pendingPhotos[id] = await Promise.all(files.map(compressReviewPhoto));
+    if (preview) preview.innerHTML = pendingPhotos[id].map(src => '<img src="'+src+'" alt="선택한 후기 사진 미리보기">').join('');
+    if (status) status.textContent = pendingPhotos[id].length + '장 선택됨 · 저장하면 기존 사진을 교체합니다.';
+  } catch (e) {
+    pendingPhotos[id] = [];
+    if (preview) preview.innerHTML = '';
+    if (status) status.textContent = '';
+    alert(e.message || '사진을 처리하지 못했습니다.');
+  }
+}
+async function hydrateReviewPhotos() {
+  const galleries = Array.from(document.querySelectorAll('[data-photo-ids]'));
+  await Promise.all(galleries.map(async el => {
+    const ids = (el.dataset.photoIds || '').split('|').filter(Boolean);
+    const sources = await Promise.all(ids.map(id => getPhoto(id).catch(() => '')));
+    el.innerHTML = sources.filter(Boolean).map(src => '<img src="'+src+'" alt="후기 사진" loading="lazy">').join('');
+  }));
+}
+
 // ── 폼 열기/닫기 ───────────────────────────────────────
 function openForm(id) {
   const reviews = loadReviews();
   pickedStars[id] = reviews[id] ? reviews[id].rating : 0;
+  pendingPhotos[id] = [];
 
   const addBtn = document.getElementById('rev-add-btn-'+id);
   if (addBtn) addBtn.style.display = 'none';
@@ -1264,19 +1374,42 @@ function closeForm(id) {
   const form = document.getElementById('rev-form-'+id);
   if (form) form.style.display = 'none';
 }
-function submitReview(id) {
+async function submitReview(id) {
   const rating  = pickedStars[id] || 0;
   if (!rating) { alert('별점을 선택해주세요.'); return; }
   const comment = (document.getElementById('rc-'+id) || {}).value || '';
   const visited = (document.getElementById('rd-'+id) || {}).value || '';
   const reviews = loadReviews();
-  reviews[id] = { rating, comment, visited };
+  const previousIds = reviews[id] && reviews[id].photoIds ? reviews[id].photoIds : [];
+  const removeExisting = !!((document.getElementById('rpr-'+id) || {}).checked);
+  let photoIds = previousIds.slice();
+  try {
+    if ((pendingPhotos[id] || []).length) {
+      await deletePhotos(previousIds);
+      photoIds = [];
+      for (let i = 0; i < pendingPhotos[id].length; i++) {
+        const key = id + '-' + Date.now() + '-' + i;
+        await putPhoto(key, pendingPhotos[id][i]);
+        photoIds.push(key);
+      }
+    } else if (removeExisting) {
+      await deletePhotos(previousIds);
+      photoIds = [];
+    }
+  } catch (e) {
+    alert('사진 저장에 실패했습니다. 브라우저 저장 공간을 확인해주세요.');
+    return;
+  }
+  reviews[id] = { rating, comment, visited, photoIds };
   saveReviews(reviews);
+  pendingPhotos[id] = [];
   render();
 }
-function deleteReview(id) {
+async function deleteReview(id) {
   if (!confirm('내 후기를 삭제할까요?')) return;
   const reviews = loadReviews();
+  const photoIds = reviews[id] && reviews[id].photoIds ? reviews[id].photoIds : [];
+  await deletePhotos(photoIds).catch(() => {});
   delete reviews[id];
   saveReviews(reviews);
   render();
