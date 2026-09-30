@@ -194,9 +194,11 @@
   .empty-state p { font-size: 0.92em; }
 
   /* 링크/방문 */
-  .card-meta { display: flex; align-items: center; justify-content: space-between; }
+  .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .card-link { font-size: 0.78em; color: #3a7bd5; text-decoration: none; }
   .card-link:hover { text-decoration: underline; }
+  .card-share { border: 1px solid #d9e5f5; background: #f5f9ff; color: #3a7bd5; border-radius: 14px; padding: 4px 8px; font-size: 0.75em; cursor: pointer; }
+  .card-share:hover { background: #eaf3ff; }
   .card-visited { font-size: 0.75em; color: #ccc; }
 
   @media (max-width: 480px) {
@@ -301,6 +303,7 @@
 // tags: 키워드 배열             url: 링크 (선택)
 // visited: 'YYYY-MM-DD' (선택)
 // [맛집 전용] contact: 연락처  signature: 시그니쳐메뉴  tip: 이용/예약팁  holiday: 정기휴무일
+// blogUrl: 관련 블로그 포스팅 URL (선택)
 const PLACES = [
   {
     id: 1,
@@ -948,6 +951,26 @@ const PLACES = [
     holiday: '매주 일요일 정기휴무(방문 전 재확인)',
     visited: '',
     url: 'https://www.diningcode.com/profile.php?rid=Ni5tlZSnOIGd',
+    blogUrl: 'https://blog.naver.com/PostView.nhn?blogId=tjsghk__wh&logNo=224399796455',
+  },
+  {
+    id: 41,
+    type: 'food',
+    name: '황등국밥집',
+    province: '전북특별자치도',
+    city: '익산시',
+    district: '남중동',
+    address: '전북특별자치도 익산시 인북로 193-1',
+    tags: ['한식', '국밥', '순대국밥', '선지순대국밥', '육회비빔밥', '익산맛집'],
+    rating: 0,
+    desc: '오랜 전통의 익산 국밥집. 선지와 피순대가 들어간 순대국밥, 육회비빔밥과 함께 나오는 선지국으로 알려진 곳.',
+    contact: '063-855-9890',
+    signature: '선지순대국밥, 모듬순대, 육회비빔밥',
+    tip: '검색 자료 기준 월~토요일 10:00~21:00. 영업시간과 재료 소진 여부는 방문 전 전화 확인 권장.',
+    holiday: '매주 일요일 정기휴무(방문 전 재확인)',
+    visited: '',
+    url: 'https://www.diningcode.com/profile.php?rid=8900MzyeWTTm',
+    blogUrl: 'https://blog.naver.com/jyoonbb/223851328863',
   },
 ];
 
@@ -1226,7 +1249,11 @@ function cardHTML(p) {
 
   const metaItems = [];
   if (p.visited) metaItems.push('<span class="card-visited">방문 ' + p.visited + '</span>');
-  if (p.url)     metaItems.push('<a class="card-link" href="' + p.url + '" target="_blank">🔗 링크</a>');
+  if (p.url)     metaItems.push('<a class="card-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">🔗 장소정보</a>');
+  if (p.blogUrl) {
+    metaItems.push('<a class="card-link" href="' + p.blogUrl + '" target="_blank" rel="noopener noreferrer">📝 블로그</a>');
+    metaItems.push('<button class="card-share" type="button" onclick="shareBlog(event,' + p.id + ')">↗ 공유</button>');
+  }
   const meta = metaItems.length ? '<div class="card-meta">' + metaItems.join('') + '</div>' : '';
 
   // 내 후기 섹션
@@ -1279,6 +1306,24 @@ function cardHTML(p) {
     ${meta}
     ${reviewSection}
   </div>`;
+}
+
+async function shareBlog(event, id) {
+  event.preventDefault();
+  const p = PLACES.find(place => place.id === id);
+  if (!p || !p.blogUrl) return;
+  const shareData = { title: p.name + ' 블로그 포스팅', text: p.name + ' 맛집·멋집 블로그 포스팅', url: p.blogUrl };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    await navigator.clipboard.writeText(p.blogUrl);
+    alert('블로그 URL을 복사했습니다.');
+  } catch (e) {
+    if (e && e.name === 'AbortError') return;
+    prompt('블로그 URL을 복사해 공유하세요.', p.blogUrl);
+  }
 }
 
 // ── 후기 폼 HTML ───────────────────────────────────────
