@@ -63,6 +63,9 @@
   .tag-general { background: #f0f0f0; color: #666; }
   .card-desc { font-size: 0.84em; color: #555; line-height: 1.55; }
   .card-addr { font-size: 0.77em; color: #bbb; }
+  .card-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .card-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; background: #eee; }
+  .card-photos img:only-child { grid-column: 1 / -1; }
 
   /* ── 맛집 전용 정보 ── */
   .food-info { display: flex; flex-direction: column; gap: 5px; background: #fffbf8; border: 1px solid #f5e6d8; border-radius: 10px; padding: 10px 12px; }
@@ -972,6 +975,44 @@ const PLACES = [
     url: 'https://www.diningcode.com/profile.php?rid=8900MzyeWTTm',
     blogUrl: 'https://blog.naver.com/jyoonbb/223851328863',
   },
+  {
+    id: 42,
+    type: 'spot',
+    name: '곡성 동화정원',
+    province: '전라남도',
+    city: '곡성군',
+    district: '곡성읍',
+    address: '전라남도 곡성군 곡성읍 묘천2길 11-6 일대 충의공원 내',
+    tags: ['멋집', '정원', '계절꽃', '산책', '사진명소', '섬진강기차마을', '곡성여행'],
+    rating: 0,
+    desc: '섬진강기차마을 인근 충의공원에 조성된 계절 정원. 계절에 따라 달라지는 꽃밭과 넓은 풍경을 산책하며 사진으로 남기기 좋은 곳.',
+    visited: '',
+    url: 'https://map.naver.com/p/entry/place/1897672947',
+    blogUrl: 'https://blog.naver.com/snslive/224283495904',
+  },
+  {
+    id: 43,
+    type: 'food',
+    name: '산들엄니밥상',
+    province: '전북특별자치도',
+    city: '진안군',
+    district: '상전면',
+    address: '전북특별자치도 진안군 상전면 금지2길 4-4',
+    tags: ['한식', '들깨삼계탕', '토종닭', '닭볶음탕', '보양식', '진안맛집'],
+    rating: 0,
+    desc: '배넘실마을의 한적한 풍경 속에서 토종닭 들깨삼계탕과 들깨닭볶음탕을 맛볼 수 있는 진안의 예약형 보양식 맛집.',
+    contact: '0507-1430-1566',
+    signature: '토종닭 들깨삼계탕, 토종닭 들깨닭볶음탕',
+    tip: '검색 자료 기준 월~토요일 11:00~15:00, 라스트오더 13:00. 메뉴 준비 시간이 필요하므로 사전 예약을 권장하며, 배넘실마을회관 앞 광장 주차 가능. 영업정보는 방문 전 재확인 권장.',
+    holiday: '매주 일요일 정기휴무(방문 전 재확인)',
+    visited: '',
+    url: 'https://map.naver.com/p/entry/place/1809305951',
+    blogUrl: 'https://m.blog.naver.com/jeonggillove/224063596099',
+    photos: [
+      { src: 'images/sandeul-eomni-bapsang-exterior.jpg', alt: '진안 산들엄니밥상 외관과 표지석' },
+      { src: 'images/sandeul-eomni-bapsang-samgyetang.jpg', alt: '산들엄니밥상 토종닭 들깨삼계탕' },
+    ],
+  },
 ];
 
 // ── 내 후기 저장소 ────────────────────────────────────
@@ -1228,6 +1269,9 @@ function cardHTML(p) {
   const typeLabel= p.type === 'food' ? '맛집' : '멋집';
   const tags     = (p.tags||[]).map(t => '<span class="tag tag-general">'+t+'</span>').join('');
   const addr     = (p.address && p.type !== 'food') ? '<div class="card-addr">📍 ' + p.address + '</div>' : '';
+  const photos   = (p.photos||[]).length
+    ? '<div class="card-photos">' + p.photos.map(photo => '<img src="' + photo.src + '" alt="' + escHtml(photo.alt||p.name) + '" loading="lazy">').join('') + '</div>'
+    : '';
   const baseRating = p.rating
     ? '<div class="card-base-rating"><span class="star-disp">' + starsStr(p.rating) + '</span><span class="rating-num">' + p.rating + '</span></div>'
     : '';
@@ -1299,6 +1343,7 @@ function cardHTML(p) {
       </div>
     </div>
     <div class="card-tags"><span class="tag ${typeCls}">${typeLabel}</span>${tags}</div>
+    ${photos}
     ${p.desc ? '<div class="card-desc">' + escHtml(p.desc) + '</div>' : ''}
     ${addr}
     ${foodInfoHTML}
