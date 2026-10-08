@@ -393,7 +393,8 @@
 
   // ── 오류 데이터 ───────────────────────────────────────────────
   // 새 오류 추가 시 이 배열에 항목을 추가하세요.
-  // level: 1|2|3|4  /  status: 'open'|'progress'|'done'
+  // level은 정보성 분류이며 오류 목록의 표시 여부를 제한하지 않는다.
+  // status: 'open'|'progress'|'done'
   const ERRORS = [
     {
       datetime: '2026/07/02',
@@ -494,6 +495,22 @@
       action: '역외금융회사코드를 새로 채번한 뒤 재수신 요청',
       status: 'done', reason: ''
     },
+    {
+      datetime: '2026/09/15', no: 'E011', level: 3,
+      symptom: 'KRX 애프터마켓 시행 후 주식 종가 2차분 적재·연계 처리 중 사전조건 불일치 오류',
+      cause: '일마감 이후 전일 작업기준일의 2차 종가가 입수되어 다음 영업일로 변경된 회계일과 작업처리일이 불일치',
+      target: 'KRX 주식 종가 2차분 연계 및 후속 배치',
+      action: '일마감 순서, 회계일 판정 기준, 예외 허용 조건 및 재처리 절차 재검토',
+      status: 'progress', reason: '운영 순서와 예외 처리 기준 재설계 필요'
+    },
+    {
+      datetime: '2026/10/07', no: 'E012', level: 3,
+      symptom: '#1026 상품마감 재작업 중 외화예치금 연결금액 정합성 오류',
+      cause: '미세 소수점 차이를 금액 불일치로 판단해 불필요한 연결정보를 자동 생성',
+      target: '외화예치금 재작업·외화자금 유출입 연결·예치금 거래 생성',
+      action: '연결금액 합계를 round 처리한 뒤 비교해 불필요한 자동생성을 방지',
+      status: 'progress', reason: '자동 연결 필요성과 입력 정밀도 개선 검토 필요'
+    },
   ];
   // ─────────────────────────────────────────────────────────────
 
@@ -503,7 +520,8 @@
   let currentLevel = 0;
 
   function renderErrors() {
-    const visible = ERRORS.filter(e => (e.level || 1) <= currentLevel);
+    // 공유페이지는 본인용이므로 LV는 정보성 배지로만 표시한다.
+    const visible = ERRORS;
     const tbody = document.getElementById('error-tbody');
     if (visible.length === 0) {
       tbody.innerHTML = '<tr class="empty-row"><td colspan="8">열람 가능한 오류가 없습니다.</td></tr>';
@@ -528,7 +546,7 @@
     }
     const open = visible.filter(e => e.status === 'open').length;
     const done = visible.filter(e => e.status === 'done').length;
-    document.getElementById('stat-total').textContent = `열람 ${visible.length}건`;
+    document.getElementById('stat-total').textContent = `전체 ${visible.length}건`;
     document.getElementById('stat-open').textContent  = `미조치 ${open}건`;
     document.getElementById('stat-done').textContent  = `조치완료 ${done}건`;
 
