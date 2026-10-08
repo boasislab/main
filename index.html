@@ -372,15 +372,10 @@
     badge.textContent = info.label;
     badge.className = 'lv-pill ' + info.cls;
 
-    document.getElementById('sm-event').style.display = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-upgrade').style.display = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-dashboard').style.display = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-codes').style.display = level >= 4 ? 'flex' : 'none';
-    document.getElementById('sm-er').style.display    = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-journal-complete').style.display = level >= 2 ? 'flex' : 'none';
-    document.getElementById('sm-journal-lv4').style.display = level >= 4 ? 'flex' : 'none';
-    document.getElementById('sm-sim').style.display   = level >= 4 ? 'flex' : 'none';
-    document.getElementById('sm-proc').style.display  = level >= 3 ? 'flex' : 'none';
+    // LV는 정보성 분류로만 사용하며 유효한 로그인에는 전체 회사 메뉴를 표시한다.
+    ['sm-event', 'sm-upgrade', 'sm-dashboard', 'sm-codes', 'sm-er',
+     'sm-journal-complete', 'sm-journal-lv4', 'sm-sim', 'sm-proc']
+      .forEach(id => document.getElementById(id).style.display = 'flex');
   }
 
   function workLogout() {

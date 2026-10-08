@@ -90,7 +90,7 @@
     <button class="login-btn" onclick="tryLogin()">입장하기</button>
     <div class="err-msg" id="err-msg"></div>
     <div class="level-hint">
-      <p>접근 레벨에 따라 열람 범위가 다릅니다</p>
+      <p>LV는 자료의 성격을 알려주는 정보성 분류입니다</p>
       <div class="level-pills">
         <span class="lv-pill lv1">LV1 일반</span>
         <span class="lv-pill lv2">LV2 상세</span>
@@ -109,7 +109,7 @@
   </div>
   <div style="text-align:center; margin-bottom:20px;">
     <div class="access-banner">
-      🔐 현재 접근 레벨: <strong id="cur-level-label">-</strong>
+      🔐 로그인 분류: <strong id="cur-level-label">-</strong>
       <span id="cur-level-badge" class="badge lv1">-</span>
       <span id="cur-level-desc" style="color:#aaa;font-size:0.9em;"></span>
     </div>
@@ -118,7 +118,7 @@
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('tab-errors', this)">🔴 오류 목록</button>
     <button class="tab-btn" id="tab-btn-codes" onclick="switchTab('tab-codes', this)">📊 코드표</button>
-    <button class="tab-btn" id="tab-btn-proc" onclick="switchTab('tab-proc', this)" style="display:none">🔍 Proc 목록</button>
+    <button class="tab-btn" id="tab-btn-proc" onclick="switchTab('tab-proc', this)">🔍 Proc 목록</button>
     <button class="tab-btn" onclick="switchTab('tab-guide', this)">📋 작성 요령</button>
   </div>
 
@@ -216,10 +216,10 @@
       </table>
     </div>
     <div class="section-card">
-      <h2>접근 레벨 안내</h2>
+      <h2>LV 정보 분류 안내</h2>
       <table class="error-table">
         <thead>
-          <tr><th>레벨</th><th>명칭</th><th>열람 범위</th></tr>
+          <tr><th>레벨</th><th>명칭</th><th>정보 분류 기준</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -247,7 +247,7 @@
     </div>
   </div>
 
-  <!-- 탭: 코드표 (LV2+) -->
+  <!-- 탭: 코드표 -->
   <div id="tab-codes" class="tab-content">
     <div class="section-card">
       <h2>상위주제영역 코드 <span style="color:#aaa;font-weight:normal;font-size:0.85em">(16건)</span></h2>
@@ -387,7 +387,7 @@
     1: { label: 'LV1 일반',       cls: 'lv1', desc: '일반 업무' },
     2: { label: 'LV2 상세',       cls: 'lv2', desc: '상세 업무' },
     3: { label: 'LV3 민감',       cls: 'lv3', desc: '민감 정보' },
-    4: { label: '👑 LV4 슈퍼유저', cls: 'lv4', desc: '전체 열람 (관리자)' },
+    4: { label: '👑 LV4 슈퍼유저', cls: 'lv4', desc: '극비 정보' },
   };
   const KEY = 'auth_nps_level';
 
@@ -556,13 +556,12 @@
     badge.textContent = `LV${currentLevel}`;
     badge.className = `badge ${info.cls}`;
     document.getElementById('cur-level-desc').textContent = `(${info.desc})`;
-    // LV3+ 이면 Proc 목록 탭 버튼 표시
+    // LV는 정보성 분류이므로 모든 탭을 표시한다.
     const procBtn = document.getElementById('tab-btn-proc');
-    if (procBtn) procBtn.style.display = currentLevel >= 3 ? '' : 'none';
-    if (currentLevel >= 3 && typeof filterProc !== 'undefined') { filterProc(); }
-    // LV4 전용: 코드표 탭 표시/숨김
+    if (procBtn) procBtn.style.display = '';
+    if (typeof filterProc !== 'undefined') { filterProc(); }
     const codesBtn = document.getElementById('tab-btn-codes');
-    if (codesBtn) codesBtn.style.display = currentLevel >= 4 ? '' : 'none';
+    if (codesBtn) codesBtn.style.display = '';
   }
 
   function enterMain(level) {

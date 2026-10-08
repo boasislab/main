@@ -96,7 +96,7 @@
 </main>
 <script>
 const level=parseInt(sessionStorage.getItem('auth_nps_level')||'0',10);
-if(level<2){location.replace('index.html');}
+if(level<1){location.replace('index.html');}
 document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;let n=0;document.querySelectorAll('.card').forEach(card=>{const show=f==='all'||card.dataset.area===f;card.style.display=show?'block':'none';if(show)n++;});document.getElementById('idea-count').textContent=n;}));
 </script>
 </body>

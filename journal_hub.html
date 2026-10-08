@@ -480,7 +480,7 @@
 </main>
 </div>
 <script>
-  const HUB_PASSWORD = 'yyj123';
+  const PW_MAP = { 'nps2026lv1': 1, 'nps2026lv2': 2, 'nps2026lv3': 3, 'yyj123': 4 };
   const WORK_KEY = 'auth_nps_level';
   function showPage() {
     document.getElementById('login-screen').style.display = 'none';
@@ -488,8 +488,9 @@
   }
   function login() {
     const pw = document.getElementById('pw').value.trim();
-    if (pw === HUB_PASSWORD) {
-      sessionStorage.setItem(WORK_KEY, '4');
+    const level = PW_MAP[pw];
+    if (level) {
+      sessionStorage.setItem(WORK_KEY, String(level));
       showPage();
       return;
     }
@@ -497,7 +498,7 @@
   }
   (function init() {
     const level = parseInt(sessionStorage.getItem(WORK_KEY) || '0', 10);
-    if (level >= 4) showPage();
+    if (level >= 1) showPage();
   })();
 </script>
 </body>

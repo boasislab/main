@@ -114,7 +114,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; backgroun
   <div class="login-card">
     <div class="icon">🔧</div>
     <h1>테이블명 시뮬레이터</h1>
-    <p>NPF 12자리 테이블명 조립 도구<br>LV4 슈퍼유저 비밀번호를 입력하세요</p>
+    <p>NPF 12자리 테이블명 조립 도구<br>회사 업무관리 비밀번호를 입력하세요</p>
     <input type="password" class="pw-input" id="pw" placeholder="비밀번호"
       onkeydown="if(event.key==='Enter') tryLogin()">
     <button class="login-btn" onclick="tryLogin()">입장하기</button>
@@ -324,12 +324,9 @@ const SEQ_CAT  = {'0':'정보 (기준/코드/마스터)','1':'운용지시 (거�
 function tryLogin() {
   const input = document.getElementById('pw');
   const level = PW_MAP[input.value.trim()];
-  if (level && level >= 4) {
+  if (level) {
     sessionStorage.setItem(AUTH_KEY, level);
     showMain();
-  } else if (level) {
-    document.getElementById('err-msg').textContent = 'LV4 슈퍼유저 비밀번호가 필요합니다.';
-    input.classList.add('shake'); input.value=''; setTimeout(()=>input.classList.remove('shake'),400);
   } else {
     document.getElementById('err-msg').textContent = '비밀번호가 올바르지 않습니다.';
     input.classList.add('shake'); input.value=''; setTimeout(()=>input.classList.remove('shake'),400);
@@ -624,7 +621,7 @@ function resetAll() {
 
 // ── 세션 복원 ─────────────────────────────────────────
 const savedLevel = parseInt(sessionStorage.getItem(AUTH_KEY)||'0');
-if (savedLevel >= 4) showMain();
+if (savedLevel >= 1) showMain();
 </script>
 </body>
 </html>
