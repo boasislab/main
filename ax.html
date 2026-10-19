@@ -274,6 +274,23 @@
 /* Fluent-style AX layout refresh */
 :root{--ink:#1a1a1a;--muted:#5f6368;--line:#d1d1d1;--paper:#ffffff;--bg:#f5f5f5;--blue:#0067b8;--blue2:#005a9e;--green:#107c10;--amber:#8a6d00}body{font-family:'Segoe UI','Apple SD Gothic Neo','Noto Sans KR',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.68}#login-screen{background:#f2f2f2}.login-card{border-radius:4px;border:1px solid #d1d1d1;box-shadow:0 8px 18px rgba(0,0,0,.12);text-align:left}.login-icon{display:none}.login-card h1{color:#1a1a1a;font-weight:600}.pw-input{border-radius:2px;border:1px solid #8a8886;text-align:left;letter-spacing:0}.pw-input:focus{border-color:#8a8886;box-shadow:none;outline:2px solid var(--blue);outline-offset:1px}.login-btn{border-radius:2px;background:var(--blue)}.topbar{background:#fff;border-bottom:1px solid var(--line);backdrop-filter:none}.topbar-inner{max-width:1180px;height:52px;padding:0 24px}.brand{color:#242424;font-weight:600}.brand span:first-child{display:none}.nav a,.nav button{border:0;background:transparent;border-radius:2px;color:#323130;padding:8px 10px}.nav a:hover,.nav button:hover{background:#f3f2f1}.hero{background:#fff;color:#1a1a1a;border-bottom:1px solid #e5e5e5}.hero-inner{max-width:1180px;padding:52px 24px 34px}.eyebrow{letter-spacing:0;text-transform:none;color:var(--blue)}.hero h1{font-weight:600;line-height:1.12}.hero p{color:#4b5563}.source-note{border-radius:2px;background:#eff6fc;border-color:#c7e0f4;color:#004578}.content{max-width:1180px;padding:24px}.section{border-radius:4px;border:1px solid #e5e5e5;box-shadow:none;margin-bottom:16px}.section h2{color:#1a1a1a;font-weight:600}.section h3{color:#242424;border-top:1px solid #e5e5e5;padding-top:14px}.mini-card{border-radius:4px;background:#fafafa;border-color:#e5e5e5}.tag{border-radius:2px;background:#eff6fc;border-color:#c7e0f4;color:#004578}.flow div{border-radius:2px;background:#0067b8}.source-list a{border-radius:4px;border-color:#e5e5e5;background:#fff}.source-list a:hover{border-color:#0067b8;background:#f8fbff}@media(max-width:780px){.topbar-inner{height:auto;padding:12px 18px}.hero-inner{padding:38px 18px 28px}.content{padding:18px}}
 
+/* 2026-09 AX visual and navigation upgrade */
+:root{--ax-navy:#10233f;--ax-blue:#2d6cdf;--ax-cyan:#38bdf8;--ax-mint:#14b8a6;--ax-border:#dbe5f0}
+body{background:linear-gradient(180deg,#edf3fa 0,#f7f9fc 420px,#f4f6f9 100%)}
+.topbar{box-shadow:0 8px 28px rgba(16,35,63,.06)}
+.brand{display:flex;align-items:center;gap:10px;font-size:.98rem}.brand::before{content:'AX';display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--ax-blue),var(--ax-mint));color:#fff;font-size:.75rem;font-weight:800;box-shadow:0 5px 14px rgba(45,108,223,.22)}.brand span:first-child{display:inline}
+.hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#0d1f38 0%,#183b68 58%,#155e75 100%);color:#fff;border:0}.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}.hero::before{width:420px;height:420px;right:-120px;top:-210px;background:radial-gradient(circle,rgba(56,189,248,.35),transparent 68%)}.hero::after{width:300px;height:300px;left:-130px;bottom:-210px;background:radial-gradient(circle,rgba(20,184,166,.28),transparent 70%)}
+.hero-inner{position:relative;z-index:1;padding:62px 24px 48px}.eyebrow{display:inline-flex;padding:6px 10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.08);color:#bfe8ff;font-size:.78rem}.hero h1{color:#fff;margin-top:16px;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.045em}.hero p{color:#dcecff;font-size:1.08rem;max-width:650px}.source-note{display:inline-block;margin-top:17px;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(7,20,38,.3);color:#d8edff;backdrop-filter:blur(8px)}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:610px;margin-top:24px}.metric{padding:13px 15px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.08);backdrop-filter:blur(10px)}.metric strong{display:block;color:#fff;font-size:1.15rem}.metric span{color:#c7d8eb;font-size:.76rem}
+.quick-nav{display:flex;gap:8px;overflow-x:auto;padding:0 0 4px;margin:0 0 18px;scrollbar-width:none}.quick-nav::-webkit-scrollbar{display:none}.quick-nav a{flex:0 0 auto;text-decoration:none;color:#26435f;background:#fff;border:1px solid var(--ax-border);border-radius:999px;padding:9px 14px;font-weight:700;font-size:.82rem;box-shadow:0 3px 10px rgba(16,35,63,.05)}.quick-nav a:hover{border-color:var(--ax-blue);color:var(--ax-blue);transform:translateY(-1px)}
+.section{border-color:var(--ax-border);border-radius:15px;padding:28px;box-shadow:0 9px 30px rgba(16,35,63,.055)}.section h2{display:flex;align-items:center;gap:10px;font-size:1.35rem;letter-spacing:-.025em}.section h2::before{content:'';width:5px;height:24px;border-radius:4px;background:linear-gradient(var(--ax-blue),var(--ax-mint))}
+.mini-card{position:relative;border-radius:12px;background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid var(--ax-border);padding:19px;transition:.2s ease}.mini-card:hover{transform:translateY(-3px);border-color:#a8c7ee;box-shadow:0 10px 22px rgba(16,35,63,.08)}.mini-card strong{display:block;color:var(--ax-navy);font-size:1rem;margin-bottom:7px}.mini-card p{margin:0;color:#526174}.tag{border-radius:999px;padding:6px 10px;font-weight:700;font-size:.74rem}
+.flow{gap:8px}.flow div{border-radius:11px;background:linear-gradient(145deg,#2459aa,#2d78d5);box-shadow:0 6px 13px rgba(45,108,223,.18)}.flow div:last-child{background:linear-gradient(145deg,#0f766e,#14b8a6)}
+.framework-table{border-radius:11px;overflow:hidden;border:1px solid var(--ax-border)}.framework-table th{background:#eaf2fd;color:#173b68}.framework-table tr:nth-child(even) td{background:#f9fbfe}
+.resource-toolbar{display:flex;gap:10px;margin:18px 0 14px}.resource-search{width:100%;padding:12px 14px 12px 42px;border:1px solid var(--ax-border);border-radius:11px;background:#fff no-repeat 14px center;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%2362768b' stroke-width='2'%3E%3Ccircle cx='8' cy='8' r='5.5'/%3E%3Cpath d='m12 12 4 4'/%3E%3C/svg%3E");font:inherit}.resource-search:focus{outline:3px solid rgba(45,108,223,.13);border-color:var(--ax-blue)}
+.source-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.source-list a{position:relative;min-height:74px;padding:15px 42px 15px 16px;border:1px solid var(--ax-border);border-radius:12px;background:linear-gradient(145deg,#fff,#f8fbff);font-weight:700;line-height:1.45;color:#193a61;display:flex;align-items:center;box-shadow:0 4px 14px rgba(16,35,63,.04)}.source-list a::after{content:'→';position:absolute;right:16px;color:var(--ax-blue);font-size:1.15rem}.source-list a:hover{transform:translateY(-2px);text-decoration:none;box-shadow:0 9px 20px rgba(16,35,63,.08)}.source-list a[hidden]{display:none}.empty-result{display:none;padding:18px;border-radius:10px;background:#fff5e6;color:#7a4b00;text-align:center}.empty-result.show{display:block}
+.update-panel{border:1px solid #b8d6f7;background:linear-gradient(135deg,#eff7ff,#eefcf8);border-radius:14px;padding:20px;margin-top:18px}.update-panel strong{display:block;color:#123b66;font-size:1.08rem;margin-bottom:7px}.update-panel p{margin:0 0 12px}.update-link{display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border-radius:10px;background:#195fb5;color:#fff!important;font-weight:800;text-decoration:none}.update-link:hover{background:#124b91;text-decoration:none}
+@media(max-width:780px){.brand{width:100%}.nav{width:100%;overflow-x:auto;flex-wrap:nowrap}.nav a,.nav button{white-space:nowrap}.hero-inner{padding:46px 18px 34px}.hero-metrics{grid-template-columns:repeat(3,1fr)}.metric{padding:10px}.metric strong{font-size:1rem}.metric span{font-size:.68rem}.section{padding:20px 17px;border-radius:12px}.source-list{grid-template-columns:1fr}.source-list a{min-height:62px}.framework-table{border-radius:8px}}
 </style>
 </head>
 <body>
@@ -307,13 +324,26 @@
     <div class="hero-inner">
       <div class="eyebrow">AI Transformation Archive</div>
       <h1>AX 아이디어 자료실</h1>
-      <p>AI 전환·업무혁신 아이디어 정리 페이지</p>
-      <div class="source-note">출처: seigniter.com 공개 페이지 · 정리일: 2026-08-12</div>
+      <p>업무를 이해하고, 작게 검증하고, 조직의 실행 방식으로 확장하는 AI 전환 지식 지도</p>
+      <div class="source-note">출처: seigniter.com 공개 페이지 · 최신 확인: 2026-10-20</div>
+      <div class="hero-metrics" aria-label="AX 자료 현황">
+        <div class="metric"><strong>28개</strong><span>연결·정리 자료</span></div>
+        <div class="metric"><strong>5단계</strong><span>E-PAST 전환 과정</span></div>
+        <div class="metric"><strong>5관점</strong><span>AX 실행 프레임</span></div>
+      </div>
     </div>
   </section>
 
   <main class="content">
-    <section class="section">
+    <nav class="quick-nav" aria-label="페이지 빠른 이동">
+      <a href="#summary">핵심 요약</a>
+      <a href="#framework">AX 5×5</a>
+      <a href="#workmap">Work Map</a>
+      <a href="#execution">실행 원칙</a>
+      <a href="#checklist">적용 질문</a>
+      <a href="#sources">심화 자료</a>
+    </nav>
+    <section class="section" id="summary">
       <h2>핵심 요약</h2>
       <p>AX는 단순히 AI 도구를 많이 쓰게 만드는 캠페인이 아니라, 조직의 업무 구조를 AI가 들어갈 수 있는 실행 단위로 다시 설계하고 운영체계로 정착시키는 일에 가깝다.</p>
       <div>
@@ -322,6 +352,11 @@
         <span class="tag">Co-Build</span>
         <span class="tag">Governance</span>
         <span class="tag">Learning Velocity</span>
+      </div>
+      <div class="update-panel">
+        <strong>2026-10 원문 갱신 반영</strong>
+        <p>AI가 일할 수 있는 조직, AX 전략과제 선택, 사람의 판단 배치, 생산성 보상, 제조 AX 6편, OpenClaw·기업 모델 전략 등 신규 인사이트 16개를 추가했습니다.</p>
+        <a class="update-link" href="ax/seigniter-updates-2026-10.html">최신 원문 16개 보기 →</a>
       </div>
       <div class="grid">
         <div class="mini-card">
@@ -386,7 +421,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="execution">
       <h2>Co-Build: 현업과 함께 만드는 방식</h2>
       <p>좋은 AX는 개발팀이 혼자 만드는 자동화가 아니라 현업의 판단 기준과 엔지니어링을 함께 묶는 방식이다. 현업은 업무 기준과 예외를 설명하고, 엔지니어는 도구·데이터·보안·운영 구조를 만든다.</p>
       <h3>진행 흐름</h3>
@@ -428,7 +463,7 @@
       </ul>
     </section>
 
-    <section class="section">
+    <section class="section" id="checklist">
       <h2>개인·팀 적용 체크리스트</h2>
       <div class="grid two">
         <div class="mini-card">
@@ -452,10 +487,24 @@
       </div>
     </section>
 
+    <section class="section">
+      <h2>최신 관점: AI가 일할 수 있는 조직</h2>
+      <p>원문 갱신에서 가장 큰 변화는 ‘AI를 쓰는 사람을 늘리는 단계’에서 ‘AI가 권한과 책임의 경계 안에서 실제 업무를 수행하는 조직’을 설계하는 단계로 초점이 이동한 것이다.</p>
+      <div class="grid">
+        <div class="mini-card"><strong>의도와 책임을 명확히</strong><p>에이전트가 맡을 목표, 허용 행동, 승인 지점, 중단 기준과 최종 책임자를 먼저 정한다.</p></div>
+        <div class="mini-card"><strong>과제는 변화에서 선택</strong><p>AI 아이디어 수가 아니라 목표 변화, 전략 정합성, 가치 경로, 실행 조건과 90일 검증 계획으로 우선순위를 정한다.</p></div>
+        <div class="mini-card"><strong>제조는 흐름 전체로</strong><p>MES·ERP·QMS 연결 여부만 보지 않고 감지, 판단, 조치, 검증, 학습까지 사람·AI·시스템의 역할을 배치한다.</p></div>
+      </div>
+    </section>
+
     <section class="section" id="sources">
       <h2>AX 자료실 하위 정리 페이지</h2>
-      <p>원문 링크에 있던 seigniter 공개 페이지를 모두 AX 자료실 아래 개별 정리 페이지로 묶었습니다. 각 페이지는 핵심 요약, 원문 수준 상세 정리, 업무 적용 포인트, 원문 링크로 구성했습니다.</p>
+      <p>기존 핵심 자료는 개별 심화 페이지로, 2026년 10월까지 추가된 원문 16개는 최신 갱신 모음으로 정리했습니다. 모든 항목에서 시그나이터 원문으로 이동할 수 있습니다.</p>
+      <div class="resource-toolbar">
+        <input class="resource-search" id="resource-search" type="search" placeholder="전략, Work Map, 에이전트 등으로 검색" aria-label="AX 심화 자료 검색">
+      </div>
       <div class="source-list">
+        <a href="ax/seigniter-updates-2026-10.html">NEW · 시그나이터 최신 원문 16개 갱신 모음</a>
         <a href="ax/jev.html">Jev: 언어를 소프트웨어 판단 함수로 연결하는 System One Model</a>
         <a href="ax/main-framework.html">seigniter 메인: AX 5x5 Framework, E-PAST</a>
         <a href="ax/co-build.html">Co-Build: 현업과 함께 업무를 다시 설계</a>
@@ -469,6 +518,7 @@
         <a href="ax/ai-skill-design.html">AI Skill은 반복 업무를 시스템화하는 출발점</a>
         <a href="ax/ai-application-architecture.html">AI 애플리케이션은 모델이 아니라 시스템으로 설계된다</a>
       </div>
+      <div class="empty-result" id="empty-result">검색어와 일치하는 자료가 없습니다.</div>
     </section>
   </main>
 
@@ -502,6 +552,20 @@
   }
 
   if (sessionStorage.getItem(KEY) === '1') showMain();
+
+  const resourceSearch = document.getElementById('resource-search');
+  const resourceLinks = Array.from(document.querySelectorAll('.source-list a'));
+  const emptyResult = document.getElementById('empty-result');
+  resourceSearch.addEventListener('input', () => {
+    const query = resourceSearch.value.trim().toLocaleLowerCase('ko');
+    let visible = 0;
+    resourceLinks.forEach(link => {
+      const matched = !query || link.textContent.toLocaleLowerCase('ko').includes(query);
+      link.hidden = !matched;
+      if (matched) visible += 1;
+    });
+    emptyResult.classList.toggle('show', visible === 0);
+  });
 </script>
 </body>
 </html>
