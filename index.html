@@ -212,73 +212,12 @@
 </div>
 
 <div class="menu-grid">
-
-  <!-- 1. 회사업무관리 (레벨별 서브메뉴) -->
+  <!-- 회사업무관리: 공개 페이지에서 제거, 인증된 로컬 포털로 이전 -->
   <div class="menu-card no-hover" id="work-card">
-    <div class="card-icon">📊</div>
+    <div class="card-icon">🔐</div>
     <div class="card-title">회사업무관리</div>
-
-    <!-- 잠김 상태 -->
-    <div id="work-locked">
-      <div class="card-desc" style="margin-bottom:8px;">소스자원관리 · 업무처리로그</div>
-      <div class="pw-row">
-        <input type="password" id="work-pw" placeholder="비밀번호" maxlength="30"
-          onkeydown="if(event.key==='Enter') workLogin()">
-        <button onclick="workLogin()">→</button>
-      </div>
-      <div class="pw-err" id="work-pw-err"></div>
-      <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
-    </div>
-
-    <!-- 잠금 해제 상태 -->
-    <div id="work-unlocked" style="display:none; width:100%;">
-      <div style="margin-bottom:10px;">
-        <span class="lv-pill" id="work-lv-badge">LV1 일반</span>
-      </div>
-      <div class="submenu">
-        <a href="work-management.html" id="sm-pkm">
-          🎯 PKM 프로그램 엔티티화
-          <span class="sm-badge" style="background:#d4edda;color:#155724">✨ 신규</span>
-        </a>
-        <a href="pkm-dashboard.html" id="sm-dashboard" style="display:none;">
-          🚀 PKM 메타화 프로세서
-          <span class="sm-badge" style="background:#dce8f5;color:#1a5fa8">LV2</span>
-        </a>
-        <a href="event.html" id="sm-event" style="display:none;">
-          📋 오류 목록
-          <span class="sm-badge sm-lv2">LV2</span>
-        </a>
-        <a href="system_upgrade_2028.html" id="sm-upgrade" style="display:none;">
-          🧩 2028 시스템 고도화 아이디어
-          <span class="sm-badge sm-lv2">LV2</span>
-        </a>
-        <a href="event.html?tab=codes" id="sm-codes" style="display:none;">
-          📊 코드표 (주제영역·Proc소스)
-          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
-        </a>
-        <a href="journal_hub.html" id="sm-er" style="display:none;">
-          🧭 기금운용 회계처리 교육 준비
-          <span class="sm-badge sm-lv2">LV2</span>
-        </a>
-        <a href="journal_integrated_education.html" id="sm-journal-complete" style="display:none;">
-          📚 분개처리 통합교육자료
-          <span class="sm-badge sm-lv2">LV2</span>
-        </a>
-        <a href="journal_lv4_master_education.html" id="sm-journal-lv4" style="display:none;">
-          📕 기금운용 회계처리 교육자료
-          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
-        </a>
-        <a href="tbl_simulator.html" id="sm-sim" style="display:none;">
-          🔧 테이블명 시뮬레이터
-          <span class="sm-badge" style="background:#fde8e8;color:#b80000">LV4</span>
-        </a>
-        <a href="event.html?tab=proc" id="sm-proc" style="display:none;">
-          🔍 L_AM Proc 목록 (1,393건)
-          <span class="sm-badge sm-lv3">LV3</span>
-        </a>
-      </div>
-      <button class="logout-btn" onclick="workLogout()">🔓 로그아웃</button>
-    </div>
+    <div class="card-desc">인증된 내부 업무포털로 이전되었습니다.</div>
+    <span class="card-badge badge-lock">내부 사용자 전용</span>
   </div>
 
   <!-- 2. 맛집멋집 -->
@@ -335,61 +274,5 @@
   - boasis_lab.(yyj assistant)
 </div>
 
-<script>
-  const PW_MAP = {
-    'nps2026lv1': 1,
-    'nps2026lv2': 2,
-    'nps2026lv3': 3,
-    'yyj123': 4,
-  };
-  const LEVEL_INFO = {
-    1: { label: 'LV1 일반',      cls: 'lv1-pill' },
-    2: { label: 'LV2 상세',      cls: 'lv2-pill' },
-    3: { label: 'LV3 민감',      cls: 'lv3-pill' },
-    4: { label: '👑 LV4 슈퍼유저', cls: 'lv4-pill' },
-  };
-  const KEY = 'auth_nps_level';
-
-  function workLogin() {
-    const pw = document.getElementById('work-pw').value.trim();
-    const level = PW_MAP[pw];
-    if (!level) {
-      document.getElementById('work-pw-err').textContent = '비밀번호가 올바르지 않습니다';
-      return;
-    }
-    document.getElementById('work-pw-err').textContent = '';
-    sessionStorage.setItem(KEY, level);
-    renderUnlocked(level);
-  }
-
-  function renderUnlocked(level) {
-    document.getElementById('work-locked').style.display = 'none';
-    const ul = document.getElementById('work-unlocked');
-    ul.style.display = 'block';
-
-    const info = LEVEL_INFO[level] || LEVEL_INFO[1];
-    const badge = document.getElementById('work-lv-badge');
-    badge.textContent = info.label;
-    badge.className = 'lv-pill ' + info.cls;
-
-    // LV는 정보성 분류로만 사용하며 유효한 로그인에는 전체 회사 메뉴를 표시한다.
-    ['sm-event', 'sm-upgrade', 'sm-dashboard', 'sm-codes', 'sm-er',
-     'sm-journal-complete', 'sm-journal-lv4', 'sm-sim', 'sm-proc']
-      .forEach(id => document.getElementById(id).style.display = 'flex');
-  }
-
-  function workLogout() {
-    sessionStorage.removeItem(KEY);
-    document.getElementById('work-unlocked').style.display = 'none';
-    document.getElementById('work-locked').style.display = 'block';
-    document.getElementById('work-pw').value = '';
-  }
-
-  // 페이지 로드 시 기존 세션 확인
-  (function() {
-    const saved = parseInt(sessionStorage.getItem(KEY) || '0');
-    if (saved >= 1) renderUnlocked(saved);
-  })();
-</script>
 </body>
 </html>
