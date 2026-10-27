@@ -18,7 +18,7 @@
   }
   .site-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 34px;
   }
   .site-header .logo { font-size: 2.6em; margin-bottom: 14px; }
   .site-header .brand-top {
@@ -60,8 +60,20 @@
     width: 100%;
     align-items: start;
   }
+  .content-wrap { width: 100%; max-width: 920px; }
+  .section { margin-top: 30px; }
+  .section:first-child { margin-top: 0; }
+  .section-head { margin-bottom: 12px; color: #fff; }
+  .section-head h2 { font-size: 1.08em; letter-spacing: -.2px; }
+  .section-head p { margin-top: 4px; color: rgba(255,255,255,.58); font-size: .8em; }
+  .section .menu-grid { max-width: none; }
+  .menu-grid.two { grid-template-columns: repeat(2, 1fr); }
+  .menu-grid.one { grid-template-columns: minmax(260px, 1fr); }
+  .menu-grid.one .menu-card { text-align: left; align-items: flex-start; padding: 25px 28px; }
+  .menu-grid.one .card-icon { font-size: 2.2em; }
   @media (max-width: 620px) {
-    .menu-grid { grid-template-columns: 1fr; max-width: 360px; }
+    .menu-grid, .menu-grid.two, .menu-grid.one { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+    .section-head { max-width: 360px; margin-left: auto; margin-right: auto; }
   }
 
   .menu-card {
@@ -211,61 +223,50 @@
   <div class="brand-sub">yyj assistant</div>
 </div>
 
-<div class="menu-grid">
-  <!-- 회사업무관리: 공개 페이지에서 제거, 인증된 로컬 포털로 이전 -->
-  <div class="menu-card no-hover" id="work-card">
-    <div class="card-icon">🔐</div>
-    <div class="card-title">회사업무관리</div>
-    <div class="card-desc">인증된 내부 업무포털로 이전되었습니다.</div>
-    <span class="card-badge badge-lock">내부 사용자 전용</span>
-  </div>
+<div class="content-wrap">
+  <section class="section" aria-labelledby="personal-title">
+    <div class="section-head"><h2 id="personal-title">개인 기록</h2><p>일상에서 발견하고 오래 간직할 이야기</p></div>
+    <div class="menu-grid">
+      <a class="menu-card" href="guide.html">
+        <div class="card-icon">🍽️</div><div class="card-title">윤슬랭가이드</div>
+        <div class="card-desc">맛집 &amp; 멋집 추천 및 기록</div><span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+      </a>
+      <a class="menu-card" href="art.html">
+        <div class="card-icon">🎨</div><div class="card-title">미술감상 아카이브</div>
+        <div class="card-desc">아침 미술 이야기와<br>작가·작품 아카이브</div><span class="card-badge badge-open">작품 감상</span>
+      </a>
+      <a class="menu-card" href="bucket.html">
+        <div class="card-icon">🎯</div><div class="card-title">나만의 버킷리스트</div>
+        <div class="card-desc">오늘부터 중장기까지<br>목표를 등록하고 관리</div><span class="card-badge badge-open">브라우저 저장</span>
+      </a>
+    </div>
+  </section>
 
-  <!-- 2. 맛집멋집 -->
-  <a class="menu-card" href="guide.html">
-    <div class="card-icon">🍽️</div>
-    <div class="card-title">윤슬랭가이드</div>
-    <div class="card-desc">맛집 &amp; 멋집 추천 및 기록</div>
-    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
-  </a>
+  <section class="section" aria-labelledby="learning-title">
+    <div class="section-head"><h2 id="learning-title">학습 자료</h2><p>배움과 실천을 위한 정리 자료</p></div>
+    <div class="menu-grid two">
+      <a class="menu-card" href="forest.html">
+        <div class="card-icon"><img src="forest-icon.jpg" alt="숲해설"></div>
+        <div class="card-title">숲해설가 18기 강의자료</div>
+        <div class="card-desc">과목별 정리본 및 기출문제집</div><span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+      </a>
+      <a class="menu-card" href="ax.html">
+        <div class="card-icon">🤖</div><div class="card-title">AX 자료실</div>
+        <div class="card-desc">AI 전환·업무혁신 핵심 개념</div><span class="card-badge badge-lock">🔒 비밀번호 필요</span>
+      </a>
+    </div>
+  </section>
 
-  <a class="menu-card" href="art.html">
-    <div class="card-icon">🎨</div>
-    <div class="card-title">미술감상 아카이브</div>
-    <div class="card-desc">단꿈님의 아침 미술 이야기<br>작가와 작품을 오래 감상</div>
-    <span class="card-badge badge-open">하워드 호지킨 23점</span>
-  </a>
-
-  <a class="menu-card" href="bucket.html">
-    <div class="card-icon">🎯</div>
-    <div class="card-title">나만의 버킷리스트</div>
-    <div class="card-desc">일별부터 10년·중장기까지<br>목표를 등록하고 관리</div>
-    <span class="card-badge badge-open">브라우저 저장</span>
-  </a>
-
-  <!-- 3. 숲해설가 18기 강의자료 -->
-  <a class="menu-card" href="forest.html">
-    <div class="card-icon"><img src="forest-icon.jpg" alt="숲해설"></div>
-    <div class="card-title">숲해설가 18기<br>강의자료</div>
-    <div class="card-desc">과목별 정리본<br>및 기출문제집</div>
-    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
-  </a>
-
-  <!-- 4. AX 자료실 -->
-  <a class="menu-card" href="ax.html">
-    <div class="card-icon">🤖</div>
-    <div class="card-title">AX 자료실</div>
-    <div class="card-desc">AI 전환·업무혁신<br>핵심 개념 정리</div>
-    <span class="card-badge badge-lock">🔒 비밀번호 필요</span>
-  </a>
-
-  <!-- 5. 기금운용 회계처리 교육 준비 -->
-  <a class="menu-card" href="journal_hub.html">
-    <div class="card-icon">🧭</div>
-    <div class="card-title">기금 시스템<br>회계처리 교육 준비</div>
-    <div class="card-desc">테이블구조·분개모형·코드관리<br>PROC 호출구조·시각화</div>
-    <span class="card-badge badge-open">공유용</span>
-  </a>
-
+  <section class="section" aria-labelledby="work-title">
+    <div class="section-head"><h2 id="work-title">업무 공간</h2><p>회사 업무자료는 인증된 내부 포털에서만 제공합니다</p></div>
+    <div class="menu-grid one">
+      <div class="menu-card no-hover" id="work-card">
+        <div class="card-icon">🔐</div><div class="card-title">회사업무관리</div>
+        <div class="card-desc">보안등급과 사용자 권한이 적용되는 내부 전용 공간입니다.</div>
+        <span class="card-badge badge-lock">내부 사용자 전용</span>
+      </div>
+    </div>
+  </section>
 </div>
 
 <div class="footer">boasis_lab · 2026</div>
